@@ -1,0 +1,15 @@
+apiVersion: v1
+appVersion: "1.2.4"
+description: >
+  Open5gs EPC components
+home: https://github.com/Gradiant/charts
+sources:
+  - http://open5gs.org
+icon:
+maintainers:
+- email: cgiraldo@gradiant.org
+  name: cgiraldo
+name: open5gs-epc
+version: 0.1.0
+keywords:
+  - epc

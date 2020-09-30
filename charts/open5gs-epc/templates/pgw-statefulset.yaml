@@ -1,0 +1,67 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ include "open5gs.fullname" . }}-pgw
+  labels:
+{{ include "open5gs.labels.standard" . | indent 4 }}
+    app.kubernetes.io/component: pgw
+spec:
+  replicas: 1
+  serviceName: {{ include "open5gs.name" . }}-pgw
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "open5gs.name" . }}
+      app.kubernetes.io/component: pgw
+      app.kubernetes.io/instance: {{ .Release.Name | quote }}
+  template:
+    metadata:
+     labels:
+        app.kubernetes.io/name: {{ include "open5gs.name" . }}
+        app.kubernetes.io/component: pgw
+        app.kubernetes.io/instance: {{ .Release.Name | quote }}
+    spec:
+{{- include "open5gs.imagePullSecrets" . | indent 6 }}
+      {{- if .Values.securityPolicy.enabled }}
+      serviceAccountName: open5gs-privileged
+      {{- end }}
+      containers:
+      - name: pgw
+        image: {{ template "open5gs.image" . }}
+        imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
+        securityContext:
+          privileged: true
+        args:
+        - "pgw"
+        env:
+        - name: IPV4_TUN_SUBNET
+          value: {{ .Values.pgw.pdn.addr }}
+        ports:
+        - name: gx
+          containerPort: 3868
+          protocol: TCP
+        livenessProbe:
+          tcpSocket:
+            port: gx
+          initialDelaySeconds: 15
+          periodSeconds: 20
+        readinessProbe:
+          tcpSocket:
+            port: gx
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        resources:
+{{ toYaml .Values.pgw.resources | indent 10 }}
+        volumeMounts:
+        - name: pgw-config
+          mountPath: /etc/open5gs/pgw.yaml
+          subPath: "pgw.yaml"
+        - name: pgw-diameter-config
+          mountPath: /etc/open5gs/freeDiameter/pgw.conf
+          subPath: "diameter-pgw.conf"
+      volumes:
+      - name: pgw-config
+        configMap:
+          name: {{ include "open5gs.fullname" . }}-pgw
+      - name: pgw-diameter-config
+        configMap:
+          name: {{ include "open5gs.fullname" . }}-pgw-diameter

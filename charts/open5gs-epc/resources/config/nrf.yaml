@@ -1,0 +1,11 @@
+logger:
+  file: /var/log/open5gs/nrf.log
+{{ toYaml .Values.nrf.logger | indent 2 }}
+{{- if .Values.nrf.parameter }}
+parameter:
+{{ toYaml .Values.pgw.parameter | indent 2 }}
+{{- end }}
+
+nrf:
+  sbi:
+    dev: eth0

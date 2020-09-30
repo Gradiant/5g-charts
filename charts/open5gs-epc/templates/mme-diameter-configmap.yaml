@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "open5gs.fullname" . }}-mme-diameter
+  labels:
+{{ include "open5gs.labels.standard" . | indent 4 }}  
+    app.kubernetes.io/component: mme
+data:
+  diameter-mme.conf: |-
+{{ tpl (.Files.Get "resources/config/diameter-mme.conf") . | indent 4 }}

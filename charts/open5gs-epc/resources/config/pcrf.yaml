@@ -1,0 +1,10 @@
+logger:
+  file: /var/log/open5gs/pcrf.log
+{{ toYaml .Values.pcrf.logger | indent 2 }}
+{{- if .Values.pcrf.parameter }}
+parameter:
+{{ toYaml .Values.pcrf.parameter | indent 2 }}
+{{- end }}
+
+pcrf:
+  freeDiameter: pcrf.conf

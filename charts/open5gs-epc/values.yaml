@@ -1,0 +1,96 @@
+# Default values for opentsdb
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+# image - The base opentsdb image to use for all components.
+# for default see https://github.com/Gradiant/dockerized-opentsdb
+image:
+  registry: docker.io
+  repository: openverso/open5gs
+  tag: 1.2.4
+  ## Specify a imagePullPolicy
+  ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
+  ## ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
+  ##
+  pullPolicy: IfNotPresent
+  ## Optionally specify an array of imagePullSecrets.
+  ## Secrets must be manually created in the namespace.
+  ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
+  ##
+  # pullSecrets: []
+
+
+# imageCredentials:
+#  registry:
+#  username:
+#  password:
+#  email:
+
+webui:
+  image:
+    registry: docker.io
+    repository: openverso/open5gs-webui
+    tag: 1.2.4
+    ## Specify a imagePullPolicy
+    ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
+    ## ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
+    ##
+    pullPolicy: IfNotPresent
+    ## Optionally specify an array of imagePullSecrets.
+    ## Secrets must be manually created in the namespace.
+    ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
+    ##
+    # pullSecrets: []
+  resources: {}
+
+hss:
+  resources: {}
+  ### For reference, see `open5gs.yaml`
+  logger:
+    level: debug
+    # domain: core,diameter
+
+mme:
+  resources: {}
+  logger:
+    level: debug
+  parameter: {}
+
+sgw:
+  resources: {}
+  logger:
+    level: debug
+    # domain: core,diameter
+  parameter:
+    no_ipv6: true
+
+pgw:
+  resources: {}
+  logger:
+    level: debug
+    # domain: core,diameter
+  pdn:
+    addr: 45.45.0.1/16
+    name: internet
+    ueRange: 45.45.0.50-45.45.0.100
+
+pcrf:
+  enabled: false
+  resources: {}
+  logger:
+    level: debug
+    # domain: core,diameter
+  parameter:
+
+
+# db_uri: -- default is "{{.Release.Name}}-mongodb/open5gs"
+
+# mongodb -- pass vars towards mongodb chart, from dependencies
+mongodb:
+  # mongodb.enabled -- set to 'false' to disable automatically deploying dependent charts
+  enabled: true
+  auth:
+    enabled: false
+
+securityPolicy:
+  enabled: false

@@ -1,0 +1,27 @@
+
+logger:
+  file: /var/log/open5gs/pgw.log
+{{ toYaml .Values.pgw.logger | indent 2 }}
+{{- if .Values.pgw.parameter }}
+parameter:
+{{ toYaml .Values.pgw.parameter | indent 2 }}
+{{- end }}
+
+pgw:
+  freeDiameter: pgw.conf
+  gtpc:
+    dev: eth0
+  gtpu:
+    dev: eth0
+    advertise_name: "{{ include "open5gs.fullname" . }}-pgw"
+  ue_pool:
+    - addr: {{ .Values.pgw.pdn.addr }}
+  #pdn:  #We do not support multiple pdns by now  
+  #  - addr: {{ .Values.pgw.pdn.addr }}
+  #    apn: {{ .Values.pgw.pdn.name }}
+  #    dev: ogstun
+  #    range:
+  #      - {{ .Values.pgw.pdn.ueRange }}
+  dns:
+    - 8.8.8.8
+    - 8.8.4.4

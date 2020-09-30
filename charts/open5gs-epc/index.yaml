@@ -1,0 +1,27 @@
+apiVersion: v1
+entries:
+  mongodb:
+  - apiVersion: v1
+    appVersion: 4.2.4
+    created: "2020-07-03T12:17:46.78768586+02:00"
+    deprecated: true
+    description: DEPRECATED NoSQL document-oriented database that stores JSON-like
+      documents with dynamic schemas, simplifying the integration of data in content-driven
+      applications.
+    digest: f2dc27cdde3a4d0cde5f747c73b36af4a53cdae10b5a1dd74fb3b485c595a183
+    home: https://mongodb.org
+    icon: https://bitnami.com/assets/stacks/mongodb/img/mongodb-stack-220x234.png
+    keywords:
+    - mongodb
+    - database
+    - nosql
+    - cluster
+    - replicaset
+    - replication
+    name: mongodb
+    sources:
+    - https://github.com/bitnami/bitnami-docker-mongodb
+    urls:
+    - charts/mongodb-7.8.10.tgz
+    version: 7.8.10
+generated: "2020-07-03T12:17:46.78530249+02:00"

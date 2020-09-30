@@ -1,0 +1,14 @@
+logger:
+    file: /var/log/open5gs/udm.log
+{{ toYaml .Values.nrf.logger | indent 2 }}
+{{- if .Values.nrf.parameter }}
+parameter:
+{{ toYaml .Values.pgw.parameter | indent 2 }}
+{{- end }}
+udm:
+    sbi:
+      dev: eth0
+
+nrf:
+    sbi:
+      - name: "{{ include "open5gs.fullname" . }}-nrf"
