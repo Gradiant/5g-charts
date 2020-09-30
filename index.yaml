@@ -1,0 +1,27 @@
+apiVersion: v1
+entries:
+  open5gs-epc:
+  - apiVersion: v1
+    appVersion: 1.2.4
+    created: "2020-09-30T15:00:25.062119454Z"
+    dependencies:
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: https://charts.bitnami.com/bitnami
+      version: ~9.2.2
+    description: |
+      Open5gs EPC components
+    digest: 1968adaa9cfc79045a811fd5938883141383f6e43f424c331522abe60621cb29
+    home: https://github.com/Gradiant/charts
+    keywords:
+    - epc
+    maintainers:
+    - email: cgiraldo@gradiant.org
+      name: cgiraldo
+    name: open5gs-epc
+    sources:
+    - http://open5gs.org
+    urls:
+    - https://github.com/Gradiant/openverso-charts/releases/download/open5gs-epc-0.1.0/open5gs-epc-0.1.0.tgz
+    version: 0.1.0
+generated: "2020-09-30T15:00:24.825799239Z"
