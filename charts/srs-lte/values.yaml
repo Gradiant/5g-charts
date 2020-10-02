@@ -1,0 +1,35 @@
+image:
+  registry: core.harbor.gradiant.loc/openverso
+  repository: srs-lte
+  tag: "20_04_1"
+  ## Specify a imagePullPolicy
+  ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
+  ## ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
+  ##
+  pullPolicy: IfNotPresent
+  ## Optionally specify an array of imagePullSecrets.
+  ## Secrets must be manually created in the namespace.
+  ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
+  ##
+  # pullSecrets:
+  #  - regcred
+
+imageCredentials:
+  registry: "https://core.harbor.gradiant.loc/"
+  username: "robot$read"
+  password: "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1OTQ2NDE3NjEsImlzcyI6ImhhcmJvci10b2tlbi1kZWZhdWx0SXNzdWVyIiwiaWQiOjQsInBpZCI6MiwiYWNjZXNzIjpbeyJSZXNvdXJjZSI6Ii9wcm9qZWN0LzIvcmVwb3NpdG9yeSIsIkFjdGlvbiI6InB1c2giLCJFZmZlY3QiOiIifSx7IlJlc291cmNlIjoiL3Byb2plY3QvMi9oZWxtLWNoYXJ0IiwiQWN0aW9uIjoicmVhZCIsIkVmZmVjdCI6IiJ9LHsiUmVzb3VyY2UiOiIvcHJvamVjdC8yL2hlbG0tY2hhcnQtdmVyc2lvbiIsIkFjdGlvbiI6ImNyZWF0ZSIsIkVmZmVjdCI6IiJ9XX0.Kp6iMPkn7n_Uqv_CUJDjKDcpcSR3Ll8h_WEMctdHBFpfnBhTMbWLerOT9faJg8XaK3JcMAr08e7gm6JFfnaxGCF8d6CO2t81endAJNreZXnsyV08sfJ17DDU5LwHF6jtpJa42FdQfiLbVJ7bKlrIX48g7KV0Q9S_I4hnSSKo74Vej-yFsSQb9m8dDyPspaxTm1TJm1TBSXBOfFhismUua_Lcm4U8aEMmkQLnrxuUANMTR25mPnwwr8-4duh0s3POor2sZDqzGx_STKF4-o3-1orxBnZg82HR6L2vXleLXJW_UGxLVOhT1xLpu-43n1FM618ocOYvee-efTsjbKAuEyhp_4f_ilwN1cQgI53w7xNKpNzX6-CFvTk6laUcPNaczBmq8Afze96qRtJPlB0toDfte0boA2BSORlf5L_Oxskjl9Gdo2fEYqb0klBAeapepbCXmx3u3NcSTsO4QoE_W3ay5O3BopyVe0R_Xr0wbbkDNpz2JGW6FVpPD_JKcuJOCYHb5xyjjUseqpLCLel9ErpyR0iyeGKnx6pm0SZ_gojBMygheuFNIdhlj_BlwbWmAP-gJQOS051MC5PqeOcIQ5cUB5idwuQsRKpsW8psvN9_zIF5BsMosR5iHcSXiwBnqhUxpUY6F1ocLHE96LOesLGKfFURwD0Hjb0vHAtgBlE"
+  email: "robot-read@gradiant.org"
+
+ue:
+  opc: '63bfa50ee6523365ff14c1f45f88737d'
+  k: '00112233445566778899aabbccddeeff'
+  imsi: '001010123456789'
+  imei: '353490069873319'
+  resources: {}
+
+enb:
+  mcc: '001'
+  mnc: '01'
+  tac: '0001'
+  mme: mme
+  resources: {}
