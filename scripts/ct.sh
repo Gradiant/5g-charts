@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # export KUBECONFIG and HELM_HOME if you need to
-: {KUBECONFIG:="$HOME/.kube/config"}
+: ${KUBECONFIG:="$HOME/.kube/config"}
 echo "KUBECONFIG=$KUBECONFIG"
 : ${HELM_HOME:="$HOME/.helm"}
 echo "HELM_HOME=$HELM_HOME"
