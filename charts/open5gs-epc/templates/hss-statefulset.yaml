@@ -54,11 +54,11 @@ spec:
         - name: s6a
           containerPort: 3868
           protocol: TCP
-        livenessProbe:
-          tcpSocket:
-            port: s6a
-          initialDelaySeconds: 15
-          periodSeconds: 20
+        # livenessProbe:
+        #   tcpSocket:
+        #     port: s6a
+        #   initialDelaySeconds: 15
+        #   periodSeconds: 20
         readinessProbe:
           tcpSocket:
             port: s6a

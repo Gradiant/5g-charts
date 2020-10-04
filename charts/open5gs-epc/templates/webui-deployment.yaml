@@ -39,20 +39,8 @@ spec:
           httpGet:
             path: /                                                   
             port: http
-          initialDelaySeconds: 30
-          periodSeconds: 10
+          initialDelaySeconds: 120
+          periodSeconds: 30
         resources:
 {{ toYaml .Values.webui.resources | indent 10 }}
-        # readinessProbe:
-        #   httpGet:
-        #     path: /
-        #     port: 3000
-        #   initialDelaySeconds: 60
-        #   timeoutSeconds: 15
-        # livenessProbe:
-        #   httpGet:
-        #     path: /
-        #     port: 3000
-        #   initialDelaySeconds: 60
-        #   timeoutSeconds: 15
       terminationGracePeriodSeconds: 30
