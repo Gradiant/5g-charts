@@ -49,8 +49,5 @@ We use helm [chart-testing](https://github.com/helm/chart-testing) running a doc
 An example to test specific chart, lint and install, send console logs also to the log file `reports/*.log`:
 
 ```bash
-scripts/ct.sh lint-and-install \
-    --charts charts/open5gs-epc/ \
-    --chart-repos bitnami=https://charts.bitnami.com/bitnami \
-    | tee reports/open5gs-epc.log
+scripts/lint-install.sh open5gs-epc | tee reports/open5gs-epc.log
 ```
