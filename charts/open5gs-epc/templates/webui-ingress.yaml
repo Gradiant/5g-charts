@@ -1,0 +1,45 @@
+{{- if .Values.webui.ingress.enabled -}}
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: {{ include "open5gs.fullname" . }}-webui
+  labels:
+{{ include "open5gs.labels.standard" . | indent 4 }}  
+    app.kubernetes.io/component: webui
+  annotations:
+    {{- with .Values.webui.ingress.annotations }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+
+spec:
+  rules:
+  {{- range .Values.webui.ingress.hosts }}
+    - host: {{ .name | quote }}
+      http:
+        paths:
+        {{- $paths := default (list "/") .paths }}
+        {{- range $paths }}
+          - path: {{ . }}
+            backend:
+              serviceName: {{ include "open5gs.fullname" $ }}-webui
+              servicePort: http
+        {{- end }}
+  {{- end }}
+  tls:
+  {{- range .Values.webui.ingress.hosts }}
+  {{- if .tls }}
+    - hosts:
+    {{- if .tlsHosts }}
+      {{- range $host := .tlsHosts }}
+        - {{ $host }}
+      {{- end }}
+    {{- else }}
+        - {{ .name }}
+    {{- end }}
+    {{- if .tlsSecret }}
+      secretName: {{ .tlsSecret }}
+    {{- end }}
+  {{- end }}
+{{- end }}
+
+{{- end }}
