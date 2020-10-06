@@ -10,9 +10,10 @@ KIND_KUBECONFIG="$PWD/scripts/kubeconfig"
 KUBECONFIG=$KIND_KUBECONFIG kind create cluster --wait 1m
 docker run -ti --rm \
   --net=host \
+  -u $(id -u) \
+  -e HOME=/tmp \
+  -v $KIND_KUBECONFIG:/tmp/.kube/config:ro \
   -v $PWD:/gradiant \
-  -v $HELM_HOME:/root/.helm:ro \
-  -v $KIND_KUBECONFIG:/root/.kube/config:ro \
   --workdir=/gradiant quay.io/helmpack/chart-testing ct lint-and-install $FLAGS --helm-extra-args "--timeout 300s"
 
 kind delete cluster
