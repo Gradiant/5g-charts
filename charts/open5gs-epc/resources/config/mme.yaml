@@ -1,12 +1,22 @@
 
 logger:
-  file: /var/log/open5gs/mme.log
 {{ toYaml .Values.mme.logger | indent 2 }}
 
 {{- if .Values.mme.parameter }}
 parameter:
 {{ toYaml .Values.mme.parameter | indent 2 }}
 {{- end }}
+
+{{- if .Values.mme.max }}
+max:
+{{ toYaml .Values.mme.max | indent 2 }}
+{{- end }}
+
+{{- if .Values.mme.pool }}
+pool:
+{{ toYaml .Values.mme.pool | indent 2 }}
+{{- end }}
+
 
 mme:
   freeDiameter: mme.conf
@@ -31,9 +41,10 @@ mme:
   network_name:
       full: Open5GS
 
-sgw:
+sgwc:
   gtpc:
-    - name: "{{ include "open5gs.fullname" . }}-sgw"
-pgw:
+    - name: "{{ include "open5gs.fullname" . }}-sgwc"
+
+smf:
   gtpc:
-    - name: "{{ include "open5gs.fullname" . }}-pgw"
+    - name: "{{ include "open5gs.fullname" . }}-smf"

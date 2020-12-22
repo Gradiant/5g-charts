@@ -1,5 +1,4 @@
 logger:
-  file: /var/log/open5gs/pcrf.log
 {{ toYaml .Values.pcrf.logger | indent 2 }}
 {{- if .Values.pcrf.parameter }}
 parameter:

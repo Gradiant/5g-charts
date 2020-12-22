@@ -25,8 +25,7 @@ spec:
       - name: pcrf
         image: {{ template "open5gs.image" . }}
         imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
-        args:
-        - "pcrf"
+        command: ["open5gs-pcrf"]
         env:
         - name: DB_URI
           {{- if not .Values.db_uri }}

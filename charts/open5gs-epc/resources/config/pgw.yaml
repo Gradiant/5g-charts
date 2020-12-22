@@ -1,6 +1,5 @@
 
 logger:
-  file: /var/log/open5gs/pgw.log
 {{ toYaml .Values.pgw.logger | indent 2 }}
 {{- if .Values.pgw.parameter }}
 parameter:

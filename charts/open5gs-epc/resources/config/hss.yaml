@@ -1,5 +1,4 @@
 logger:
-  file: /var/log/open5gs/hss.log
 {{ toYaml .Values.hss.logger | indent 2 }}
 {{- if .Values.hss.parameter }}
 parameter:

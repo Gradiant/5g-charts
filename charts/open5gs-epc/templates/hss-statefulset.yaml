@@ -41,8 +41,7 @@ spec:
       - name: hss
         image: {{ template "open5gs.image" . }}
         imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
-        args:
-        - "hss"
+        command: ["open5gs-hssd"]
         env:
         - name: DB_URI
           {{- if not .Values.db_uri }}
@@ -69,10 +68,10 @@ spec:
 {{ toYaml .Values.hss.resources | indent 10 }}
         volumeMounts:
         - name: hss-config
-          mountPath: /etc/open5gs/hss.yaml
+          mountPath: /opt/open5gs/etc/open5gs/hss.yaml
           subPath: "hss.yaml"
         - name: hss-diameter-config
-          mountPath: /etc/open5gs/freeDiameter/hss.conf
+          mountPath: /opt/open5gs/etc/freeDiameter/hss.conf
           subPath: "diameter-hss.conf"
         #- name: certs
         #  mountPath: /certs
