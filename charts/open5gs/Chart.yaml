@@ -1,7 +1,7 @@
 apiVersion: v1
-appVersion: "1.2.4"
+appVersion: "2.0.18"
 description: >
-  Helm chart to deploy Open5gs EPC services on Kubernetes.
+  Helm chart to deploy Open5gs services on Kubernetes.
 home: https://github.com/gradiant/openverso-charts
 sources:
   - http://open5gs.org
@@ -10,7 +10,8 @@ maintainers:
 - email: cgiraldo@gradiant.org
   name: cgiraldo
   url: https://gradiant.org
-name: open5gs-epc
-version: 0.1.1
+name: open5gs
+version: 0.1.0
 keywords:
   - epc
+  - ngc
