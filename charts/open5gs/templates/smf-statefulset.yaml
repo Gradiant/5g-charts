@@ -25,7 +25,7 @@ spec:
       - name: smf
         image: {{ template "open5gs.image" . }}
         imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
-        command: ["open5gs-smf"]       
+        command: ["open5gs-smfd"]
         ports:
         - name: gtp-c
           containerPort: 2123
@@ -53,10 +53,10 @@ spec:
 {{ toYaml .Values.smf.resources | indent 10 }}
         volumeMounts:
         - name: smf-config
-          mountPath: /etc/open5gs/smf.yaml
+          mountPath:  /opt/open5gs/etc/open5gs/smf.yaml
           subPath: "smf.yaml"
         - name: smf-diameter-config
-          mountPath: /etc/open5gs/freeDiameter/smf.conf
+          mountPath:  /opt/open5gs/etc/freeDiameter/smf.conf
           subPath: "diameter-smf.conf"
       volumes:
       - name: smf-config

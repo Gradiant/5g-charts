@@ -1,35 +1,38 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: {{ include "open5gs.fullname" . }}-mme
+  name: {{ include "open5gs.fullname" . }}-amf
   labels:
 {{ include "open5gs.labels.standard" . | indent 4 }}
-    app.kubernetes.io/component: mme
+    app.kubernetes.io/component: amf
 spec:
   replicas: 1
-  serviceName: {{ include "open5gs.fullname" . }}-mme
+  serviceName: {{ include "open5gs.fullname" . }}-amf
   selector:
     matchLabels:
       app.kubernetes.io/name: {{ include "open5gs.name" . }}
-      app.kubernetes.io/component: mme
+      app.kubernetes.io/component: amf
       app.kubernetes.io/instance: {{ .Release.Name | quote }}
   template:
     metadata:
      labels:
         app.kubernetes.io/name: {{ include "open5gs.name" . }}
-        app.kubernetes.io/component: mme
+        app.kubernetes.io/component: amf
         app.kubernetes.io/instance: {{ .Release.Name | quote }}
     spec:
-{{- include "open5gs.imagePullSecrets" . | indent 6 }}
+{{ include "open5gs.imagePullSecrets" . | indent 6 }}
       containers:
-      - name: mme
+      - name: amf
         image: {{ template "open5gs.image" . }}
         imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
-        command: ["open5gs-mmed"]
+        command: ["open5gs-amfd"]
         ports:
-        - name: s6a
-          containerPort: 3868
+        - name: sbi
+          containerPort: 7777
           protocol: TCP
+        - name: ngap 
+          containerPort: 38412
+          protocol: UDP
         # livenessProbe:
         #   tcpSocket:
         #     port: s6a
@@ -37,22 +40,16 @@ spec:
         #   periodSeconds: 20
         readinessProbe:
           tcpSocket:
-            port: s6a
+            port: sbi
           initialDelaySeconds: 5
           periodSeconds: 10
         resources:
-{{ toYaml .Values.mme.resources | indent 10 }}
+{{ toYaml .Values.amf.resources | indent 10 }}
         volumeMounts:
-        - name: mme-config
-          mountPath: /opt/open5gs/etc/open5gs/mme.yaml
-          subPath: "mme.yaml"
-        - name: mme-diameter-config
-          mountPath: /opt/open5gs/etc/freeDiameter/mme.conf
-          subPath: "diameter-mme.conf"
+        - name: amf-config
+          mountPath:  /opt/open5gs/etc/open5gs/amf.yaml
+          subPath: "amf.yaml"
       volumes:
-      - name: mme-config
+      - name: amf-config
         configMap:
-          name: {{ include "open5gs.fullname" . }}-mme
-      - name: mme-diameter-config
-        configMap:
-          name: {{ include "open5gs.fullname" . }}-mme-diameter
+          name: {{ include "open5gs.fullname" . }}-amf

@@ -1,9 +1,8 @@
 logger:
-    file: /var/log/open5gs/upf.log
-{{ toYaml .Values.nrf.logger | indent 2 }}
-{{- if .Values.nrf.parameter }}
+{{ toYaml .Values.upf.logger | indent 2 }}
+{{- if .Values.upf.parameter }}
 parameter:
-{{ toYaml .Values.pgw.parameter | indent 2 }}
+{{ toYaml .Values.upf.parameter | indent 2 }}
 {{- end }}
 
 upf:
@@ -13,7 +12,7 @@ upf:
       dev: eth0
       advertise_name: "{{ include "open5gs.fullname" . }}-upf"
     pdn:
-      - addr: {{ .Values.upf.addr }}
+      - addr: {{ .Values.upf.pdn.addr }}
 
 smf:
     pfcp:

@@ -6,5 +6,5 @@ metadata:
 {{ include "open5gs.labels.standard" . | indent 4 }}  
     app.kubernetes.io/component: sgwu
 data:
-  sgw.yaml: |
+  sgwu.yaml: |
 {{ tpl (.Files.Get "resources/config/sgwu.yaml") . | indent 4 }}

@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "open5gs.fullname" . }}-ausf
+  labels:
+{{ include "open5gs.labels.standard" . | indent 4 }}
+    app.kubernetes.io/component: ausf
+data:
+  ausf.yaml: |
+{{ tpl (.Files.Get "resources/config/ausf.yaml") . | indent 4 }}

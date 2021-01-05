@@ -80,6 +80,9 @@ mme:
   logger:
     level: debug
   parameter: {}
+  mcc: "001"
+  mnc: "01"
+  tac: "0001"
 
 sgwc:
   resources: {}
@@ -101,29 +104,76 @@ sgwu:
   max: {}
   pool: {}
 
+amf:
+  resources: {}
+  logger:
+    level: debug
+  parameter: {}
+  mcc: "001"
+  mnc: "01"
+  tac: "0001"
+  sst: "1"
+  region: "2"
+  set: "1"
+
 smf:
   resources: {}
   logger:
     level: debug
   parameter: {}
-
-sgw:
-  resources: {}
-  logger:
-    level: debug
-    # domain: core,diameter
-  parameter:
-    no_ipv6: true
-
-pgw:
-  resources: {}
-  logger:
-    level: debug
-    # domain: core,diameter
   pdn:
-    addr: 45.45.0.1/16
-    name: internet
-    ueRange: 45.45.0.50-45.45.0.100
+    addr: 10.45.0.1/16
+
+upf:
+  resources: {}
+  logger:
+    level: debug
+  parameter: {}
+  pdn:
+    addr: 10.45.0.1/16
+
+nrf:
+  resources: {}
+  logger:
+    level: debug
+  parameter: {}
+
+udr:
+  resources: {}
+  logger:
+    level: debug
+  parameter: {}
+
+udm:
+  resources: {}
+  logger:
+    level: debug
+  parameter: {}
+
+ausf:
+  resources: {}
+  logger:
+    level: debug
+  parameter: {}
+
+
+# sgw:
+#   resources: {}
+#   logger:
+#     level: debug
+#     # domain: core,diameter
+#   parameter:
+#     no_ipv6: true
+
+# pgw:
+#   resources: {}
+#   logger:
+#     level: debug
+#     # domain: core,diameter
+#   pdn:
+#     addr: 45.45.0.1/16
+#     name: internet
+#     ueRange: 45.45.0.50-45.45.0.100
 
 pcrf:
   enabled: false

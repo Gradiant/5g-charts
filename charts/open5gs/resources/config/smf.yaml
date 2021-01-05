@@ -1,14 +1,14 @@
-logger:
-    file: /var/log/open5gs/smf.log
-{{ toYaml .Values.mme.logger | indent 2 }}
 
-{{- if .Values.mme.parameter }}
+logger:
+{{ toYaml .Values.smf.logger | indent 2 }}
+
+{{- if .Values.smf.parameter }}
 parameter:
-{{ toYaml .Values.mme.parameter | indent 2 }}
+{{ toYaml .Values.smf.parameter | indent 2 }}
 {{- end }}
 
 smf:
-  freeDiameter: diameter-smf.conf
+  freeDiameter: smf.conf
   sbi:
     dev: eth0
   gtpc:

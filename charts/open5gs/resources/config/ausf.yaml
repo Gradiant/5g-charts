@@ -1,11 +1,10 @@
 logger:
-    file: /var/log/open5gs/ausf.log
-    {{ toYaml .Values.mme.logger | indent 2 }}
+{{ toYaml .Values.ausf.logger | indent 2 }}
 
-    {{- if .Values.mme.parameter }}
-    parameter:
-    {{ toYaml .Values.mme.parameter | indent 2 }}
-    {{- end }}
+{{- if .Values.ausf.parameter }}
+parameter:
+{{ toYaml .Values.ausf.parameter | indent 2 }}
+{{- end }}
 
 #
 ausf:

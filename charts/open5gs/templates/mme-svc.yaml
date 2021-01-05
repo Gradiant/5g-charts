@@ -3,7 +3,7 @@ kind: Service
 metadata:
   name: {{ include "open5gs.fullname" . }}-mme
   labels:
-{{ include "open5gs.labels.standard" . | indent 4 }}  
+{{ include "open5gs.labels.standard" . | indent 4 }}
     app.kubernetes.io/component: mme
 spec:
   ports:

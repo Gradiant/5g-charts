@@ -1,5 +1,4 @@
 logger:
-  file: /var/log/open5gs/sgw.log
 {{ toYaml .Values.sgwu.logger | indent 2 }}
 {{- if .Values.sgwu.parameter }}
 parameter:

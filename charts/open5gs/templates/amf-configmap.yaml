@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "open5gs.fullname" . }}-amf
+  labels:
+{{ include "open5gs.labels.standard" . | indent 4 }}
+    app.kubernetes.io/component: amf
+data:
+  amf.yaml: |
+{{ tpl (.Files.Get "resources/config/amf.yaml") . | indent 4 }}

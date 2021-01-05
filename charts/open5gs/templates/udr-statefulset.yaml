@@ -1,31 +1,31 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: {{ include "open5gs.fullname" . }}-pcrf
+  name: {{ include "open5gs.fullname" . }}-udr
   labels:
 {{ include "open5gs.labels.standard" . | indent 4 }}
-    app.kubernetes.io/component: pcrf
+    app.kubernetes.io/component: udr
 spec:
   replicas: 1
-  serviceName: {{ include "open5gs.name" . }}-pcrf
+  serviceName: {{ include "open5gs.fullname" . }}-udr
   selector:
     matchLabels:
       app.kubernetes.io/name: {{ include "open5gs.name" . }}
-      app.kubernetes.io/component: pcrf
+      app.kubernetes.io/component: udr
       app.kubernetes.io/instance: {{ .Release.Name | quote }}
   template:
     metadata:
      labels:
         app.kubernetes.io/name: {{ include "open5gs.name" . }}
-        app.kubernetes.io/component: pcrf
+        app.kubernetes.io/component: udr
         app.kubernetes.io/instance: {{ .Release.Name | quote }}
     spec:
 {{ include "open5gs.imagePullSecrets" . | indent 6 }}
       containers:
-      - name: pcrf
+      - name: udr
         image: {{ template "open5gs.image" . }}
         imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
-        command: ["open5gs-pcrfd"]
+        command: ["open5gs-udrd"]
         env:
         - name: DB_URI
           {{- if not .Values.db_uri }}
@@ -34,32 +34,27 @@ spec:
           value: {{ .Values.db_uri }}
           {{- end  }}
         ports:
-        - name: gx
-          containerPort: 3868
+        - name: sbi
+          containerPort: 7777
           protocol: TCP
         # livenessProbe:
         #   tcpSocket:
-        #     port: gx
+        #     port: s6a
         #   initialDelaySeconds: 15
         #   periodSeconds: 20
         # readinessProbe:
         #   tcpSocket:
-        #     port: gx
+        #     port: s6a
         #   initialDelaySeconds: 5
         #   periodSeconds: 10
         resources:
-{{ toYaml .Values.pcrf.resources | indent 10 }}
+{{ toYaml .Values.udr.resources | indent 10 }}
         volumeMounts:
-        - name: pcrf-config
-          mountPath: /opt/open5gs/etc/open5gs/pcrf.yaml
-          subPath: "pcrf.yaml"
-        - name: pcrf-diameter-config
-          mountPath: /opt/open5gs/etc/freeDiameter/pcrf.conf
-          subPath: "diameter-pcrf.conf"
+        - name: udr-config
+          mountPath:  /opt/open5gs/etc/open5gs/udr.yaml
+          subPath: "udr.yaml"
       volumes:
-      - name: pcrf-config
+      - name: udr-config
         configMap:
-          name: {{ include "open5gs.fullname" . }}-pcrf
-      - name: pcrf-diameter-config
-        configMap:
-          name: {{ include "open5gs.fullname" . }}-pcrf-diameter
+          name: {{ include "open5gs.fullname" . }}-udr
+

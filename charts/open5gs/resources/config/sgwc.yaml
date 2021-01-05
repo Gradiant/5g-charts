@@ -1,5 +1,4 @@
 logger:
-  file: /var/log/open5gs/sgw.log
 {{ toYaml .Values.sgwc.logger | indent 2 }}
 {{- if .Values.sgwc.parameter }}
 parameter:
@@ -24,4 +23,4 @@ sgwc:
 
 sgwu:
   pfcp:
-    - name: "{{ include "open5gs.fullname" . }}-sgwu"
+    - name: "{{ include "open5gs.fullname" . }}-sgwc"

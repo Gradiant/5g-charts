@@ -1,4 +1,3 @@
-
 logger:
 {{ toYaml .Values.mme.logger | indent 2 }}
 
@@ -24,7 +23,7 @@ mme:
     dev: eth0
   gtpc:
     dev: eth0
-  gummei: 
+  gummei:
     plmn_id:
       mcc: {{ .Values.mme.mcc }}
       mnc: {{ .Values.mme.mnc }}

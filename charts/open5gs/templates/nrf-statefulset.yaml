@@ -1,55 +1,53 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: {{ include "open5gs.fullname" . }}-sgwc
+  name: {{ include "open5gs.fullname" . }}-nrf
   labels:
 {{ include "open5gs.labels.standard" . | indent 4 }}
-    app.kubernetes.io/component: sgwc
+    app.kubernetes.io/component: nrf
 spec:
   replicas: 1
-  serviceName: {{ include "open5gs.fullname" . }}-sgwc
+  serviceName: {{ include "open5gs.fullname" . }}-nrf
   selector:
     matchLabels:
       app.kubernetes.io/name: {{ include "open5gs.name" . }}
-      app.kubernetes.io/component: sgwc
+      app.kubernetes.io/component: nrf
       app.kubernetes.io/instance: {{ .Release.Name | quote }}
   template:
     metadata:
      labels:
         app.kubernetes.io/name: {{ include "open5gs.name" . }}
-        app.kubernetes.io/component: sgwc
+        app.kubernetes.io/component: nrf
         app.kubernetes.io/instance: {{ .Release.Name | quote }}
     spec:
 {{ include "open5gs.imagePullSecrets" . | indent 6 }}
       containers:
-      - name: sgwc
+      - name: nrf
         image: {{ template "open5gs.image" . }}
         imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
-        command: ["open5gs-sgwcd"]
+        command: ["open5gs-nrfd"]
         ports:
-        - name: gtp-c
-          containerPort: 2123
-          protocol: UDP
-        - name: pfcp
-          containerPort: 8805
-          protocol: UDP
+        - name: sbi
+          containerPort: 7777
+          protocol: TCP
         # livenessProbe:
         #   tcpSocket:
-        #     port: pfcp
+        #     port: s6a
         #   initialDelaySeconds: 15
         #   periodSeconds: 20
         # readinessProbe:
         #   tcpSocket:
-        #     port: pfcp
+        #     port: s6a
         #   initialDelaySeconds: 5
         #   periodSeconds: 10
         resources:
-{{ toYaml .Values.sgwc.resources | indent 10 }}
+{{ toYaml .Values.nrf.resources | indent 10 }}
         volumeMounts:
-        - name: sgwc-config
-          mountPath:  /opt/open5gs/etc/open5gs/sgwc.yaml
-          subPath: "sgwc.yaml"
+        - name: nrf-config
+          mountPath:  /opt/open5gs/etc/open5gs/nrf.yaml
+          subPath: "nrf.yaml"
       volumes:
-      - name: sgwc-config
+      - name: nrf-config
         configMap:
-          name: {{ include "open5gs.fullname" . }}-sgwc
+          name: {{ include "open5gs.fullname" . }}-nrf
+

@@ -32,7 +32,7 @@ spec:
           protocol: UDP
         - name: pfcp
           containerPort: 8805
-          protocol: UDP 
+          protocol: UDP
         # livenessProbe:
         #   tcpSocket:
         #     port: s6a
@@ -47,7 +47,7 @@ spec:
 {{ toYaml .Values.sgwu.resources | indent 10 }}
         volumeMounts:
         - name: sgwu-config
-          mountPath: /opt/open5gs/etc/open5gs/sgwu.yaml
+          mountPath:  /opt/open5gs/etc/open5gs/sgwu.yaml
           subPath: "sgwu.yaml"
       volumes:
       - name: sgwu-config

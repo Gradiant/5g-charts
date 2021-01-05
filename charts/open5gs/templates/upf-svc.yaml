@@ -1,14 +1,14 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "open5gs.fullname" . }}-sgwc
+  name: {{ include "open5gs.fullname" . }}-upf
   labels:
 {{ include "open5gs.labels.standard" . | indent 4 }}
-    app.kubernetes.io/component: sgwc
+    app.kubernetes.io/component: upf
 spec:
   ports:
-  - name: gtp-c
-    port: 2123
+  - name: gtp-u
+    port: 2152
     protocol: UDP
   - name: pfcp
     port: 8805
@@ -17,5 +17,5 @@ spec:
   publishNotReadyAddresses: true
   selector:
     app.kubernetes.io/name: {{ include "open5gs.name" . }}
-    app.kubernetes.io/component: sgwc
+    app.kubernetes.io/component: upf
     app.kubernetes.io/instance: {{ .Release.Name }}

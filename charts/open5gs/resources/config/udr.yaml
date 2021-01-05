@@ -1,11 +1,25 @@
 logger:
-    file: /var/log/open5gs/udr.log
-{{ toYaml .Values.nrf.logger | indent 2 }}
-{{- if .Values.nrf.parameter }}
+{{ toYaml .Values.udr.logger | indent 2 }}
+{{- if .Values.udr.parameter }}
 parameter:
-{{ toYaml .Values.pgw.parameter | indent 2 }}
+{{ toYaml .Values.udr.parameter | indent 2 }}
 {{- end }}
 
+{{- if .Values.mme.max }}
+max:
+{{ toYaml .Values.mme.max | indent 2 }}
+{{- end }}
+
+{{- if .Values.mme.pool }}
+pool:
+{{ toYaml .Values.mme.pool | indent 2 }}
+{{- end }}
+
+
 udr:
+  sbi:
+    dev: eth0
+
+nrf:
     sbi:
-      dev: eth0
+      - name: "{{ include "open5gs.fullname" . }}-nrf"
