@@ -35,11 +35,11 @@ spec:
         #     port: s6a
         #   initialDelaySeconds: 15
         #   periodSeconds: 20
-        readinessProbe:
-          tcpSocket:
-            port: s6a
-          initialDelaySeconds: 5
-          periodSeconds: 10
+        #readinessProbe:
+        #  tcpSocket:
+        #    port: s6a
+        #  initialDelaySeconds: 5
+        #  periodSeconds: 10
         resources:
 {{ toYaml .Values.mme.resources | indent 10 }}
         volumeMounts:

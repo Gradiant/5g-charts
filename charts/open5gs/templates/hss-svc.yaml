@@ -9,7 +9,7 @@ spec:
   ports:
   - name: s6a
     port: 3868
-    protocol: SCTP
+    protocol: TCP
   # - name: s6a-sctp
   #   port: 3868
   #   protocol: SCTP
