@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ "$#" -eq 1 ]; thens
+if [ "$#" -eq 1 ]; then
   FLAGS="$FLAGS --charts=charts/$1"
 fi
 

@@ -1,0 +1,16 @@
+logger:
+{{ toYaml .Values.udm.logger | indent 2 }}
+{{- if .Values.udm.parameter }}
+parameter:
+{{ toYaml .Values.udm.parameter | indent 2 }}
+{{- end }}
+udm:
+  sbi:
+    dev: eth0
+    port: 7777
+
+
+nrf:
+  sbi:
+    - name: "{{ include "open5gs.fullname" . }}-nrf"
+      port: 7777

@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "open5gs.fullname" . }}-pcrf
+  labels:
+{{ include "open5gs.labels.standard" . | indent 4 }}  
+    app.kubernetes.io/component: pcrf
+spec:
+  ports:
+  - name: gx
+    port: 3868
+    protocol: SCTP
+  # - name: gx-sctp
+  #   port: 3868
+  #   protocol: SCTP
+  publishNotReadyAddresses: true
+  selector:
+    app.kubernetes.io/name: {{ include "open5gs.name" . }}
+    app.kubernetes.io/component: pcrf
+    app.kubernetes.io/instance: {{ .Release.Name }}

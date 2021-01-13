@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "open5gs.fullname" . }}-sgwc
+  labels:
+{{ include "open5gs.labels.standard" . | indent 4 }}  
+    app.kubernetes.io/component: sgwc
+data:
+  sgwc.yaml: |
+{{ tpl (.Files.Get "resources/config/sgwc.yaml") . | indent 4 }}

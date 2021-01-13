@@ -1,0 +1,178 @@
+# Default values for opentsdb
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+# image - The base opentsdb image to use for all components.
+# for default see https://github.com/Gradiant/dockerized-opentsdb
+image:
+  registry: docker.io
+  repository: openverso/open5gs
+  tag: 2.0.18
+  ## Specify a imagePullPolicy
+  ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
+  ## ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
+  ##
+  pullPolicy: Always
+  ## Optionally specify an array of imagePullSecrets.
+  ## Secrets must be manually created in the namespace.
+  ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
+  ##
+  # pullSecrets: []
+
+
+# imageCredentials:
+#  registry:
+#  username:
+#  password:
+#  email:
+
+webui:
+  image:
+    registry: docker.io
+    repository: openverso/open5gs-webui
+    tag: 2.0.18
+    ## Specify a imagePullPolicy
+    ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
+    ## ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
+    ##
+    pullPolicy: Always
+    ## Optionally specify an array of imagePullSecrets.
+    ## Secrets must be manually created in the namespace.
+    ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
+    ##
+    # pullSecrets: []
+  resources: {}
+  ingress:
+    enabled: false
+    ## Ingress annotations done as key:value pairs
+    ## For a full list of possible ingress annotations, please see
+    ## ref: https://github.com/kubernetes/ingress-nginx/blob/master/docs/user-guide/nginx-configuration/annotations.md
+    ##
+    ## If tls is set to true, annotation ingress.kubernetes.io/secure-backends: "true" will automatically be set
+    # annotations:
+    #   kubernetes.io/ingress.class: nginx
+
+    hosts:
+      - name: open5gs-epc.local
+        paths: ["/"]
+        ## Set this to true in order to enable TLS on the ingress record
+        tls: false
+
+        ## Optionally specify the TLS hosts for the ingress record
+        ## Useful when the Ingress controller supports www-redirection
+        ## If not specified, the above host name will be used
+        # tlsHosts:
+        # - www.open5gs-epc.local
+        # - open5gs-epc.local
+
+        ## If TLS is set to true, you can declare what secret will store the key/certificate for TLS
+        # tlsSecret: open5gs-epc.local-tls
+
+hss:
+  resources: {}
+  ### For reference, see `open5gs.yaml`
+  logger:
+    level: info
+    # domain: core,diameter
+
+mme:
+  resources: {}
+  logger:
+    level: info
+  parameter: {}
+  mcc: "001"
+  mnc: "01"
+  tac: "0001"
+
+sgwc:
+  resources: {}
+  logger:
+    level: info
+    # domain: core,diameter
+  parameter:
+    no_ipv6: true
+  max: {}
+  pool: {}
+
+sgwu:
+  resources: {}
+  logger:
+    level: info
+    # domain: core,diameter
+  parameter:
+    no_ipv6: true
+  max: {}
+  pool: {}
+
+amf:
+  resources: {}
+  logger:
+    level: info
+  parameter: {}
+  mcc: "001"
+  mnc: "01"
+  tac: "0001"
+  sst: "1"
+  region: "2"
+  set: "1"
+
+smf:
+  resources: {}
+  logger:
+    level: info
+  parameter: {}
+  pdn:
+    addr: 10.45.0.1/16
+
+upf:
+  resources: {}
+  logger:
+    level: info
+  parameter: {}
+  pdn:
+    addr: 10.45.0.1/16
+
+nrf:
+  resources: {}
+  logger:
+    level: info
+  parameter: {}
+
+udr:
+  resources: {}
+  logger:
+    level: info
+  parameter: {}
+
+udm:
+  resources: {}
+  logger:
+    level: info
+  parameter: {}
+
+ausf:
+  resources: {}
+  logger:
+    level: info
+  parameter: {}
+
+pcrf:
+  enabled: false
+  resources: {}
+  logger:
+    level: info
+    # domain: core,diameter
+  parameter:
+
+
+# db_uri: -- default is "{{.Release.Name}}-mongodb/open5gs"
+
+# mongodb -- pass vars towards mongodb chart, from dependencies
+mongodb:
+  # mongodb.enabled -- set to 'false' to disable automatically deploying dependent charts
+  enabled: true
+  auth:
+    enabled: false
+
+securityPolicy:
+  enabled: false

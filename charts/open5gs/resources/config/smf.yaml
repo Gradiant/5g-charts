@@ -1,0 +1,33 @@
+
+logger:
+{{ toYaml .Values.smf.logger | indent 2 }}
+
+{{- if .Values.smf.parameter }}
+parameter:
+{{ toYaml .Values.smf.parameter | indent 2 }}
+{{- end }}
+
+smf:
+  freeDiameter: smf.conf
+  sbi:
+    dev: eth0
+    port: 7777
+  gtpc:
+    dev: eth0
+  pfcp:
+    dev: eth0
+  pdn:
+    - addr: {{ .Values.smf.pdn.addr }}
+  dns:
+    - 8.8.8.8
+    - 8.8.4.4
+  mtu: 1400
+
+nrf:
+    sbi:
+      - name: "{{ include "open5gs.fullname" . }}-nrf"
+        port: 7777
+
+upf:
+    pfcp:
+      - name: "{{ include "open5gs.fullname" . }}-upf"

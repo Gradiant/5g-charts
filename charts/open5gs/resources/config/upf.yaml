@@ -1,0 +1,19 @@
+logger:
+{{ toYaml .Values.upf.logger | indent 2 }}
+{{- if .Values.upf.parameter }}
+parameter:
+{{ toYaml .Values.upf.parameter | indent 2 }}
+{{- end }}
+
+upf:
+    pfcp:
+      dev: eth0
+    gtpu:
+      dev: eth0
+      advertise_name: "{{ include "open5gs.fullname" . }}-upf"
+    pdn:
+      - addr: {{ .Values.upf.pdn.addr }}
+
+smf:
+    pfcp:
+      - name: "{{ include "open5gs.fullname" . }}-smf"

@@ -1,0 +1,27 @@
+logger:
+{{ toYaml .Values.udr.logger | indent 2 }}
+{{- if .Values.udr.parameter }}
+parameter:
+{{ toYaml .Values.udr.parameter | indent 2 }}
+{{- end }}
+
+{{- if .Values.mme.max }}
+max:
+{{ toYaml .Values.mme.max | indent 2 }}
+{{- end }}
+
+{{- if .Values.mme.pool }}
+pool:
+{{ toYaml .Values.mme.pool | indent 2 }}
+{{- end }}
+
+
+udr:
+  sbi:
+    dev: eth0
+    port: 7777
+
+nrf:
+  sbi:
+    - name: "{{ include "open5gs.fullname" . }}-nrf"
+      port: 7777

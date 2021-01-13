@@ -1,0 +1,26 @@
+logger:
+{{ toYaml .Values.sgwu.logger | indent 2 }}
+{{- if .Values.sgwu.parameter }}
+parameter:
+{{ toYaml .Values.sgwu.parameter | indent 2 }}
+{{- end }}
+
+{{- if .Values.sgwu.max }}
+max:
+{{ toYaml .Values.sgwu.max | indent 2 }}
+{{- end }}
+
+{{- if .Values.sgwu.pool }}
+pool:
+{{ toYaml .Values.sgwu.pool | indent 2 }}
+{{- end }}
+
+sgwu:
+  gtpu:
+    dev: eth0
+  pfcp:
+    dev: eth0
+
+sgwc:
+  pfcp:
+    - name: "{{ include "open5gs.fullname" . }}-sgwc"

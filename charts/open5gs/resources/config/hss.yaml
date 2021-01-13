@@ -1,0 +1,8 @@
+logger:
+{{ toYaml .Values.hss.logger | indent 2 }}
+{{- if .Values.hss.parameter }}
+parameter:
+{{ toYaml .Values.hss.parameter | indent 2 }}
+{{- end }}
+hss:
+  freeDiameter: hss.conf
