@@ -72,13 +72,13 @@ hss:
   resources: {}
   ### For reference, see `open5gs.yaml`
   logger:
-    level: debug
+    level: info
     # domain: core,diameter
 
 mme:
   resources: {}
   logger:
-    level: debug
+    level: info
   parameter: {}
   mcc: "001"
   mnc: "01"
@@ -87,7 +87,7 @@ mme:
 sgwc:
   resources: {}
   logger:
-    level: debug
+    level: info
     # domain: core,diameter
   parameter:
     no_ipv6: true
@@ -97,7 +97,7 @@ sgwc:
 sgwu:
   resources: {}
   logger:
-    level: debug
+    level: info
     # domain: core,diameter
   parameter:
     no_ipv6: true
@@ -107,7 +107,7 @@ sgwu:
 amf:
   resources: {}
   logger:
-    level: debug
+    level: info
   parameter: {}
   mcc: "001"
   mnc: "01"
@@ -119,7 +119,7 @@ amf:
 smf:
   resources: {}
   logger:
-    level: debug
+    level: info
   parameter: {}
   pdn:
     addr: 10.45.0.1/16
@@ -127,7 +127,7 @@ smf:
 upf:
   resources: {}
   logger:
-    level: debug
+    level: info
   parameter: {}
   pdn:
     addr: 10.45.0.1/16
@@ -135,51 +135,32 @@ upf:
 nrf:
   resources: {}
   logger:
-    level: debug
+    level: info
   parameter: {}
 
 udr:
   resources: {}
   logger:
-    level: debug
+    level: info
   parameter: {}
 
 udm:
   resources: {}
   logger:
-    level: debug
+    level: info
   parameter: {}
 
 ausf:
   resources: {}
   logger:
-    level: debug
+    level: info
   parameter: {}
-
-
-# sgw:
-#   resources: {}
-#   logger:
-#     level: debug
-#     # domain: core,diameter
-#   parameter:
-#     no_ipv6: true
-
-# pgw:
-#   resources: {}
-#   logger:
-#     level: debug
-#     # domain: core,diameter
-#   pdn:
-#     addr: 45.45.0.1/16
-#     name: internet
-#     ueRange: 45.45.0.50-45.45.0.100
 
 pcrf:
   enabled: false
   resources: {}
   logger:
-    level: debug
+    level: info
     # domain: core,diameter
   parameter:
 

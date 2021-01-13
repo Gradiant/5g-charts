@@ -11,6 +11,7 @@ smf:
   freeDiameter: smf.conf
   sbi:
     dev: eth0
+    port: 7777
   gtpc:
     dev: eth0
   pfcp:
@@ -25,6 +26,7 @@ smf:
 nrf:
     sbi:
       - name: "{{ include "open5gs.fullname" . }}-nrf"
+        port: 7777
 
 upf:
     pfcp:

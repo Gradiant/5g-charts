@@ -9,7 +9,6 @@ icon: https://open5gs.org/assets/img/open5gs_logo.png
 maintainers:
 - email: cgiraldo@gradiant.org
   name: cgiraldo
-  url: https://gradiant.org
 name: open5gs
 version: 0.1.0
 keywords:

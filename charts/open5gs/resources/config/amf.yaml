@@ -20,6 +20,7 @@ pool:
 amf:
   sbi:
     dev: eth0
+    port: 7777
   ngap:
     dev: eth0
   guami:
@@ -50,3 +51,4 @@ amf:
 nrf:
   sbi:
     - name: "{{ include "open5gs.fullname" . }}-nrf"
+      port: 7777
