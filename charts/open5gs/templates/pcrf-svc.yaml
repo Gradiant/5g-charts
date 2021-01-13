@@ -9,7 +9,7 @@ spec:
   ports:
   - name: gx
     port: 3868
-    protocol: TCP
+    protocol: SCTP
   # - name: gx-sctp
   #   port: 3868
   #   protocol: SCTP

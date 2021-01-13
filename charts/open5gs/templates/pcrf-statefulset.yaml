@@ -36,7 +36,7 @@ spec:
         ports:
         - name: gx
           containerPort: 3868
-          protocol: TCP
+          protocol: SCTP
         # livenessProbe:
         #   tcpSocket:
         #     port: gx

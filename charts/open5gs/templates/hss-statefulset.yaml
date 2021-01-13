@@ -52,7 +52,7 @@ spec:
         ports:
         - name: s6a
           containerPort: 3868
-          protocol: TCP
+          protocol: SCTP
         # livenessProbe:
         #   tcpSocket:
         #     port: s6a

@@ -15,7 +15,7 @@ spec:
     protocol: UDP
   - name: s6a
     port: 3868
-    protocol: TCP
+    protocol: SCTP
   - name: sbi
     port: 7777
     protocol: TCP

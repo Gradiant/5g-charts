@@ -12,7 +12,7 @@ spec:
     protocol: SCTP
   - name: s6a
     port: 3868
-    protocol: TCP
+    protocol: SCTP
   - name: gtp-c
     port: 2123
     protocol: UDP
