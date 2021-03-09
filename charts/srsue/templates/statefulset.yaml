@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ include "srsue.fullname" . }}
+  labels:
+{{ include "srsue.labels.standard" . | nindent 4 }}
+spec:
+  replicas: 1 
+  serviceName: {{ include "srsue.fullname" . }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "srsue.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name | quote }}
+  template:
+    metadata:
+     labels:
+        app.kubernetes.io/name: {{ include "srsue.name" . }}
+        app.kubernetes.io/instance: {{ .Release.Name | quote }}
+    spec:
+{{ include "srsue.imagePullSecrets" . | indent 6 }}
+      containers:
+      - name: ue
+        image: {{ template "srsue.image" . }}
+        imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
+        args:
+        - "ue"
+        securityContext:
+          privileged: true
+        resources:
+{{ toYaml .Values.resources | indent 10 }}
+        volumeMounts:
+        - name: srsue-config
+          mountPath: /etc/srslte/ue.conf
+          subPath: "ue.conf"
+      volumes:
+      - name: srsue-config
+        configMap:
+          name: {{ include "srsue.fullname" . }}

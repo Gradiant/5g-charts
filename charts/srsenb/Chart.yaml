@@ -1,0 +1,16 @@
+apiVersion: v1
+appVersion: "20.04.1"
+description: >
+  SRS enodeb
+home: https://github.com/Gradiant/charts
+sources:
+  - https://github.com/srsLTE/srsLTE
+icon:
+maintainers:
+- email: cgiraldo@gradiant.org
+  name: cgiraldo
+name: srs-enb
+version: 0.1.0
+keywords:
+  - lte
+  - enodeb
