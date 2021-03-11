@@ -7,12 +7,12 @@ metadata:
     app.kubernetes.io/component: hss
 spec:
   ports:
-  - name: s6a
+  #- name: s6a
+  #  port: 3868
+  #  protocol: TCP
+  - name: s6a-sctp
     port: 3868
-    protocol: TCP
-  # - name: s6a-sctp
-  #   port: 3868
-  #   protocol: SCTP
+    protocol: SCTP
   publishNotReadyAddresses: true
   selector:
     app.kubernetes.io/name: {{ include "open5gs.name" . }}

@@ -1,0 +1,4 @@
+webui:
+  ingress:
+    enabled: true
+    hostname: core.cloudrenzo.gradiant.org

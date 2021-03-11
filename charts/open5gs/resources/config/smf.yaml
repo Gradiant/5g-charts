@@ -18,6 +18,7 @@ smf:
     dev: eth0
   pdn:
     - addr: {{ .Values.smf.pdn.addr }}
+      apn: internet
   dns:
     - 8.8.8.8
     - 8.8.4.4
@@ -31,3 +32,4 @@ nrf:
 upf:
     pfcp:
       - name: "{{ include "open5gs.fullname" . }}-upf"
+        apn: internet

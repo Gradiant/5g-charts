@@ -11,7 +11,6 @@ spec:
     port: 7777
     protocol: TCP
 
-  publishNotReadyAddresses: true
   selector:
     app.kubernetes.io/name: {{ include "open5gs.name" . }}
     app.kubernetes.io/component: udr

@@ -25,9 +25,11 @@ spec:
       - name: upf
         image: {{ template "open5gs.image" . }}
         imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
-        command: ["open5gs-upfd"]
+        args: ["open5gs-upfd"]
         securityContext:
           privileged: true
+          capabilities:
+            add: ["NET_ADMIN"]
         ports:
         - name: gtp-u
           containerPort: 2152

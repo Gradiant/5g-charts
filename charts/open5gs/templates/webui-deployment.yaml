@@ -39,7 +39,7 @@ spec:
           httpGet:
             path: /                                                   
             port: http
-          initialDelaySeconds: 120
+          initialDelaySeconds: 60
           periodSeconds: 30
         resources:
 {{ toYaml .Values.webui.resources | indent 10 }}

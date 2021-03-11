@@ -7,13 +7,12 @@ metadata:
     app.kubernetes.io/component: pcrf
 spec:
   ports:
-  - name: gx
+  #- name: gx
+  #  port: 3868
+  #  protocol: TCP
+  - name: gx-sctp
     port: 3868
     protocol: SCTP
-  # - name: gx-sctp
-  #   port: 3868
-  #   protocol: SCTP
-  publishNotReadyAddresses: true
   selector:
     app.kubernetes.io/name: {{ include "open5gs.name" . }}
     app.kubernetes.io/component: pcrf

@@ -6,14 +6,14 @@ metadata:
 {{ include "open5gs.labels.standard" . | indent 4 }}
     app.kubernetes.io/component: upf
 spec:
-  ports:
-  - name: gtp-u
-    port: 2152
-    protocol: UDP
-  - name: pfcp
-    port: 8805
-    protocol: UDP
-
+  clusterIP: None   
+#  ports:
+#  - name: gtp-u
+#    port: 2152
+#    protocol: UDP
+#  - name: pfcp
+#    port: 8805
+#    protocol: UDP
   publishNotReadyAddresses: true
   selector:
     app.kubernetes.io/name: {{ include "open5gs.name" . }}
