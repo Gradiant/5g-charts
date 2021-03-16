@@ -33,16 +33,23 @@ spec:
         - name: S1C_BIND_INTERFACE
           value: eth0
         - name: ENB_HOSTNAME
-          value: {{ .Values.ue.enb | quote }}
+          value: {{ include "srslte.fullname" . }}-enb
+        ports:
+        - name: zmq
+          containerPort: 2001
+          protocol: TCP
+        - name: tx
+          containerPort: 2000
+          protocol: TCP
         securityContext:
           privileged: true
         resources:
 {{ toYaml .Values.ue.resources | indent 10 }}
         volumeMounts:
-        - name: uelte-config
+        - name: ue-config
           mountPath: /etc/srslte/ue.conf
           subPath: "ue.conf"
       volumes:
-      - name: uelte-config
+      - name: ue-config
         configMap:
           name: {{ include "srslte.fullname" . }}-ue

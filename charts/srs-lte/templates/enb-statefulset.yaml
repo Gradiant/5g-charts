@@ -7,7 +7,7 @@ metadata:
   app.kubernetes.io/component: enb
 spec:
   replicas: 1 
-  serviceName: {{ include "srslte.fullname" . }}
+  serviceName: {{ include "srslte.fullname" . }}-enb
   selector:
     matchLabels:
       app.kubernetes.io/name: {{ include "srslte.name" . }}
@@ -35,9 +35,16 @@ spec:
         - name: MME_HOSTNAME
           value: {{ .Values.enb.mme | quote }}
         - name: UE_HOSTNAME
-          value: {{ .Values.enb.ue | quote }}
+          value: {{ include "srslte.fullname" . }}-ue
         - name: TAC
           value: {{ .Values.enb.tac | quote }}
+        ports:
+        - name: zmq
+          containerPort: 2000
+          protocol: TCP
+        - name: tx
+          containerPort: 2001
+          protocol: TCP
         securityContext:
           privileged: true
         resources:
