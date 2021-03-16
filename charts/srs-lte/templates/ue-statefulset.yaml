@@ -1,52 +1,39 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: {{ include "srslte.fullname" . }}
+  name: {{ include "srslte.fullname" . }}-ue
   labels:
 {{ include "srslte.labels.standard" . | nindent 4 }}
+  app.kubernetes.io/component: ue
 spec:
   replicas: 1 
-  serviceName: {{ include "srslte.fullname" . }}
+  serviceName: {{ include "srslte.fullname" . }}-ue
   selector:
     matchLabels:
       app.kubernetes.io/name: {{ include "srslte.name" . }}
+      app.kubernetes.io/component: ue
       app.kubernetes.io/instance: {{ .Release.Name | quote }}
   template:
     metadata:
      labels:
         app.kubernetes.io/name: {{ include "srslte.name" . }}
+        app.kubernetes.io/component: ue
         app.kubernetes.io/instance: {{ .Release.Name | quote }}
     spec:
 {{ include "srslte.imagePullSecrets" . | indent 6 }}
       containers:
-      - name: enb
-        image: {{ template "srslte.image" . }}
-        imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
-        args:
-        - enb
-        env:
-        - name: GTP_BIND_INTERFACE
-          value: eth0
-        - name: S1C_BIND_INTERFACE
-          value: eth0
-        - name: MME_HOSTNAME
-          value: {{ .Values.enb.mme | quote }}
-        - name: TAC
-          value: {{ .Values.enb.tac | quote }}
-        resources:
-{{ toYaml .Values.enb.resources | indent 10 }}
-        volumeMounts:
-        - name: uelte-config
-          mountPath: /etc/srslte/rr.conf
-          subPath: "rr.conf"
-        - name: uelte-config
-          mountPath: /etc/srslte/enb.conf
-          subPath: "enb.conf"
       - name: ue
         image: {{ template "srslte.image" . }}
         imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
         args:
         - ue
+        env:
+        - name: GTP_BIND_INTERFACE
+          value: eth0
+        - name: S1C_BIND_INTERFACE
+          value: eth0
+        - name: ENB_HOSTNAME
+          value: {{ .Values.ue.enb | quote }}
         securityContext:
           privileged: true
         resources:
@@ -58,4 +45,4 @@ spec:
       volumes:
       - name: uelte-config
         configMap:
-          name: {{ include "srslte.fullname" . }}
+          name: {{ include "srslte.fullname" . }}-ue

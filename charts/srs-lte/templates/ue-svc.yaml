@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    service.alpha.kubernetes.io/tolerate-unready-endpoints: "true"
+  name: {{ include "srslte.fullname" . }}-ue 
+  labels:
+{{ include "srslte.labels.standard" . | nindent 4 }}    
+    app.kubernetes.io/component: ue
+spec:
+  ports:
+  - name: zmq
+    port: 2001
+    protocol: TCP
+  publishNotReadyAddresses: true
+  selector:
+    app.kubernetes.io/name: {{ include "srslte.name" . }}
+    app.kubernetes.io/component: ue
+    app.kubernetes.io/instance: {{ .Release.Name }}
