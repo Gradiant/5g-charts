@@ -27,6 +27,9 @@ spec:
         imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
         command: ["open5gs-smfd"]
         ports:
+        - name: gtp-u
+          containerPort: 2152
+          protocol: UDP
         - name: gtp-c
           containerPort: 2123
           protocol: UDP
