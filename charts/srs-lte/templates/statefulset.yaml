@@ -1,23 +1,20 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: {{ include "srslte.fullname" . }}-enb
+  name: {{ include "srslte.fullname" . }}
   labels:
 {{ include "srslte.labels.standard" . | nindent 4 }}
-  app.kubernetes.io/component: enb
 spec:
   replicas: 1 
-  serviceName: {{ include "srslte.fullname" . }}-enb
+  serviceName: {{ include "srslte.fullname" . }}
   selector:
     matchLabels:
       app.kubernetes.io/name: {{ include "srslte.name" . }}
-      app.kubernetes.io/component: enb
       app.kubernetes.io/instance: {{ .Release.Name | quote }}
   template:
     metadata:
      labels:
         app.kubernetes.io/name: {{ include "srslte.name" . }}
-        app.kubernetes.io/component: enb
         app.kubernetes.io/instance: {{ .Release.Name | quote }}
     spec:
 {{ include "srslte.imagePullSecrets" . | indent 6 }}
@@ -34,29 +31,31 @@ spec:
           value: eth0
         - name: MME_HOSTNAME
           value: {{ .Values.enb.mme | quote }}
-        - name: UE_HOSTNAME
-          value: {{ include "srslte.fullname" . }}-ue
         - name: TAC
           value: {{ .Values.enb.tac | quote }}
-        ports:
-        - name: zmq
-          containerPort: 2000
-          protocol: TCP
-        - name: tx
-          containerPort: 2001
-          protocol: TCP
-        securityContext:
-          privileged: true
         resources:
 {{ toYaml .Values.enb.resources | indent 10 }}
         volumeMounts:
-        - name: enblte-config
+        - name: uelte-config
           mountPath: /etc/srslte/rr.conf
           subPath: "rr.conf"
-        - name: enblte-config
+        - name: uelte-config
           mountPath: /etc/srslte/enb.conf
           subPath: "enb.conf"
+      - name: ue
+        image: {{ template "srslte.image" . }}
+        imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
+        args:
+        - ue
+        securityContext:
+          privileged: true
+        resources:
+{{ toYaml .Values.ue.resources | indent 10 }}
+        volumeMounts:
+        - name: uelte-config
+          mountPath: /etc/srslte/ue.conf
+          subPath: "ue.conf"
       volumes:
-      - name: enblte-config
+      - name: uelte-config
         configMap:
-          name: {{ include "srslte.fullname" . }}-enb
+          name: {{ include "srslte.fullname" . }}
