@@ -186,4 +186,3 @@ mongodb:
 
 securityPolicy:
   enabled: false
-  
