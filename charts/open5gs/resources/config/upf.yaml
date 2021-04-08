@@ -11,7 +11,7 @@ upf:
     gtpu:
       dev: eth0
       advertise_name: "{{ include "open5gs.fullname" . }}-upf"
-    pdn:
+    subnet:
       - addr: {{ .Values.upf.pdn.addr }}
 
 smf:

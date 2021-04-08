@@ -14,11 +14,13 @@ smf:
     port: 7777
   gtpc:
     dev: eth0
+  gtpu:
+    dev: eth0
   pfcp:
     dev: eth0
-  pdn:
+  subnet:
     - addr: {{ .Values.smf.pdn.addr }}
-      apn: internet
+      dnn: internet
   dns:
     - 8.8.8.8
     - 8.8.4.4
