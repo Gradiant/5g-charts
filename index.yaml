@@ -52,6 +52,25 @@ entries:
     version: 0.1.0
   srs-enb:
   - apiVersion: v1
+    appVersion: 20.10.1
+    created: "2021-04-16T12:09:04.286994901Z"
+    description: 'SRS enodeb '
+    digest: 1eca8840624a4be9ded59443812f6356d0e1a317b05455e5efbd346040769849
+    home: https://github.com/Gradiant/charts
+    icon: https://pbs.twimg.com/profile_images/1153713220127006724/KfcRHyU-_400x400.jpg
+    keywords:
+    - lte
+    - enodeb
+    maintainers:
+    - email: cgiraldo@gradiant.org
+      name: cgiraldo
+    name: srs-enb
+    sources:
+    - https://github.com/srsLTE/srsLTE
+    urls:
+    - https://github.com/Gradiant/openverso-charts/releases/download/srs-enb-0.1.1/srs-enb-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v1
     appVersion: 20.04.1
     created: "2021-04-16T10:07:40.763946207Z"
     description: 'SRS enodeb '
