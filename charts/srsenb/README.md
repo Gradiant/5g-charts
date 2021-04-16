@@ -1,6 +1,6 @@
 # srs-enb
 
-![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-informational?style=flat-square) ![AppVersion: 20.04.1](https://img.shields.io/badge/AppVersion-20.04.1-informational?style=flat-square)
+![Version: 0.1.1](https://img.shields.io/badge/Version-0.1.1-informational?style=flat-square) ![AppVersion: 20.10.1](https://img.shields.io/badge/AppVersion-20.10.1-informational?style=flat-square)
 
 SRS enodeb
 
@@ -29,7 +29,7 @@ SRS enodeb
 | image.pullPolicy | string | `"IfNotPresent"` |  |
 | image.registry | string | `"docker.io"` |  |
 | image.repository | string | `"openverso/srs-lte"` |  |
-| image.tag | string | `"20_04_1"` |  |
+| image.tag | string | `"20_10_1"` |  |
 | resources.limits."ettus.com/usrp" | int | `1` |  |
 
 ----------------------------------------------
