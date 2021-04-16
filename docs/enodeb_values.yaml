@@ -1,2 +1,5 @@
 enb:
   mme: epc-open5gs-mme
+  mcc: '001'
+  mnc: '01'
+  tac: '0001'
