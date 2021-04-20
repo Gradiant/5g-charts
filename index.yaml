@@ -129,6 +129,25 @@ entries:
     version: 0.1.0
   srs-ue:
   - apiVersion: v1
+    appVersion: 20.10.1
+    created: "2021-04-20T06:28:46.785771446Z"
+    description: 'SRS ue '
+    digest: e73bc2158b50e5743a62fe82d193615e41ef4d9e08e452f11c1bb73eebea6135
+    home: https://github.com/Gradiant/charts
+    icon: https://pbs.twimg.com/profile_images/1153713220127006724/KfcRHyU-_400x400.jpg
+    keywords:
+    - lte
+    - ue
+    maintainers:
+    - email: cgiraldo@gradiant.org
+      name: cgiraldo
+    name: srs-ue
+    sources:
+    - https://github.com/srsLTE/srsLTE
+    urls:
+    - https://github.com/Gradiant/openverso-charts/releases/download/srs-ue-0.1.1/srs-ue-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v1
     appVersion: 20.04.1
     created: "2021-04-16T10:07:41.676081774Z"
     description: 'SRS enodeb '
