@@ -1,7 +1,7 @@
 image:
   registry: docker.io
   repository: openverso/srs-lte
-  tag: "20_04_1"
+  tag: "20_10_1"
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
   ## ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
@@ -29,6 +29,6 @@ ue:
   imsi: '001010000000001'
   imei: '353490069873319'
 
-resources: 
+resources:
   limits:
     ettus.com/usrp: 1
