@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "srsepc.fullname" . }}
+  labels:
+{{ include "srsepc.labels.standard" . | nindent 4 }}
+data:
+  epc.conf: |
+{{ tpl (.Files.Get "resources/epc.conf") . | indent 4 }}
+  user_db.csv: |
+{{ tpl (.Files.Get "resources/user_db.csv") . | indent 4 }}
