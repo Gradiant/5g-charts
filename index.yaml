@@ -88,6 +88,25 @@ entries:
     urls:
     - https://github.com/Gradiant/openverso-charts/releases/download/srs-enb-0.1.0/srs-enb-0.1.0.tgz
     version: 0.1.0
+  srs-epc:
+  - apiVersion: v1
+    appVersion: 20.10.1
+    created: "2021-04-20T06:19:57.134693897Z"
+    description: 'SRS epc '
+    digest: 007e687ba89711d8ad2eec53d901e3323814608b39ee5afd24f25532f1fe01cd
+    home: https://github.com/gradiant/openverso-charts
+    icon: https://pbs.twimg.com/profile_images/1153713220127006724/KfcRHyU-_400x400.jpg
+    keywords:
+    - epc
+    maintainers:
+    - email: cgiraldo@gradiant.org
+      name: cgiraldo
+    name: srs-epc
+    sources:
+    - https://github.com/srsLTE/srsLTE
+    urls:
+    - https://github.com/Gradiant/openverso-charts/releases/download/srs-epc-0.1.0/srs-epc-0.1.0.tgz
+    version: 0.1.0
   srs-lte:
   - apiVersion: v1
     appVersion: 20.04.1
