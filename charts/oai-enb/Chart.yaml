@@ -1,0 +1,16 @@
+apiVersion: v1
+appVersion: "1.2.2"
+description: >
+  OpenAirInterface enodeb
+home: https://github.com/Gradiant/charts
+sources:
+  - https://gitlab.eurecom.fr/oai/openairinterface5g/
+icon: https://openairinterface.org/wp-content/uploads/2015/06/cropped-oai_final_logo.png
+maintainers:
+- email: cgiraldo@gradiant.org
+  name: cgiraldo
+name: oai-enb
+version: 0.1.0
+keywords:
+  - lte
+  - enodeb

@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ include "oai-enb.fullname" . }}
+  labels:
+{{ include "oai-enb.labels.standard" . | nindent 4 }}
+spec:
+  replicas: 1 
+  serviceName: {{ include "oai-enb.fullname" . }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "oai-enb.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name | quote }}
+  template:
+    metadata:
+     labels:
+        app.kubernetes.io/name: {{ include "oai-enb.name" . }}
+        app.kubernetes.io/instance: {{ .Release.Name | quote }}
+    spec:
+{{ include "oai-enb.imagePullSecrets" . | indent 6 }}
+      containers:
+      - name: enb
+        image: {{ template "oai-enb.image" . }}
+        imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
+        args:
+        - "enb"
+        env:
+        - name: ENB_BIND_INTERFACE
+          value: eth0
+        - name: MME_HOSTNAME
+          value: {{ .Values.enb.mme | quote }}
+        securityContext:
+          privileged: true
+        resources:
+{{ toYaml .Values.resources | indent 10 }}
+        volumeMounts:
+        - name: oai-enb-config
+          mountPath: /opt/oai/etc/enb.conf
+          subPath: "enb.conf"
+      volumes:
+      - name: oai-enb-config
+        configMap:
+          name: {{ include "oai-enb.fullname" . }}

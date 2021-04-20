@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "oai-enb.fullname" . }}
+  labels:
+{{ include "oai-enb.labels.standard" . | nindent 4 }}
+data:
+  enb.conf: |
+{{ tpl (.Files.Get "resources/enb.conf") . | indent 4 }}
