@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "srsepc.fullname" . }}-mme
+  labels:
+{{ include "srsepc.labels.standard" . | indent 4 }}
+    app.kubernetes.io/component: mme
+spec:
+  ports:
+  - name: s1ap
+    port: 36412
+    protocol: SCTP
+  - name: s6a
+    port: 3868
+    protocol: SCTP
+  - name: gtp-c
+    port: 2123
+    protocol: UDP
+  publishNotReadyAddresses: true
+  selector:
+    app.kubernetes.io/name: {{ include "srsepc.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}

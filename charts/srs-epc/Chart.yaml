@@ -1,0 +1,15 @@
+apiVersion: v1
+appVersion: "20.10.1"
+description: >
+  SRS epc
+home: https://github.com/gradiant/openverso-charts
+sources:
+  - https://github.com/srsLTE/srsLTE
+icon: https://pbs.twimg.com/profile_images/1153713220127006724/KfcRHyU-_400x400.jpg
+maintainers:
+- email: cgiraldo@gradiant.org
+  name: cgiraldo
+name: srs-epc
+version: 0.1.0
+keywords:
+  - epc
