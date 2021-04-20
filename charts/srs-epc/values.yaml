@@ -20,7 +20,7 @@ mme:
   mnc: '01'
   apn: srsapn
 
-users: 
+users:
   - name: ue1
     imsi: '901700000039226'
     key: '491BB1C6E1179AED538028AE7AD525B3'
