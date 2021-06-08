@@ -1,0 +1,7 @@
+mme:
+  mcc: "001"
+  mnc: "01"
+webui:
+  ingress:
+    enabled: true
+    hostname: core.cloudrenzo.gradiant.org
