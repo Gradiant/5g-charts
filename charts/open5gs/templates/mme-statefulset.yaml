@@ -1,24 +1,19 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: {{ include "open5gs.fullname" . }}-mme
-  labels:
-{{ include "open5gs.labels.standard" . | indent 4 }}
+  name: {{ include "common.names.fullname" . }}-mme
+  labels: {{- include "common.labels.standard" . | nindent 4 }}
     app.kubernetes.io/component: mme
 spec:
   replicas: 1
-  serviceName: {{ include "open5gs.fullname" . }}-mme
+  serviceName: {{ include "common.names.fullname" . }}-mme
   selector:
-    matchLabels:
-      app.kubernetes.io/name: {{ include "open5gs.name" . }}
+    matchLabels: {{- include "common.labels.matchLabels" . | nindent 6 }}
       app.kubernetes.io/component: mme
-      app.kubernetes.io/instance: {{ .Release.Name | quote }}
   template:
     metadata:
-     labels:
-        app.kubernetes.io/name: {{ include "open5gs.name" . }}
+      labels: {{- include "common.labels.standard" . | nindent 8 }}
         app.kubernetes.io/component: mme
-        app.kubernetes.io/instance: {{ .Release.Name | quote }}
     spec:
 {{- include "open5gs.imagePullSecrets" . | indent 6 }}
       containers:
@@ -52,7 +47,7 @@ spec:
       volumes:
       - name: mme-config
         configMap:
-          name: {{ include "open5gs.fullname" . }}-mme
+          name: {{ include "common.names.fullname" . }}-mme
       - name: mme-diameter-config
         configMap:
-          name: {{ include "open5gs.fullname" . }}-mme-diameter
+          name: {{ include "common.names.fullname" . }}-mme-diameter

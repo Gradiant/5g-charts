@@ -28,10 +28,10 @@ smf:
 
 nrf:
     sbi:
-      - name: "{{ include "open5gs.fullname" . }}-nrf"
+      - name: "{{ include "common.names.fullname" . }}-nrf"
         port: 7777
 
 upf:
     pfcp:
-      - name: "{{ include "open5gs.fullname" . }}-upf"
+      - name: "{{ include "common.names.fullname" . }}-upf"
         apn: internet

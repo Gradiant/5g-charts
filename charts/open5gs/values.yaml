@@ -166,8 +166,19 @@ ausf:
     level: info
   parameter: {}
 
+nssf:
+  resources: {}
+  logger:
+    level: info
+  parameter: {}
+
+pcf:
+  resources: {}
+  logger:
+    level: info
+  parameter: {}
+
 pcrf:
-  enabled: false
   resources: {}
   logger:
     level: info

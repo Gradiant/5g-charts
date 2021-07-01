@@ -1,9 +1,8 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ include "open5gs.fullname" . }}-smf
-  labels:
-{{ include "open5gs.labels.standard" . | indent 4 }}
+  name: {{ include "common.names.fullname" . }}-smf
+  labels: {{- include "common.labels.standard" . | nindent 4 }}
     app.kubernetes.io/component: smf
 data:
   smf.yaml: |

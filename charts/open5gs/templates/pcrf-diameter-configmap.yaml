@@ -1,9 +1,8 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ include "open5gs.fullname" . }}-pcrf-diameter
-  labels:
-{{ include "open5gs.labels.standard" . | indent 4 }}  
+  name: {{ include "common.names.fullname" . }}-pcrf-diameter
+  labels: {{- include "common.labels.standard" . | nindent 4 }}
     app.kubernetes.io/component: pcrf
 data:
   diameter-pcrf.conf: |-

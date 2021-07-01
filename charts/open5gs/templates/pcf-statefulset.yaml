@@ -1,26 +1,26 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: {{ include "common.names.fullname" . }}-udr
+  name: {{ include "common.names.fullname" . }}-pcf
   labels: {{- include "common.labels.standard" . | nindent 4 }}
-    app.kubernetes.io/component: udr
+    app.kubernetes.io/component: pcf
 spec:
   replicas: 1
-  serviceName: {{ include "common.names.fullname" . }}-udr
+  serviceName: {{ include "common.names.fullname" . }}-pcf
   selector:
     matchLabels: {{- include "common.labels.matchLabels" . | nindent 6 }}
-      app.kubernetes.io/component: udr
+      app.kubernetes.io/component: pcf
   template:
     metadata:
       labels: {{- include "common.labels.standard" . | nindent 8 }}
-        app.kubernetes.io/component: udr
+        app.kubernetes.io/component: pcf
     spec:
 {{ include "open5gs.imagePullSecrets" . | indent 6 }}
       containers:
-      - name: udr
+      - name: pcf
         image: {{ template "open5gs.image" . }}
         imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
-        command: ["open5gs-udrd"]
+        command: ["open5gs-pcfd"]
         env:
         - name: DB_URI
           {{- if not .Values.db_uri }}
@@ -32,24 +32,13 @@ spec:
         - name: sbi
           containerPort: 7777
           protocol: TCP
-        # livenessProbe:
-        #   tcpSocket:
-        #     port: s6a
-        #   initialDelaySeconds: 15
-        #   periodSeconds: 20
-        # readinessProbe:
-        #   tcpSocket:
-        #     port: s6a
-        #   initialDelaySeconds: 5
-        #   periodSeconds: 10
         resources:
-{{ toYaml .Values.udr.resources | indent 10 }}
+{{ toYaml .Values.pcf.resources | indent 10 }}
         volumeMounts:
-        - name: udr-config
-          mountPath:  /opt/open5gs/etc/open5gs/udr.yaml
-          subPath: "udr.yaml"
+        - name: pcf-config
+          mountPath: /opt/open5gs/etc/open5gs/pcf.yaml
+          subPath: "pcf.yaml"
       volumes:
-      - name: udr-config
+      - name: pcf-config
         configMap:
-          name: {{ include "common.names.fullname" . }}-udr
-
+          name: {{ include "common.names.fullname" . }}-pcf

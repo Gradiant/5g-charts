@@ -1,24 +1,19 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: {{ include "open5gs.fullname" . }}-pcrf
-  labels:
-{{ include "open5gs.labels.standard" . | indent 4 }}
+  name: {{ include "common.names.fullname" . }}-pcrf
+  labels: {{- include "common.labels.standard" . | nindent 4 }}
     app.kubernetes.io/component: pcrf
 spec:
   replicas: 1
-  serviceName: {{ include "open5gs.name" . }}-pcrf
+  serviceName: {{ include "common.names.fullname" . }}-pcrf
   selector:
-    matchLabels:
-      app.kubernetes.io/name: {{ include "open5gs.name" . }}
+    matchLabels: {{- include "common.labels.matchLabels" . | nindent 6 }}
       app.kubernetes.io/component: pcrf
-      app.kubernetes.io/instance: {{ .Release.Name | quote }}
   template:
     metadata:
-     labels:
-        app.kubernetes.io/name: {{ include "open5gs.name" . }}
+      labels: {{- include "common.labels.standard" . | nindent 8 }}
         app.kubernetes.io/component: pcrf
-        app.kubernetes.io/instance: {{ .Release.Name | quote }}
     spec:
 {{ include "open5gs.imagePullSecrets" . | indent 6 }}
       containers:
@@ -59,7 +54,7 @@ spec:
       volumes:
       - name: pcrf-config
         configMap:
-          name: {{ include "open5gs.fullname" . }}-pcrf
+          name: {{ include "common.names.fullname" . }}-pcrf
       - name: pcrf-diameter-config
         configMap:
-          name: {{ include "open5gs.fullname" . }}-pcrf-diameter
+          name: {{ include "common.names.fullname" . }}-pcrf-diameter
