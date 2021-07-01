@@ -1,13 +1,13 @@
 logger:
-{{ toYaml .Values.ausf.logger | indent 2 }}
+{{ toYaml .Values.pcf.logger | indent 2 }}
 
-{{- if .Values.ausf.parameter }}
+{{- if .Values.pcf.parameter }}
 parameter:
-{{ toYaml .Values.ausf.parameter | indent 2 }}
+{{ toYaml .Values.pcf.parameter | indent 2 }}
 {{- end }}
 
 #
-ausf:
+pcf:
   sbi:
     dev: eth0
     port: 7777

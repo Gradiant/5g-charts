@@ -42,8 +42,8 @@ mme:
 
 sgwc:
   gtpc:
-    - name: "{{ include "open5gs.fullname" . }}-sgwc"
+    - name: "{{ include "common.names.fullname" . }}-sgwc"
 
 smf:
   gtpc:
-    - name: "{{ include "open5gs.fullname" . }}-smf"
+    - name: "{{ include "common.names.fullname" . }}-smf"

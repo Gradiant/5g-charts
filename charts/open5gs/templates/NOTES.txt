@@ -1,6 +1,6 @@
 1. Access MME from inside the Kubernetes cluster at ClusterIP: 
 
-$(kubectl get svc --namespace {{ .Release.Namespace }} {{ template "open5gs.fullname" . }}-mme -o jsonpath='{.spec.clusterIP}')
+$(kubectl get svc --namespace {{ .Release.Namespace }} {{ template "common.names.fullname" . }}-mme -o jsonpath='{.spec.clusterIP}')
 
 {{- if .Values.webui.ingress.enabled }}
 2. Access Open5gs web ui at: 

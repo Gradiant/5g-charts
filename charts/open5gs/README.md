@@ -1,6 +1,6 @@
 # open5gs
 
-![Version: 0.1.2](https://img.shields.io/badge/Version-0.1.2-informational?style=flat-square) ![AppVersion: 2.2.3](https://img.shields.io/badge/AppVersion-2.2.3-informational?style=flat-square)
+![Version: 0.2.0](https://img.shields.io/badge/Version-0.2.0-informational?style=flat-square) ![AppVersion: 2.2.3](https://img.shields.io/badge/AppVersion-2.2.3-informational?style=flat-square)
 
 Helm chart to deploy Open5gs services on Kubernetes.
 
@@ -43,7 +43,7 @@ Helm chart to deploy Open5gs services on Kubernetes.
 | image.pullPolicy | string | `"IfNotPresent"` |  |
 | image.registry | string | `"docker.io"` |  |
 | image.repository | string | `"openverso/open5gs"` |  |
-| image.tag | string | `"2.1.7"` |  |
+| image.tag | string | `"2.2.3"` |  |
 | mme.logger.level | string | `"info"` |  |
 | mme.mcc | string | `"001"` |  |
 | mme.mnc | string | `"01"` |  |
@@ -55,7 +55,12 @@ Helm chart to deploy Open5gs services on Kubernetes.
 | nrf.logger.level | string | `"info"` |  |
 | nrf.parameter | object | `{}` |  |
 | nrf.resources | object | `{}` |  |
-| pcrf.enabled | bool | `false` |  |
+| nssf.logger.level | string | `"info"` |  |
+| nssf.parameter | object | `{}` |  |
+| nssf.resources | object | `{}` |  |
+| pcf.logger.level | string | `"info"` |  |
+| pcf.parameter | object | `{}` |  |
+| pcf.resources | object | `{}` |  |
 | pcrf.logger.level | string | `"info"` |  |
 | pcrf.parameter | string | `nil` |  |
 | pcrf.resources | object | `{}` |  |
@@ -84,10 +89,10 @@ Helm chart to deploy Open5gs services on Kubernetes.
 | upf.parameter | object | `{}` |  |
 | upf.pdn.addr | string | `"10.45.0.1/16"` |  |
 | upf.resources | object | `{}` |  |
-| webui.image.pullPolicy | string | `"Always"` |  |
+| webui.image.pullPolicy | string | `"IfNotPresent"` |  |
 | webui.image.registry | string | `"docker.io"` |  |
 | webui.image.repository | string | `"openverso/open5gs-webui"` |  |
-| webui.image.tag | string | `"2.1.7"` |  |
+| webui.image.tag | string | `"2.2.3"` |  |
 | webui.ingress.annotations | object | `{}` |  |
 | webui.ingress.certManager | bool | `false` |  |
 | webui.ingress.enabled | bool | `false` |  |

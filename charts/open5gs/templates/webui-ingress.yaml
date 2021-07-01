@@ -2,9 +2,8 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: {{ include "open5gs.fullname" . }}-webui
-  labels:
-{{ include "open5gs.labels.standard" . | indent 4 }}  
+  name: {{ include "common.names.fullname" . }}-webui
+  labels: {{- include "common.labels.standard" . | nindent 4 }}
     app.kubernetes.io/component: webui
   annotations:
     {{- with .Values.webui.ingress.annotations }}
@@ -21,7 +20,7 @@ spec:
             pathType: {{ .Values.webui.ingress.pathType }}
             backend: 
               service:
-                name: {{ include "open5gs.fullname" $ }}-webui
+                name: {{ include "common.names.fullname" $ }}-webui
                 port: 
                   name: http
     {{- end }}

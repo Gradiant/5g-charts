@@ -1,4 +1,4 @@
-apiVersion: v1
+apiVersion: v2
 appVersion: "2.2.3"
 description: >
   Helm chart to deploy Open5gs services on Kubernetes.
@@ -10,7 +10,17 @@ maintainers:
 - email: cgiraldo@gradiant.org
   name: cgiraldo
 name: open5gs
-version: 0.1.2
+version: 0.2.0
 keywords:
   - epc
   - ngc
+dependencies:
+  - name: common
+    repository: https://charts.bitnami.com/bitnami
+    tags:
+      - bitnami-common
+    version: 1.x.x
+  - name: mongodb
+    version: ~9.2.2
+    repository: https://charts.bitnami.com/bitnami
+    condition: mongodb.enabled

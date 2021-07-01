@@ -12,5 +12,5 @@ udm:
 
 nrf:
   sbi:
-    - name: "{{ include "open5gs.fullname" . }}-nrf"
+    - name: "{{ include "common.names.fullname" . }}-nrf"
       port: 7777
