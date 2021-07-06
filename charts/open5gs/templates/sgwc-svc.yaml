@@ -5,14 +5,13 @@ metadata:
   labels: {{- include "common.labels.standard" . | nindent 4 }}
     app.kubernetes.io/component: sgwc
 spec:
-  clusterIP: None
-  # ports:
-  # - name: gtp-c
-  #   port: 2123
-  #   protocol: UDP
-  # - name: pfcp
-  #   port: 8805
-  #   protocol: UDP
+  ports:
+   - name: gtp-c
+     port: 2123
+     protocol: UDP
+   - name: pfcp
+     port: 8805
+     protocol: UDP
   publishNotReadyAddresses: true
   selector: {{- include "common.labels.matchLabels" . | nindent 4 }}
     app.kubernetes.io/component: sgwc
