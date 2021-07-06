@@ -46,7 +46,7 @@ webui:
 
     ## Set to true to enable ingress record generation
     ##
-    enabled: false
+    enabled: true
 
     ## Set this to true in order to add the corresponding annotations for cert-manager
     ##
@@ -58,7 +58,7 @@ webui:
 
     ## When the ingress is enabled, a host pointing to this will be created
     ##
-    hostname: open5gs.local
+    hostname: open5gs.ingress.openverso.org
 
     ## The Path to open5gs webui. You may need to set this to '/*' in order to use this
     ## with ALB ingress controllers.
@@ -90,8 +90,8 @@ mme:
   logger:
     level: info
   parameter: {}
-  mcc: "001"
-  mnc: "01"
+  mcc: "901"
+  mnc: "70"
   tac: "0001"
 
 sgwc:
@@ -119,8 +119,8 @@ amf:
   logger:
     level: info
   parameter: {}
-  mcc: "001"
-  mnc: "01"
+  mcc: "901"
+  mnc: "70"
   tac: "0001"
   sst: "1"
   region: "2"
