@@ -18,6 +18,7 @@ pool:
 sgwu:
   gtpu:
     dev: eth0
+    advertise: {{ .Values.sgwu.advertise }}
   pfcp:
     dev: eth0
 
