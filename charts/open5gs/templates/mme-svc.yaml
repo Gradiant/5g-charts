@@ -1,9 +1,8 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "open5gs.fullname" . }}-mme
-  labels:
-{{ include "open5gs.labels.standard" . | indent 4 }}
+  name: {{ include "common.names.fullname" . }}-mme
+  labels: {{- include "common.labels.standard" . | nindent 4 }}
     app.kubernetes.io/component: mme
 spec:
   ports:
@@ -17,7 +16,34 @@ spec:
     port: 2123
     protocol: UDP
   publishNotReadyAddresses: true
-  selector:
-    app.kubernetes.io/name: {{ include "open5gs.name" . }}
+  selector: {{- include "common.labels.matchLabels" . | nindent 4 }}
     app.kubernetes.io/component: mme
-    app.kubernetes.io/instance: {{ .Release.Name }}
+---
+{{- if .Values.mme.externalService.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "common.names.fullname" . }}-mme-ext
+  labels: {{- include "common.labels.standard" . | nindent 4 }}
+    app.kubernetes.io/component: mme
+spec:
+  type: {{ .Values.mme.externalService.type }}
+  sessionAffinity: {{ default "None" .Values.mme.externalService.sessionAffinity }}
+  {{- if and .Values.mme.externalService.clusterIP (eq .Values.mme.externalService.type "ClusterIP") }}
+  clusterIP: {{ .Values.mme.externalService.clusterIP }}
+  {{- end }}
+  {{- if and .Values.mme.externalService.loadBalancerIP (eq .Values.mme.externalService.type "LoadBalancer") }}
+  loadBalancerIP: {{ .Values.mme.externalService.loadBalancerIP }}
+  {{- end }}
+  {{- if and (eq .Values.mme.externalService.type "LoadBalancer") .Values.mme.externalService.externalTrafficPolicy }}
+  externalTrafficPolicy: {{ .Values.mme.externalService.externalTrafficPolicy }}
+  {{- end }}
+
+  ports:
+  - name: s1ap
+    port: 36412
+    protocol: SCTP
+  publishNotReadyAddresses: true
+  selector: {{- include "common.labels.matchLabels" . | nindent 4 }}
+    app.kubernetes.io/component: mme
+{{- end }}

@@ -1,24 +1,19 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: {{ include "open5gs.fullname" . }}-smf
-  labels:
-{{ include "open5gs.labels.standard" . | indent 4 }}
+  name: {{ include "common.names.fullname" . }}-smf
+  labels: {{- include "common.labels.standard" . | nindent 4 }}
     app.kubernetes.io/component: smf
 spec:
   replicas: 1
-  serviceName: {{ include "open5gs.name" . }}-smf
+  serviceName: {{ include "common.names.fullname" . }}-smf
   selector:
-    matchLabels:
-      app.kubernetes.io/name: {{ include "open5gs.name" . }}
+    matchLabels: {{- include "common.labels.matchLabels" . | nindent 6 }}
       app.kubernetes.io/component: smf
-      app.kubernetes.io/instance: {{ .Release.Name | quote }}
   template:
     metadata:
-     labels:
-        app.kubernetes.io/name: {{ include "open5gs.name" . }}
+      labels: {{- include "common.labels.standard" . | nindent 8 }}
         app.kubernetes.io/component: smf
-        app.kubernetes.io/instance: {{ .Release.Name | quote }}
     spec:
 {{- include "open5gs.imagePullSecrets" . | indent 6 }}
       containers:
@@ -27,6 +22,9 @@ spec:
         imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
         command: ["open5gs-smfd"]
         ports:
+        - name: gtp-u
+          containerPort: 2152
+          protocol: UDP
         - name: gtp-c
           containerPort: 2123
           protocol: UDP
@@ -61,7 +59,7 @@ spec:
       volumes:
       - name: smf-config
         configMap:
-          name: {{ include "open5gs.fullname" . }}-smf
+          name: {{ include "common.names.fullname" . }}-smf
       - name: smf-diameter-config
         configMap:
-          name: {{ include "open5gs.fullname" . }}-smf-diameter
+          name: {{ include "common.names.fullname" . }}-smf-diameter

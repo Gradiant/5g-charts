@@ -1,0 +1,27 @@
+image:
+  registry: docker.io
+  repository: openverso/srs-lte
+  tag: "20_10_1"
+  ## Specify a imagePullPolicy
+  ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
+  ## ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
+  ##
+  pullPolicy: IfNotPresent
+  ## Optionally specify an array of imagePullSecrets.
+  ## Secrets must be manually created in the namespace.
+  ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
+  ##
+  # pullSecrets:
+  #  - regcred
+
+mme:
+  tac: '0001'
+  mcc: '001'
+  mnc: '01'
+  apn: srsapn
+
+users:
+  - name: ue1
+    imsi: '901700000039226'
+    key: '491BB1C6E1179AED538028AE7AD525B3'
+    opc: '3B7FB099B3A6D16873B33F023B1679E9'

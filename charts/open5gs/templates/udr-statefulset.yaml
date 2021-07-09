@@ -1,24 +1,19 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: {{ include "open5gs.fullname" . }}-udr
-  labels:
-{{ include "open5gs.labels.standard" . | indent 4 }}
+  name: {{ include "common.names.fullname" . }}-udr
+  labels: {{- include "common.labels.standard" . | nindent 4 }}
     app.kubernetes.io/component: udr
 spec:
   replicas: 1
-  serviceName: {{ include "open5gs.fullname" . }}-udr
+  serviceName: {{ include "common.names.fullname" . }}-udr
   selector:
-    matchLabels:
-      app.kubernetes.io/name: {{ include "open5gs.name" . }}
+    matchLabels: {{- include "common.labels.matchLabels" . | nindent 6 }}
       app.kubernetes.io/component: udr
-      app.kubernetes.io/instance: {{ .Release.Name | quote }}
   template:
     metadata:
-     labels:
-        app.kubernetes.io/name: {{ include "open5gs.name" . }}
+      labels: {{- include "common.labels.standard" . | nindent 8 }}
         app.kubernetes.io/component: udr
-        app.kubernetes.io/instance: {{ .Release.Name | quote }}
     spec:
 {{ include "open5gs.imagePullSecrets" . | indent 6 }}
       containers:
@@ -56,5 +51,5 @@ spec:
       volumes:
       - name: udr-config
         configMap:
-          name: {{ include "open5gs.fullname" . }}-udr
+          name: {{ include "common.names.fullname" . }}-udr
 

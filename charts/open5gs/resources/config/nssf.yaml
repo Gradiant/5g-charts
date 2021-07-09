@@ -1,0 +1,24 @@
+logger:
+{{ toYaml .Values.nssf.logger | indent 2 }}
+
+{{- if .Values.nssf.parameter }}
+parameter:
+{{ toYaml .Values.nssf.parameter | indent 2 }}
+{{- end }}
+
+#
+nssf:
+  sbi:
+    dev: eth0
+    port: 7777
+  nsi:
+    - name: "{{ include "common.names.fullname" . }}-nrf"
+      port: 7777
+      s_nssai:
+        sst: 1
+
+
+nrf:
+  sbi:
+    - name: "{{ include "common.names.fullname" . }}-nrf"
+      port: 7777

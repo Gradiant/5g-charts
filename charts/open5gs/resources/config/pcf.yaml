@@ -1,0 +1,19 @@
+logger:
+{{ toYaml .Values.pcf.logger | indent 2 }}
+
+{{- if .Values.pcf.parameter }}
+parameter:
+{{ toYaml .Values.pcf.parameter | indent 2 }}
+{{- end }}
+
+#
+pcf:
+  sbi:
+    dev: eth0
+    port: 7777
+
+
+nrf:
+  sbi:
+    - name: "{{ include "common.names.fullname" . }}-nrf"
+      port: 7777

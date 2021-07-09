@@ -18,9 +18,10 @@ pool:
 sgwu:
   gtpu:
     dev: eth0
+    advertise: {{ .Values.sgwu.advertise }}
   pfcp:
     dev: eth0
 
 sgwc:
   pfcp:
-    - name: "{{ include "open5gs.fullname" . }}-sgwc"
+    - name: "{{ include "common.names.fullname" . }}-sgwc"

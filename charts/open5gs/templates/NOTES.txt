@@ -1,16 +1,14 @@
 1. Access MME from inside the Kubernetes cluster at ClusterIP: 
 
-$(kubectl get svc --namespace {{ .Release.Namespace }} {{ template "open5gs.fullname" . }}-mme -o jsonpath='{.spec.clusterIP}')
+$(kubectl get svc --namespace {{ .Release.Namespace }} {{ template "common.names.fullname" . }}-mme -o jsonpath='{.spec.clusterIP}')
 
-2. Access Open5gs web ui at: 
 {{- if .Values.webui.ingress.enabled }}
-  {{- range $host := .Values.webui.ingress.hosts }}
-  {{- if $host.tls }}
-  https://{{ $host.name }}
+2. Access Open5gs web ui at: 
+  {{- if .Values.webui.ingress.tls }}
+  https://{{ .Values.webui.ingress.hostname }}
   {{- else }}
-  http://{{ $host.name }}
+  http://{{ .Values.webui.ingress.hostname }}
   {{- end }}
-{{- end }}
 {{- end }}
 
 With user: "admin" and password "1423"

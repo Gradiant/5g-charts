@@ -23,4 +23,4 @@ sgwc:
 
 sgwu:
   pfcp:
-    - name: "{{ include "open5gs.fullname" . }}-sgwc"
+    - name: "{{ include "common.names.fullname" . }}-sgwu"

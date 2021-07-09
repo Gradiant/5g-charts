@@ -1,0 +1,34 @@
+image:
+  registry: docker.io
+  repository: openverso/srs-lte
+  tag: "20_10_1"
+  ## Specify a imagePullPolicy
+  ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
+  ## ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
+  ##
+  pullPolicy: IfNotPresent
+  ## Optionally specify an array of imagePullSecrets.
+  ## Secrets must be manually created in the namespace.
+  ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
+  ##
+  # pullSecrets:
+  #  - regcred
+
+device:
+  name: auto
+  # For best performance in 2x2 MIMO and >= 15 MHz use the following device_args settings:
+  #     USRP B210: num_recv_frames=64,num_send_frames=64
+  #     And for 75 PRBs, also append ",master_clock_rate=15.36e6" to the device args
+  # For best performance when BW<5 MHz (25 PRB), use the following device_args settings:
+  #     USRP B210: send_frame_size=512,recv_frame_size=512
+  args: auto
+
+ue:
+  opc: 'E8ED289DEBA952E4283B54E88E6183CA'
+  k: '465B5CE8B199B49FAA5F0A2EE238A6BC'
+  imsi: '001010000000001'
+  imei: '353490069873319'
+
+resources:
+  limits:
+    ettus.com/usrp: 1

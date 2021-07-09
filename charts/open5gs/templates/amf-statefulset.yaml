@@ -1,24 +1,19 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: {{ include "open5gs.fullname" . }}-amf
-  labels:
-{{ include "open5gs.labels.standard" . | indent 4 }}
+  name: {{ include "common.names.fullname" . }}-amf
+  labels: {{- include "common.labels.standard" . | nindent 4 }}
     app.kubernetes.io/component: amf
 spec:
   replicas: 1
-  serviceName: {{ include "open5gs.fullname" . }}-amf
+  serviceName: {{ include "common.names.fullname" . }}-amf
   selector:
-    matchLabels:
-      app.kubernetes.io/name: {{ include "open5gs.name" . }}
+    matchLabels: {{- include "common.labels.matchLabels" . | nindent 6 }}
       app.kubernetes.io/component: amf
-      app.kubernetes.io/instance: {{ .Release.Name | quote }}
   template:
     metadata:
-     labels:
-        app.kubernetes.io/name: {{ include "open5gs.name" . }}
+      labels: {{- include "common.labels.standard" . | nindent 8 }}
         app.kubernetes.io/component: amf
-        app.kubernetes.io/instance: {{ .Release.Name | quote }}
     spec:
 {{ include "open5gs.imagePullSecrets" . | indent 6 }}
       containers:
@@ -52,4 +47,4 @@ spec:
       volumes:
       - name: amf-config
         configMap:
-          name: {{ include "open5gs.fullname" . }}-amf
+          name: {{ include "common.names.fullname" . }}-amf

@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ include "srsepc.fullname" . }}
+  labels:
+{{ include "srsepc.labels.standard" . | nindent 4 }}
+spec:
+  replicas: 1 
+  serviceName: {{ include "srsepc.fullname" . }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "srsepc.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name | quote }}
+  template:
+    metadata:
+     labels:
+        app.kubernetes.io/name: {{ include "srsepc.name" . }}
+        app.kubernetes.io/instance: {{ .Release.Name | quote }}
+    spec:
+{{ include "srsepc.imagePullSecrets" . | indent 6 }}
+      containers:
+      - name: epc
+        image: {{ template "srsepc.image" . }}
+        imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
+        args:
+        - "epc"
+        securityContext:
+          privileged: true
+        resources:
+{{ toYaml .Values.resources | indent 10 }}
+        volumeMounts:
+        - name: srsepc-config
+          mountPath: /etc/srslte/epc.conf
+          subPath: "epc.conf"
+        - name: srsepc-config
+          mountPath: /etc/srslte/user_db.csv
+          subPath: "user_db.csv"
+      volumes:
+      - name: srsepc-config
+        configMap:
+          name: {{ include "srsepc.fullname" . }}

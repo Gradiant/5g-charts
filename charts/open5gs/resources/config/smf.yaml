@@ -14,10 +14,13 @@ smf:
     port: 7777
   gtpc:
     dev: eth0
+  gtpu:
+    dev: eth0
   pfcp:
     dev: eth0
-  pdn:
+  subnet:
     - addr: {{ .Values.smf.pdn.addr }}
+      dnn: internet
   dns:
     - 8.8.8.8
     - 8.8.4.4
@@ -25,9 +28,10 @@ smf:
 
 nrf:
     sbi:
-      - name: "{{ include "open5gs.fullname" . }}-nrf"
+      - name: "{{ include "common.names.fullname" . }}-nrf"
         port: 7777
 
 upf:
     pfcp:
-      - name: "{{ include "open5gs.fullname" . }}-upf"
+      - name: "{{ include "common.names.fullname" . }}-upf"
+        apn: internet
