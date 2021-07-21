@@ -74,7 +74,7 @@ spec:
           args:
             - ue
             - -n
-            - {{ .Values.UECount }}
+            - {{ .Values.UECount | quote }}
           {{- if .Values.resources }}
           resources: {{- toYaml .Values.resources | nindent 12 }}
           {{- end }}
