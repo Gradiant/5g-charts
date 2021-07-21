@@ -241,4 +241,33 @@ entries:
     urls:
     - https://github.com/Gradiant/openverso-charts/releases/download/srs-ue-0.1.0/srs-ue-0.1.0.tgz
     version: 0.1.0
-generated: "2021-07-21T11:49:59.282417008Z"
+  ueransim:
+  - annotations:
+      category: apps
+    apiVersion: v2
+    appVersion: 3.2.2
+    created: "2021-07-21T13:13:04.770009269Z"
+    dependencies:
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 1.x.x
+    description: ueransim for 5G RAN simulation
+    digest: 1c8b6e0f00228f08fb910b59c3b814d820335b4f3e227b8c86ed1996b1c8c7d9
+    home: https://github.com/aligungr/UERANSIM
+    icon: https://github.com/aligungr/UERANSIM/raw/master/.github/logo.png
+    keywords:
+    - apps
+    - gradiant
+    - k8s
+    maintainers:
+    - email: cgiraldo@gradiant.org
+      name: cgiraldo
+    name: ueransim
+    sources:
+    - https://github.com/aligungr/UERANSIM
+    urls:
+    - https://github.com/Gradiant/openverso-charts/releases/download/ueransim-0.1.0/ueransim-0.1.0.tgz
+    version: 0.1.0
+generated: "2021-07-21T13:13:04.770029769Z"
