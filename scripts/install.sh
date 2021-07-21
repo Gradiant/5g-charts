@@ -8,6 +8,7 @@ docker run -ti --rm \
   -e HOME=$HOME \
   -v $HOME:/$HOME \
   -v $PWD:/gradiant \
-  --workdir=/gradiant quay.io/helmpack/chart-testing ct install $@
+  --workdir=/gradiant quay.io/helmpack/chart-testing ct install \
+     --chart-repos bitnami=https://charts.bitnami.com/bitnami $@
 
 kind delete cluster --name charttest
