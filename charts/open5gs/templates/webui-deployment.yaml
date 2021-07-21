@@ -30,12 +30,18 @@ spec:
         - name: http
           containerPort: 3000
           protocol: TCP
+        readinessProbe:
+          httpGet:
+            path: /                                                   
+            port: http
+          initialDelaySeconds: 30
+          periodSeconds: 10
         livenessProbe:
           httpGet:
             path: /                                                   
             port: http
-          initialDelaySeconds: 60
-          periodSeconds: 30
+          initialDelaySeconds: 30
+          periodSeconds: 10
         resources:
 {{ toYaml .Values.webui.resources | indent 10 }}
       terminationGracePeriodSeconds: 30

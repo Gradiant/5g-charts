@@ -26,6 +26,7 @@ image:
 #  password:
 #  email:
 
+
 webui:
   image:
     registry: docker.io
@@ -46,7 +47,7 @@ webui:
 
     ## Set to true to enable ingress record generation
     ##
-    enabled: false
+    enabled: true
 
     ## Set this to true in order to add the corresponding annotations for cert-manager
     ##
@@ -58,7 +59,7 @@ webui:
 
     ## When the ingress is enabled, a host pointing to this will be created
     ##
-    hostname: open5gs.local
+    hostname: open5gs.ingress.openverso.org
 
     ## The Path to open5gs webui. You may need to set this to '/*' in order to use this
     ## with ALB ingress controllers.
@@ -90,9 +91,27 @@ mme:
   logger:
     level: info
   parameter: {}
-  mcc: "001"
-  mnc: "01"
+  mcc: "901"
+  mnc: "70"
   tac: "0001"
+  externalService:
+    enabled: false
+    type: LoadBalancer
+    ## @param service.loadBalancerSourceRanges Restricts access for LoadBalancer (only with `service.type: LoadBalancer`)
+    ## e.g:
+    ## loadBalancerSourceRanges:
+    ##   - 0.0.0.0/0
+    ##
+    loadBalancerSourceRanges: []
+    ## @param service.loadBalancerIP loadBalancerIP for the MME Service (optional, cloud specific)
+    ## ref: http://kubernetes.io/docs/user-guide/services/#type-loadbalancer
+    loadBalancerIP:
+    # external advertise name or IP
+    # Due to the implementation ofLoadBalancer, the source IP seen in the target container
+    # is not the original source IP of the client with default "Cluster" policy.
+    # To enable preservation of the client IP set this to "Local".
+    externalTrafficPolicy: Local
+
 
 sgwc:
   resources: {}
@@ -113,16 +132,39 @@ sgwu:
     no_ipv6: true
   max: {}
   pool: {}
+  externalService:
+    enabled: false
+    # set domain or ip accessible from enodeb.
+    # If not set, it is automagically set to SVC_NAME-ext.NAMESPACE.advertiseDomain
+    # advertise: "sgwu.openverso.org"
+    advertiseDomain: "ext.openverso.org"
+    type: LoadBalancer
+    ## @param service.loadBalancerSourceRanges Restricts access for LoadBalancer (only with `service.type: LoadBalancer`)
+    ## e.g:
+    ## loadBalancerSourceRanges:
+    ##   - 0.0.0.0/0
+    ##
+    loadBalancerSourceRanges: []
+    ## @param service.loadBalancerIP loadBalancerIP for the SGWU Service (optional, cloud specific)
+    ## ref: http://kubernetes.io/docs/user-guide/services/#type-loadbalancer
+    loadBalancerIP:
+    # external advertise name or IP
+    # Due to the implementation ofLoaBalancer, the source IP seen in the target container
+    # is not the original source IP of the client with default "Cluster" policy.
+    # To enable preservation of the client IP set this to "Local".
+    externalTrafficPolicy: Local
+
 
 amf:
   resources: {}
   logger:
     level: info
   parameter: {}
-  mcc: "001"
-  mnc: "01"
+  mcc: "901"
+  mnc: "70"
   tac: "0001"
   sst: "1"
+  sd: "1"
   region: "2"
   set: "1"
 

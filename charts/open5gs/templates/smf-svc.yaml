@@ -5,20 +5,19 @@ metadata:
   labels: {{- include "common.labels.standard" . | nindent 4 }}
     app.kubernetes.io/component: smf
 spec:
-  clusterIP: None
-  # ports:
-  # - name: gtp-c
-  #   port: 2123
-  #   protocol: UDP
-  # - name: pfcp
-  #   port: 8805
-  #   protocol: UDP
-  # - name: s6a
-  #   port: 3868
-  #   protocol: SCTP
-  # - name: sbi
-  #   port: 7777
-  #   protocol: TCP
+  ports:
+  - name: gtp-c
+    port: 2123
+    protocol: UDP
+  - name: pfcp
+    port: 8805
+    protocol: UDP
+  - name: s6a
+    port: 3868
+    protocol: SCTP
+  - name: sbi
+    port: 7777
+    protocol: TCP
   publishNotReadyAddresses: true
   selector: {{- include "common.labels.matchLabels" . | nindent 4 }}
     app.kubernetes.io/component: smf

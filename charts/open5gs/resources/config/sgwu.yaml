@@ -18,6 +18,13 @@ pool:
 sgwu:
   gtpu:
     dev: eth0
+    {{- if .Values.sgwu.externalService.enabled }}
+    {{- if .Values.sgwu.externalService.advertise }}
+    advertise: {{ .Values.sgwu.advertise }}
+    {{- else }}
+    advertise: {{ include "common.names.fullname" . }}-sgwu-ext.{{ .Release.Namespace }}.{{ .Values.sgwu.externalService.advertiseDomain }}
+    {{- end }}
+    {{- end }}
   pfcp:
     dev: eth0
 

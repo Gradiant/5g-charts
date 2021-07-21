@@ -18,3 +18,32 @@ spec:
   publishNotReadyAddresses: true
   selector: {{- include "common.labels.matchLabels" . | nindent 4 }}
     app.kubernetes.io/component: mme
+---
+{{- if .Values.mme.externalService.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "common.names.fullname" . }}-mme-ext
+  labels: {{- include "common.labels.standard" . | nindent 4 }}
+    app.kubernetes.io/component: mme
+spec:
+  type: {{ .Values.mme.externalService.type }}
+  sessionAffinity: {{ default "None" .Values.mme.externalService.sessionAffinity }}
+  {{- if and .Values.mme.externalService.clusterIP (eq .Values.mme.externalService.type "ClusterIP") }}
+  clusterIP: {{ .Values.mme.externalService.clusterIP }}
+  {{- end }}
+  {{- if and .Values.mme.externalService.loadBalancerIP (eq .Values.mme.externalService.type "LoadBalancer") }}
+  loadBalancerIP: {{ .Values.mme.externalService.loadBalancerIP }}
+  {{- end }}
+  {{- if and (eq .Values.mme.externalService.type "LoadBalancer") .Values.mme.externalService.externalTrafficPolicy }}
+  externalTrafficPolicy: {{ .Values.mme.externalService.externalTrafficPolicy }}
+  {{- end }}
+
+  ports:
+  - name: s1ap
+    port: 36412
+    protocol: SCTP
+  publishNotReadyAddresses: true
+  selector: {{- include "common.labels.matchLabels" . | nindent 4 }}
+    app.kubernetes.io/component: mme
+{{- end }}
