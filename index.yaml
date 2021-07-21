@@ -23,6 +23,35 @@ entries:
   open5gs:
   - apiVersion: v2
     appVersion: 2.2.3
+    created: "2021-07-21T11:49:59.282228807Z"
+    dependencies:
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 1.x.x
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: https://charts.bitnami.com/bitnami
+      version: ~9.2.2
+    description: 'Helm chart to deploy Open5gs services on Kubernetes. '
+    digest: ecad9f0f0c98ac9ba54c19d3ac747b9715a0c272a82a533b24efe587676c64c8
+    home: https://github.com/gradiant/openverso-charts
+    icon: https://open5gs.org/assets/img/open5gs_logo.png
+    keywords:
+    - epc
+    - ngc
+    maintainers:
+    - email: cgiraldo@gradiant.org
+      name: cgiraldo
+    name: open5gs
+    sources:
+    - http://open5gs.org
+    urls:
+    - https://github.com/Gradiant/openverso-charts/releases/download/open5gs-0.2.1/open5gs-0.2.1.tgz
+    version: 0.2.1
+  - apiVersion: v2
+    appVersion: 2.2.3
     created: "2021-07-01T09:43:17.671464139Z"
     dependencies:
     - name: common
@@ -212,4 +241,4 @@ entries:
     urls:
     - https://github.com/Gradiant/openverso-charts/releases/download/srs-ue-0.1.0/srs-ue-0.1.0.tgz
     version: 0.1.0
-generated: "2021-07-01T09:43:17.67148744Z"
+generated: "2021-07-21T11:49:59.282417008Z"
