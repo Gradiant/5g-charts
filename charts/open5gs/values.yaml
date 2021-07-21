@@ -95,7 +95,7 @@ mme:
   mnc: "70"
   tac: "0001"
   externalService:
-    enabled: true
+    enabled: false
     type: LoadBalancer
     ## @param service.loadBalancerSourceRanges Restricts access for LoadBalancer (only with `service.type: LoadBalancer`)
     ## e.g:
@@ -133,7 +133,7 @@ sgwu:
   max: {}
   pool: {}
   externalService:
-    enabled: true
+    enabled: false
     # set domain or ip accessible from enodeb.
     # If not set, it is automagically set to SVC_NAME-ext.NAMESPACE.advertiseDomain
     # advertise: "sgwu.openverso.org"
