@@ -1,6 +1,6 @@
 # open5gs
 
-![Version: 0.2.0](https://img.shields.io/badge/Version-0.2.0-informational?style=flat-square) ![AppVersion: 2.2.3](https://img.shields.io/badge/AppVersion-2.2.3-informational?style=flat-square)
+![Version: 0.2.1](https://img.shields.io/badge/Version-0.2.1-informational?style=flat-square) ![AppVersion: 2.2.3](https://img.shields.io/badge/AppVersion-2.2.3-informational?style=flat-square)
 
 Helm chart to deploy Open5gs services on Kubernetes.
 
@@ -20,6 +20,7 @@ Helm chart to deploy Open5gs services on Kubernetes.
 
 | Repository | Name | Version |
 |------------|------|---------|
+| https://charts.bitnami.com/bitnami | common | 1.x.x |
 | https://charts.bitnami.com/bitnami | mongodb | ~9.2.2 |
 
 ## Values
@@ -27,11 +28,12 @@ Helm chart to deploy Open5gs services on Kubernetes.
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | amf.logger.level | string | `"info"` |  |
-| amf.mcc | string | `"001"` |  |
-| amf.mnc | string | `"01"` |  |
+| amf.mcc | string | `"901"` |  |
+| amf.mnc | string | `"70"` |  |
 | amf.parameter | object | `{}` |  |
 | amf.region | string | `"2"` |  |
 | amf.resources | object | `{}` |  |
+| amf.sd | string | `"1"` |  |
 | amf.set | string | `"1"` |  |
 | amf.sst | string | `"1"` |  |
 | amf.tac | string | `"0001"` |  |
@@ -44,9 +46,14 @@ Helm chart to deploy Open5gs services on Kubernetes.
 | image.registry | string | `"docker.io"` |  |
 | image.repository | string | `"openverso/open5gs"` |  |
 | image.tag | string | `"2.2.3"` |  |
+| mme.externalService.enabled | bool | `true` |  |
+| mme.externalService.externalTrafficPolicy | string | `"Local"` |  |
+| mme.externalService.loadBalancerIP | string | `nil` |  |
+| mme.externalService.loadBalancerSourceRanges | list | `[]` |  |
+| mme.externalService.type | string | `"LoadBalancer"` |  |
 | mme.logger.level | string | `"info"` |  |
-| mme.mcc | string | `"001"` |  |
-| mme.mnc | string | `"01"` |  |
+| mme.mcc | string | `"901"` |  |
+| mme.mnc | string | `"70"` |  |
 | mme.parameter | object | `{}` |  |
 | mme.resources | object | `{}` |  |
 | mme.tac | string | `"0001"` |  |
@@ -70,6 +77,12 @@ Helm chart to deploy Open5gs services on Kubernetes.
 | sgwc.parameter.no_ipv6 | bool | `true` |  |
 | sgwc.pool | object | `{}` |  |
 | sgwc.resources | object | `{}` |  |
+| sgwu.externalService.advertiseDomain | string | `"ext.openverso.org"` |  |
+| sgwu.externalService.enabled | bool | `true` |  |
+| sgwu.externalService.externalTrafficPolicy | string | `"Local"` |  |
+| sgwu.externalService.loadBalancerIP | string | `nil` |  |
+| sgwu.externalService.loadBalancerSourceRanges | list | `[]` |  |
+| sgwu.externalService.type | string | `"LoadBalancer"` |  |
 | sgwu.logger.level | string | `"info"` |  |
 | sgwu.max | object | `{}` |  |
 | sgwu.parameter.no_ipv6 | bool | `true` |  |
@@ -95,8 +108,8 @@ Helm chart to deploy Open5gs services on Kubernetes.
 | webui.image.tag | string | `"2.2.3"` |  |
 | webui.ingress.annotations | object | `{}` |  |
 | webui.ingress.certManager | bool | `false` |  |
-| webui.ingress.enabled | bool | `false` |  |
-| webui.ingress.hostname | string | `"open5gs.local"` |  |
+| webui.ingress.enabled | bool | `true` |  |
+| webui.ingress.hostname | string | `"open5gs.ingress.openverso.org"` |  |
 | webui.ingress.path | string | `"/"` |  |
 | webui.ingress.pathType | string | `"ImplementationSpecific"` |  |
 | webui.ingress.tls | bool | `false` |  |

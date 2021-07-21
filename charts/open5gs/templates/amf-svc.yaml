@@ -11,7 +11,7 @@ spec:
     protocol: TCP
   - name: ngap 
     port: 38412
-    protocol: UDP
+    protocol: SCTP
 
   publishNotReadyAddresses: true
   selector: {{- include "common.labels.matchLabels" . | nindent 4 }}
