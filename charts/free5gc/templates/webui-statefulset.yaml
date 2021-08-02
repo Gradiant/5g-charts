@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ include "common.names.fullname" . }}-webui
+  labels: {{- include "common.labels.standard" . | nindent 4 }}
+    app.kubernetes.io/component: webui
+spec:
+  replicas: 1
+  selector:
+    matchLabels: {{ include "common.labels.matchLabels" . | nindent 6 }}
+      app.kubernetes.io/component: webui
+  serviceName: {{ template "common.names.fullname" . }}-webui
+  template:
+    metadata:
+      labels: {{- include "common.labels.standard" . | nindent 8 }}
+        app.kubernetes.io/component: webui
+    spec:
+{{ include "free5gc.imagePullSecrets" . | nindent 6 }}
+      initContainers:
+      - name: wait-mongo
+        image: busybox:1.28
+        env:
+        - name: DEPENDENCIES
+          value: {{ .Release.Name }}-mongodb:27017
+        command: ["sh", "-c", "sleep 5;"]
+      containers:
+      - name: webui
+        image: {{ template "free5gc.webui.image" . }}
+        imagePullPolicy: {{ .Values.webui.image.pullPolicy | quote   }}
+        ports:
+        - name: http
+          containerPort: 5000
+          protocol: TCP
+        readinessProbe:
+          httpGet:
+            path: /                                                   
+            port: http
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        livenessProbe:
+          httpGet:
+            path: /                                                   
+            port: http
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        volumeMounts:
+        - name: webui-config
+          mountPath: /etc/free5gc/webuicfg.yaml
+          subPath: "webuicfg.yaml"
+      volumes:
+      - name: webui-config
+        configMap:
+          name: {{ include "common.names.fullname" . }}-webui

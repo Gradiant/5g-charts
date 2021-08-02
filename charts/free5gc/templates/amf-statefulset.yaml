@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ include "common.names.fullname" . }}-amf
+  labels: {{- include "common.labels.standard" . | nindent 4 }}
+    app.kubernetes.io/component: amf
+spec:
+  replicas: 1
+  selector:
+    matchLabels: {{ include "common.labels.matchLabels" . | nindent 6 }}
+      app.kubernetes.io/component: amf
+  serviceName: {{ include "common.names.fullname" . }}-amf
+  template:
+    metadata:
+      labels: {{- include "common.labels.standard" . | nindent 8 }}
+        app.kubernetes.io/component: amf
+    spec:
+{{ include "free5gc.imagePullSecrets" . | nindent 6 }}
+      initContainers:
+      - name: wait-nrf
+        image: busybox:1.28
+        env:
+        - name: DEPENDENCIES
+          value: http://{{ include "common.names.fullname" . }}-nrf
+        command: ['sh', '-c', 'set -x; sleep 45;']
+      containers:
+      - name: amf
+        image: {{ template "free5gc.image" . }}
+        imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
+        command: ["amf", "-amfcfg", "/etc/free5gc/amfcfg.yaml"]
+        ports:
+        - name: http
+          containerPort: 8000
+        - name: n2
+          containerPort: 38412
+          protocol: SCTP
+        volumeMounts:
+        - name: amf-config
+          mountPath: /etc/free5gc/amfcfg.yaml
+          subPath: "amfcfg.yaml"
+      volumes:
+      - name: amf-config
+        configMap:
+          name: {{ include "common.names.fullname" . }}-amf

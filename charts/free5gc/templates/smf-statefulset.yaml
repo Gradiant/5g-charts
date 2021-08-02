@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ include "common.names.fullname" . }}-smf
+  labels: {{- include "common.labels.standard" . | nindent 4 }}
+    app.kubernetes.io/component: smf
+spec:
+  replicas: 1
+  selector:
+    matchLabels: {{ include "common.labels.matchLabels" . | nindent 6 }}
+      app.kubernetes.io/component: smf
+  serviceName: {{ template "common.names.fullname" . }}-smf
+  template:
+    metadata:
+      labels: {{- include "common.labels.standard" . | nindent 8 }}
+        app.kubernetes.io/component: smf
+    spec:
+{{ include "free5gc.imagePullSecrets" . | nindent 6 }}
+      initContainers:
+      - name: wait-nrf
+        image: busybox:1.28
+        env:
+        - name: DEPENDENCIES
+          value: http://{{ include "common.names.fullname" . }}-nrf
+        command: ['sh', '-c', 'set -x; sleep 45;']
+      containers:
+      - name: smf
+        image: {{ template "free5gc.image" . }}
+        imagePullPolicy: {{ .Values.image.pullPolicy | quote  }}
+        command: ["smf", "--smfcfg","/etc/free5gc/smfcfg.yaml", "--uerouting", "/etc/free5gc/uerouting.yaml"]
+        ports:
+        - name: http
+          containerPort: 8000
+        - name: pfcp
+          containerPort: 8805
+          protocol: UDP
+        volumeMounts:
+        - name: smf-config
+          mountPath: /etc/free5gc/smfcfg.yaml
+          subPath: "smfcfg.yaml"
+        - name: uerouting
+          mountPath: /etc/free5gc/uerouting.yaml
+          subPath: "uerouting.yaml"
+      volumes:
+      - name: smf-config
+        configMap:
+          name: {{ include "common.names.fullname" . }}-smf
+      - name: uerouting
+        configMap:
+          name: {{ include "common.names.fullname" . }}-uerouting

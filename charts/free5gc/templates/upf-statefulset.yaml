@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ include "common.names.fullname" . }}-upf
+  labels: {{- include "common.labels.standard" . | nindent 4 }}
+    app.kubernetes.io/component: upf
+spec:
+  replicas: 1
+  selector:
+    matchLabels: {{ include "common.labels.matchLabels" . | nindent 6 }}
+      app.kubernetes.io/component: upf
+  serviceName: {{ template "common.names.fullname" . }}-upf
+  template:
+    metadata:
+      labels: {{- include "common.labels.standard" . | nindent 8 }}
+        app.kubernetes.io/component: upf
+    spec:
+{{ include "free5gc.imagePullSecrets" . | nindent 6 }}
+      containers:
+      - name: upf
+        image: {{ template "free5gc.image" . }}
+        imagePullPolicy: {{ .Values.image.pullPolicy | quote  }}
+        command: ["upf", "-f", "/etc/free5gc/upfcfg.yaml"]
+        securityContext:
+          privileged: true
+          capabilities:
+            add: ["NET_ADMIN"]
+        ports:
+        - name: n4
+          containerPort: 8805
+          protocol: UDP
+        volumeMounts:
+        - name: upf-config
+          mountPath: /etc/free5gc/upfcfg.yaml
+          subPath: "upfcfg.yaml"
+      volumes:
+      - name: upf-config
+        configMap:
+          name: {{ include "common.names.fullname" . }}-upf

@@ -1,0 +1,152 @@
+image:
+  registry: docker.io
+  repository: openverso/free5gc
+  tag: 3.0.5
+  ## Specify a imagePullPolicy
+  ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
+  ## ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
+  ##
+  pullPolicy: IfNotPresent
+  ## Optionally specify an array of imagePullSecrets.
+  ## Secrets must be manually created in the namespace.
+  ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
+  ## e.g:
+  ## pullSecrets:
+  ##   - myRegistryKeySecretName
+  ##
+  pullSecrets: []
+  ## Enable debug mode
+  ##
+  debug: false
+
+webui:
+  image:
+    registry: docker.io
+    repository: openverso/free5gc-webui
+    tag: 1.0.1
+    ## Specify a imagePullPolicy
+    ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
+    ## ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
+    ##
+    pullPolicy: IfNotPresent
+    ## Optionally specify an array of imagePullSecrets.
+    ## Secrets must be manually created in the namespace.
+    ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
+    ##
+    # pullSecrets: []
+  resources: {}
+  ingress:
+
+    ## Set to true to enable ingress record generation
+    ##
+    enabled: true
+
+    ## Set this to true in order to add the corresponding annotations for cert-manager
+    ##
+    certManager: false
+
+    ## Ingress Path type
+    ##
+    pathType: ImplementationSpecific
+
+    ## When the ingress is enabled, a host pointing to this will be created
+    ##
+    hostname: free5gc.ingress.openverso.org
+
+    ## The Path to open5gs webui. You may need to set this to '/*' in order to use this
+    ## with ALB ingress controllers.
+    ##
+    path: /
+
+    ## Ingress annotations done as key:value pairs
+    ## For a full list of possible ingress annotations, please see
+    ## ref: https://github.com/kubernetes/ingress-nginx/blob/master/docs/user-guide/nginx-configuration/annotations.md
+    ##
+    ## If certManager is set to true, annotation kubernetes.io/tls-acme: "true" will automatically be set
+    ##
+    annotations: {}
+    ## Enable TLS configuration for the hostname defined at ingress.hostname parameter
+    ## TLS certificates will be retrieved from a TLS secret with name: {{- printf "%s-tls" .Values.webui.ingress.hostname }}
+    ## You can use the ingress.secrets parameter to create this TLS secret or relay on cert-manager to create it
+    ##
+    tls: false
+
+global:
+  mcc: "208"
+  mnc: "93"
+  tac: "1"
+  sst: "1"
+  sd: "010203"
+  region: "2"
+  set: "1"
+  ueSubnet: 10.45.0.0/16
+
+amf:
+  resources: {}
+  logger:
+    level: info
+  parameter: {}
+
+smf:
+  resources: {}
+  logger:
+    level: info
+  parameter: {}
+
+upf:
+  resources: {}
+  logger:
+    level: info
+  parameter: {}
+
+nrf:
+  resources: {}
+  logger:
+    level: info
+  parameter: {}
+
+udr:
+  resources: {}
+  logger:
+    level: info
+  parameter: {}
+
+udm:
+  resources: {}
+  logger:
+    level: info
+  parameter: {}
+
+ausf:
+  resources: {}
+  logger:
+    level: info
+  parameter: {}
+
+nssf:
+  resources: {}
+  logger:
+    level: info
+  parameter: {}
+  
+pcf:
+  resources: {}
+  logger:
+    level: info
+  parameter: {}
+
+
+# db_uri: -- default is "{{.Release.Name}}-mongodb/open5gs"
+
+# mongodb -- pass vars towards mongodb chart, from dependencies
+mongodb:
+  # mongodb.enabled -- set to 'false' to disable automatically deploying dependent charts
+  enabled: true
+  # not needed if .Values.mongodb.enabled: true since fields are automatically filled up.
+  db_uri: mongodb
+  useStatefulSet: true
+  auth:
+    enabled: false
+
+securityPolicy:
+  enabled: false

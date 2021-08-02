@@ -1,0 +1,12 @@
+info:
+  version: 1.0.1
+  description: WebUI initial local configuration
+
+configuration:
+  mongodb: # the mongodb connected by this webconsole
+    name: free5gc # name of the mongodb
+    {{- if .Values.mongodb.enabled }}
+    url: mongodb://{{ .Release.Name }}-mongodb
+    {{- else }}
+    url: {{ .Values.mongodb.db_uri }}
+    {{- end  }}

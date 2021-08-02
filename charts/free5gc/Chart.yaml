@@ -1,0 +1,26 @@
+apiVersion: v2
+appVersion: 3.0.5
+description: >
+  Helm chart to deploy free5gc services on Kubernetes.
+home: https://github.com/gradiant/openverso-charts
+sources:
+  - https://www.free5gc.org/
+icon: https://www.free5gc.org/img/free5GC.png
+maintainers:
+- email: cgiraldo@gradiant.org
+  name: cgiraldo
+keywords:
+  - 5gc
+name: free5gc
+version: 0.1.0
+dependencies:
+  - name: common
+    repository: https://charts.bitnami.com/bitnami
+    tags:
+      - bitnami-common
+    version: 1.x.x
+  - name: mongodb
+    version: ~9.2.2
+    repository: https://charts.bitnami.com/bitnami
+    condition: mongodb.enabled
+

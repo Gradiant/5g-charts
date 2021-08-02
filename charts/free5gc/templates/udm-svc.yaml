@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "common.names.fullname" . }}-udm
+  labels: {{- include "common.labels.standard" . | nindent 4 }}
+    app.kubernetes.io/component: udm
+spec:
+  clusterIP: None
+  ports:
+    - name: http
+      port: 8000
+  
+  publishNotReadyAddresses: true
+  selector: {{- include "common.labels.matchLabels" . | nindent 4 }}
+    app.kubernetes.io/component: udm
