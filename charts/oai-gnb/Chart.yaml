@@ -1,0 +1,26 @@
+annotations:
+  category: apps
+apiVersion: v2
+appVersion: 2021.w32
+dependencies:
+  - name: common
+    repository: https://charts.bitnami.com/bitnami
+    tags:
+      - bitnami-common
+    version: 1.x.x
+description: description
+engine: gotpl
+home: source_url
+icon: image_url
+keywords:
+  - apps
+  - gradiant
+  - k8s
+maintainers:
+  - email: admin@gradiant.org
+    name: Gradiant
+name: oai-gnb
+sources:
+  - source_url
+version: 0.2.0
+
