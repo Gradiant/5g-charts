@@ -64,7 +64,6 @@ image:
 
 replicaCount: 1
 
-
 gnb:
   gnbName: Gradiant
   mcc: '901'

@@ -10,8 +10,8 @@ dependencies:
     version: 1.x.x
 description: description
 engine: gotpl
-home: source_url
-icon: image_url
+home: https://openairinterface.org/
+icon: https://openairinterface.org/wp-content/uploads/2020/11/cropped-android-chrome-512x512-1-270x270.png
 keywords:
   - apps
   - gradiant
@@ -21,6 +21,5 @@ maintainers:
     name: Gradiant
 name: oai-gnb
 sources:
-  - source_url
+  - https://gitlab.eurecom.fr/oai/openairinterface5g/
 version: 0.2.0
-
