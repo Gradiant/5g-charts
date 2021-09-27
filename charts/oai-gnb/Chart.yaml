@@ -1,0 +1,25 @@
+annotations:
+  category: apps
+apiVersion: v2
+appVersion: 2021.w32
+dependencies:
+  - name: common
+    repository: https://charts.bitnami.com/bitnami
+    tags:
+      - bitnami-common
+    version: 1.x.x
+description: description
+engine: gotpl
+home: https://openairinterface.org/
+icon: https://openairinterface.org/wp-content/uploads/2020/11/cropped-android-chrome-512x512-1-270x270.png
+keywords:
+  - apps
+  - gradiant
+  - k8s
+maintainers:
+  - email: admin@gradiant.org
+    name: Gradiant
+name: oai-gnb
+sources:
+  - https://gitlab.eurecom.fr/oai/openairinterface5g/
+version: 0.2.0
