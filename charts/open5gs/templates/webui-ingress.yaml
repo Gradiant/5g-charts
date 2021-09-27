@@ -12,8 +12,7 @@ metadata:
 
 spec:
   rules:
-    {{- if .Values.webui.ingress.hostname }}
-    - host: {{ .Values.webui.ingress.hostname }}
+    - host: {{ .Values.webui.ingress.hostname | default (printf "%s-%s.ingress.openverso.org" .Release.Name .Release.Namespace) }}
       http:
         paths:
           - path: {{ .Values.webui.ingress.path }}
@@ -23,11 +22,10 @@ spec:
                 name: {{ include "common.names.fullname" $ }}-webui
                 port: 
                   name: http
-    {{- end }}
   {{- if .Values.webui.ingress.tls }}
   tls:
     - hosts:
-        - {{ .Values.webui.ingress.hostname }}
+        - {{ .Values.webui.ingress.hostname | default (printf "%s-%s.ingress.openverso.org" .Release.Name .Release.Namespace) }}
       secretName: {{ printf "%s-tls" .Values.webui.ingress.hostname }}
   {{- end }}
 

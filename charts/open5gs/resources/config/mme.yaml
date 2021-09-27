@@ -24,16 +24,9 @@ mme:
   gtpc:
     dev: eth0
   gummei:
-    plmn_id:
-      mcc: {{ .Values.mme.mcc }}
-      mnc: {{ .Values.mme.mnc }}
-    mme_gid: 2
-    mme_code: 1
+{{ toYaml .Values.amf.gummei | indent 4 }}
   tai:
-    plmn_id:
-      mcc: {{ .Values.mme.mcc }}
-      mnc: {{ .Values.mme.mnc }}
-    tac: {{ .Values.mme.tac }}
+{{ toYaml .Values.amf.tai | indent 4 }}
   security:
       integrity_order : [ EIA1, EIA2, EIA0 ]
       ciphering_order : [ EEA0, EEA1, EEA2 ]
