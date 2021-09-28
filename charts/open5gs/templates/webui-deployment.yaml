@@ -34,14 +34,14 @@ spec:
           httpGet:
             path: /                                                   
             port: http
-          initialDelaySeconds: 30
-          periodSeconds: 10
+          initialDelaySeconds: 5
+          periodSeconds: 5
         livenessProbe:
           httpGet:
             path: /                                                   
             port: http
-          initialDelaySeconds: 30
-          periodSeconds: 10
+          initialDelaySeconds: 5
+          periodSeconds: 5
         resources:
 {{ toYaml .Values.webui.resources | indent 10 }}
-      terminationGracePeriodSeconds: 30
+      terminationGracePeriodSeconds: 0
