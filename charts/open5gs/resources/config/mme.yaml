@@ -24,9 +24,9 @@ mme:
   gtpc:
     dev: eth0
   gummei:
-{{ toYaml .Values.amf.gummei | indent 4 }}
+{{ toYaml .Values.mme.gummei | indent 4 }}
   tai:
-{{ toYaml .Values.amf.tai | indent 4 }}
+{{ toYaml .Values.mme.tai | indent 4 }}
   security:
       integrity_order : [ EIA1, EIA2, EIA0 ]
       ciphering_order : [ EEA0, EEA1, EEA2 ]
