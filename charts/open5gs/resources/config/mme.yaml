@@ -31,7 +31,7 @@ mme:
       integrity_order : [ EIA1, EIA2, EIA0 ]
       ciphering_order : [ EEA0, EEA1, EEA2 ]
   network_name:
-      full: Open5GS
+      full: Gradiant4G
 
 sgwc:
   gtpc:
