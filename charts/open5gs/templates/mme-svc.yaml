@@ -1,3 +1,4 @@
+{{- if .Values.mme.enabled -}}
 apiVersion: v1
 kind: Service
 metadata:
@@ -46,4 +47,5 @@ spec:
   publishNotReadyAddresses: true
   selector: {{- include "common.labels.matchLabels" . | nindent 4 }}
     app.kubernetes.io/component: mme
+{{- end }}
 {{- end }}

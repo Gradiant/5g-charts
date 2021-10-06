@@ -1,3 +1,4 @@
+{{- if .Values.mme.enabled -}}
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -7,3 +8,4 @@ metadata:
 data:
   diameter-mme.conf: |-
 {{ tpl (.Files.Get "resources/config/diameter-mme.conf") . | indent 4 }}
+{{- end }}

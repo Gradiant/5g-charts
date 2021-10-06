@@ -1,3 +1,4 @@
+{{- if .Values.mme.enabled -}}
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
@@ -51,3 +52,4 @@ spec:
       - name: mme-diameter-config
         configMap:
           name: {{ include "common.names.fullname" . }}-mme-diameter
+{{- end }}

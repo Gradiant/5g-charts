@@ -8,7 +8,9 @@ parameter:
 {{- end }}
 
 smf:
+  {{- if .Values.pcrf.enabled }}
   freeDiameter: smf.conf
+  {{- end }}
   sbi:
     dev: eth0
     port: 7777

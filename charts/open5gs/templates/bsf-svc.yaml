@@ -1,10 +1,10 @@
-{{- if .Values.ausf.enabled -}}
+{{- if .Values.bsf.enabled -}}
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "common.names.fullname" . }}-ausf
+  name: {{ include "common.names.fullname" . }}-bsf
   labels: {{- include "common.labels.standard" . | nindent 4 }}
-    app.kubernetes.io/component: ausf
+    app.kubernetes.io/component: bsf
 spec:
   ports:
   - name: sbi
@@ -13,5 +13,5 @@ spec:
 
   publishNotReadyAddresses: true
   selector: {{- include "common.labels.matchLabels" . | nindent 4 }}
-    app.kubernetes.io/component: ausf
+    app.kubernetes.io/component: bsf
 {{- end }}

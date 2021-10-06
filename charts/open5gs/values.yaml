@@ -42,6 +42,7 @@ webui:
     ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
     ##
     # pullSecrets: []
+  enabled: true
   resources: {}
   ingress:
 
@@ -80,6 +81,7 @@ webui:
     tls: false
 
 hss:
+  enabled: false
   resources: {}
   ### For reference, see `open5gs.yaml`
   logger:
@@ -87,6 +89,7 @@ hss:
     # domain: core,diameter
 
 mme:
+  enabled: false
   resources: {}
   logger:
     level: info
@@ -123,6 +126,7 @@ mme:
 
 
 sgwc:
+  enabled: false
   resources: {}
   logger:
     level: info
@@ -133,6 +137,7 @@ sgwc:
   pool: {}
 
 sgwu:
+  enabled: false
   resources: {}
   logger:
     level: info
@@ -164,6 +169,7 @@ sgwu:
     externalTrafficPolicy: Local
 
 amf:
+  enabled: true
   resources: {}
   logger:
     level: info
@@ -187,7 +193,27 @@ amf:
     s_nssai:
       - sst: 1
         sd: 0
+  externalService:
+    enabled: false
+    advertiseDomain: "ext.openverso.org"
+    type: LoadBalancer
+    ## @param service.loadBalancerSourceRanges Restricts access for LoadBalancer (only with `service.type: LoadBalancer`)
+    ## e.g:
+    ## loadBalancerSourceRanges:
+    ##   - 0.0.0.0/0
+    ##
+    loadBalancerSourceRanges: []
+    ## @param service.loadBalancerIP loadBalancerIP for the MME Service (optional, cloud specific)
+    ## ref: http://kubernetes.io/docs/user-guide/services/#type-loadbalancer
+    loadBalancerIP:
+    # external advertise name or IP
+    # Due to the implementation ofLoadBalancer, the source IP seen in the target container
+    # is not the original source IP of the client with default "Cluster" policy.
+    # To enable preservation of the client IP set this to "Local".
+    externalTrafficPolicy: Local
+
 smf:
+  enabled: true
   resources: {}
   logger:
     level: info
@@ -196,50 +222,86 @@ smf:
     addr: 10.45.0.1/16
 
 upf:
+  enabled: true
   resources: {}
   logger:
     level: info
   parameter: {}
   pdn:
     addr: 10.45.0.1/16
+  externalService:
+    enabled: false
+    # set domain or ip accessible from enodeb.
+    # If not set, it is automagically set to SVC_NAME-ext.NAMESPACE.advertiseDomain
+    # advertise: "sgwu.openverso.org"
+    advertiseDomain: "ext.openverso.org"
+    type: LoadBalancer
+    ## @param service.loadBalancerSourceRanges Restricts access for LoadBalancer (only with `service.type: LoadBalancer`)
+    ## e.g:
+    ## loadBalancerSourceRanges:
+    ##   - 0.0.0.0/0
+    ##
+    loadBalancerSourceRanges: []
+    ## @param service.loadBalancerIP loadBalancerIP for the SGWU Service (optional, cloud specific)
+    ## ref: http://kubernetes.io/docs/user-guide/services/#type-loadbalancer
+    loadBalancerIP:
+    # external advertise name or IP
+    # Due to the implementation ofLoaBalancer, the source IP seen in the target container
+    # is not the original source IP of the client with default "Cluster" policy.
+    # To enable preservation of the client IP set this to "Local".
+    externalTrafficPolicy: Local
 
 nrf:
+  enabled: true
   resources: {}
   logger:
     level: info
   parameter: {}
 
 udr:
+  enabled: true
   resources: {}
   logger:
     level: info
   parameter: {}
 
 udm:
+  enabled: true
   resources: {}
   logger:
     level: info
   parameter: {}
 
 ausf:
+  enabled: true
   resources: {}
   logger:
     level: info
   parameter: {}
 
 nssf:
+  enabled: true
+  resources: {}
+  logger:
+    level: info
+  parameter: {}
+
+bsf:
+  enabled: true
   resources: {}
   logger:
     level: info
   parameter: {}
 
 pcf:
+  enabled: true
   resources: {}
   logger:
     level: info
   parameter: {}
 
 pcrf:
+  enabled: false
   resources: {}
   logger:
     level: info

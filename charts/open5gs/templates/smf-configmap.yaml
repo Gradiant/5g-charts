@@ -1,3 +1,4 @@
+{{- if .Values.smf.enabled -}}
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -7,3 +8,4 @@ metadata:
 data:
   smf.yaml: |
 {{ tpl (.Files.Get "resources/config/smf.yaml") . | indent 4 }}
+{{- end }}

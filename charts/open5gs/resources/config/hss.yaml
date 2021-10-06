@@ -5,4 +5,6 @@ parameter:
 {{ toYaml .Values.hss.parameter | indent 2 }}
 {{- end }}
 hss:
+  {{- if .Values.mme.enabled }}
   freeDiameter: hss.conf
+  {{- end }}
