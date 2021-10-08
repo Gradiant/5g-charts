@@ -1,3 +1,4 @@
+{{- if .Values.nrf.enabled -}}
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
@@ -45,4 +46,4 @@ spec:
       - name: nrf-config
         configMap:
           name: {{ include "common.names.fullname" . }}-nrf
-
+{{- end }}

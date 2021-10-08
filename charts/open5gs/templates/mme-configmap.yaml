@@ -1,3 +1,4 @@
+{{- if .Values.mme.enabled -}}
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -7,3 +8,4 @@ metadata:
 data:
   mme.yaml: |
 {{ tpl (.Files.Get "resources/config/mme.yaml") . | indent 4 }}
+{{- end }}

@@ -37,6 +37,8 @@ sgwc:
   gtpc:
     - name: "{{ include "common.names.fullname" . }}-sgwc"
 
+{{- if .Values.smf.enabled }}
 smf:
   gtpc:
     - name: "{{ include "common.names.fullname" . }}-smf"
+{{- end }}

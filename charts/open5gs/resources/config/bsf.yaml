@@ -1,0 +1,28 @@
+logger:
+{{ toYaml .Values.amf.logger | indent 2 }}
+
+{{- if .Values.amf.parameter }}
+parameter:
+{{ toYaml .Values.amf.parameter | indent 2 }}
+{{- end }}
+
+{{- if .Values.amf.max }}
+max:
+{{ toYaml .Values.amf.max | indent 2 }}
+{{- end }}
+
+{{- if .Values.amf.pool }}
+pool:
+{{ toYaml .Values.amf.pool | indent 2 }}
+{{- end }}
+
+
+bsf:
+  sbi:
+    dev: eth0
+    port: 7777
+
+nrf:
+  sbi:
+    - name: "{{ include "common.names.fullname" . }}-nrf"
+      port: 7777

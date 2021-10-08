@@ -1,3 +1,4 @@
+{{- if .Values.nssf.enabled -}}
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -7,3 +8,4 @@ metadata:
 data:
   nssf.yaml: |
 {{ tpl (.Files.Get "resources/config/nssf.yaml") . | indent 4 }}
+{{- end }}

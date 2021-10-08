@@ -1,3 +1,4 @@
+{{- if .Values.hss.enabled -}}
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
@@ -82,3 +83,4 @@ spec:
       #- name: init-certs
       #  configMap:
       #    name: {{ include "common.names.fullname" . }}-init-certs
+{{- end }}

@@ -6,4 +6,6 @@ parameter:
 {{- end }}
 
 pcrf:
+  {{- if .Values.smf.enabled }}
   freeDiameter: pcrf.conf
+  {{- end }}

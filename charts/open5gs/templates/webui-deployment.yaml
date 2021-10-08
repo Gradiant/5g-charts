@@ -1,3 +1,4 @@
+{{- if .Values.webui.enabled -}}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -60,3 +61,4 @@ spec:
       - name: populate
         configMap:
           name: {{ include "common.names.fullname" . }}-webui
+{{- end }}
