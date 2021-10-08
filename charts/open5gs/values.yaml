@@ -81,7 +81,7 @@ webui:
     tls: false
 
 hss:
-  enabled: false
+  enabled: true
   resources: {}
   ### For reference, see `open5gs.yaml`
   logger:
@@ -89,7 +89,7 @@ hss:
     # domain: core,diameter
 
 mme:
-  enabled: false
+  enabled: true
   resources: {}
   logger:
     level: info
@@ -107,7 +107,7 @@ mme:
     tac: 1
 
   externalService:
-    enabled: true
+    enabled: false
     type: LoadBalancer
     ## @param service.loadBalancerSourceRanges Restricts access for LoadBalancer (only with `service.type: LoadBalancer`)
     ## e.g:
@@ -126,7 +126,7 @@ mme:
 
 
 sgwc:
-  enabled: false
+  enabled: true
   resources: {}
   logger:
     level: info
@@ -137,7 +137,7 @@ sgwc:
   pool: {}
 
 sgwu:
-  enabled: false
+  enabled: true
   resources: {}
   logger:
     level: info
@@ -191,8 +191,8 @@ amf:
       mcc: 901
       mnc: 70
     s_nssai:
-      - sst: 1
-        sd: 0
+      - sst: "1"
+        sd: "ffffff"
   externalService:
     enabled: false
     advertiseDomain: "ext.openverso.org"
@@ -285,6 +285,9 @@ nssf:
   logger:
     level: info
   parameter: {}
+  nsi:
+  - sst: "1"
+    sd: "ffffff"
 
 bsf:
   enabled: true
@@ -301,7 +304,7 @@ pcf:
   parameter: {}
 
 pcrf:
-  enabled: false
+  enabled: true
   resources: {}
   logger:
     level: info
