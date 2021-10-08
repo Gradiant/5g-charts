@@ -12,12 +12,12 @@ nssf:
     dev: eth0
     port: 7777
   nsi:
-    - name: "{{ include "common.names.fullname" . }}-nrf"
+    {{- range .Values.nssf.nsi }}  
+    - name: "{{ include "common.names.fullname" $ }}-nrf"
       port: 7777
       s_nssai:
-        sst: 1
-
-
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
 nrf:
   sbi:
     - name: "{{ include "common.names.fullname" . }}-nrf"

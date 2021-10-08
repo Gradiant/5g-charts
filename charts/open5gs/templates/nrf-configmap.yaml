@@ -1,3 +1,4 @@
+{{- if .Values.nrf.enabled -}}
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -7,3 +8,4 @@ metadata:
 data:
   nrf.yaml: |
 {{ tpl (.Files.Get "resources/config/nrf.yaml") . | indent 4 }}
+{{- end }}

@@ -1,3 +1,4 @@
+{{- if .Values.udr.enabled -}}
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
@@ -52,4 +53,4 @@ spec:
       - name: udr-config
         configMap:
           name: {{ include "common.names.fullname" . }}-udr
-
+{{- end }}

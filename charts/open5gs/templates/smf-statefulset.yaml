@@ -1,3 +1,4 @@
+{{- if .Values.smf.enabled -}}
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
@@ -63,3 +64,4 @@ spec:
       - name: smf-diameter-config
         configMap:
           name: {{ include "common.names.fullname" . }}-smf-diameter
+{{- end }}

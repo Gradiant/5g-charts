@@ -1,3 +1,4 @@
+{{- if .Values.upf.enabled -}}
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
@@ -25,6 +26,11 @@ spec:
           privileged: true
           capabilities:
             add: ["NET_ADMIN"]
+        env:
+          - name: IPV4_TUN_SUBNET
+            value: {{ .Values.upf.pdn.addr }}
+          - name: IPV4_TUN_ADDR
+            value: {{ .Values.upf.pdn.addr }}
         ports:
         - name: gtp-u
           containerPort: 2152
@@ -52,3 +58,4 @@ spec:
       - name: upf-config
         configMap:
           name: {{ include "common.names.fullname" . }}-upf
+{{- end }}

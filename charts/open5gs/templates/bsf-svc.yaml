@@ -1,0 +1,17 @@
+{{- if .Values.bsf.enabled -}}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "common.names.fullname" . }}-bsf
+  labels: {{- include "common.labels.standard" . | nindent 4 }}
+    app.kubernetes.io/component: bsf
+spec:
+  ports:
+  - name: sbi
+    port: 7777
+    protocol: TCP
+
+  publishNotReadyAddresses: true
+  selector: {{- include "common.labels.matchLabels" . | nindent 4 }}
+    app.kubernetes.io/component: bsf
+{{- end }}

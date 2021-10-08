@@ -1,3 +1,4 @@
+{{- if .Values.amf.enabled -}}
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -7,3 +8,4 @@ metadata:
 data:
   amf.yaml: |
 {{ tpl (.Files.Get "resources/config/amf.yaml") . | indent 4 }}
+{{- end }}

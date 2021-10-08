@@ -1,3 +1,4 @@
+{{- if .Values.upf.enabled -}}
 apiVersion: v1
 kind: Service
 metadata:
@@ -15,3 +16,32 @@ spec:
   publishNotReadyAddresses: true
   selector: {{- include "common.labels.matchLabels" . | nindent 4 }}
     app.kubernetes.io/component: upf
+---
+{{- if .Values.upf.externalService.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "common.names.fullname" . }}-upf-ext
+  labels: {{- include "common.labels.standard" . | nindent 4 }}
+    app.kubernetes.io/component: upf
+spec:
+  type: {{ .Values.upf.externalService.type }}
+  sessionAffinity: {{ default "None" .Values.upf.externalService.sessionAffinity }}
+  {{- if and .Values.upf.externalService.clusterIP (eq .Values.upf.externalService.type "ClusterIP") }}
+  clusterIP: {{ .Values.upf.externalService.clusterIP }}
+  {{- end }}
+  {{- if and .Values.upf.externalService.loadBalancerIP (eq .Values.upf.externalService.type "LoadBalancer") }}
+  loadBalancerIP: {{ .Values.upf.externalService.loadBalancerIP }}
+  {{- end }}
+  {{- if and (eq .Values.upf.externalService.type "LoadBalancer") .Values.upf.externalService.externalTrafficPolicy }}
+  externalTrafficPolicy: {{ .Values.upf.externalService.externalTrafficPolicy }}
+  {{- end }}
+  ports:
+  - name: gtp-u
+    port: 2152
+    protocol: UDP
+  publishNotReadyAddresses: true
+  selector: {{- include "common.labels.matchLabels" . | nindent 4 }}
+    app.kubernetes.io/component: upf
+{{- end }}
+{{- end }}

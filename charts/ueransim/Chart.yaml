@@ -1,0 +1,25 @@
+annotations:
+  category: apps
+apiVersion: v2
+appVersion: 3.2.2
+dependencies:
+  - name: common
+    repository: https://charts.bitnami.com/bitnami
+    tags:
+      - bitnami-common
+    version: 1.x.x
+description: ueransim for 5G RAN simulation
+engine: gotpl
+home: https://github.com/aligungr/UERANSIM
+icon: https://github.com/aligungr/UERANSIM/raw/master/.github/logo.png
+keywords:
+  - apps
+  - gradiant
+  - k8s
+maintainers:
+  - email: cgiraldo@gradiant.org
+    name: cgiraldo
+name: ueransim
+sources:
+  - https://github.com/aligungr/UERANSIM
+version: 0.1.0
