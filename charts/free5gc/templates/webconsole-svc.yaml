@@ -1,13 +1,13 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "common.names.fullname" . }}-webui
+  name: {{ include "common.names.fullname" . }}-webconsole
   labels: {{- include "common.labels.standard" . | nindent 4 }}
-    app.kubernetes.io/component: webui
+    app.kubernetes.io/component: webconsole
 spec:
   ports:
     - name: http
       port: 5000
       protocol: TCP
   selector: {{- include "common.labels.matchLabels" . | nindent 4 }}
-    app.kubernetes.io/component: webui
+    app.kubernetes.io/component: webconsole

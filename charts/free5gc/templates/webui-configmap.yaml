@@ -1,9 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: {{ include "common.names.fullname" . }}-webui
-  labels: {{- include "common.labels.standard" . | nindent 4 }}
-    app.kubernetes.io/component: webui
-data:
-  webuicfg.yaml: |
-{{ tpl (.Files.Get "resources/webuicfg.yaml") . | indent 4 }}

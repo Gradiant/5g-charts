@@ -1,7 +1,11 @@
 apiVersion: v2
-appVersion: 3.0.5
+appVersion: 3.0.6
 description: >
   Helm chart to deploy free5gc services on Kubernetes.
+  For upf function we need gtp5g kernel module in the host.
+  Kernel Host must be >= 5.4 and < 5.11.
+  you can clone https://github.com/free5gc/gtp5g and run `sudo make install`
+
 home: https://github.com/gradiant/openverso-charts
 sources:
   - https://www.free5gc.org/
@@ -23,4 +27,3 @@ dependencies:
     version: ~9.2.2
     repository: https://charts.bitnami.com/bitnami
     condition: mongodb.enabled
-

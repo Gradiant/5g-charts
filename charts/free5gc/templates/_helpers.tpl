@@ -18,12 +18,12 @@ Return the proper free5gc image name
 {{- end -}}
 
 {{/*
-Return the proper image name (for the webui image)
+Return the proper image name (for the webconsole image)
 */}}
-{{- define "free5gc.webui.image" -}}
-{{- $registryName := .Values.webui.image.registry -}}
-{{- $repositoryName := .Values.webui.image.repository -}}
-{{- $tag := .Values.webui.image.tag | toString -}}
+{{- define "free5gc.webconsole.image" -}}
+{{- $registryName := .Values.webconsole.image.registry -}}
+{{- $repositoryName := .Values.webconsole.image.repository -}}
+{{- $tag := .Values.webconsole.image.tag | toString -}}
 {{- if .Values.global }}
     {{- if .Values.global.imageRegistry }}
         {{- printf "%s/%s:%s" .Values.global.imageRegistry $repositoryName $tag -}}

@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: {{ include "common.names.fullname" . }}-webui
+  name: {{ include "common.names.fullname" . }}-webconsole
   labels: {{- include "common.labels.standard" . | nindent 4 }}
-    app.kubernetes.io/component: webui
+    app.kubernetes.io/component: webconsole
 spec:
   replicas: 1
   selector:
     matchLabels: {{ include "common.labels.matchLabels" . | nindent 6 }}
-      app.kubernetes.io/component: webui
-  serviceName: {{ template "common.names.fullname" . }}-webui
+      app.kubernetes.io/component: webconsole
+  serviceName: {{ template "common.names.fullname" . }}-webconsole
   template:
     metadata:
       labels: {{- include "common.labels.standard" . | nindent 8 }}
-        app.kubernetes.io/component: webui
+        app.kubernetes.io/component: webconsole
     spec:
 {{ include "free5gc.imagePullSecrets" . | nindent 6 }}
       initContainers:
@@ -24,9 +24,9 @@ spec:
           value: {{ .Release.Name }}-mongodb:27017
         command: ["sh", "-c", "sleep 5;"]
       containers:
-      - name: webui
-        image: {{ template "free5gc.webui.image" . }}
-        imagePullPolicy: {{ .Values.webui.image.pullPolicy | quote   }}
+      - name: webconsole
+        image: {{ template "free5gc.webconsole.image" . }}
+        imagePullPolicy: {{ .Values.webconsole.image.pullPolicy | quote   }}
         ports:
         - name: http
           containerPort: 5000
@@ -44,10 +44,10 @@ spec:
           initialDelaySeconds: 30
           periodSeconds: 10
         volumeMounts:
-        - name: webui-config
-          mountPath: /etc/free5gc/webuicfg.yaml
-          subPath: "webuicfg.yaml"
+        - name: webconsole-config
+          mountPath: /etc/free5gc/webconsolecfg.yaml
+          subPath: "webconsolecfg.yaml"
       volumes:
-      - name: webui-config
+      - name: webconsole-config
         configMap:
-          name: {{ include "common.names.fullname" . }}-webui
+          name: {{ include "common.names.fullname" . }}-webconsole
