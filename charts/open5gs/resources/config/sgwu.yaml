@@ -20,7 +20,7 @@ sgwu:
     dev: eth0
     {{- if .Values.sgwu.externalService.enabled }}
     {{- if .Values.sgwu.externalService.advertise }}
-    advertise: {{ .Values.sgwu.advertise }}
+    advertise: {{ .Values.sgwu.externalService.advertise }}
     {{- else }}
     advertise: {{ include "common.names.fullname" . }}-sgwu-ext.{{ .Release.Namespace }}.{{ .Values.sgwu.externalService.advertiseDomain }}
     {{- end }}
