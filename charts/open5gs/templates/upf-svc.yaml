@@ -40,6 +40,9 @@ spec:
   - name: gtp-u
     port: 2152
     protocol: UDP
+  - name: pfcp
+    port: 8805
+    protocol: UDP
   publishNotReadyAddresses: true
   selector: {{- include "common.labels.matchLabels" . | nindent 4 }}
     app.kubernetes.io/component: upf
