@@ -10,7 +10,13 @@ upf:
       dev: eth0
     gtpu:
       dev: eth0
-      advertise_name: "{{ include "common.names.fullname" . }}-upf"
+      {{- if .Values.upf.externalService.enabled }}
+      {{- if .Values.sgwu.externalService.advertiseDomain }}
+      advertise: {{ include "common.names.fullname" . }}-upf-ext.{{ .Release.Namespace }}.{{ .Values.upf.externalService.advertiseDomain }}
+      {{- else }}
+      advertise: {{ include "common.names.fullname" . }}-upf
+      {{- end }}
+      {{- end }}
     subnet:
       - addr: {{ .Values.upf.pdn.addr }}
 
