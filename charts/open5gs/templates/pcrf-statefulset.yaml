@@ -33,16 +33,16 @@ spec:
         - name: gx
           containerPort: 3868
           protocol: SCTP
-        # livenessProbe:
-        #   tcpSocket:
-        #     port: gx
-        #   initialDelaySeconds: 15
-        #   periodSeconds: 20
-        # readinessProbe:
-        #   tcpSocket:
-        #     port: gx
-        #   initialDelaySeconds: 5
-        #   periodSeconds: 10
+        livenessProbe:
+          tcpSocket:
+            port: gx
+          initialDelaySeconds: 15
+          periodSeconds: 20
+        readinessProbe:
+          tcpSocket:
+            port: gx
+          initialDelaySeconds: 5
+          periodSeconds: 10
         resources:
 {{ toYaml .Values.pcrf.resources | indent 10 }}
         volumeMounts:
