@@ -9,6 +9,16 @@ Internal Access:
 internalName: {{ include "common.names.fullname" . }}-mme
 echo clusterIP: $(kubectl get svc --namespace {{ .Release.Namespace }} {{ template "common.names.fullname" . }}-mme -o jsonpath='{.spec.clusterIP}')
 
+AMF
+==============================
+{{- if .Values.amf.externalService }}
+External Access is enabled at: 
+externalName: {{ include "common.names.fullname" . }}-amf-ext.{{ .Release.Namespace }}.ext.openverso.org
+echo externalIP: $(kubectl -n {{ .Release.Namespace }} get svc {{ include "common.names.fullname" . }}-amf-ext -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
+{{- end }}
+Internal Access:
+internalName: {{ include "common.names.fullname" . }}-amf
+echo clusterIP: $(kubectl get svc --namespace {{ .Release.Namespace }} {{ template "common.names.fullname" . }}-amf -o jsonpath='{.spec.clusterIP}')
 
 {{- if .Values.webui.ingress.enabled }}
 WEBUI
