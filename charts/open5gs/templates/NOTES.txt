@@ -1,6 +1,7 @@
+{{- if .Values.mme.enabled }}
 MME
 ==============================
-{{- if .Values.mme.externalService }}
+{{- if .Values.mme.externalService.enabled }}
 External Access is enabled at: 
 externalName: {{ include "common.names.fullname" . }}-mme-ext.{{ .Release.Namespace }}.ext.openverso.org
 echo externalIP: $(kubectl -n {{ .Release.Namespace }} get svc {{ include "common.names.fullname" . }}-mme-ext -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
@@ -8,10 +9,12 @@ echo externalIP: $(kubectl -n {{ .Release.Namespace }} get svc {{ include "commo
 Internal Access:
 internalName: {{ include "common.names.fullname" . }}-mme
 echo clusterIP: $(kubectl get svc --namespace {{ .Release.Namespace }} {{ template "common.names.fullname" . }}-mme -o jsonpath='{.spec.clusterIP}')
+{{- end }}
 
+{{- if .Values.amf.enabled }}
 AMF
 ==============================
-{{- if .Values.amf.externalService }}
+{{- if .Values.amf.externalService.enabled }}
 External Access is enabled at: 
 externalName: {{ include "common.names.fullname" . }}-amf-ext.{{ .Release.Namespace }}.ext.openverso.org
 echo externalIP: $(kubectl -n {{ .Release.Namespace }} get svc {{ include "common.names.fullname" . }}-amf-ext -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
@@ -19,6 +22,7 @@ echo externalIP: $(kubectl -n {{ .Release.Namespace }} get svc {{ include "commo
 Internal Access:
 internalName: {{ include "common.names.fullname" . }}-amf
 echo clusterIP: $(kubectl get svc --namespace {{ .Release.Namespace }} {{ template "common.names.fullname" . }}-amf -o jsonpath='{.spec.clusterIP}')
+{{- end }}
 
 {{- if .Values.webui.ingress.enabled }}
 WEBUI
@@ -29,6 +33,5 @@ Access Open5gs web ui at:
   {{- else }}
   http://{{ .Values.webui.ingress.hostname | default (printf "%s-%s.ingress.openverso.org" .Release.Name .Release.Namespace) }}
   {{- end }}
-{{- end }}
-
 With user: "admin" and password "1423"
+{{- end }}

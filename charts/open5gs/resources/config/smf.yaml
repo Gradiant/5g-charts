@@ -28,10 +28,12 @@ smf:
     - 8.8.4.4
   mtu: 1400
 
+{{- if .Values.nrf.enabled }}
 nrf:
     sbi:
       - name: "{{ include "common.names.fullname" . }}-nrf"
         port: 7777
+{{- end }}
 
 upf:
     pfcp:
