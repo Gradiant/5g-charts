@@ -507,6 +507,34 @@ entries:
       category: apps
     apiVersion: v2
     appVersion: 3.2.2
+    created: "2021-11-11T10:09:39.015810523Z"
+    dependencies:
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 1.x.x
+    description: ueransim for 5G RAN simulation
+    digest: d8d6cbaee45fed5ba73b6bd0a0d87e436a6fb5e02d23bd1ca6246854a4f3e7bc
+    home: https://github.com/aligungr/UERANSIM
+    icon: https://github.com/aligungr/UERANSIM/raw/master/.github/logo.png
+    keywords:
+    - apps
+    - gradiant
+    - k8s
+    maintainers:
+    - email: cgiraldo@gradiant.org
+      name: cgiraldo
+    name: ueransim
+    sources:
+    - https://github.com/aligungr/UERANSIM
+    urls:
+    - https://github.com/Gradiant/openverso-charts/releases/download/ueransim-0.1.1/ueransim-0.1.1.tgz
+    version: 0.1.1
+  - annotations:
+      category: apps
+    apiVersion: v2
+    appVersion: 3.2.2
     created: "2021-07-21T13:13:04.770009269Z"
     dependencies:
     - name: common
@@ -531,4 +559,4 @@ entries:
     urls:
     - https://github.com/Gradiant/openverso-charts/releases/download/ueransim-0.1.0/ueransim-0.1.0.tgz
     version: 0.1.0
-generated: "2021-11-11T09:43:04.184534649Z"
+generated: "2021-11-11T10:09:39.01627923Z"
