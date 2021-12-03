@@ -26,4 +26,7 @@ spec:
     - name: http
       port: 80
       protocol: TCP
+    - name: gtp-u
+      port: 2152
+      protocol: UDP
   selector: {{- include "common.labels.matchLabels" . | nindent 4 }}
