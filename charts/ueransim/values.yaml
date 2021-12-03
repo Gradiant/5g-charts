@@ -62,7 +62,7 @@ image:
   debug: false
 
 
-mcc: '901'
+mcc: '999'
 mnc: '70'
 tac: '0001'
 
@@ -73,7 +73,7 @@ op: E8ED289DEBA952E4283B54E88E6183CA
 opType: OPC
 apn: internet
 sst: 1
-sd: 1
+sd: "0xffffff"
 
 amf: open5gs-amf
 
