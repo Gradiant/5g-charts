@@ -1,8 +1,8 @@
-
+{{- if .Values.gnb.enabled  -}}
 apiVersion: {{ include "common.capabilities.statefulset.apiVersion" . }}
 kind: StatefulSet
 metadata:
-  name: {{ template "common.names.fullname" . }}
+  name: {{ template "common.names.fullname" . }}-gnb
   namespace: {{ .Release.Namespace | quote }}
   labels: {{- include "common.labels.standard" . | nindent 4 }}
     app.kubernetes.io/component: gnb
@@ -17,7 +17,7 @@ spec:
   selector:
     matchLabels: {{ include "common.labels.matchLabels" . | nindent 6 }}
       app.kubernetes.io/component: gnb
-  serviceName: {{ template "common.names.fullname" . }}
+  serviceName: {{ template "common.names.fullname" . }}-gnb
   {{- if .Values.updateStrategy }}
   updateStrategy: {{- toYaml .Values.updateStrategy | nindent 4 }}
   {{- end }}
@@ -54,9 +54,18 @@ spec:
           {{- end }}
           args:
             - gnb
+          ports:
+          - name: gnb-ue
+            containerPort: 4997
+            protocol: UDP
+          - name: gnb-upf
+            containerPort: 2152
+            protocol: UDP
           env:
             - name: AMF_HOSTNAME
-              value: {{ .Values.amf }}
+              value: {{ .Values.gnb.amf }}
+            - name: GNB_HOSTNAME
+              value: {{ .Values.gnb.name }}
           {{- if .Values.resources }}
           resources: {{- toYaml .Values.resources | nindent 12 }}
           {{- end }}
@@ -64,25 +73,8 @@ spec:
             - name: config
               mountPath: /etc/ueransim/gnb.yaml
               subPath: "gnb.yaml"
-        - name: ues
-          image: {{ template "ueransim.image" . }}
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
-          securityContext:
-            privileged: true
-            capabilities:
-              add: ["NET_ADMIN"]
-          args:
-            - ue
-            - -n
-            - {{ .Values.UECount | quote }}
-          {{- if .Values.resources }}
-          resources: {{- toYaml .Values.resources | nindent 12 }}
-          {{- end }}
-          volumeMounts:
-            - name: config
-              mountPath: /etc/ueransim/ue.yaml
-              subPath: "ue.yaml"
       volumes:
         - name: config
           configMap:
-            name: {{ include "common.names.fullname" . }}
+            name: {{ include "common.names.fullname" . }}-gnb
+{{- end }}

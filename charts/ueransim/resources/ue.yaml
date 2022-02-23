@@ -1,16 +1,36 @@
 # IMSI number of the UE. IMSI = [MCC|MNC|MSISDN] (In total 15 or 16 digits)
-supi: 'imsi-{{ .Values.mcc }}{{ .Values.mnc }}{{ .Values.initialMSISDN }}'
+{{- if .Values.ue.mcc }}
+{{- if .Values.ue.mnc }}
+supi: 'imsi-{{ .Values.ue.mcc }}{{ .Values.ue.mnc }}{{ .Values.ue.initialMSISDN }}'
+{{- else }}
+supi: 'imsi-{{ .Values.ue.mcc }}{{ .Values.general.mnc }}{{ .Values.ue.initialMSISDN }}'
+{{- end }}
+{{- else }}
+{{- if .Values.ue.mnc }}
+supi: 'imsi-{{ .Values.general.mcc }}{{ .Values.ue.mnc }}{{ .Values.ue.initialMSISDN }}'
+{{- else }}
+supi: 'imsi-{{ .Values.general.mcc }}{{ .Values.general.mnc }}{{ .Values.ue.initialMSISDN }}'
+{{- end }}
+{{- end }}
 # Mobile Country Code value
-mcc: {{ .Values.mcc }}
+{{- if .Values.ue.mcc }}
+mcc: '{{ .Values.ue.mcc }}'
+{{- else }}
+mcc: '{{ .Values.general.mcc }}'
+{{- end }}
 # Mobile Network Code value (2 or 3 digits)
-mnc: {{ .Values.mnc }}
+{{- if .Values.ue.mnc }}
+mnc: '{{ .Values.ue.mnc }}'
+{{- else }}
+mnc: '{{ .Values.general.mnc }}'
+{{- end }}
 
 # Permanent subscription key
-key: '{{ .Values.key }}'
+key: '{{ .Values.ue.key }}'
 # Operator code (OP or OPC) of the UE
-op: '{{ .Values.op }}'
+op: '{{ .Values.ue.op }}'
 # This value specifies the OP type and it can be either 'OP' or 'OPC'
-opType: '{{ .Values.opType }}'
+opType: '{{ .Values.ue.opType }}'
 # Authentication Management Field (AMF) value
 amf: '8000'
 # IMEI number of the device. It is used if no SUPI is provided
@@ -20,7 +40,7 @@ imeiSv: '4370816125816151'
 
 # List of gNB IP addresses for Radio Link Simulation
 gnbSearchList:
-  - 127.0.0.1
+  - ${GNB_ADDR}
 
   # UAC Access Identities Configuration
 uacAic:
@@ -39,21 +59,55 @@ uacAcc:
 # Initial PDU sessions to be established
 sessions:
   - type: 'IPv4'
-    apn: {{ .Values.apn }}
+    apn: '{{ .Values.ue.apn }}'
     slice:
-      sst: {{ .Values.sst }}
-      sd: {{ .Values.sd }}
+      {{- if .Values.ue.sst }}
+      sst: {{ .Values.ue.sst }}
+      {{- else }}
+      sst: {{ .Values.general.sst }}
+      {{- end }}
+      {{- if .Values.ue.sd }}
+      sd: {{ .Values.ue.sd }}
+      {{- else }}
+      sd: {{ .Values.general.sd }}
+      {{- end }}
     emergency: false
 
 # Configured NSSAI for this UE by HPLMN
 configured-nssai:
-  - sst: {{ .Values.sst }}
-    sd: {{ .Values.sd }}
+  {{- if .Values.ue.sst }}
+  - sst: {{ .Values.ue.sst }}
+    {{- if .Values.ue.sd }}
+    sd: {{ .Values.ue.sd }}
+    {{- else }}
+    sd: {{ .Values.general.sd }}
+    {{- end }}
+  {{- else }}
+  - sst: {{ .Values.general.sst }}
+    {{- if .Values.ue.sd }}
+    sd: {{ .Values.ue.sd }}
+    {{- else }}
+    sd: {{ .Values.general.sd }}
+    {{- end }}
+  {{- end }}
 
 # Default Configured NSSAI for this UE
 default-nssai:
-  - sst: {{ .Values.sst }}
-    sd: {{ .Values.sd }}
+  {{- if .Values.ue.sst }}
+  - sst: {{ .Values.ue.sst }}
+    {{- if .Values.ue.sd }}
+    sd: {{ .Values.ue.sd }}
+    {{- else }}
+    sd: {{ .Values.general.sd }}
+    {{- end }}
+  {{- else }}
+  - sst: {{ .Values.general.sst }}
+    {{- if .Values.ue.sd }}
+    sd: {{ .Values.ue.sd }}
+    {{- else }}
+    sd: {{ .Values.general.sd }}
+    {{- end }}
+  {{- end }}
 
 # Supported encryption algorithms by this UE
 integrity:
