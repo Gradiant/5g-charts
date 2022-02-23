@@ -59,7 +59,7 @@ webui:
     pathType: ImplementationSpecific
 
     ## When the ingress is enabled, a host pointing to this will be created
-    ## If empty, defaults to .Release.Name-.Release.Namespace.ingress.openverso.org
+    ## If empty, defaults to .Release.Name-.Release.Namespace.ingress.lab5g.gradiant.org
     hostname:
 
     ## The Path to open5gs webui. You may need to set this to '/*' in order to use this
@@ -150,8 +150,8 @@ sgwu:
     enabled: false
     # set domain or ip accessible from enodeb.
     # If not set, it is automagically set to SVC_NAME.NAMESPACE.advertiseDomain
-    # advertise: "sgwu.openverso.org"
-    advertiseDomain: "ext.openverso.org"
+    # advertise: "sgwu.lab5g.gradiant.org"
+    advertiseDomain: "ext.lab5g.gradiant.org"
     type: LoadBalancer
     ## @param service.loadBalancerSourceRanges Restricts access for LoadBalancer (only with `service.type: LoadBalancer`)
     ## e.g:
@@ -195,7 +195,7 @@ amf:
         sd: "ffffff"
   externalService:
     enabled: false
-    advertiseDomain: "ext.openverso.org"
+    advertiseDomain: "ext.lab5g.gradiant.org"
     type: LoadBalancer
     ## @param service.loadBalancerSourceRanges Restricts access for LoadBalancer (only with `service.type: LoadBalancer`)
     ## e.g:
@@ -233,8 +233,8 @@ upf:
     enabled: false
     # set domain or ip accessible from enodeb.
     # If not set, it is automagically set to SVC_NAME-ext.NAMESPACE.advertiseDomain
-    # advertise: "upf.openverso.org"
-    advertiseDomain: "ext.openverso.org"
+    # advertise: "upf.lab5g.gradiant.org"
+    advertiseDomain: "ext.lab5g.gradiant.org"
     type: LoadBalancer
     ## @param service.loadBalancerSourceRanges Restricts access for LoadBalancer (only with `service.type: LoadBalancer`)
     ## e.g:
