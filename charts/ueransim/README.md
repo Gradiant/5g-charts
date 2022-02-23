@@ -11,6 +11,7 @@ ueransim for 5G RAN simulation
 | Name | Email | Url |
 | ---- | ------ | --- |
 | cgiraldo | cgiraldo@gradiant.org |  |
+| avrodriguez | avrodriguez@gradiant.org |  |
 
 ## Source Code
 
@@ -26,10 +27,20 @@ ueransim for 5G RAN simulation
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
+| affinity | object | `{}` |  |
+| clusterDomain | string | `"cluster.local"` |  |
+| commonAnnotations | object | `{}` |  |
+| commonLabels | object | `{}` |  |
+| containerSecurityContext.enabled | bool | `false` |  |
+| extraDeploy | list | `[]` |  |
+| fullnameOverride | string | `nil` |  |
 | general.mcc | string | `"999"` |  |
 | general.mnc | string | `"70"` |  |
 | general.sd | string | `"0xffffff"` |  |
 | general.sst | int | `1` |  |
+| global.imagePullSecrets | list | `[]` |  |
+| global.imageRegistry | string | `nil` |  |
+| global.storageClass | string | `nil` |  |
 | gnb.amf | string | `"open5gs-amf"` |  |
 | gnb.enabled | bool | `true` |  |
 | gnb.mcc | string | `nil` |  |
@@ -38,28 +49,6 @@ ueransim for 5G RAN simulation
 | gnb.sd | string | `nil` |  |
 | gnb.sst | string | `nil` |  |
 | gnb.tac | string | `"0001"` |  |
-| ue.UECount | int | `1` |  |
-| ue.apn | string | `"internet"` |  |
-| ue.enabled | bool | `true` |  |
-| ue.gnb | string | `"ueransim-gnb"` |  |
-| ue.initialMSISDN | string | `"0000000001"` |  |
-| ue.key | string | `"465B5CE8B199B49FAA5F0A2EE238A6BC"` |  |
-| ue.mcc | string | `nil` |  |
-| ue.mnc | string | `nil` |  |
-| ue.op | string | `"E8ED289DEBA952E4283B54E88E6183CA"` |  |
-| ue.opType | string | `"OPC"` |  |
-| ue.sd | string | `nil` |  |
-| ue.sst | string | `nil` |  |
-| affinity | object | `{}` |  |
-| clusterDomain | string | `"cluster.local"` |  |
-| commonAnnotations | object | `{}` |  |
-| commonLabels | object | `{}` |  |
-| containerSecurityContext.enabled | bool | `false` |  |
-| extraDeploy | list | `[]` |  |
-| fullnameOverride | string | `nil` |  |
-| global.imagePullSecrets | list | `[]` |  |
-| global.imageRegistry | string | `nil` |  |
-| global.storageClass | string | `nil` |  |
 | image.debug | bool | `false` |  |
 | image.pullPolicy | string | `"IfNotPresent"` |  |
 | image.pullSecrets | list | `[]` |  |
@@ -75,6 +64,18 @@ ueransim for 5G RAN simulation
 | resources.limits | object | `{}` |  |
 | resources.requests | object | `{}` |  |
 | tolerations | list | `[]` |  |
+| ue.UECount | int | `4` |  |
+| ue.apn | string | `"internet"` |  |
+| ue.enabled | bool | `true` |  |
+| ue.gnb | string | `"ueransim-gnb"` |  |
+| ue.initialMSISDN | string | `"0000000001"` |  |
+| ue.key | string | `"465B5CE8B199B49FAA5F0A2EE238A6BC"` |  |
+| ue.mcc | string | `nil` |  |
+| ue.mnc | string | `nil` |  |
+| ue.op | string | `"E8ED289DEBA952E4283B54E88E6183CA"` |  |
+| ue.opType | string | `"OPC"` |  |
+| ue.sd | string | `nil` |  |
+| ue.sst | string | `nil` |  |
 | updateStrategy.type | string | `"RollingUpdate"` |  |
 
 ----------------------------------------------

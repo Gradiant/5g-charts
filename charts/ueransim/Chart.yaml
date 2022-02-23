@@ -19,6 +19,8 @@ keywords:
 maintainers:
   - email: cgiraldo@gradiant.org
     name: cgiraldo
+  - email: avrodriguez@gradiant.org
+    name: avrodriguez
 name: ueransim
 sources:
   - https://github.com/aligungr/UERANSIM
