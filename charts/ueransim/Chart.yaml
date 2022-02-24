@@ -1,7 +1,7 @@
 annotations:
   category: apps
 apiVersion: v2
-appVersion: 3.2.2
+appVersion: 3.2.6
 dependencies:
   - name: common
     repository: https://charts.bitnami.com/bitnami
@@ -19,7 +19,9 @@ keywords:
 maintainers:
   - email: cgiraldo@gradiant.org
     name: cgiraldo
+  - email: avrodriguez@gradiant.org
+    name: avrodriguez
 name: ueransim
 sources:
   - https://github.com/aligungr/UERANSIM
-version: 0.1.1
+version: 0.2.0
