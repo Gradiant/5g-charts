@@ -3,7 +3,7 @@ MME
 ==============================
 {{- if .Values.mme.externalService.enabled }}
 External Access is enabled at: 
-externalName: {{ include "common.names.fullname" . }}-mme-ext.{{ .Release.Namespace }}.ext.openverso.org
+externalName: {{ include "common.names.fullname" . }}-mme-ext.{{ .Release.Namespace }}.ext.lab5g.gradiant.org
 echo externalIP: $(kubectl -n {{ .Release.Namespace }} get svc {{ include "common.names.fullname" . }}-mme-ext -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
 {{- end }}
 Internal Access:
@@ -16,7 +16,7 @@ AMF
 ==============================
 {{- if .Values.amf.externalService.enabled }}
 External Access is enabled at: 
-externalName: {{ include "common.names.fullname" . }}-amf-ext.{{ .Release.Namespace }}.ext.openverso.org
+externalName: {{ include "common.names.fullname" . }}-amf-ext.{{ .Release.Namespace }}.ext.lab5g.gradiant.org
 echo externalIP: $(kubectl -n {{ .Release.Namespace }} get svc {{ include "common.names.fullname" . }}-amf-ext -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
 {{- end }}
 Internal Access:
@@ -29,9 +29,9 @@ WEBUI
 ==============================
 Access Open5gs web ui at: 
   {{- if .Values.webui.ingress.tls }}
-  https://{{ .Values.webui.ingress.hostname | default (printf "%s-%s.ingress.openverso.org" .Release.Name .Release.Namespace) }}
+  https://{{ .Values.webui.ingress.hostname | default (printf "%s-%s.ingress.lab5g.gradiant.org" .Release.Name .Release.Namespace) }}
   {{- else }}
-  http://{{ .Values.webui.ingress.hostname | default (printf "%s-%s.ingress.openverso.org" .Release.Name .Release.Namespace) }}
+  http://{{ .Values.webui.ingress.hostname | default (printf "%s-%s.ingress.lab5g.gradiant.org" .Release.Name .Release.Namespace) }}
   {{- end }}
 With user: "admin" and password "1423"
 {{- end }}
