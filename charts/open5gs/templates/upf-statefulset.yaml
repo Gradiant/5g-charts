@@ -15,6 +15,9 @@ spec:
     metadata:
       labels: {{- include "common.labels.standard" . | nindent 8 }}
         app.kubernetes.io/component: upf
+      {{- if .Values.upf.podAnnotations }}
+      annotations: {{- include "common.tplvalues.render" (dict "value" .Values.upf.podAnnotations "context" $) | nindent 8 }}
+      {{- end }}
     spec:
 {{ include "open5gs.imagePullSecrets" . | indent 6 }}
       containers:
