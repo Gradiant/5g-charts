@@ -9,7 +9,7 @@ upf:
     pfcp:
       dev: eth0
     gtpu:
-      dev: eth0
+      dev: {{ .Values.upf.dev }}
       {{- if .Values.upf.externalService.enabled }}
       {{- if .Values.upf.externalService.advertise }}
       advertise: {{ .Values.upf.externalService.advertise }}

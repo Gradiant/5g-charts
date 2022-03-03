@@ -227,6 +227,8 @@ upf:
   logger:
     level: info
   parameter: {}
+  podAnnotations: {}
+  dev: eth0
   pdn:
     addr: 10.45.0.1/16
   externalService:
