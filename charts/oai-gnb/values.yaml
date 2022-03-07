@@ -66,7 +66,7 @@ replicaCount: 1
 
 gnb:
   gnbName: Gradiant
-  mcc: '901'
+  mcc: '999'
   mnc: '70'
   mncLength: '2'
   tac: '0001'
@@ -75,6 +75,10 @@ gnb:
   sd1: '0'
   # -- hostname of the amf core service.
   amf: "amf"
+  # -- data plane interface
+  dev:
+    ctrl: "eth0"
+    data: "eth0"
 
 ##  resource requests and limits
 ## ref: http://kubernetes.io/docs/user-guide/compute-resources/

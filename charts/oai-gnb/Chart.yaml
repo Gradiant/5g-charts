@@ -22,4 +22,4 @@ maintainers:
 name: oai-gnb
 sources:
   - https://gitlab.eurecom.fr/oai/openairinterface5g/
-version: 0.2.1
+version: 0.2.2
