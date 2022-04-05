@@ -1,5 +1,37 @@
 apiVersion: v1
 entries:
+  iperf3:
+  - annotations:
+      category: apps
+    apiVersion: v2
+    appVersion: 1.0.0
+    created: "2022-04-05T08:57:07.52831466Z"
+    dependencies:
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 1.x.x
+    description: iPerf3 is a tool for active measurements of the maximum achievable
+      bandwidth on IP networks. It supports tuning of various parameters related to
+      timing, buffers and protocols (TCP, UDP, SCTP with IPv4 and IPv6). For each
+      test it reports the bandwidth, loss, and other parameters.
+    digest: 053e07592caf9f27c568c203a26975393e809d0f7568fb9ba871ae12c698deb9
+    home: https://iperf.fr/
+    icon: https://play-lh.googleusercontent.com/inxu385Ii6KH_ndkNf1wWCJgtEWl0p8ZFBcnfFqYCNuPkrXgzvFl6DJZrZb6GIM-LG0=s180-rw
+    keywords:
+    - apps
+    - gradiant
+    - k8s
+    maintainers:
+    - email: admin@gradiant.org
+      name: Gradiant
+    name: iperf3
+    sources:
+    - https://iperf.fr/
+    urls:
+    - https://github.com/Gradiant/openverso-charts/releases/download/iperf3-0.1.0/iperf3-0.1.0.tgz
+    version: 0.1.0
   oai-enb:
   - apiVersion: v1
     appVersion: 1.2.2
@@ -732,4 +764,4 @@ entries:
     urls:
     - https://github.com/Gradiant/openverso-charts/releases/download/ueransim-0.1.0/ueransim-0.1.0.tgz
     version: 0.1.0
-generated: "2022-03-07T08:54:34.845537512Z"
+generated: "2022-04-05T08:57:07.528507679Z"
