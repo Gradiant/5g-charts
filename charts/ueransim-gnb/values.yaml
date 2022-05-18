@@ -60,7 +60,6 @@ image:
   ## Enable debug mode
   ##
   debug: false
- 
 
 name: ueransim-gnb
 amf:
@@ -135,4 +134,3 @@ nodeSelector: {}
 ## ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
 ##
 tolerations: []
-
