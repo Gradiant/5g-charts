@@ -1,0 +1,12 @@
+#Autoscaler to limit gnb to 1.
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: {{ template "common.names.fullname" . }}
+spec:
+  maxReplicas: 1
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: StatefulSet
+    name: {{ template "common.names.fullname" . }}
+
