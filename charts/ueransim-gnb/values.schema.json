@@ -1,0 +1,253 @@
+{
+    "$schema": "http://json-schema.org/schema#",
+    "type": "object",
+    "properties": {
+        "affinity": {
+            "type": "object"
+        },
+        "amf": {
+            "type": "object",
+            "form": "amf",
+            "title": "AMF information",
+            "properties": {
+                "ip": {
+                    "form": true,
+                    "type": "null",
+                    "title": "AMF IP",
+                    "description": "If empty, amf.hostname will be resolved"
+                },
+                "hostname": {
+                    "type": "string",
+                    "form": true,
+                    "title": "AMF hostname",
+                    "description": "It has no impact if amf.ip is set"
+                }
+            }
+        },
+        "clusterDomain": {
+            "type": "string"
+        },
+        "commonAnnotations": {
+            "type": "object"
+        },
+        "commonLabels": {
+            "type": "object"
+        },
+        "containerSecurityContext": {
+            "type": "object",
+            "properties": {
+                "enabled": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "extraDeploy": {
+            "type": "array"
+        },
+        "fullnameOverride": {
+            "type": "null"
+        },
+        "global": {
+            "type": "object",
+            "properties": {
+                "imagePullSecrets": {
+                    "type": "array"
+                },
+                "imageRegistry": {
+                    "type": "null"
+                },
+                "storageClass": {
+                    "type": "null"
+                }
+            }
+        },
+        "image": {
+            "type": "object",
+            "properties": {
+                "debug": {
+                    "type": "boolean"
+                },
+                "pullPolicy": {
+                    "type": "string"
+                },
+                "pullSecrets": {
+                    "type": "array"
+                },
+                "registry": {
+                    "type": "string"
+                },
+                "repository": {
+                    "type": "string"
+                },
+                "tag": {
+                    "type": "string"
+                }
+            }
+        },
+        "interfaces": {
+            "type": "object",
+            "properties": {
+                "n2": {
+                    "type": "object",
+                    "properties": {
+                        "dev": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "n3": {
+                    "type": "object",
+                    "properties": {
+                        "dev": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "radio": {
+                    "type": "object",
+                    "properties": {
+                        "dev": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "kubeVersion": {
+            "type": "null"
+        },
+        "name": {
+            "type": "string"
+        },
+        "nameOverride": {
+            "type": "null"
+        },
+        "nodeSelector": {
+            "type": "object"
+        },
+        "podAnnotations": {
+            "type": "object"
+        },
+        "podLabels": {
+            "type": "object"
+        },
+        "podSecurityContext": {
+            "type": "object",
+            "properties": {
+                "enabled": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "resources": {
+            "type": "object",
+            "properties": {
+                "limits": {
+                    "type": "object"
+                },
+                "requests": {
+                    "type": "object"
+                }
+            }
+        },
+        "mcc": {
+            "type": "string",
+            "form": "mcc",
+            "title": "Mobile Country Code"
+        },
+        "mnc": {
+            "type": "string",
+            "form": "mnc",
+            "title": "Mobile Network Code"
+        },
+        "tac": {
+            "type": "string",
+            "form": "tac",
+            "title": "Track Area Code"
+        },
+        "sd": {
+            "type": "string",
+            "form": "sd",
+            "title": "Slice Differentiator"
+        },
+        "sst": {
+            "type": "integer",
+            "form": "sst",
+            "title": "Slice/Service Type",
+            "render": "slider",
+            "sliderMin": 1,
+            "sliderMax": 3
+        },
+        "tolerations": {
+            "type": "array"
+        },
+        "ues": {
+            "type": "object",
+            "form": "ues",
+            "title": "Embedded UEs",
+            "properties": {
+                "enabled": {
+                    "type": "boolean",
+                    "form": true,
+                    "title": "Enable embedded ues"
+                },
+                "count": {
+                    "type": "integer",
+                    "form": true,
+                    "render": "slider",
+                    "title": "Number of Ues",
+                    "sliderMin": 1,
+                    "sliderMax": 10,
+                    "hidden": {
+                        "value": false,
+                        "path": "ues/enabled"
+                      }
+                },
+                "apn": {
+                    "type": "string",
+                    "form": true,
+                    "title": "APN",
+                    "hidden": {
+                        "value": false,
+                        "path": "ues/enabled"
+                      }
+                },
+                "initialMSISDN": {
+                    "type": "string",
+                    "form": true,
+                    "title": "initialMSIDN",
+                    "description": "ues MSIDN will be incremented from this initial value",
+                    "hidden": {
+                        "value": false,
+                        "path": "ues/enabled"
+                      } 
+                },
+                "key": {
+                    "type": "string",
+                    "form": true,
+                    "hidden": {
+                        "value": false,
+                        "path": "ues/enabled"
+                      }
+                },
+                "op": {
+                    "type": "string",
+                    "form": true,
+                    "hidden": {
+                        "value": false,
+                        "path": "ues/enabled"
+                      }
+                },
+                "opType": {
+                    "type": "string",
+                    "form": true,
+                    "enum": ["OPC", "OP"],
+                    "hidden": {
+                        "value": false,
+                        "path": "ues/enabled"
+                      }
+                }
+            }
+        }
+    }
+}
