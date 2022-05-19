@@ -10,7 +10,7 @@ maintainers:
 - email: cgiraldo@gradiant.org
   name: cgiraldo
 name: open5gs
-version: 0.4.1
+version: 0.5.0
 keywords:
   - epc
   - ngc

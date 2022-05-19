@@ -1,0 +1,1296 @@
+{
+    "$schema": "http://json-schema.org/schema#",
+    "type": "object",
+    "properties": {
+        "amf": {
+            "type": "object",
+            "form": true,
+            "title": "AMF Service",
+            "properties": {
+                "enabled": {
+                    "type": "boolean",
+                    "form": true,
+                    "title": "Enable service"
+                },
+                "configType": {
+                    "type": "string",
+                    "form": "true",
+                    "title": "configuration type",
+                    "enum": ["config", "configYaml"],
+                    "hidden": {
+                        "value": false,
+                        "path": "amf/enabled"
+                      }
+                },
+                "configYaml": {
+                    "type": "object",
+                    "form": true,
+                    "title": "Edit configYaml: in YAML tab",
+                    "hidden": {
+                        "conditions": [
+                            {
+                                "value": "config",
+                                "path": "amf/configType"
+                            },
+                            {
+                                "value": false,
+                                "path": "amf/enabled"
+                            }
+                          ],
+                          "operator": "or"
+                    }
+                },
+                "config": {
+                    "type": "object",
+                    "form": true,
+                    "title": "config",
+                    "hidden": {
+                        "conditions": [
+                            {
+                                "value": "configYaml",
+                                "path": "amf/configType"
+                            },
+                            {
+                                "value": false,
+                                "path": "amf/enabled"
+                            }
+                          ],
+                          "operator": "or"
+                    },
+                    "properties": {
+                        "logLevel": {
+                            "type": "string",
+                            "form": true,
+                            "title": "Log level",
+                            "enum": ["none", "fatal", "error", "warn", "info", "debug", "trace"]
+                        },
+                        "mcc": {
+                            "type": "integer",
+                            "form": true,
+                            "title": "MCC",
+                            "description": "Mobile Country Code"
+                        },
+                        "mnc": {
+                            "type": "integer",
+                            "form": true,
+                            "title": "MNC",
+                            "description": "Mobile Network Code"
+                        },
+                        "sd": {
+                            "type": "string",
+                            "form": true,
+                            "title": "SD",
+                            "description": "Slice Differentiator"
+                        },
+                        "sst": {
+                            "type": "integer",
+                            "form": true,
+                            "title": "sst",
+                            "description": "Slice/Service Type",
+                            "render": "slider",
+                            "sliderMin": 1,
+                            "sliderMax": 3
+                        },
+                        "tac": {
+                            "type": "integer",
+                            "form": true,
+                            "title": "tac",
+                            "description": "Track Area Code"
+                        }
+                    }
+                },
+                "externalService": {
+                    "type": "object",
+                    "properties": {
+                        "advertiseDomain": {
+                            "type": "string"
+                        },
+                        "enabled": {
+                            "type": "boolean"
+                        },
+                        "externalTrafficPolicy": {
+                            "type": "string"
+                        },
+                        "loadBalancerIP": {
+                            "type": "null"
+                        },
+                        "loadBalancerSourceRanges": {
+                            "type": "array"
+                        },
+                        "type": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "resources": {
+                    "type": "object"
+                }
+            }
+        },
+        "ausf": {
+            "type": "object",
+            "form": true,
+            "title": "AUSF Service",
+            "properties": {
+                "resources": {
+                    "type": "object"
+                },
+                "enabled": {
+                    "type": "boolean",
+                    "form": true,
+                    "title": "Enable service"
+                },
+                "configType": {
+                    "type": "string",
+                    "form": "true",
+                    "title": "configuration type",
+                    "enum": ["config", "configYaml"],
+                    "hidden": {
+                        "value": false,
+                        "path": "ausf/enabled"
+                      }
+                },
+                "configYaml": {
+                    "type": "object",
+                    "form": true,
+                    "title": "Edit configYaml: in YAML tab",
+                    "hidden": {
+                        "conditions": [
+                            {
+                                "value": "config",
+                                "path": "ausf/configType"
+                            },
+                            {
+                                "value": false,
+                                "path": "ausf/enabled"
+                            }
+                          ],
+                          "operator": "or"
+                    }
+                },
+                "config": {
+                    "type": "object",
+                    "form": true,
+                    "title": "config",
+                    "hidden": {
+                        "conditions": [
+                            {
+                                "value": "configYaml",
+                                "path": "ausf/configType"
+                            },
+                            {
+                                "value": false,
+                                "path": "ausf/enabled"
+                            }
+                          ],
+                          "operator": "or"
+                    },
+                    "properties": {
+                        "logLevel": {
+                            "type": "string",
+                            "form": true,
+                            "title": "Log level",
+                            "enum": ["none", "fatal", "error", "warn", "info", "debug", "trace"]
+                        }
+                
+                    }
+                }
+            }
+        },
+        "bsf": {           
+            "type": "object",
+            "form": true,
+            "title": "BSF Service",
+            "properties": {
+                "resources": {
+                    "type": "object"
+                },
+                "enabled": {
+                    "type": "boolean",
+                    "form": true,
+                    "title": "Enable service"
+                },
+                "configType": {
+                    "type": "string",
+                    "form": "true",
+                    "title": "configuration type",
+                    "enum": ["config", "configYaml"],
+                    "hidden": {
+                        "value": false,
+                        "path": "bsf/enabled"
+                      }
+                },
+                "configYaml": {
+                    "type": "object",
+                    "form": true,
+                    "title": "Edit configYaml: in YAML tab",
+                    "hidden": {
+                        "conditions": [
+                            {
+                                "value": "config",
+                                "path": "bsf/configType"
+                            },
+                            {
+                                "value": false,
+                                "path": "bsf/enabled"
+                            }
+                          ],
+                          "operator": "or"
+                    }
+                },
+                "config": {
+                    "type": "object",
+                    "form": true,
+                    "title": "config",
+                    "hidden": {
+                        "conditions": [
+                            {
+                                "value": "configYaml",
+                                "path": "bsf/configType"
+                            },
+                            {
+                                "value": false,
+                                "path": "bsf/enabled"
+                            }
+                          ],
+                          "operator": "or"
+                    },
+                    "properties": {
+                        "logLevel": {
+                            "type": "string",
+                            "form": true,
+                            "title": "Log level",
+                            "enum": ["none", "fatal", "error", "warn", "info", "debug", "trace"]
+                        }
+                    }
+                }
+            }
+        },
+        "hss": {           
+            "type": "object",
+            "form": true,
+            "title": "HSS Service",
+            "properties": {
+                "resources": {
+                    "type": "object"
+                },
+                "enabled": {
+                    "type": "boolean",
+                    "form": true,
+                    "title": "Enable service"
+                },
+                "configType": {
+                    "type": "string",
+                    "form": "true",
+                    "title": "configuration type",
+                    "enum": ["config", "configYaml"],
+                    "hidden": {
+                        "value": false,
+                        "path": "hss/enabled"
+                      }
+                },
+                "configYaml": {
+                    "type": "object",
+                    "form": true,
+                    "title": "Edit configYaml: in YAML tab",
+                    "hidden": {
+                        "conditions": [
+                            {
+                                "value": "config",
+                                "path": "hss/configType"
+                            },
+                            {
+                                "value": false,
+                                "path": "hss/enabled"
+                            }
+                          ],
+                          "operator": "or"
+                    }
+                },
+                "config": {
+                    "type": "object",
+                    "form": true,
+                    "title": "config",
+                    "hidden": {
+                        "conditions": [
+                            {
+                                "value": "configYaml",
+                                "path": "hss/configType"
+                            },
+                            {
+                                "value": false,
+                                "path": "hss/enabled"
+                            }
+                          ],
+                          "operator": "or"
+                    },
+                    "properties": {
+                        "logLevel": {
+                            "type": "string",
+                            "form": true,
+                            "title": "Log level",
+                            "enum": ["none", "fatal", "error", "warn", "info", "debug", "trace"]
+                        }
+                    }
+                }
+            }
+        },
+        "image": {
+            "type": "object",
+            "properties": {
+                "pullPolicy": {
+                    "type": "string"
+                },
+                "registry": {
+                    "type": "string"
+                },
+                "repository": {
+                    "type": "string"
+                },
+                "tag": {
+                    "type": "string"
+                }
+            }
+        },
+        "mme": {           
+            "type": "object",
+            "form": true,
+            "title": "MME Service",
+            "properties": {
+                "resources": {
+                    "type": "object"
+                },
+                "enabled": {
+                    "type": "boolean",
+                    "form": true,
+                    "title": "Enable service"
+                },
+                "configType": {
+                    "type": "string",
+                    "form": "true",
+                    "title": "configuration type",
+                    "enum": ["config", "configYaml"],
+                    "hidden": {
+                        "value": false,
+                        "path": "mme/enabled"
+                      }
+                },
+                "configYaml": {
+                    "type": "object",
+                    "form": true,
+                    "title": "Edit configYaml: in YAML tab",
+                    "hidden": {
+                        "conditions": [
+                            {
+                                "value": "config",
+                                "path": "mme/configType"
+                            },
+                            {
+                                "value": false,
+                                "path": "mme/enabled"
+                            }
+                          ],
+                          "operator": "or"
+                    }
+                },
+                "config": {
+                    "type": "object",
+                    "form": true,
+                    "title": "config",
+                    "hidden": {
+                        "conditions": [
+                            {
+                                "value": "configYaml",
+                                "path": "mme/configType"
+                            },
+                            {
+                                "value": false,
+                                "path": "mme/enabled"
+                            }
+                          ],
+                          "operator": "or"
+                    },
+                    "properties": {
+                        "logLevel": {
+                            "type": "string",
+                            "form": true,
+                            "title": "Log level",
+                            "enum": ["none", "fatal", "error", "warn", "info", "debug", "trace"]
+                        },
+                        "mcc": {
+                            "type": "integer",
+                            "form": true
+                        },
+                        "mnc": {
+                            "type": "integer",
+                            "form": true
+                        },
+                        "tac": {
+                            "type": "integer",
+                            "form": true
+                        }
+                    }
+                },
+                "externalService": {
+                    "type": "object",
+                    "properties": {
+                        "enabled": {
+                            "type": "boolean"
+                        },
+                        "externalTrafficPolicy": {
+                            "type": "string"
+                        },
+                        "loadBalancerIP": {
+                            "type": "null"
+                        },
+                        "loadBalancerSourceRanges": {
+                            "type": "array"
+                        },
+                        "type": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "mongodb": {
+            "type": "object",
+            "properties": {
+                "auth": {
+                    "type": "object",
+                    "properties": {
+                        "enabled": {
+                            "type": "boolean"
+                        }
+                    }
+                },
+                "enabled": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "nrf": {           
+            "type": "object",
+            "form": true,
+            "title": "NRF Service",
+            "properties": {
+                "resources": {
+                    "type": "object"
+                },
+                "enabled": {
+                    "type": "boolean",
+                    "form": true,
+                    "title": "Enable service"
+                },
+                "configType": {
+                    "type": "string",
+                    "form": "true",
+                    "title": "configuration type",
+                    "enum": ["config", "configYaml"],
+                    "hidden": {
+                        "value": false,
+                        "path": "nrf/enabled"
+                      }
+                },
+                "configYaml": {
+                    "type": "object",
+                    "form": true,
+                    "title": "Edit configYaml: in YAML tab",
+                    "hidden": {
+                        "conditions": [
+                            {
+                                "value": "config",
+                                "path": "nrf/configType"
+                            },
+                            {
+                                "value": false,
+                                "path": "nrf/enabled"
+                            }
+                          ],
+                          "operator": "or"
+                    }
+                },
+                "config": {
+                    "type": "object",
+                    "form": true,
+                    "title": "config",
+                    "hidden": {
+                        "conditions": [
+                            {
+                                "value": "configYaml",
+                                "path": "nrf/configType"
+                            },
+                            {
+                                "value": false,
+                                "path": "nrf/enabled"
+                            }
+                          ],
+                          "operator": "or"
+                    },
+                    "properties": {
+                        "logLevel": {
+                            "type": "string",
+                            "form": true,
+                            "title": "Log level",
+                            "enum": ["none", "fatal", "error", "warn", "info", "debug", "trace"]
+                        }
+                    }
+                }
+            }
+        },
+        "nssf": {           
+            "type": "object",
+            "form": true,
+            "title": "NSSF Service",
+            "properties": {
+                "resources": {
+                    "type": "object"
+                },
+                "enabled": {
+                    "type": "boolean",
+                    "form": true,
+                    "title": "Enable service"
+                },
+                "configType": {
+                    "type": "string",
+                    "form": "true",
+                    "title": "configuration type",
+                    "enum": ["config", "configYaml"],
+                    "hidden": {
+                        "value": false,
+                        "path": "nssf/enabled"
+                      }
+                },
+                "configYaml": {
+                    "type": "object",
+                    "form": true,
+                    "title": "Edit configYaml: in YAML tab",
+                    "hidden": {
+                        "conditions": [
+                            {
+                                "value": "config",
+                                "path": "nssf/configType"
+                            },
+                            {
+                                "value": false,
+                                "path": "nssf/enabled"
+                            }
+                          ],
+                          "operator": "or"
+                    }
+                },
+                "config": {
+                    "type": "object",
+                    "form": true,
+                    "title": "config",
+                    "hidden": {
+                        "conditions": [
+                            {
+                                "value": "configYaml",
+                                "path": "nssf/configType"
+                            },
+                            {
+                                "value": false,
+                                "path": "nssf/enabled"
+                            }
+                          ],
+                          "operator": "or"
+                    },
+                    "properties": {
+                        "logLevel": {
+                            "type": "string",
+                            "form": true,
+                            "title": "Log level",
+                            "enum": ["none", "fatal", "error", "warn", "info", "debug", "trace"]
+                        },
+                        "nsi": {
+                            "type": "object",
+                            "properties": {
+                                "sd": {
+                                    "type": "string"
+                                },
+                                "sst": {
+                                    "type": "integer"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "pcf": {           
+            "type": "object",
+            "form": true,
+            "title": "PCF Service",
+            "properties": {
+                "resources": {
+                    "type": "object"
+                },
+                "enabled": {
+                    "type": "boolean",
+                    "form": true,
+                    "title": "Enable service"
+                },
+                "configType": {
+                    "type": "string",
+                    "form": "true",
+                    "title": "configuration type",
+                    "enum": ["config", "configYaml"],
+                    "hidden": {
+                        "value": false,
+                        "path": "pcf/enabled"
+                      }
+                },
+                "configYaml": {
+                    "type": "object",
+                    "form": true,
+                    "title": "Edit configYaml: in YAML tab",
+                    "hidden": {
+                        "conditions": [
+                            {
+                                "value": "config",
+                                "path": "pcf/configType"
+                            },
+                            {
+                                "value": false,
+                                "path": "pcf/enabled"
+                            }
+                          ],
+                          "operator": "or"
+                    }
+                },
+                "config": {
+                    "type": "object",
+                    "form": true,
+                    "title": "config",
+                    "hidden": {
+                        "value": "configYaml",
+                        "path": "pcf/configType"
+                    },
+                    "properties": {
+                        "logLevel": {
+                            "type": "string",
+                            "form": true,
+                            "title": "Log level",
+                            "enum": ["none", "fatal", "error", "warn", "info", "debug", "trace"]
+                        }
+                    }
+                }
+            }
+        },
+        "pcrf": {           
+            "type": "object",
+            "form": true,
+            "title": "PCRF Service",
+            "properties": {
+                "resources": {
+                    "type": "object"
+                },
+                "enabled": {
+                    "type": "boolean",
+                    "form": true,
+                    "title": "Enable service"
+                },
+                "configType": {
+                    "type": "string",
+                    "form": "true",
+                    "title": "configuration type",
+                    "enum": ["config", "configYaml"],
+                    "hidden": {
+                        "value": false,
+                        "path": "pcrf/enabled"
+                      }
+                },
+                "configYaml": {
+                    "type": "object",
+                    "form": true,
+                    "title": "Edit configYaml: in YAML tab",
+                    "hidden": {
+                        "conditions": [
+                            {
+                                "value": "config",
+                                "path": "pcrf/configType"
+                            },
+                            {
+                                "value": false,
+                                "path": "pcrf/enabled"
+                            }
+                          ],
+                          "operator": "or"
+                    }
+                },
+                "config": {
+                    "type": "object",
+                    "form": true,
+                    "title": "config",
+                    "hidden": {
+                        "conditions": [
+                            {
+                                "value": "configYaml",
+                                "path": "pcrf/configType"
+                            },
+                            {
+                                "value": false,
+                                "path": "pcrf/enabled"
+                            }
+                          ],
+                          "operator": "or"
+                    },
+                    "properties": {
+                        "logLevel": {
+                            "type": "string",
+                            "form": true,
+                            "title": "Log level",
+                            "enum": ["none", "fatal", "error", "warn", "info", "debug", "trace"]
+                        }
+                    }
+                }
+            }
+        },
+        "securityPolicy": {
+            "type": "object",
+            "properties": {
+                "enabled": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "sgwc": {           
+            "type": "object",
+            "form": true,
+            "title": "SGW-C Service",
+            "properties": {
+                "resources": {
+                    "type": "object"
+                },
+                "enabled": {
+                    "type": "boolean",
+                    "form": true,
+                    "title": "Enable service"
+                },
+                "configType": {
+                    "type": "string",
+                    "form": "true",
+                    "title": "configuration type",
+                    "enum": ["config", "configYaml"],
+                    "hidden": {
+                        "value": false,
+                        "path": "sgwc/enabled"
+                      }
+                },
+                "configYaml": {
+                    "type": "object",
+                    "form": true,
+                    "title": "Edit configYaml: in YAML tab",
+                    "hidden": {
+                        "conditions": [
+                            {
+                                "value": "config",
+                                "path": "sgwc/configType"
+                            },
+                            {
+                                "value": false,
+                                "path": "sgwc/enabled"
+                            }
+                          ],
+                          "operator": "or"
+                    }
+                },
+                "config": {
+                    "type": "object",
+                    "form": true,
+                    "title": "config",
+                    "hidden": {
+                        "conditions": [
+                            {
+                                "value": "configYaml",
+                                "path": "sgwc/configType"
+                            },
+                            {
+                                "value": false,
+                                "path": "sgwc/enabled"
+                            }
+                          ],
+                          "operator": "or"
+                    },
+                    "properties": {
+                        "logLevel": {
+                            "type": "string",
+                            "form": true,
+                            "title": "Log level",
+                            "enum": ["none", "fatal", "error", "warn", "info", "debug", "trace"]
+                        }
+                    }
+                }
+            }
+        },
+        "sgwu": {           
+            "type": "object",
+            "form": true,
+            "title": "SGW-U Service",
+            "properties": {
+                "resources": {
+                    "type": "object"
+                },
+                "enabled": {
+                    "type": "boolean",
+                    "form": true,
+                    "title": "Enable service"
+                },
+                "configType": {
+                    "type": "string",
+                    "form": "true",
+                    "title": "configuration type",
+                    "enum": ["config", "configYaml"],
+                    "hidden": {
+                        "value": false,
+                        "path": "sgwu/enabled"
+                      }
+                },
+                "configYaml": {
+                    "type": "object",
+                    "form": true,
+                    "title": "Edit configYaml: in YAML tab",
+                    "hidden": {
+                        "conditions": [
+                            {
+                                "value": "config",
+                                "path": "sgwu/configType"
+                            },
+                            {
+                                "value": false,
+                                "path": "sgwu/enabled"
+                            }
+                          ],
+                          "operator": "or"
+                    }
+                },
+                "config": {
+                    "type": "object",
+                    "form": true,
+                    "title": "config",
+                    "hidden": {
+                        "conditions": [
+                            {
+                                "value": "configYaml",
+                                "path": "sgwu/configType"
+                            },
+                            {
+                                "value": false,
+                                "path": "sgwu/enabled"
+                            }
+                          ],
+                          "operator": "or"
+                    },
+                    "properties": {
+                        "logLevel": {
+                            "type": "string",
+                            "form": true,
+                            "title": "Log level",
+                            "enum": ["none", "fatal", "error", "warn", "info", "debug", "trace"]
+                        }
+                    }
+                },
+                "externalService": {
+                    "type": "object",
+                    "properties": {
+                        "advertiseDomain": {
+                            "type": "string"
+                        },
+                        "enabled": {
+                            "type": "boolean"
+                        },
+                        "externalTrafficPolicy": {
+                            "type": "string"
+                        },
+                        "loadBalancerIP": {
+                            "type": "null"
+                        },
+                        "loadBalancerSourceRanges": {
+                            "type": "array"
+                        },
+                        "type": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "smf": {           
+            "type": "object",
+            "form": true,
+            "title": "SMF Service",
+            "properties": {
+                "resources": {
+                    "type": "object"
+                },
+                "enabled": {
+                    "type": "boolean",
+                    "form": true,
+                    "title": "Enable service"
+                },
+                "configType": {
+                    "type": "string",
+                    "form": "true",
+                    "title": "configuration type",
+                    "enum": ["config", "configYaml"],
+                    "hidden": {
+                        "value": false,
+                        "path": "smf/enabled"
+                      }
+                },
+                "configYaml": {
+                    "type": "object",
+                    "form": true,
+                    "title": "Edit configYaml: in YAML tab",
+                    "hidden": {
+                        "conditions": [
+                            {
+                                "value": "config",
+                                "path": "smf/configType"
+                            },
+                            {
+                                "value": false,
+                                "path": "smf/enabled"
+                            }
+                          ],
+                          "operator": "or"
+                    }
+                },
+                "config": {
+                    "type": "object",
+                    "form": true,
+                    "title": "config",
+                    "hidden": {
+                        "conditions": [
+                            {
+                                "value": "configYaml",
+                                "path": "smf/configType"
+                            },
+                            {
+                                "value": false,
+                                "path": "smf/enabled"
+                            }
+                          ],
+                          "operator": "or"
+                    },
+                    "properties": {
+                        "logLevel": {
+                            "type": "string",
+                            "form": true,
+                            "title": "Log level",
+                            "enum": ["none", "fatal", "error", "warn", "info", "debug", "trace"]
+                        }
+                    }
+                }
+            }
+        },
+        "udm": {           
+            "type": "object",
+            "form": true,
+            "title": "UDM Service",
+            "properties": {
+                "resources": {
+                    "type": "object"
+                },
+                "enabled": {
+                    "type": "boolean",
+                    "form": true,
+                    "title": "Enable service"
+                },
+                "configType": {
+                    "type": "string",
+                    "form": "true",
+                    "title": "configuration type",
+                    "enum": ["config", "configYaml"],
+                    "hidden": {
+                        "value": false,
+                        "path": "udm/enabled"
+                      }
+                },
+                "configYaml": {
+                    "type": "object",
+                    "form": true,
+                    "title": "Edit configYaml: in YAML tab",
+                    "hidden": {
+                        "conditions": [
+                            {
+                                "value": "config",
+                                "path": "udm/configType"
+                            },
+                            {
+                                "value": false,
+                                "path": "udm/enabled"
+                            }
+                          ],
+                          "operator": "or"
+                    }
+                },
+                "config": {
+                    "type": "object",
+                    "form": true,
+                    "title": "config",
+                    "hidden": {
+                        "conditions": [
+                            {
+                                "value": "configYaml",
+                                "path": "udm/configType"
+                            },
+                            {
+                                "value": false,
+                                "path": "udm/enabled"
+                            }
+                          ],
+                          "operator": "or"
+                    },
+                    "properties": {
+                        "logLevel": {
+                            "type": "string",
+                            "form": true,
+                            "title": "Log level",
+                            "enum": ["none", "fatal", "error", "warn", "info", "debug", "trace"]
+                        }
+                    }
+                }
+            }
+        },
+        "udr": {           
+            "type": "object",
+            "form": true,
+            "title": "UDR Service",
+            "properties": {
+                "resources": {
+                    "type": "object"
+                },
+                "enabled": {
+                    "type": "boolean",
+                    "form": true,
+                    "title": "Enable service"
+                },
+                "configType": {
+                    "type": "string",
+                    "form": "true",
+                    "title": "configuration type",
+                    "enum": ["config", "configYaml"],
+                    "hidden": {
+                        "value": false,
+                        "path": "udr/enabled"
+                      }
+                },
+                "configYaml": {
+                    "type": "object",
+                    "form": true,
+                    "title": "Edit configYaml: in YAML tab",
+                    "hidden": {
+                        "conditions": [
+                            {
+                                "value": "config",
+                                "path": "udr/configType"
+                            },
+                            {
+                                "value": false,
+                                "path": "udr/enabled"
+                            }
+                          ],
+                          "operator": "or"
+                    }
+                },
+                "config": {
+                    "type": "object",
+                    "form": true,
+                    "title": "config",
+                    "hidden": {
+                        "conditions": [
+                            {
+                                "value": "configYaml",
+                                "path": "udr/configType"
+                            },
+                            {
+                                "value": false,
+                                "path": "udr/enabled"
+                            }
+                          ],
+                          "operator": "or"
+                    },
+                    "properties": {
+                        "logLevel": {
+                            "type": "string",
+                            "form": true,
+                            "title": "Log level",
+                            "enum": ["none", "fatal", "error", "warn", "info", "debug", "trace"]
+                        }
+                    }
+                }
+            }
+        },
+        "upf": {           
+            "type": "object",
+            "form": true,
+            "title": "UPF Service",
+            "properties": {
+                "resources": {
+                    "type": "object"
+                },
+                "enabled": {
+                    "type": "boolean",
+                    "form": true,
+                    "title": "Enable service"
+                },
+                "configType": {
+                    "type": "string",
+                    "form": "true",
+                    "title": "configuration type",
+                    "enum": ["config", "configYaml"],
+                    "hidden": {
+                        "value": false,
+                        "path": "upf/enabled"
+                      }
+                },
+                "configYaml": {
+                    "type": "object",
+                    "form": true,
+                    "title": "Edit configYaml: in YAML tab",
+                    "hidden": {
+                        "conditions": [
+                            {
+                                "value": "config",
+                                "path": "upf/configType"
+                            },
+                            {
+                                "value": false,
+                                "path": "upf/enabled"
+                            }
+                          ],
+                          "operator": "or"
+                    }
+                },
+                "config": {
+                    "type": "object",
+                    "form": true,
+                    "title": "config",
+                    "hidden": {
+                        "conditions": [
+                            {
+                                "value": "configYaml",
+                                "path": "upf/configType"
+                            },
+                            {
+                                "value": false,
+                                "path": "upf/enabled"
+                            }
+                          ],
+                          "operator": "or"
+                    },
+                    "properties": {
+                        "logLevel": {
+                            "type": "string",
+                            "form": true,
+                            "title": "Log level",
+                            "enum": ["none", "fatal", "error", "warn", "info", "debug", "trace"]
+                        },
+                        "dev": {
+                            "type": "string"
+                        },
+                        "pdn": {
+                            "type": "object",
+                            "properties": {
+                                "addr": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                },
+                "externalService": {
+                    "type": "object",
+                    "properties": {
+                        "advertiseDomain": {
+                            "type": "string"
+                        },
+                        "enabled": {
+                            "type": "boolean"
+                        },
+                        "externalTrafficPolicy": {
+                            "type": "string"
+                        },
+                        "loadBalancerIP": {
+                            "type": "null"
+                        },
+                        "loadBalancerSourceRanges": {
+                            "type": "array"
+                        },
+                        "type": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "tunSubnet": {
+                    "type": "string"
+                }
+            }
+        },
+        "webui": {
+            "type": "object",
+            "properties": {
+                "enabled": {
+                    "form": true,
+                    "title": "Enable Webui",
+                    "type": "boolean"
+                },
+                "image": {
+                    "type": "object",
+                    "properties": {
+                        "pullPolicy": {
+                            "type": "string"
+                        },
+                        "registry": {
+                            "type": "string"
+                        },
+                        "repository": {
+                            "type": "string"
+                        },
+                        "tag": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "ingress": {
+                    "type": "object",
+                    "properties": {
+                        "annotations": {
+                            "type": "object"
+                        },
+                        "certManager": {
+                            "type": "boolean"
+                        },
+                        "enabled": {
+                            "type": "boolean"
+                        },
+                        "hostname": {
+                            "hidden": {
+                                "value": false,
+                                "path": "webui/enabled"
+                            },
+                            "type": "string",
+                            "form": true,
+                            "title": "hostname",
+                            "description": "If empty, defaults to .Release.Name-.Release.Namespace.ingress.lab5g.gradiant.org"
+                        },
+                        "path": {
+                            "type": "string"
+                        },
+                        "pathType": {
+                            "type": "string"
+                        },
+                        "tls": {
+                            "type": "boolean"
+                        }
+                    }
+                },
+                "resources": {
+                    "type": "object"
+                }
+            }
+        }
+    }
+}

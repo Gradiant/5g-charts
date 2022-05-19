@@ -31,9 +31,9 @@ spec:
             add: ["NET_ADMIN"]
         env:
           - name: IPV4_TUN_SUBNET
-            value: {{ .Values.upf.pdn.addr }}
+            value: {{ .Values.upf.tunSubnet }}
           - name: IPV4_TUN_ADDR
-            value: {{ .Values.upf.pdn.addr }}
+            value: {{ .Values.upf.tunSubnet }}
         ports:
         - name: gtp-u
           containerPort: 2152

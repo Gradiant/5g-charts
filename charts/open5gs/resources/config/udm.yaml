@@ -1,16 +1,18 @@
+{{- if eq .Values.udm.configType "configYaml" }}
+{{ toYaml .Values.udm.configYaml }}
+{{- else if eq .Values.udm.configType "config" }}
 logger:
-{{ toYaml .Values.udm.logger | indent 2 }}
-{{- if .Values.udm.parameter }}
-parameter:
-{{ toYaml .Values.udm.parameter | indent 2 }}
-{{- end }}
-udm:
-  sbi:
-    dev: eth0
-    port: 7777
-
+  level: {{ .Values.udm.config.logLevel }}
+parameter: {}
 
 nrf:
   sbi:
     - name: "{{ include "common.names.fullname" . }}-nrf"
       port: 7777
+
+udm:
+  sbi:
+    dev: eth0
+    port: 7777
+
+{{- end }}

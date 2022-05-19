@@ -1,11 +1,13 @@
+{{- if eq .Values.nrf.configType "configYaml" }}
+{{ toYaml .Values.nrf.configYaml }}
+{{- else if eq .Values.nrf.configType "config" }}
 logger:
-{{ toYaml .Values.nrf.logger | indent 2 }}
-{{- if .Values.nrf.parameter }}
-parameter:
-{{ toYaml .Values.nrf.parameter | indent 2 }}
-{{- end }}
+  level: {{ .Values.nrf.config.logLevel }}
+parameter: {}
 
 nrf:
   sbi:
     dev: eth0
     port: 7777
+
+{{- end }}

@@ -1,32 +1,82 @@
-{{- if .Values.mme.enabled }}
-MME
-==============================
-{{- if .Values.mme.externalService.enabled }}
-External Access is enabled at: 
-externalName: {{ include "common.names.fullname" . }}-mme-ext.{{ .Release.Namespace }}.ext.lab5g.gradiant.org
-echo externalIP: $(kubectl -n {{ .Release.Namespace }} get svc {{ include "common.names.fullname" . }}-mme-ext -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
-{{- end }}
-Internal Access:
-internalName: {{ include "common.names.fullname" . }}-mme
-echo clusterIP: $(kubectl get svc --namespace {{ .Release.Namespace }} {{ template "common.names.fullname" . }}-mme -o jsonpath='{.spec.clusterIP}')
-{{- end }}
+
+You have deployed open5gs 5G core services:
 
 {{- if .Values.amf.enabled }}
-AMF
-==============================
-{{- if .Values.amf.externalService.enabled }}
-External Access is enabled at: 
-externalName: {{ include "common.names.fullname" . }}-amf-ext.{{ .Release.Namespace }}.ext.lab5g.gradiant.org
-echo externalIP: $(kubectl -n {{ .Release.Namespace }} get svc {{ include "common.names.fullname" . }}-amf-ext -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
-{{- end }}
+
+** 5G AMF Service **
+
 Internal Access:
-internalName: {{ include "common.names.fullname" . }}-amf
-echo clusterIP: $(kubectl get svc --namespace {{ .Release.Namespace }} {{ template "common.names.fullname" . }}-amf -o jsonpath='{.spec.clusterIP}')
+
+For services running at the same k8s namespace, AMF IP can be resolved at `{{ include "common.names.fullname" . }}-amf`.
+
+You can also get the AMF clusterIP with:
+
+```
+kubectl get svc -n {{ .Release.Namespace }} {{ include "common.names.fullname" . }}-amf -o jsonpath='{.spec.clusterIP}')
+```
+
+---
+
+{{- if .Values.amf.externalService.enabled }}
+
+Gradiant's lab5g DNS can resolve the External IP of AMF at: 
+
+- externalName: {{ include "common.names.fullname" . }}-mme-ext.{{ .Release.Namespace }}.ext.lab5g.gradiant.org
+
+You can also get the external IP with: 
+
+```
+kubectl get svc -n {{ .Release.Namespace }} {{ include "common.names.fullname" . }}-amf-ext -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
+```
+
+{{- else }}
+
+External IP Access to this AMF service was not enabled (check amf.externalService.enabled).
+{{- end }}
 {{- end }}
 
+---
+
+{{- if .Values.mme.enabled }}
+
+** MME **
+
+Internal Access:
+
+For services running at the same k8s namespace, MME IP can be resolved at `{{ include "common.names.fullname" . }}-mme`.
+
+You can also get the MME clusterIP with:
+
+```
+kubectl get svc -n {{ .Release.Namespace }} {{ include "common.names.fullname" . }}-mme -o jsonpath='{.spec.clusterIP}')
+```
+
+---
+
+{{- if .Values.mme.externalService.enabled }}
+
+Gradiant's lab5g DNS can resolve the External IP of MME at: 
+
+- externalName: {{ include "common.names.fullname" . }}-mme-ext.{{ .Release.Namespace }}.ext.lab5g.gradiant.org
+
+You can also get the external IP with: 
+
+```
+kubectl get svc -n {{ .Release.Namespace }} {{ include "common.names.fullname" . }}-mme-ext -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
+```
+
+{{- else }}
+
+External IP Access to this MME service was not enabled (check mme.externalService.enabled).
+{{- end }}
+{{- end }}
+
+---
+
 {{- if .Values.webui.ingress.enabled }}
-WEBUI
-==============================
+
+** WEBUI **
+
 Access Open5gs web ui at: 
   {{- if .Values.webui.ingress.tls }}
   https://{{ .Values.webui.ingress.hostname | default (printf "%s-%s.ingress.lab5g.gradiant.org" .Release.Name .Release.Namespace) }}

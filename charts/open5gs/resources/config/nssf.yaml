@@ -1,24 +1,23 @@
+{{- if eq .Values.nssf.configType "configYaml" }}
+{{ toYaml .Values.nssf.configYaml }}
+{{- else if eq .Values.nssf.configType "config" }}
 logger:
-{{ toYaml .Values.nssf.logger | indent 2 }}
+  level: {{ .Values.nssf.config.logLevel }}
+parameter: {}
 
-{{- if .Values.nssf.parameter }}
-parameter:
-{{ toYaml .Values.nssf.parameter | indent 2 }}
-{{- end }}
+nrf:
+  sbi:
+    - name: "{{ include "common.names.fullname" . }}-nrf"
+      port: 7777
 
-#
 nssf:
   sbi:
     dev: eth0
     port: 7777
   nsi:
-    {{- range .Values.nssf.nsi }}  
     - name: "{{ include "common.names.fullname" $ }}-nrf"
       port: 7777
       s_nssai:
-        {{- toYaml . | nindent 8 }}
-    {{- end }}
-nrf:
-  sbi:
-    - name: "{{ include "common.names.fullname" . }}-nrf"
-      port: 7777
+        sd: {{ .Values.nssf.config.nsi.sd | quote }}
+        sst: {{ .Values.nssf.config.nsi.sst | quote }}
+{{- end }}

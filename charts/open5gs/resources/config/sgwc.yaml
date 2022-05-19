@@ -1,19 +1,11 @@
+{{- if eq .Values.sgwc.configType "configYaml" }}
+{{ toYaml .Values.sgwc.configYaml }}
+{{- else if eq .Values.sgwc.configType "config" }}
 logger:
-{{ toYaml .Values.sgwc.logger | indent 2 }}
-{{- if .Values.sgwc.parameter }}
+  level: {{ .Values.sgwc.config.logLevel }}
+
 parameter:
-{{ toYaml .Values.sgwc.parameter | indent 2 }}
-{{- end }}
-
-{{- if .Values.sgwc.max }}
-max:
-{{ toYaml .Values.sgwc.max | indent 2 }}
-{{- end }}
-
-{{- if .Values.sgwc.pool }}
-pool:
-{{ toYaml .Values.sgwc.pool | indent 2 }}
-{{- end }}
+  no_ipv6: true
 
 sgwc:
   gtpc:
@@ -24,3 +16,9 @@ sgwc:
 sgwu:
   pfcp:
     - name: "{{ include "common.names.fullname" . }}-sgwu"
+
+{{- end }}
+
+
+
+

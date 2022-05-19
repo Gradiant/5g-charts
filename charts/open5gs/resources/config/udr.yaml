@@ -1,27 +1,18 @@
+{{- if eq .Values.udr.configType "configYaml" }}
+{{ toYaml .Values.udr.configYaml }}
+{{- else if eq .Values.udr.configType "config" }}
 logger:
-{{ toYaml .Values.udr.logger | indent 2 }}
-{{- if .Values.udr.parameter }}
-parameter:
-{{ toYaml .Values.udr.parameter | indent 2 }}
-{{- end }}
+  level: {{ .Values.udr.config.logLevel }}
+parameter: {}
 
-{{- if .Values.mme.max }}
-max:
-{{ toYaml .Values.mme.max | indent 2 }}
-{{- end }}
-
-{{- if .Values.mme.pool }}
-pool:
-{{ toYaml .Values.mme.pool | indent 2 }}
-{{- end }}
-
+nrf:
+  sbi:
+    - name: "{{ include "common.names.fullname" . }}-nrf"
+      port: 7777
 
 udr:
   sbi:
     dev: eth0
     port: 7777
 
-nrf:
-  sbi:
-    - name: "{{ include "common.names.fullname" . }}-nrf"
-      port: 7777
+{{- end }}
