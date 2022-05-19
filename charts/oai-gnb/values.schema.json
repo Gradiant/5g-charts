@@ -1,0 +1,217 @@
+{
+    "$schema": "http://json-schema.org/schema#",
+    "type": "object",
+    "properties": {
+        "affinity": {
+            "type": "object"
+        },
+        "clusterDomain": {
+            "type": "string"
+        },
+        "commonAnnotations": {
+            "type": "object"
+        },
+        "commonLabels": {
+            "type": "object"
+        },
+        "containerSecurityContext": {
+            "type": "object",
+            "properties": {
+                "enabled": {
+                    "type": "boolean"
+                },
+                "privileged": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "extraDeploy": {
+            "type": "array"
+        },
+        "fullnameOverride": {
+            "type": "null"
+        },
+        "global": {
+            "type": "object",
+            "properties": {
+                "imagePullSecrets": {
+                    "type": "array"
+                },
+                "imageRegistry": {
+                    "type": "null"
+                },
+                "storageClass": {
+                    "type": "null"
+                }
+            }
+        },
+        "gnb": {
+            "type": "object",
+            "form": true,
+            "properties": {
+                "amf": {
+                    "type": "string",
+                    "form": true,
+                    "title": "AMF Hostname"
+                },
+                "dev": {
+                    "type": "object",
+                    "properties": {
+                        "ctrl": {
+                            "type": "string"
+                        },
+                        "data": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "gnbName": {
+                    "type": "string"
+                },
+                "mcc": {
+                    "type": "string",
+                    "form": true,
+                    "title": "MCC"
+                },
+                "mnc": {
+                    "type": "string",
+                    "form": true,
+                    "title": "MNC"
+                },
+                "mncLength": {
+                    "type": "string"
+                },
+                "sd0": {
+                    "type": "string",
+                    "form": true,
+                    "title": "SD0"
+                },
+                "sd1": {
+                    "type": "string",
+                    "form": true,
+                    "title": "SD1"
+                },
+                "sst": {
+                    "type": "string",
+                    "form": true,
+                    "title": "SST"
+                },
+                "tac": {
+                    "type": "string",
+                    "form": true,
+                    "title": "TAC"
+                }
+            }
+        },
+        "image": {
+            "type": "object",
+            "properties": {
+                "debug": {
+                    "type": "boolean"
+                },
+                "pullPolicy": {
+                    "type": "string"
+                },
+                "pullSecrets": {
+                    "type": "array"
+                },
+                "registry": {
+                    "type": "string"
+                },
+                "repository": {
+                    "type": "string"
+                },
+                "tag": {
+                    "type": "string"
+                }
+            }
+        },
+        "kubeVersion": {
+            "type": "null"
+        },
+        "nameOverride": {
+            "type": "null"
+        },
+        "nodeSelector": {
+            "type": "object"
+        },
+        "podAnnotations": {
+            "type": "object"
+        },
+        "podLabels": {
+            "type": "object"
+        },
+        "podSecurityContext": {
+            "type": "object",
+            "properties": {
+                "enabled": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "replicaCount": {
+            "type": "integer"
+        },
+        "resources": {
+            "type": "object",
+            "properties": {
+                "limits": {
+                    "type": "object",
+                    "properties": {
+                        "ettus.com/usrp": {
+                            "type": "integer"
+                        }
+                    }
+                }
+            }
+        },
+        "service": {
+            "type": "object",
+            "properties": {
+                "annotations": {
+                    "type": "object"
+                },
+                "clusterIP": {
+                    "type": "null"
+                },
+                "externalTrafficPolicy": {
+                    "type": "string"
+                },
+                "loadBalancerIP": {
+                    "type": "null"
+                },
+                "loadBalancerSourceRanges": {
+                    "type": "array"
+                },
+                "type": {
+                    "type": "string"
+                }
+            }
+        },
+        "tolerations": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "effect": {
+                        "type": "string"
+                    },
+                    "key": {
+                        "type": "string"
+                    },
+                    "operator": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "updateStrategy": {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}
