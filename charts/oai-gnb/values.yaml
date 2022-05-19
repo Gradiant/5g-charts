@@ -89,6 +89,14 @@ resources:
   limits:
     ettus.com/usrp: 1
 
+## @param tolerations tolerations pods assignment
+## ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
+##
+tolerations:
+  - key: ettus.com/usrp
+    operator: Equal
+    effect: NoSchedule
+
 ## Configure Pods Security Context
 ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-pod
 ## @param podsecuritycontext.enabled enabled pods' Security Context
@@ -125,10 +133,6 @@ affinity: {}
 ## ref: https://kubernetes.io/docs/user-guide/node-selection/
 ##
 nodeSelector: {}
-## @param tolerations tolerations pods assignment
-## ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
-##
-tolerations: []
 ## @param updatestrategy.type statefulset strategy type
 ## ref: https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/#update-strategies
 ##
