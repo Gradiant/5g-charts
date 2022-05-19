@@ -1,22 +1,14 @@
+{{- if eq .Values.amf.configType "configYaml" }}
+{{ toYaml .Values.amf.configYaml }}
+{{- else if eq .Values.amf.configType "config" }}
 logger:
-{{ toYaml .Values.amf.logger | indent 2 }}
+  level: {{ .Values.amf.config.logLevel }}
+parameter: {}
 
-{{- if .Values.amf.parameter }}
-parameter:
-{{ toYaml .Values.amf.parameter | indent 2 }}
-{{- end }}
-
-{{- if .Values.amf.max }}
-max:
-{{ toYaml .Values.amf.max | indent 2 }}
-{{- end }}
-
-{{- if .Values.amf.pool }}
-pool:
-{{ toYaml .Values.amf.pool | indent 2 }}
-{{- end }}
-
-
+nrf:
+  sbi:
+    - name: "{{ include "common.names.fullname" . }}-nrf"
+      port: 7777
 amf:
   sbi:
     dev: eth0
@@ -24,19 +16,28 @@ amf:
   ngap:
     dev: eth0
   guami:
-{{ toYaml .Values.amf.guami | indent 4 }}
+  - plmn_id:
+      mcc: {{ .Values.amf.config.mcc }}
+      mnc: {{ .Values.amf.config.mnc }}
+    amf_id:
+      region: 2
+      set: 1
   tai:
-{{ toYaml .Values.amf.tai | indent 4 }}
+  - plmn_id:
+      mcc: {{ .Values.amf.config.mcc }}
+      mnc: {{ .Values.amf.config.mnc }}
+    tac: {{ .Values.amf.config.tac }}
   plmn_support:
-{{ toYaml .Values.amf.plmn_support | indent 4 }}
+  - plmn_id:
+      mcc: {{ .Values.amf.config.mcc }}
+      mnc: {{ .Values.amf.config.mnc }}
+    s_nssai:
+      - sst: {{ .Values.amf.config.sst | quote }}
+        sd: {{ .Values.amf.config.sd | quote }}
   security:
       integrity_order : [ NIA2, NIA1, NIA0 ]
       ciphering_order : [ NEA0, NEA1, NEA2 ]
   network_name:
       full: Gradiant5G
   amf_name: open5gs-amf0
-
-nrf:
-  sbi:
-    - name: "{{ include "common.names.fullname" . }}-nrf"
-      port: 7777
+{{- end }}

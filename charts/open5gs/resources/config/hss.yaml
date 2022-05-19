@@ -1,10 +1,11 @@
+{{- if eq .Values.hss.configType "configYaml" }}
+{{ toYaml .Values.hss.configYaml }}
+{{- else if eq .Values.hss.configType "config" }}
 logger:
-{{ toYaml .Values.hss.logger | indent 2 }}
-{{- if .Values.hss.parameter }}
-parameter:
-{{ toYaml .Values.hss.parameter | indent 2 }}
-{{- end }}
+  level: {{ .Values.hss.config.logLevel }}
+parameter: {}
+
 hss:
-  {{- if .Values.mme.enabled }}
   freeDiameter: hss.conf
-  {{- end }}
+
+{{- end }}

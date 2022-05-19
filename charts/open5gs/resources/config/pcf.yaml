@@ -1,19 +1,18 @@
+{{- if eq .Values.pcf.configType "configYaml" }}
+{{ toYaml .Values.pcf.configYaml }}
+{{- else if eq .Values.pcf.configType "config" }}
 logger:
-{{ toYaml .Values.pcf.logger | indent 2 }}
-
-{{- if .Values.pcf.parameter }}
-parameter:
-{{ toYaml .Values.pcf.parameter | indent 2 }}
-{{- end }}
-
-#
-pcf:
-  sbi:
-    dev: eth0
-    port: 7777
-
+  level: {{ .Values.pcf.config.logLevel }}
+parameter: {}
 
 nrf:
   sbi:
     - name: "{{ include "common.names.fullname" . }}-nrf"
       port: 7777
+
+pcf:
+  sbi:
+    dev: eth0
+    port: 7777
+
+{{- end }}

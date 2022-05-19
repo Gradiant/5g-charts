@@ -1,19 +1,18 @@
+{{- if eq .Values.ausf.configType "configYaml" }}
+{{ toYaml .Values.ausf.configYaml }}
+{{- else if eq .Values.ausf.configType "config" }}
 logger:
-{{ toYaml .Values.ausf.logger | indent 2 }}
-
-{{- if .Values.ausf.parameter }}
-parameter:
-{{ toYaml .Values.ausf.parameter | indent 2 }}
-{{- end }}
-
-#
-ausf:
-  sbi:
-    dev: eth0
-    port: 7777
-
+  level: {{ .Values.ausf.config.logLevel }}
+parameter: {}
 
 nrf:
   sbi:
     - name: "{{ include "common.names.fullname" . }}-nrf"
       port: 7777
+
+ausf:
+  sbi:
+    dev: eth0
+    port: 7777
+
+{{- end }}

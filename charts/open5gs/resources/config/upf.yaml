@@ -1,9 +1,13 @@
+{{- if eq .Values.upf.configType "configYaml" }}
+{{ toYaml .Values.upf.configYaml }}
+{{- else if eq .Values.upf.configType "config" }}
 logger:
-{{ toYaml .Values.upf.logger | indent 2 }}
-{{- if .Values.upf.parameter }}
-parameter:
-{{ toYaml .Values.upf.parameter | indent 2 }}
-{{- end }}
+  level: {{ .Values.upf.config.logLevel }}
+parameter: {}
+
+smf:
+    pfcp:
+      - name: "{{ include "common.names.fullname" . }}-smf"
 
 upf:
     pfcp:
@@ -18,8 +22,8 @@ upf:
       {{- end }}
       {{- end }}
     subnet:
-      - addr: {{ .Values.upf.pdn.addr }}
+      - addr: {{ .Values.upf.config.pdn.addr }}
 
-smf:
-    pfcp:
-      - name: "{{ include "common.names.fullname" . }}-smf"
+{{- end }}
+
+
