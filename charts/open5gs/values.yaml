@@ -193,7 +193,7 @@ nssf:
       sd: "ffffff"
   configYaml: {}
   resources: {}
- 
+
 pcf:
   enabled: true
   configType: config
@@ -305,4 +305,3 @@ upf:
     # is not the original source IP of the client with default "Cluster" policy.
     # To enable preservation of the client IP set this to "Local".
     externalTrafficPolicy: Local
-
