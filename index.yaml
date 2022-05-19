@@ -623,6 +623,25 @@ entries:
   srs-lte:
   - apiVersion: v1
     appVersion: 20.04.1
+    created: "2022-05-19T13:16:58.993377727Z"
+    description: 'SRSLte enodeb + ue. '
+    digest: b9df22b7ef0e6973d570da3444cf67ed5959c3a3b7dd906104f9524a6d4e061c
+    home: https://github.com/Gradiant/charts
+    icon: https://docs.srsran.com/en/latest/_static/logo.png
+    keywords:
+    - lte
+    - enodeb
+    maintainers:
+    - email: cgiraldo@gradiant.org
+      name: cgiraldo
+    name: srs-lte
+    sources:
+    - https://github.com/srsLTE/srsLTE
+    urls:
+    - https://github.com/Gradiant/openverso-charts/releases/download/srs-lte-0.1.1/srs-lte-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v1
+    appVersion: 20.04.1
     created: "2020-10-06T17:02:41.01089029Z"
     description: 'SRSLte enodeb + ue. '
     digest: 4ae11bca3a9dce4ee5acf529a7ea452024e4207b834a939377c2556ffe43d824
@@ -795,4 +814,4 @@ entries:
     urls:
     - https://github.com/Gradiant/openverso-charts/releases/download/ueransim-gnb-0.1.0/ueransim-gnb-0.1.0.tgz
     version: 0.1.0
-generated: "2022-05-18T11:17:59.83836287Z"
+generated: "2022-05-19T13:16:58.993458926Z"
