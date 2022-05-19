@@ -15,15 +15,15 @@ image:
   #  - regcred
 
 ue:
-  opc: '63bfa50ee6523365ff14c1f45f88737d'
-  k: '00112233445566778899aabbccddeeff'
-  imsi: '001010123456789'
+  opc: 'E8ED289DEBA952E4283B54E88E6183CA'
+  k: '465B5CE8B199B49FAA5F0A2EE238A6BC'
+  imsi: '999700000000001'
   imei: '353490069873319'
   resources: {}
 
 enb:
-  mcc: '001'
-  mnc: '01'
-  tac: '0001'
   mme: mme
+  mcc: '999'
+  mnc: '70'
+  tac: '0001'
   resources: {}

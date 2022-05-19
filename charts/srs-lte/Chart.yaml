@@ -5,12 +5,12 @@ description: >
 home: https://github.com/Gradiant/charts
 sources:
   - https://github.com/srsLTE/srsLTE
-icon:
+icon: https://docs.srsran.com/en/latest/_static/logo.png
 maintainers:
 - email: cgiraldo@gradiant.org
   name: cgiraldo
 name: srs-lte
-version: 0.1.0
+version: 0.1.1
 keywords:
   - lte
   - enodeb
