@@ -57,6 +57,34 @@ entries:
       category: apps
     apiVersion: v2
     appVersion: 2021.w32
+    created: "2022-05-19T13:30:37.041699743Z"
+    dependencies:
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 1.x.x
+    description: description
+    digest: 15a8c69330bbf3edc205b8ad73425fc877deca112828aee272ef8dd60532012b
+    home: https://openairinterface.org/
+    icon: https://openairinterface.org/wp-content/uploads/2020/11/cropped-android-chrome-512x512-1-270x270.png
+    keywords:
+    - apps
+    - gradiant
+    - k8s
+    maintainers:
+    - email: admin@gradiant.org
+      name: Gradiant
+    name: oai-gnb
+    sources:
+    - https://gitlab.eurecom.fr/oai/openairinterface5g/
+    urls:
+    - https://github.com/Gradiant/openverso-charts/releases/download/oai-gnb-0.3.0/oai-gnb-0.3.0.tgz
+    version: 0.3.0
+  - annotations:
+      category: apps
+    apiVersion: v2
+    appVersion: 2021.w32
     created: "2022-03-07T08:54:34.845455311Z"
     dependencies:
     - name: common
@@ -814,4 +842,4 @@ entries:
     urls:
     - https://github.com/Gradiant/openverso-charts/releases/download/ueransim-gnb-0.1.0/ueransim-gnb-0.1.0.tgz
     version: 0.1.0
-generated: "2022-05-19T13:16:58.993458926Z"
+generated: "2022-05-19T13:30:37.042044647Z"
