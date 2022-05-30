@@ -13,13 +13,15 @@ nci: '0x0000000100'  # NR Cell Identity (36-bit)
 idLength: 32        # NR gNB ID length in bits [22...32]
 tac: {{ .Values.gnb.tac }}             # Tracking Area Code
 
-linkIp: ${GNB_ADDR}   # gNB's local IP address for Radio Link Simulation (Usually same with local IP)
-ngapIp: ${GNB_ADDR}  # gNB's local IP address for N2 Interface (Usually same with local IP)
-gtpIp: ${GNB_ADDR}   # gNB's local IP address for N3 Interface (Usually same with local IP)
+
+
+linkIp: ${RADIO_BIND_IP}   # gNB's local IP address for Radio Link Simulation (Usually same with local IP)
+ngapIp: ${N2_BIND_IP}  # gNB's local IP address for N2 Interface (Usually same with local IP)
+gtpIp: ${N3_BIND_IP}   # gNB's local IP address for N3 Interface (Usually same with local IP)
 
 # List of AMF address information
 amfConfigs:
-  - address: ${AMF_ADDR}
+  - address: ${AMF_IP}
     port: 38412
 
 # List of supported S-NSSAIs by this gNB

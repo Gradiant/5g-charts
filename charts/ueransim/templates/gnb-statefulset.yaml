@@ -66,6 +66,12 @@ spec:
               value: {{ .Values.gnb.amf }}
             - name: GNB_HOSTNAME
               value: {{ .Values.gnb.name }}
+            - name: N2_IFACE
+              value: eth0
+            - name: N3_IFACE
+              value: eth0
+            - name: RADIO_IFACE
+              value: eth0
           {{- if .Values.resources }}
           resources: {{- toYaml .Values.resources | nindent 12 }}
           {{- end }}
