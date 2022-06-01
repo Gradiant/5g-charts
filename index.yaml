@@ -84,7 +84,7 @@ entries:
     - https://github.com/Gradiant/openverso-charts/releases/download/oai-enb-0.1.0/oai-enb-0.1.0.tgz
     version: 0.1.0
   oai-gnb:
-   - annotations:
+  - annotations:
       category: apps
     apiVersion: v2
     appVersion: 2021.w32
