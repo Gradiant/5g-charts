@@ -1,6 +1,3 @@
-{{- if eq .Values.udm.configType "configYaml" }}
-{{ toYaml .Values.udm.configYaml }}
-{{- else if eq .Values.udm.configType "config" }}
 logger:
   level: {{ .Values.udm.config.logLevel }}
 parameter: {}
@@ -14,5 +11,3 @@ udm:
   sbi:
     dev: eth0
     port: 7777
-
-{{- end }}

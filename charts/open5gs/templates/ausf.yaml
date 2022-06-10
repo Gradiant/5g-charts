@@ -1,0 +1,16 @@
+{{- if .Values.ausf.enabled }}
+{{- $component := .Values.ausf | deepCopy }}
+{{- $values := merge (dict "Values" $component "component" "ausf" ) . }}
+{{ template "open5gs.deployment" $values }}
+---
+{{ template "open5gs.configmap" $values }}
+---
+{{ template "open5gs.hpa" $values }}
+---
+{{- range $k, $v := $component.services }}
+{{- $_ := set $component "service" $v }}
+{{- $values := merge (dict "Values" $component "component" "ausf" "service" $k) $ }}
+{{ template "open5gs.svc" $values }}
+---
+{{- end }}
+{{- end }}

@@ -1,11 +1,9 @@
-{{- if eq .Values.pcrf.configType "configYaml" }}
-{{ toYaml .Values.pcrf.configYaml }}
-{{- else if eq .Values.pcrf.configType "config" }}
+db_uri:  {{ default (printf "mongodb://%s-mongodb/open5gs" .Release.Name)  .Values.db_uri  }}
+
 logger:
   level: {{ .Values.pcrf.config.logLevel }}
 parameter: {}
 
 pcrf:
   freeDiameter: pcrf.conf
-  
-{{- end }}
+

@@ -1,6 +1,3 @@
-{{- if eq .Values.smf.configType "configYaml" }}
-{{ toYaml .Values.smf.configYaml }}
-{{- else if eq .Values.smf.configType "config" }}
 logger:
   level: {{ .Values.smf.config.logLevel }}
 parameter: {}
@@ -12,7 +9,7 @@ nrf:
 
 upf:
     pfcp:
-      - name: "{{ include "common.names.fullname" . }}-upf"
+      - name: "{{ include "common.names.fullname" . }}-upf-udp"
         apn: internet
 
 smf:
@@ -33,7 +30,4 @@ smf:
     - 8.8.8.8
     - 8.8.4.4
   mtu: 1400
-
-{{- end }}
-
 

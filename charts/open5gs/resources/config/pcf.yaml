@@ -1,6 +1,5 @@
-{{- if eq .Values.pcf.configType "configYaml" }}
-{{ toYaml .Values.pcf.configYaml }}
-{{- else if eq .Values.pcf.configType "config" }}
+db_uri:  {{ default (printf "mongodb://%s-mongodb/open5gs" .Release.Name)  .Values.db_uri  }}
+
 logger:
   level: {{ .Values.pcf.config.logLevel }}
 parameter: {}
@@ -15,4 +14,3 @@ pcf:
     dev: eth0
     port: 7777
 
-{{- end }}
