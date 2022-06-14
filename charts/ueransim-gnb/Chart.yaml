@@ -8,7 +8,7 @@ dependencies:
     tags:
       - bitnami-common
     version: 1.x.x
-description: ueransim for 5G RAN simulation
+description: ueransim gNodeB for 5G RAN simulation
 engine: gotpl
 home: https://github.com/aligungr/UERANSIM
 icon: https://github.com/aligungr/UERANSIM/raw/master/.github/logo.png
@@ -24,4 +24,4 @@ maintainers:
 name: ueransim-gnb
 sources:
   - https://github.com/aligungr/UERANSIM
-version: 0.1.0
+version: 0.2.0
