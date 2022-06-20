@@ -78,59 +78,37 @@ mnc: '70'
 sst: 1
 sd: "0xffffff"
 tac: '0001'
+
+resources:
+  limits: {}
+  requests: {}
+podSecurityContext:
+  enabled: false
+containerSecurityContext:
+  enabled: false
+podLabels: {}
+podAnnotations: {}
+affinity: {}
+nodeSelector: {}
+tolerations: []
+
 ues:
-  enabled: true
-  count: 4
+  enabled: false
+  count: 1
   initialMSISDN: '0000000001'
   key: 465B5CE8B199B49FAA5F0A2EE238A6BC
   op: E8ED289DEBA952E4283B54E88E6183CA
   opType: OPC
   apn: internet
-
-##  resource requests and limits
-## ref: http://kubernetes.io/docs/user-guide/compute-resources/
-## resources.limits the resources limits for the containers
-## resources.requests the requested resources for the containers
-##
-resources:
-  limits: {}
-  requests: {}
-## Configure Pods Security Context
-## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-pod
-## @param podsecuritycontext.enabled enabled pods' Security Context
-## @param podsecuritycontext.fsgroup set pod's Security Context fsGroup
-##
-podSecurityContext:
-  enabled: false
-#  fsGroup: 1001
-## Configure Container Security Context
-## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-pod
-## @param containersecuritycontext.enabled enabled containers' Security Context
-## @param containersecuritycontext.runasuser set containers' Security Context runAsUser
-##
-containerSecurityContext:
-  enabled: false
-#  runAsUser: 1001
-
-## @param podlabels extra labels for  pods
-## ref: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/
-##
-podLabels: {}
-## @param podannotations annotations for  pods
-## ref: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/
-##
-podAnnotations: {}
-
-## @param .affinity affinity for pods assignment
-## ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity
-## NOTE: `podaffinitypreset`,  and `nodeAffinityPreset` will be ignored when it's set
-##
-affinity: {}
-## @param nodeselector node labels for pods assignment
-## ref: https://kubernetes.io/docs/user-guide/node-selection/
-##
-nodeSelector: {}
-## @param tolerations tolerations pods assignment
-## ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
-##
-tolerations: []
+  resources:
+    limits: {}
+    requests: {}
+  podSecurityContext:
+    enabled: false
+  containerSecurityContext:
+    enabled: false
+  podLabels: {}
+  podAnnotations: {}
+  affinity: {}
+  nodeSelector: {}
+  tolerations: []

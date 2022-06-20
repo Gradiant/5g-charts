@@ -4,6 +4,7 @@ metadata:
   name: {{ template "common.names.fullname" . }}
   namespace: {{ .Release.Namespace | quote }}
   labels: {{- include "common.labels.standard" . | nindent 4 }}
+    app.kubernetes.io/component: gnb
     {{- if .Values.commonLabels }}
     {{- include "common.tplvalues.render" ( dict "value" .Values.commonLabels "context" $ ) | nindent 4 }}
     {{- end }}
@@ -13,17 +14,19 @@ metadata:
 spec:
   selector:
     matchLabels: {{ include "common.labels.matchLabels" . | nindent 6 }}
+      app.kubernetes.io/component: gnb
   template:
     metadata:
       {{- if .Values.podAnnotations }}
       annotations: {{- include "common.tplvalues.render" (dict "value" .Values.podAnnotations "context" $) | nindent 8 }}
       {{- end }}
       labels: {{- include "common.labels.standard" . | nindent 8 }}
+        app.kubernetes.io/component: gnb
         {{- if .Values.podLabels }}
         {{- include "common.tplvalues.render" (dict "value" .Values.podLabels "context" $) | nindent 8 }}
         {{- end }}
     spec:
-      {{- include "ueransim-gnb.imagePullSecrets" . | nindent 6 }}
+      {{- include "ueransim.imagePullSecrets" . | nindent 6 }}
       {{- if .Values.affinity }}
       affinity: {{- include "common.tplvalues.render" ( dict "value" .Values.affinity "context" $) | nindent 8 }}
       {{- end }}
@@ -38,7 +41,7 @@ spec:
       {{- end }}
       containers:
         - name: gnodeb
-          image: {{ template "ueransim-gnb.image" . }}
+          image: {{ template "ueransim.image" . }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           {{- if .Values.containerSecurityContext.enabled }}
           securityContext: {{- omit .Values.containerSecurityContext "enabled" | toYaml | nindent 12 }}
@@ -66,7 +69,6 @@ spec:
               value: {{ .Values.interfaces.n3.dev }}
             - name: RADIO_IFACE
               value: {{ .Values.interfaces.radio.dev }}
-
           {{- if .Values.resources }}
           resources: {{- toYaml .Values.resources | nindent 12 }}
           {{- end }}
@@ -74,31 +76,6 @@ spec:
             - name: config
               mountPath: /etc/ueransim/gnb.yaml
               subPath: "gnb.yaml"
-        {{- if .Values.ues.enabled }}
-        - name: ues
-          image: {{ template "ueransim-gnb.image" . }}
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
-          securityContext:
-            privileged: true
-            capabilities:
-              add: ["NET_ADMIN"]
-          args:
-            - ue
-            - -n
-            - {{ .Values.ues.count | quote }}
-          env:
-            - name: GNB_IP
-              valueFrom:
-                fieldRef:
-                  fieldPath: status.podIP
-          {{- if .Values.resources }}
-          resources: {{- toYaml .Values.resources | nindent 12 }}
-          {{- end }}
-          volumeMounts:
-            - name: config-ues
-              mountPath: /etc/ueransim/ue.yaml
-              subPath: "ue.yaml"
-        {{- end }}
       volumes:
         - name: config
           configMap:
