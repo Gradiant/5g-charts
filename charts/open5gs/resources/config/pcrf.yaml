@@ -1,11 +1,11 @@
+{{- if eq .Values.pcrf.configType "configYaml" }}
+{{ toYaml .Values.pcrf.configYaml }}
+{{- else if eq .Values.pcrf.configType "config" }}
 logger:
-{{ toYaml .Values.pcrf.logger | indent 2 }}
-{{- if .Values.pcrf.parameter }}
-parameter:
-{{ toYaml .Values.pcrf.parameter | indent 2 }}
-{{- end }}
+  level: {{ .Values.pcrf.config.logLevel }}
+parameter: {}
 
 pcrf:
-  {{- if .Values.smf.enabled }}
   freeDiameter: pcrf.conf
-  {{- end }}
+  
+{{- end }}

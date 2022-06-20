@@ -66,7 +66,7 @@ replicaCount: 1
 
 gnb:
   gnbName: Gradiant
-  mcc: '901'
+  mcc: '999'
   mnc: '70'
   mncLength: '2'
   tac: '0001'
@@ -75,6 +75,10 @@ gnb:
   sd1: '0'
   # -- hostname of the amf core service.
   amf: "amf"
+  # -- data plane interface
+  dev:
+    ctrl: "eth0"
+    data: "eth0"
 
 ##  resource requests and limits
 ## ref: http://kubernetes.io/docs/user-guide/compute-resources/
@@ -85,6 +89,14 @@ resources:
   limits:
     ettus.com/usrp: 1
 
+## @param tolerations tolerations pods assignment
+## ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
+##
+tolerations:
+  - key: ettus.com/usrp
+    operator: Equal
+    effect: NoSchedule
+
 ## Configure Pods Security Context
 ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-pod
 ## @param podsecuritycontext.enabled enabled pods' Security Context
@@ -92,7 +104,7 @@ resources:
 ##
 podSecurityContext:
   enabled: false
-  fsGroup: 1001
+  # fsGroup: 1001
 ## Configure Container Security Context
 ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-pod
 ## @param containersecuritycontext.enabled enabled containers' Security Context
@@ -121,10 +133,6 @@ affinity: {}
 ## ref: https://kubernetes.io/docs/user-guide/node-selection/
 ##
 nodeSelector: {}
-## @param tolerations tolerations pods assignment
-## ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
-##
-tolerations: []
 ## @param updatestrategy.type statefulset strategy type
 ## ref: https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/#update-strategies
 ##

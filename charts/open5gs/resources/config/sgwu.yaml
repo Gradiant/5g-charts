@@ -1,26 +1,18 @@
+{{- if eq .Values.sgwu.configType "configYaml" }}
+{{ toYaml .Values.sgwu.configYaml }}
+{{- else if eq .Values.sgwu.configType "config" }}
 logger:
-{{ toYaml .Values.sgwu.logger | indent 2 }}
-{{- if .Values.sgwu.parameter }}
+  level: {{ .Values.sgwu.config.logLevel }}
+
 parameter:
-{{ toYaml .Values.sgwu.parameter | indent 2 }}
-{{- end }}
-
-{{- if .Values.sgwu.max }}
-max:
-{{ toYaml .Values.sgwu.max | indent 2 }}
-{{- end }}
-
-{{- if .Values.sgwu.pool }}
-pool:
-{{ toYaml .Values.sgwu.pool | indent 2 }}
-{{- end }}
+  no_ipv6: true
 
 sgwu:
   gtpu:
     dev: eth0
     {{- if .Values.sgwu.externalService.enabled }}
     {{- if .Values.sgwu.externalService.advertise }}
-    advertise: {{ .Values.sgwu.advertise }}
+    advertise: {{ .Values.sgwu.externalService.advertise }}
     {{- else }}
     advertise: {{ include "common.names.fullname" . }}-sgwu-ext.{{ .Release.Namespace }}.{{ .Values.sgwu.externalService.advertiseDomain }}
     {{- end }}
@@ -31,3 +23,5 @@ sgwu:
 sgwc:
   pfcp:
     - name: "{{ include "common.names.fullname" . }}-sgwc"
+
+{{- end }}

@@ -1,16 +1,22 @@
-
+{{- if eq .Values.smf.configType "configYaml" }}
+{{ toYaml .Values.smf.configYaml }}
+{{- else if eq .Values.smf.configType "config" }}
 logger:
-{{ toYaml .Values.smf.logger | indent 2 }}
+  level: {{ .Values.smf.config.logLevel }}
+parameter: {}
 
-{{- if .Values.smf.parameter }}
-parameter:
-{{ toYaml .Values.smf.parameter | indent 2 }}
-{{- end }}
+nrf:
+  sbi:
+    - name: "{{ include "common.names.fullname" . }}-nrf"
+      port: 7777
+
+upf:
+    pfcp:
+      - name: "{{ include "common.names.fullname" . }}-upf"
+        apn: internet
 
 smf:
-  {{- if .Values.pcrf.enabled }}
   freeDiameter: smf.conf
-  {{- end }}
   sbi:
     dev: eth0
     port: 7777
@@ -21,19 +27,13 @@ smf:
   pfcp:
     dev: eth0
   subnet:
-    - addr: {{ .Values.smf.pdn.addr }}
+    - addr: {{ .Values.smf.config.pdn.addr }}
       dnn: internet
   dns:
     - 8.8.8.8
     - 8.8.4.4
   mtu: 1400
 
-nrf:
-    sbi:
-      - name: "{{ include "common.names.fullname" . }}-nrf"
-        port: 7777
+{{- end }}
 
-upf:
-    pfcp:
-      - name: "{{ include "common.names.fullname" . }}-upf"
-        apn: internet
+

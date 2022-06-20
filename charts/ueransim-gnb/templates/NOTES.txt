@@ -1,0 +1,47 @@
+
+ueransim-gnb successfully installed!
+Check gnodeb log with:
+
+```
+kubectl -n {{ .Release.Namespace }} logs deployment/{{ include "common.names.fullname" . }}
+```
+
+---
+
+{{- if .Values.ues.enabled }}
+
+You have also deployed {{ .Values.ues.count }} ues. You can enter ues terminal with:
+
+```
+kubectl -n {{ .Release.Namespace }} exec -ti deployment/{{ include "common.names.fullname" . }}-ues -- /bin/bash
+```
+There is a tun interface for each ue. 
+You can bind your application to the interface to test ue connectivity.
+Example:
+
+```
+ping -I uesimtun0 gradiant.org
+traceroute -i uesimtun0 gradiant.org
+curl --interface uesimtun0 https://www.gradiant.org/ 
+```
+
+You can also deploy more ues connected to this gnodeb with openverso/ueransim-ues chart:
+
+```
+helm install -n {{ .Release.Namespace }} ueransim-ues openverso/ueransim-ues --set gnb.hostname={{ include "common.names.fullname" . }}
+```
+
+{{- else }}
+
+No embedded ues where deployed.
+
+You can deploy ues connected to this gnodeb with openverso/ueransim-ues chart:
+
+```
+helm install -n {{ .Release.Namespace }} ueransim-ues openverso/ueransim-ues --set gnb.hostname={{ include "common.names.fullname" . }}
+```
+
+{{- end }}
+
+
+

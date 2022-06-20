@@ -43,6 +43,27 @@ jobs:
       - name: Create kind cluster
         uses: helm/kind-action@v1.2.0
         if: steps.list-changed.outputs.changed == 'true'
-
+      - name: Install metallb
+        run: |
+            kind_IP=$(docker network inspect -f '{{index (index .IPAM.Config 0) "Gateway" }}' kind)
+            echo "Deploying metallb loadBalancer"
+            kubectl --kubeconfig=$kind_kubeconfig apply -f https://raw.githubusercontent.com/metallb/metallb/v0.9.6/manifests/namespace.yaml
+            kubectl --kubeconfig=$kind_kubeconfig apply -f https://raw.githubusercontent.com/metallb/metallb/v0.9.6/manifests/metallb.yaml
+            echo "Deploy metallb configuration"
+            cat <<EOF | kubectl apply --kubeconfig=$kind_kubeconfig -f -
+            apiVersion: v1
+            kind: ConfigMap
+            metadata:
+              namespace: metallb-system
+              name: config
+            data:
+              config: |
+                address-pools:
+                - name: default
+                  protocol: layer2
+                  addresses:
+                  - ${kind_IP}00-${kind_IP}20
+            EOF
+        if: steps.list-changed.outputs.changed == 'true'
       - name: Run chart-testing (install)
         run: ct install

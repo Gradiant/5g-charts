@@ -43,7 +43,7 @@ extraDeploy: []
 image:
   registry: docker.io
   repository: openverso/ueransim
-  tag: 3.2.2
+  tag: 3.2.6
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
   ## ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
@@ -61,21 +61,35 @@ image:
   ##
   debug: false
 
+general:
+  mcc: '999'
+  mnc: '70'
+  sst: 1
+  sd: "0xffffff"
 
-mcc: '901'
-mnc: '70'
-tac: '0001'
+gnb:
+  enabled: true
+  name: ueransim-gnb
+  amf: open5gs-amf
+  mcc:
+  mnc:
+  tac: '0001'
+  sst:
+  sd:
 
-UECount: 4
-initialMSISDN: '0000000001'
-key: 465B5CE8B199B49FAA5F0A2EE238A6BC
-op: E8ED289DEBA952E4283B54E88E6183CA
-opType: OPC
-apn: internet
-sst: 1
-sd: 1
-
-amf: open5gs-amf
+ue:
+  enabled: true
+  gnb: ueransim-gnb
+  UECount: 4
+  mcc:
+  mnc:
+  initialMSISDN: '0000000001'
+  key: 465B5CE8B199B49FAA5F0A2EE238A6BC
+  op: E8ED289DEBA952E4283B54E88E6183CA
+  opType: OPC
+  apn: internet
+  sst:
+  sd:
 
 ##  resource requests and limits
 ## ref: http://kubernetes.io/docs/user-guide/compute-resources/

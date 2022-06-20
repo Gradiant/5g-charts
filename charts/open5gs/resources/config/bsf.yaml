@@ -1,28 +1,18 @@
+{{- if eq .Values.bsf.configType "configYaml" }}
+{{ toYaml .Values.bsf.configYaml }}
+{{- else if eq .Values.bsf.configType "config" }}
 logger:
-{{ toYaml .Values.amf.logger | indent 2 }}
+  level: {{ .Values.bsf.config.logLevel }}
+parameter: {}
 
-{{- if .Values.amf.parameter }}
-parameter:
-{{ toYaml .Values.amf.parameter | indent 2 }}
-{{- end }}
-
-{{- if .Values.amf.max }}
-max:
-{{ toYaml .Values.amf.max | indent 2 }}
-{{- end }}
-
-{{- if .Values.amf.pool }}
-pool:
-{{ toYaml .Values.amf.pool | indent 2 }}
-{{- end }}
-
+nrf:
+  sbi:
+    - name: "{{ include "common.names.fullname" . }}-nrf"
+      port: 7777
 
 bsf:
   sbi:
     dev: eth0
     port: 7777
 
-nrf:
-  sbi:
-    - name: "{{ include "common.names.fullname" . }}-nrf"
-      port: 7777
+{{- end }}

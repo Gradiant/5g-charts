@@ -1,0 +1,21 @@
+{{- if .Values.gnb.enabled  -}}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "common.names.fullname" . }}-gnb
+  labels: {{- include "common.labels.standard" . | nindent 4 }}
+    app.kubernetes.io/component: gnb
+spec:
+  ports:
+  - name: gnb-ue
+    port: 4997
+    protocol: UDP
+  - name: gnb-upf
+    port: 2152
+    protocol: UDP
+  
+  clusterIP: None
+  publishNotReadyAddresses: true
+  selector: {{- include "common.labels.matchLabels" . | nindent 4 }}
+    app.kubernetes.io/component: gnb
+{{- end }}

@@ -1,6 +1,5 @@
-
-apiVersion: {{ include "common.capabilities.statefulset.apiVersion" . }}
-kind: StatefulSet
+apiVersion: {{ include "common.capabilities.deployment.apiVersion" . }}
+kind: Deployment
 metadata:
   name: {{ template "common.names.fullname" . }}
   namespace: {{ .Release.Namespace | quote }}
@@ -13,14 +12,9 @@ metadata:
   annotations: {{- include "common.tplvalues.render" ( dict "value" .Values.commonAnnotations "context" $ ) | nindent 4 }}
   {{- end }}
 spec:
-  replicas: 1
   selector:
     matchLabels: {{ include "common.labels.matchLabels" . | nindent 6 }}
       app.kubernetes.io/component: gnb
-  serviceName: {{ template "common.names.fullname" . }}
-  {{- if .Values.updateStrategy }}
-  updateStrategy: {{- toYaml .Values.updateStrategy | nindent 4 }}
-  {{- end }}
   template:
     metadata:
       {{- if .Values.podAnnotations }}
@@ -54,9 +48,27 @@ spec:
           {{- end }}
           args:
             - gnb
+          ports:
+          - name: gnb-ue
+            containerPort: 4997
+            protocol: UDP
+          - name: gnb-upf
+            containerPort: 2152
+            protocol: UDP
           env:
+            {{- if .Values.amf.ip }}
+            - name: AMF_IP
+              value: {{ .Values.amf.ip }}
+            {{- else }}
             - name: AMF_HOSTNAME
-              value: {{ .Values.amf }}
+              value: {{ .Values.amf.hostname }}
+            {{- end }}
+            - name: N2_IFACE
+              value: {{ .Values.interfaces.n2.dev }}
+            - name: N3_IFACE
+              value: {{ .Values.interfaces.n3.dev }}
+            - name: RADIO_IFACE
+              value: {{ .Values.interfaces.radio.dev }}
           {{- if .Values.resources }}
           resources: {{- toYaml .Values.resources | nindent 12 }}
           {{- end }}
@@ -64,25 +76,12 @@ spec:
             - name: config
               mountPath: /etc/ueransim/gnb.yaml
               subPath: "gnb.yaml"
-        - name: ues
-          image: {{ template "ueransim.image" . }}
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
-          securityContext:
-            privileged: true
-            capabilities:
-              add: ["NET_ADMIN"]
-          args:
-            - ue
-            - -n
-            - {{ .Values.UECount | quote }}
-          {{- if .Values.resources }}
-          resources: {{- toYaml .Values.resources | nindent 12 }}
-          {{- end }}
-          volumeMounts:
-            - name: config
-              mountPath: /etc/ueransim/ue.yaml
-              subPath: "ue.yaml"
       volumes:
         - name: config
           configMap:
             name: {{ include "common.names.fullname" . }}
+        {{- if .Values.ues.enabled  }}
+        - name: config-ues
+          configMap:
+            name: {{ include "common.names.fullname" . }}-ues
+        {{- end }}

@@ -15,6 +15,9 @@ spec:
     metadata:
       labels: {{- include "common.labels.standard" . | nindent 8 }}
         app.kubernetes.io/component: upf
+      {{- if .Values.upf.podAnnotations }}
+      annotations: {{- include "common.tplvalues.render" (dict "value" .Values.upf.podAnnotations "context" $) | nindent 8 }}
+      {{- end }}
     spec:
 {{ include "open5gs.imagePullSecrets" . | indent 6 }}
       containers:
@@ -28,9 +31,9 @@ spec:
             add: ["NET_ADMIN"]
         env:
           - name: IPV4_TUN_SUBNET
-            value: {{ .Values.upf.pdn.addr }}
+            value: {{ .Values.upf.tunSubnet }}
           - name: IPV4_TUN_ADDR
-            value: {{ .Values.upf.pdn.addr }}
+            value: {{ .Values.upf.tunSubnet }}
         ports:
         - name: gtp-u
           containerPort: 2152
@@ -38,16 +41,6 @@ spec:
         - name: pfcp
           containerPort: 8805
           protocol: UDP
-        # livenessProbe:
-        #   tcpSocket:
-        #     port: s6a
-        #   initialDelaySeconds: 15
-        #   periodSeconds: 20
-        # readinessProbe:
-        #   tcpSocket:
-        #     port: s6a
-        #   initialDelaySeconds: 5
-        #   periodSeconds: 10
         resources:
 {{ toYaml .Values.upf.resources | indent 10 }}
         volumeMounts:

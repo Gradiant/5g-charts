@@ -1,21 +1,17 @@
+{{- if eq .Values.mme.configType "configYaml" }}
+{{ toYaml .Values.mme.configYaml }}
+{{- else if eq .Values.mme.configType "config" }}
 logger:
-{{ toYaml .Values.mme.logger | indent 2 }}
+  level: {{ .Values.mme.config.logLevel }}
+parameter: {}
 
-{{- if .Values.mme.parameter }}
-parameter:
-{{ toYaml .Values.mme.parameter | indent 2 }}
-{{- end }}
+sgwc:
+  gtpc:
+    - name: "{{ include "common.names.fullname" . }}-sgwc"
 
-{{- if .Values.mme.max }}
-max:
-{{ toYaml .Values.mme.max | indent 2 }}
-{{- end }}
-
-{{- if .Values.mme.pool }}
-pool:
-{{ toYaml .Values.mme.pool | indent 2 }}
-{{- end }}
-
+smf:
+  gtpc:
+    - name: "{{ include "common.names.fullname" . }}-smf"
 
 mme:
   freeDiameter: mme.conf
@@ -23,22 +19,22 @@ mme:
     dev: eth0
   gtpc:
     dev: eth0
+
   gummei:
-{{ toYaml .Values.mme.gummei | indent 4 }}
+    plmn_id:
+      mcc: {{ .Values.mme.config.mcc }}
+      mnc: {{ .Values.mme.config.mnc }}
+    mme_gid: 2
+    mme_code: 1
   tai:
-{{ toYaml .Values.mme.tai | indent 4 }}
+    plmn_id:
+      mcc: {{ .Values.mme.config.mcc }}
+      mnc: {{ .Values.mme.config.mnc }}
+    tac: {{ .Values.mme.config.tac }}
   security:
       integrity_order : [ EIA1, EIA2, EIA0 ]
       ciphering_order : [ EEA0, EEA1, EEA2 ]
   network_name:
       full: Gradiant4G
 
-sgwc:
-  gtpc:
-    - name: "{{ include "common.names.fullname" . }}-sgwc"
-
-{{- if .Values.smf.enabled }}
-smf:
-  gtpc:
-    - name: "{{ include "common.names.fullname" . }}-smf"
 {{- end }}

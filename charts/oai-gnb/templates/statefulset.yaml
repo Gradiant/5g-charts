@@ -61,11 +61,15 @@ spec:
             #- name: USE_B2XX
             #  value: "true"
             - name: GNB_NGA_IF_NAME
-              value: "eth0"
+              value: {{ .Values.gnb.dev.ctrl }}
             - name: GNB_NGU_IF_NAME
-              value: "eth0"
+              value: {{ .Values.gnb.dev.data }}
             - name: AMF_HOSTNAME
               value: {{ .Values.gnb.amf }}
+          ports:
+          - name: gtp-u
+            containerPort: 2152
+            protocol: UDP
           {{- if .Values.resources }}
           resources: {{- toYaml .Values.resources | nindent 12 }}
           {{- end }}
