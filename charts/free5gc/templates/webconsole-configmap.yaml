@@ -5,5 +5,5 @@ metadata:
   labels: {{- include "common.labels.standard" . | nindent 4 }}
     app.kubernetes.io/component: webconsole
 data:
-  webconsolecfg.yaml: |
-{{ tpl (.Files.Get "resources/webconsolecfg.yaml") . | indent 4 }}
+  webuicfg.yaml: |
+{{ tpl (.Files.Get "resources/config/webuicfg.yaml") . | indent 4 }}

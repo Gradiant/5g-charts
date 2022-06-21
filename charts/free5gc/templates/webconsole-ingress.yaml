@@ -1,30 +1,64 @@
-{{- if .Values.webconsole.ingress.enabled }}
-apiVersion: networking.k8s.io/v1
+{{- if and .Values.webconsole.enabled .Values.webconsole.ingress.enabled }}
+apiVersion: {{ include "common.capabilities.ingress.apiVersion" . }}
 kind: Ingress
 metadata:
-  name: {{ include "common.names.fullname" . }}-webconsole
+  name: {{ include "common.names.fullname" . }}
+  namespace: {{ .Release.Namespace | quote }}
   labels: {{- include "common.labels.standard" . | nindent 4 }}
-    app.kubernetes.io/component: webconsole
+    {{- if .Values.commonLabels }}
+    {{- include "common.tplvalues.render" ( dict "value" .Values.commonLabels "context" $ ) | nindent 4 }}
+    {{- end }}
   annotations:
-    {{- with .Values.webconsole.ingress.annotations }}
-    {{- toYaml . | nindent 4 }}
+    {{- if .Values.webconsole.ingress.annotations }}
+    {{- include "common.tplvalues.render" (dict "value" .Values.webconsole.ingress.annotations "context" $) | nindent 4 }}
+    {{- end }}
+    {{- if .Values.commonAnnotations }}
+    {{- include "common.tplvalues.render" ( dict "value" .Values.commonAnnotations "context" $ ) | nindent 4 }}
     {{- end }}
 spec:
+  {{- if and .Values.webconsole.ingress.ingressClassName (eq "true" (include "common.ingress.supportsIngressClassname" .)) }}
+  ingressClassName: {{ .Values.webconsole.ingress.ingressClassName | quote }}
+  {{- end }}
   rules:
-    - host: {{ .Values.webconsole.ingress.hostname | default (printf "%s-%s.ingress.openverso.org" .Release.Name .Release.Namespace) }}
+    - host: {{ .Values.webconsole.ingress.hostname | default  (printf "%s-%s.%s" .Release.Name .Release.Namespace .Values.clusterDomain) }}
       http:
         paths:
+          {{- if .Values.webconsole.ingress.extraPaths }}
+          {{- toYaml .Values.webconsole.ingress.extraPaths | nindent 10 }}
+          {{- end }}
           - path: {{ .Values.webconsole.ingress.path }}
+            {{- if eq "true" (include "common.ingress.supportsPathType" .) }}
             pathType: {{ .Values.webconsole.ingress.pathType }}
-            backend: 
-              service:
-                name: {{ include "common.names.fullname" $ }}-webconsole
-                port: 
-                  name: http
-  {{- if .Values.webconsole.ingress.tls }}
+            {{- end }}
+            backend: {{- include "common.ingress.backend" (dict "serviceName" (printf "%s-webconsole" (include "common.names.fullname" .)) "servicePort" "http" "context" $)  | nindent 14 }}
+    {{- range .Values.webconsole.ingress.extraHosts }}
+    - host: {{ .name | quote }}
+      http:
+        paths:
+          - path: {{ default "/" .path }}
+            {{- if eq "true" (include "common.ingress.supportsPathType" $) }}
+            pathType: {{ default "ImplementationSpecific" .pathType }}
+            {{- end }}
+            backend: {{- include "common.ingress.backend" (dict "serviceName" (printf "%s-webconsole" (include "common.names.fullname" $)) "servicePort" "http" "context" $) | nindent 14 }}
+    {{- end }}
+    {{- if .Values.webconsole.ingress.extraRules }}
+    {{- include "common.tplvalues.render" (dict "value" .Values.webconsole.ingress.extraRules "context" $) | nindent 4 }}
+    {{- end }}
+  {{- if or (and .Values.webconsole.ingress.tls (or (include "common.ingress.certManagerRequest" ( dict "annotations" .Values.webconsole.ingress.annotations )) .Values.webconsole.ingress.selfSigned)) .Values.webconsole.ingress.extraTls }}
   tls:
+    {{- if and .Values.webconsole.ingress.tls (or (include "common.ingress.certManagerRequest" ( dict "annotations" .Values.webconsole.ingress.annotations )) .Values.webconsole.ingress.selfSigned) }}
     - hosts:
-        - {{ .Values.webconsole.ingress.hostname | default (printf "%s-%s.ingress.openverso.org" .Release.Name .Release.Namespace) }}
-      secretName: {{ printf "%s-tls" .Values.webconsole.ingress.hostname }}
+      {{- if .Values.webconsole.ingress.hostname }} 
+        - {{ .Values.webconsole.ingress.hostname |quote }}
+      secretName:  {{ printf "%s-tls" .Values.webconsole.ingress.hostname }}
+      {{- else }}
+      {{- $hostname := printf "%s-%s.%s" .Release.Name .Release.Namespace .Values.clusterDomain }}
+        - {{ $hostname }}
+      secretName: {{ printf "%s-tls" $hostname }}
+      {{- end }}
+    {{- end }}
+    {{- if .Values.webconsole.ingress.extraTls }}
+    {{- include "common.tplvalues.render" (dict "value" .Values.webconsole.ingress.extraTls "context" $) | nindent 4 }}
+    {{- end }}
   {{- end }}
 {{- end }}

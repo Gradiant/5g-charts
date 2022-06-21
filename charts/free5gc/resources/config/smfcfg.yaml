@@ -1,0 +1,73 @@
+info:
+  version: 1.0.2
+  description: SMF initial local configuration
+
+configuration:
+  smfName: SMF # the name of this SMF
+  sbi: # Service-based interface information
+    scheme: http # the protocol for sbi (http or https)
+    registerIPv4:  {{ include "common.names.fullname" . }}-smf # IP used to register to NRF
+    bindingIPv4: 0.0.0.0  # IP used to bind the service
+    port: 8000 # Port used to bind the service
+  serviceNameList: # the SBI services provided by this SMF, refer to TS 29.502
+    - nsmf-pdusession # Nsmf_PDUSession service
+    - nsmf-event-exposure # Nsmf_EventExposure service
+    - nsmf-oam # OAM service
+  snssaiInfos: # the S-NSSAI (Single Network Slice Selection Assistance Information) list supported by this AMF
+    - sNssai: # S-NSSAI (Single Network Slice Selection Assistance Information)
+        sst: {{ .Values.config.sst }} # Slice/Service Type (uinteger, range: 0~255)
+        sd: {{ .Values.config.sd }}
+      dnnInfos: # DNN information list
+        - dnn: internet # Data Network Name
+          dns: # the IP address of DNS
+            ipv4: 8.8.8.8
+  plmnList: # the list of PLMN IDs that this SMF belongs to (optional, remove this key when unnecessary)
+    - mcc: {{ .Values.config.mcc }} # Mobile Country Code (3 digits string, digit: 0~9)
+      mnc: {{ .Values.config.mnc }} # Mobile Network Code (2 or 3 digits string, digit: 0~9)
+  locality: area1 # Name of the location where a set of AMF, SMF and UPFs are located
+  pfcp: # the IP address of N4 interface on this SMF (PFCP)
+    addr: 0.0.0.0
+  userplaneInformation: # list of userplane information
+    upNodes: # information of userplane node (AN or UPF)
+      gNB1: # the name of the node
+        type: AN # the type of the node (AN or UPF)
+      UPF:  # the name of the node
+        type: UPF # the type of the node (AN or UPF)
+        nodeID: {{ include "common.names.fullname" . }}-upf-udp # the IP/FQDN of N4 interface on this UPF (PFCP)
+        sNssaiUpfInfos: # S-NSSAI information list for this UPF
+          - sNssai: # S-NSSAI (Single Network Slice Selection Assistance Information)
+              sst: {{ .Values.config.sst }} # Slice/Service Type (uinteger, range: 0~255)
+              sd: {{ .Values.config.sd }} # Slice Differentiator (3 bytes hex string, range: 000000~FFFFFF)
+            dnnUpfInfoList: # DNN information list for this S-NSSAI
+              - dnn: internet
+                pools:
+                  - cidr: 10.60.0.0/16
+        interfaces: # Interface list for this UPF
+          - interfaceType: N3 # the type of the interface (N3 or N9)
+            endpoints: # the IP address of this N3/N9 interface on this UPF
+              - {{ include "common.names.fullname" . }}-upf-udp
+            networkInstance: internet # Data Network Name (DNN)
+    links: # the topology graph of userplane, A and B represent the two nodes of each link
+      - A: gNB1
+        B: UPF
+  nrfUri: http://{{ include "common.names.fullname" . }}-nrf:8000 # a valid URI of NRF
+
+# the kind of log output
+# debugLevel: how detailed to output, value: trace, debug, info, warn, error, fatal, panic
+# ReportCaller: enable the caller report or not, value: true or false
+logger:
+  SMF:
+    debugLevel: {{ .Values.config.logLevel }}
+    ReportCaller: false
+  NAS:
+    debugLevel: {{ .Values.config.logLevel }}
+    ReportCaller: false
+  NGAP:
+    debugLevel: {{ .Values.config.logLevel }}
+    ReportCaller: false
+  Aper:
+    debugLevel: {{ .Values.config.logLevel }}
+    ReportCaller: false
+  PFCP:
+    debugLevel: {{ .Values.config.logLevel }}
+    ReportCaller: false

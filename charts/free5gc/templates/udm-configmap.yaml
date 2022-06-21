@@ -1,9 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: {{ include "common.names.fullname" . }}-udm
-  labels: {{- include "common.labels.standard" . | nindent 4 }}
-    app.kubernetes.io/component: udm
-data:
-  udmcfg.yaml: |
-{{ tpl (.Files.Get "resources/udmcfg.yaml") . | indent 4 }}

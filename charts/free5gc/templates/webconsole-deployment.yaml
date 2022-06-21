@@ -1,0 +1,112 @@
+{{- if .Values.webconsole.enabled }}
+apiVersion: {{ include "common.capabilities.deployment.apiVersion" . }}
+kind: Deployment
+metadata:
+  name: {{ include "common.names.fullname" . }}-webconsole
+  namespace: {{ .Release.Namespace | quote }}
+  labels: {{- include "common.labels.standard" . | nindent 4 }}
+    {{- if .Values.commonLabels }}
+    {{- include "common.tplvalues.render" ( dict "value" .Values.commonLabels "context" $ ) | nindent 4 }}
+    {{- end }}
+    app.kubernetes.io/component: webconsole
+  {{- if .Values.commonAnnotations }}
+  annotations: {{- include "common.tplvalues.render" ( dict "value" .Values.commonAnnotations "context" $ ) | nindent 4 }}
+  {{- end }}
+spec:
+  selector:
+    matchLabels: {{- include "common.labels.matchLabels" . | nindent 6 }}
+      app.kubernetes.io/component: webconsole
+  {{- if .Values.webconsole.updateStrategy }}
+  strategy: {{- toYaml .Values.webconsole.updateStrategy | nindent 4 }}
+  {{- end }}
+  replicas: {{ .Values.webconsole.replicaCount }}
+  template:
+    metadata:
+      labels: {{- include "common.labels.standard" . | nindent 8 }}
+        {{- if .Values.webconsole.podLabels }}
+        {{- include "common.tplvalues.render" (dict "value" .Values.webconsole.podLabels "context" $) | nindent 8 }}
+        {{- end }}
+        app.kubernetes.io/component: webconsole
+      {{- if .Values.webconsole.podAnnotations }}
+      annotations:
+        {{- if .Values.webconsole.podAnnotations }}
+        {{- include "common.tplvalues.render" (dict "value" .Values.webconsole.podAnnotations "context" $) | nindent 8 }}
+        {{- end }}
+      {{- end }}
+    spec:
+      {{- include "free5gc.imagePullSecrets" . | nindent 6 }}
+      {{- if .Values.webconsole.affinity }}
+      affinity: {{- include "common.tplvalues.render" (dict "value" .Values.webconsole.affinity "context" $) | nindent 8 }}
+      {{- end }}
+      {{- if .Values.webconsole.nodeSelector }}
+      nodeSelector: {{- include "common.tplvalues.render" (dict "value" .Values.webconsole.nodeSelector "context" $) | nindent 8 }}
+      {{- end }}
+      {{- if .Values.webconsole.tolerations }}
+      tolerations: {{- include "common.tplvalues.render" (dict "value" .Values.webconsole.tolerations "context" $) | nindent 8 }}
+      {{- end }}
+      {{- if .Values.webconsole.priorityClassName }}
+      priorityClassName: {{ .Values.webconsole.priorityClassName }}
+      {{- end }}
+      {{- if .Values.webconsole.schedulerName }}
+      schedulerName: {{ .Values.webconsole.schedulerName | quote }}
+      {{- end }}
+      {{- if .Values.webconsole.podSecurityContext.enabled }}
+      securityContext: {{- omit .Values.webconsole.podSecurityContext "enabled" | toYaml | nindent 8 }}
+      {{- end }}
+      {{- if .Values.webconsole.topologySpreadConstraints }}
+      topologySpreadConstraints: {{- include "common.tplvalues.render" (dict "value" .Values.webconsole.topologySpreadConstraints "context" .) | nindent 8 }}
+      {{- end }}
+      {{- if .Values.webconsole.initContainers }}
+      initContainers:
+          {{- include "common.tplvalues.render" (dict "value" .Values.webconsole.initContainers "context" $) | nindent 8 }}
+      {{- end }}
+      containers:
+        - name: webconsole
+          image: {{ include "free5gc.webconsole.image" . }}
+          imagePullPolicy: {{ .Values.webconsole.image.pullPolicy | quote }}
+          {{- if .Values.webconsole.command }}
+          command: {{- include "common.tplvalues.render" ( dict "value" .Values.webconsole.command "context" $) | nindent 12 }}
+          {{- end }}
+          {{- if .Values.webconsole.args }}
+          args: {{- include "common.tplvalues.render" ( dict "value" .Values.webconsole.args "context" $) | nindent 12 }}
+          {{- end }}
+          {{- if .Values.webconsole.containerSecurityContext.enabled }}
+          securityContext: {{- omit .Values.webconsole.containerSecurityContext "enabled" | toYaml | nindent 12 }}
+          {{- end }}
+          env:
+            {{- if .Values.webconsole.extraEnvVars }}
+            {{- include "common.tplvalues.render" (dict "value" .Values.webconsole.extraEnvVars "context" $) | nindent 12 }}
+            {{- end }}
+          {{- if .Values.webconsole.extraContainerPorts }}
+          ports:
+            {{- include "common.tplvalues.render" (dict "value" .Values.webconsole.extraContainerPorts "context" $) | nindent 12 }}
+          {{- end }}
+          {{- if .Values.webconsole.lifecycleHooks }}
+          lifecycle: {{- include "common.tplvalues.render" (dict "value" .Values.webconsole.lifecycleHooks "context" $) | nindent 12 }}
+          {{- end }}
+          {{- if .Values.webconsole.livenessProbe.enabled }}
+          livenessProbe: {{- include "common.tplvalues.render" (dict "value" (omit .Values.webconsole.livenessProbe "enabled") "context" $) | nindent 12 }}
+          {{- end }} 
+          {{- if .Values.webconsole.readinessProbe.enabled }}
+          readinessProbe: {{- include "common.tplvalues.render" (dict "value" (omit .Values.webconsole.readinessProbe "enabled") "context" $) | nindent 12 }}
+          {{- end }}         
+          {{- if .Values.webconsole.resources }}
+          resources: {{- toYaml .Values.webconsole.resources | nindent 12 }}
+          {{- end }}
+          volumeMounts:
+            - name: config
+              mountPath:  /etc/free5gc/
+            {{- if .Values.webconsole.extraVolumeMounts }}
+            {{- include "common.tplvalues.render" (dict "value" .Values.webconsole.extraVolumeMounts "context" $) | nindent 12 }}
+            {{- end }}
+        {{- if .Values.webconsole.sidecars }}
+        {{- include "common.tplvalues.render" (dict "value" .Values.webconsole.sidecars "context" $) | nindent 8 }}
+        {{- end }}
+      volumes:
+        - name: config
+          configMap:
+            name: {{ default (printf "%s-webconsole" (include "common.names.fullname" .)) .Values.webconsole.configmapName | quote }} 
+        {{- if .Values.webconsole.extraVolumes }}
+        {{- include "common.tplvalues.render" (dict "value" .Values.webconsole.extraVolumes "context" $) | nindent 8 }}
+        {{- end }}
+{{- end }}

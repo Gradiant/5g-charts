@@ -1,10 +1,17 @@
+kubeVersion: ""
+nameOverride: ""
+fullnameOverride: ""
+commonLabels: {}
+commonAnnotations: {}
+clusterDomain: lab5g.gradiant.org
+
 image:
   registry: docker.io
   repository: openverso/free5gc
-  tag: 3.0.6
+  tag: 3.1.1
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
-  ## ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
+  ## ref: https://kubernetes.io/docs/user-guide/images/#pre-pulling-images
   ##
   pullPolicy: IfNotPresent
   ## Optionally specify an array of imagePullSecrets.
@@ -19,134 +26,861 @@ image:
   ##
   debug: false
 
-webconsole:
-  image:
-    registry: docker.io
-    repository: openverso/free5gc-webconsole
-    tag: 1.0.2
-    ## Specify a imagePullPolicy
-    ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
-    ## ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
-    ##
-    pullPolicy: IfNotPresent
-    ## Optionally specify an array of imagePullSecrets.
-    ## Secrets must be manually created in the namespace.
-    ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
-    ##
-    # pullSecrets: []
-  resources: {}
-  ingress:
-
-    ## Set to true to enable ingress record generation
-    ##
-    enabled: true
-
-    ## Set this to true in order to add the corresponding annotations for cert-manager
-    ##
-    certManager: false
-
-    ## Ingress Path type
-    ##
-    pathType: ImplementationSpecific
-
-    ## When the ingress is enabled, a host pointing to this will be created
-    ## If empty, defaults to .Release-Name.Release-Namespace.ingress.openverso.org
-    hostname:
-
-    ## The Path to open5gs webconsole. You may need to set this to '/*' in order to use this
-    ## with ALB ingress controllers.
-    ##
-    path: /
-
-    ## Ingress annotations done as key:value pairs
-    ## For a full list of possible ingress annotations, please see
-    ## ref: https://github.com/kubernetes/ingress-nginx/blob/master/docs/user-guide/nginx-configuration/annotations.md
-    ##
-    ## If certManager is set to true, annotation kubernetes.io/tls-acme: "true" will automatically be set
-    ##
-    annotations: {}
-    ## Enable TLS configuration for the hostname defined at ingress.hostname parameter
-    ## TLS certificates will be retrieved from a TLS secret with name: {{- printf "%s-tls" .Values.webconsole.ingress.hostname }}
-    ## You can use the ingress.secrets parameter to create this TLS secret or relay on cert-manager to create it
-    ##
-    tls: false
-
-global:
-  mcc: "901"
-  mnc: "70"
-  tac: "1"
-  sst: "1"
-  sd: "010203"
-  region: "2"
-  set: "1"
-  ueSubnet: 10.45.0.0/16
+## @section free5gc Configuration parameters
 
 amf:
-  resources: {}
-  logger:
-    level: info
-  parameter: {}
-
-smf:
-  resources: {}
-  logger:
-    level: info
-  parameter: {}
-
-upf:
-  resources: {}
-  logger:
-    level: info
-  parameter: {}
-
-nrf:
-  resources: {}
-  logger:
-    level: info
-  parameter: {}
-
-udr:
-  resources: {}
-  logger:
-    level: info
-  parameter: {}
-
-udm:
-  resources: {}
-  logger:
-    level: info
-  parameter: {}
+  enabled: true
+  config:
+    logLevel: info
+    mcc: 999
+    mnc: 70
+    tac: 1
+    sst: 1
+    sd: "ffffff"
+    advancedConfig: {}
+  command:  []
+  args: []
+  extraEnvVars: []
+  replicaCount: 1
+  updateStrategy:
+    type: RollingUpdate
+    rollingUpdate: {}
+  schedulerName: ""
+  topologySpreadConstraints: []
+  priorityClassName: ""
+  extraVolumes: []
+  extraVolumeMounts: []
+  sidecars: []
+  initContainers: []
+  podLabels: {}
+  podAnnotations: {}
+  affinity: {}
+  nodeSelector: {}
+  tolerations: []
+  podSecurityContext:
+    enabled: false
+    fsGroup: 1001
+  containerSecurityContext:
+    enabled: false
+    runAsUser: 1001
+    runAsNonRoot: true
+  livenessProbe:
+    enabled: true
+    tcpSocket:
+      port: 8000
+    initialDelaySeconds: 120
+    periodSeconds: 10
+    timeoutSeconds: 5
+    failureThreshold: 6
+    successThreshold: 1
+  readinessProbe:
+    enabled: true
+    tcpSocket:
+      port: 8000
+    initialDelaySeconds: 30
+    periodSeconds: 10
+    timeoutSeconds: 5
+    failureThreshold: 6
+    successThreshold: 1
+  resources:
+  services:
+    sctp:
+      type: ClusterIP
+      protocol: SCTP
+      ports:
+        - name: n2
+          port: 38412
+          targetPort: 38412
+          nodePort: ""
+      sessionAffinity: None
+      sessionAffinityConfig: {}
+      clusterIP: ""
+      loadBalancerIP: ""
+      loadBalancerSourceRanges: []
+      externalTrafficPolicy: Cluster
+      annotations: {}
+    tcp:
+      type: ClusterIP
+      protocol: TCP
+      ports:
+        - name: sbi
+          port: 8000
+          targetPort: 8000
+          nodePort: ""
+      sessionAffinity: None
+      sessionAffinityConfig: {}
+      clusterIP: ""
+      loadBalancerIP: ""
+      loadBalancerSourceRanges: []
+      externalTrafficPolicy: Cluster
 
 ausf:
-  resources: {}
-  logger:
-    level: info
-  parameter: {}
+  enabled: true
+  config:
+    logLevel: info
+    mcc: 999
+    mnc: 70  
+    advancedConfig: {}
+  command:  []
+  args: []
+  extraEnvVars: []
+  replicaCount: 1
+  updateStrategy:
+    type: RollingUpdate
+    rollingUpdate: {}
+  schedulerName: ""
+  topologySpreadConstraints: []
+  priorityClassName: ""
+  extraVolumes: []
+  extraVolumeMounts: []
+  sidecars: []
+  initContainers: []
+  podLabels: {}
+  podAnnotations: {}
+  affinity: {}
+  nodeSelector: {}
+  tolerations: []
+  podSecurityContext:
+    enabled: false
+    fsGroup: 1001
+  containerSecurityContext:
+    enabled: false
+    runAsUser: 1001
+    runAsNonRoot: true
+  livenessProbe:
+    enabled: true
+    tcpSocket:
+      port: 8000
+    initialDelaySeconds: 120
+    periodSeconds: 10
+    timeoutSeconds: 5
+    failureThreshold: 6
+    successThreshold: 1
+  readinessProbe:
+    enabled: true
+    tcpSocket:
+      port: 8000
+    initialDelaySeconds: 30
+    periodSeconds: 10
+    timeoutSeconds: 5
+    failureThreshold: 6
+    successThreshold: 1
+  resources:
+  services:
+    tcp:
+      type: ClusterIP
+      protocol: TCP
+      ports:
+        - name: sbi
+          port: 8000
+          targetPort: 8000
+          nodePort: ""
+      sessionAffinity: None
+      sessionAffinityConfig: {}
+      clusterIP: ""
+      loadBalancerIP: ""
+      loadBalancerSourceRanges: []
+      externalTrafficPolicy: Cluster
+      annotations: {}
+  metrics:
+    enabled: false
+
+nrf:
+  enabled: true
+  config:
+    logLevel: info
+    mcc: 999
+    mnc: 70
+    advancedConfig: {}
+  command: []
+  args: []
+  extraEnvVars: []
+  replicaCount: 1
+  updateStrategy:
+    type: RollingUpdate
+    rollingUpdate: {}
+  schedulerName: ""
+  topologySpreadConstraints: []
+  priorityClassName: ""
+  extraVolumes: []
+  extraVolumeMounts: []
+  sidecars: []
+  initContainers: []
+  podLabels: {}
+  podAnnotations: {}
+  affinity: {}
+  nodeSelector: {}
+  tolerations: []
+  podSecurityContext:
+    enabled: false
+    fsGroup: 1001
+  containerSecurityContext:
+    enabled: false
+    runAsUser: 1001
+    runAsNonRoot: true
+  livenessProbe:
+    enabled: true
+    tcpSocket:
+      port: 8000
+    initialDelaySeconds: 120
+    periodSeconds: 10
+    timeoutSeconds: 5
+    failureThreshold: 6
+    successThreshold: 1
+  readinessProbe:
+    enabled: true
+    tcpSocket:
+      port: 8000
+    initialDelaySeconds: 30
+    periodSeconds: 10
+    timeoutSeconds: 5
+    failureThreshold: 6
+    successThreshold: 1
+  resources:
+  services:
+    tcp:
+      type: ClusterIP
+      protocol: TCP
+      ports:
+        - name: sbi
+          port: 8000
+          targetPort: 8000
+          nodePort: ""
+      sessionAffinity: None
+      sessionAffinityConfig: {}
+      clusterIP: ""
+      loadBalancerIP: ""
+      loadBalancerSourceRanges: []
+      externalTrafficPolicy: Cluster
+      annotations: {}
+  metrics:
+    enabled: false
 
 nssf:
-  resources: {}
-  logger:
-    level: info
-  parameter: {}
+  enabled: true
+  config:
+    logLevel: info
+    nsi:
+      sst: 1
+      sd: "ffffff"
+    advancedConfig: {}
+  command: []
+  args: []
+  extraEnvVars: []
+  replicaCount: 1
+  updateStrategy:
+    type: RollingUpdate
+    rollingUpdate: {}
+  schedulerName: ""
+  topologySpreadConstraints: []
+  priorityClassName: ""
+  extraVolumes: []
+  extraVolumeMounts: []
+  sidecars: []
+  initContainers: []
+  podLabels: {}
+  podAnnotations: {}
+  affinity: {}
+  nodeSelector: {}
+  tolerations: []
+  podSecurityContext:
+    enabled: false
+    fsGroup: 1001
+  containerSecurityContext:
+    enabled: false
+    runAsUser: 1001
+    runAsNonRoot: true
+  livenessProbe:
+    enabled: true
+    tcpSocket:
+      port: 8000
+    initialDelaySeconds: 120
+    periodSeconds: 10
+    timeoutSeconds: 5
+    failureThreshold: 6
+    successThreshold: 1
+  readinessProbe:
+    enabled: true
+    tcpSocket:
+      port: 8000
+    initialDelaySeconds: 30
+    periodSeconds: 10
+    timeoutSeconds: 5
+    failureThreshold: 6
+    successThreshold: 1
+  resources:
+  services:
+    tcp:
+      type: ClusterIP
+      protocol: TCP
+      ports:
+        - name: sbi
+          port: 8000
+          targetPort: 8000
+          nodePort: ""
+      sessionAffinity: None
+      sessionAffinityConfig: {}
+      clusterIP: ""
+      loadBalancerIP: ""
+      loadBalancerSourceRanges: []
+      externalTrafficPolicy: Cluster
+      annotations: {}
 
 pcf:
-  resources: {}
-  logger:
-    level: info
-  parameter: {}
+  enabled: true
+  config:
+    logLevel: info
+    advancedConfig: {}
+  command: []
+  args: []
+  extraEnvVars: []
+  replicaCount: 1
+  updateStrategy:
+    type: RollingUpdate
+    rollingUpdate: {}
+  schedulerName: ""
+  topologySpreadConstraints: []
+  priorityClassName: ""
+  extraVolumes: []
+  extraVolumeMounts: []
+  sidecars: []
+  initContainers: []
+  podLabels: {}
+  podAnnotations: {}
+  affinity: {}
+  nodeSelector: {}
+  tolerations: []
+  podSecurityContext:
+    enabled: false
+    fsGroup: 1001
+  containerSecurityContext:
+    enabled: false
+    runAsUser: 1001
+    runAsNonRoot: true
+  livenessProbe:
+    enabled: true
+    tcpSocket:
+      port: 8000
+    initialDelaySeconds: 120
+    periodSeconds: 10
+    timeoutSeconds: 5
+    failureThreshold: 6
+    successThreshold: 1
+  readinessProbe:
+    enabled: true
+    tcpSocket:
+      port: 8000
+    initialDelaySeconds: 30
+    periodSeconds: 10
+    timeoutSeconds: 5
+    failureThreshold: 6
+    successThreshold: 1
+  resources:
+  services:
+    tcp:
+      type: ClusterIP
+      protocol: TCP
+      ports:
+        - name: sbi
+          port: 8000
+          targetPort: 8000
+          nodePort: ""
+      sessionAffinity: None
+      sessionAffinityConfig: {}
+      clusterIP: ""
+      loadBalancerIP: ""
+      loadBalancerSourceRanges: []
+      externalTrafficPolicy: Cluster
+      annotations: {}
 
+smf:
+  enabled: true
+  config:
+    logLevel: info
+    mcc: 999
+    mnc: 70
+    tac: 1
+    sst: 1
+    sd: "ffffff"
+    advancedConfig: {}
+  command: []
+  args: []
+  extraEnvVars: []
+  replicaCount: 1
+  updateStrategy:
+    type: RollingUpdate
+    rollingUpdate: {}
+  schedulerName: ""
+  topologySpreadConstraints: []
+  priorityClassName: ""
+  extraVolumes: []
+  extraVolumeMounts: []
+  sidecars: []
+  initContainers: []
+  podLabels: {}
+  podAnnotations: {}
+  affinity: {}
+  nodeSelector: {}
+  tolerations: []
+  podSecurityContext:
+    enabled: false
+    fsGroup: 1001
+  containerSecurityContext:
+    enabled: false
+    runAsUser: 1001
+    runAsNonRoot: true
+  livenessProbe:
+    enabled: true
+    tcpSocket:
+      port: 8000
+    initialDelaySeconds: 120
+    periodSeconds: 10
+    timeoutSeconds: 5
+    failureThreshold: 6
+    successThreshold: 1
+  readinessProbe:
+    enabled: true
+    tcpSocket:
+      port: 8000
+    initialDelaySeconds: 30
+    periodSeconds: 10
+    timeoutSeconds: 5
+    failureThreshold: 6
+    successThreshold: 1
+  resources:
+  services:
+    udp:
+      type: ClusterIP
+      protocol: UDP
+      ports:
+        - name: gtp-u
+          port: 2152
+          targetPort: 2152
+          nodePort: ""
+        - name: gtp-c
+          port: 2123
+          targetPort: 2123
+          nodePort: ""
+        - name: pfcp
+          port: 8805
+          targetPort: 8805
+          nodePort: ""
+      sessionAffinity: None
+      sessionAffinityConfig: {}
+      clusterIP: ""
+      loadBalancerIP: ""
+      loadBalancerSourceRanges: []
+      externalTrafficPolicy: Cluster
+      annotations: {}
+    sctp:
+      type: ClusterIP
+      protocol: SCTP
+      ports:
+        - name: s6a
+          port: 3868
+          targetPort: 3868
+          nodePort: ""
+      sessionAffinity: None
+      sessionAffinityConfig: {}
+      clusterIP: ""
+      loadBalancerIP: ""
+      loadBalancerSourceRanges: []
+      externalTrafficPolicy: Cluster
+      annotations: {}
+    tcp:
+      type: ClusterIP
+      protocol: TCP
+      ports:
+        - name: sbi
+          port: 8000
+          targetPort: 8000
+          nodePort: ""
+        - name: metrics
+          port: 9090
+          targetPort: 9090
+          nodePort: ""
+      sessionAffinity: None
+      sessionAffinityConfig: {}
+      clusterIP: ""
+      loadBalancerIP: ""
+      loadBalancerSourceRanges: []
+      externalTrafficPolicy: Cluster
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "3000"
+        prometheus.io/path: "/metrics"
 
-# db_uri: -- default is "{{.Release.Name}}-mongodb/open5gs"
+udm:
+  enabled: true
+  config:
+    logLevel: info
+    advancedConfig: {}
+  command: []
+  args: []
+  extraEnvVars: []
+  replicaCount: 1
+  updateStrategy:
+    type: RollingUpdate
+    rollingUpdate: {}
+  schedulerName: ""
+  topologySpreadConstraints: []
+  priorityClassName: ""
+  extraVolumes: []
+  extraVolumeMounts: []
+  sidecars: []
+  initContainers: []
+  podLabels: {}
+  podAnnotations: {}
+  affinity: {}
+  nodeSelector: {}
+  tolerations: []
+  podSecurityContext:
+    enabled: false
+    fsGroup: 1001
+  containerSecurityContext:
+    enabled: false
+    runAsUser: 1001
+    runAsNonRoot: true
+  livenessProbe:
+    enabled: true
+    tcpSocket:
+      port: 8000
+    initialDelaySeconds: 120
+    periodSeconds: 10
+    timeoutSeconds: 5
+    failureThreshold: 6
+    successThreshold: 1
+  readinessProbe:
+    enabled: true
+    tcpSocket:
+      port: 8000
+    initialDelaySeconds: 30
+    periodSeconds: 10
+    timeoutSeconds: 5
+    failureThreshold: 6
+    successThreshold: 1
+  resources:
+  services:
+    tcp:
+      type: ClusterIP
+      protocol: TCP
+      ports:
+        - name: sbi
+          port: 8000
+          targetPort: 8000
+          nodePort: ""
+      sessionAffinity: None
+      sessionAffinityConfig: {}
+      clusterIP: ""
+      loadBalancerIP: ""
+      loadBalancerSourceRanges: []
+      externalTrafficPolicy: Cluster
+      annotations: {}
+  metrics:
+    enabled: false
 
-# mongodb -- pass vars towards mongodb chart, from dependencies
+udr:
+  enabled: true
+  config:
+    logLevel: info
+    advancedConfig: {}
+  command: []
+  args: []
+  extraEnvVars: []
+  replicaCount: 1
+  updateStrategy:
+    type: RollingUpdate
+    rollingUpdate: {}
+  schedulerName: ""
+  topologySpreadConstraints: []
+  priorityClassName: ""
+  extraVolumes: []
+  extraVolumeMounts: []
+  sidecars: []
+  initContainers: []
+  podLabels: {}
+  podAnnotations: {}
+  affinity: {}
+  nodeSelector: {}
+  tolerations: []
+  podSecurityContext:
+    enabled: false
+    fsGroup: 1001
+  containerSecurityContext:
+    enabled: false
+    runAsUser: 1001
+    runAsNonRoot: true
+  livenessProbe:
+    enabled: true
+    tcpSocket:
+      port: 8000
+    initialDelaySeconds: 120
+    periodSeconds: 10
+    timeoutSeconds: 5
+    failureThreshold: 6
+    successThreshold: 1
+  readinessProbe:
+    enabled: true
+    tcpSocket:
+      port: 8000
+    initialDelaySeconds: 30
+    periodSeconds: 10
+    timeoutSeconds: 5
+    failureThreshold: 6
+    successThreshold: 1
+  resources:
+  services:
+    tcp:
+      type: ClusterIP
+      protocol: TCP
+      ports:
+        - name: sbi
+          port: 8000
+          targetPort: 8000
+          nodePort: ""
+      sessionAffinity: None
+      sessionAffinityConfig: {}
+      clusterIP: ""
+      loadBalancerIP: ""
+      loadBalancerSourceRanges: []
+      externalTrafficPolicy: Cluster
+      annotations: {}
+  metrics:
+    enabled: false
+
+upf:
+  enabled: true
+  config:
+    logLevel: debug
+    dev: eth0
+    advertise: ""
+    advancedConfig: {}
+  command: []
+  args: ["-c","/etc/free5gc/upfcfg.yaml"]
+  extraEnvVars:
+    - name: IPV4_TUN_SUBNET
+      value: 10.45.0.1/16
+    - name: IPV4_TUN_ADDR
+      value: 10.45.0.1/16
+  replicaCount: 1
+  updateStrategy:
+    type: RollingUpdate
+    rollingUpdate: {}
+  schedulerName: ""
+  topologySpreadConstraints: []
+  priorityClassName: ""
+  extraVolumes: []
+  extraVolumeMounts: []
+  sidecars: []
+  initContainers: []
+  podLabels: {}
+  podAnnotations: {}
+  affinity: {}
+  nodeSelector:
+    kernel.org/gtp5g: "true"
+  tolerations: []
+  podSecurityContext:
+    enabled: false
+    fsGroup: 1001
+  containerSecurityContext:
+    enabled: true
+    privileged: true
+    capabilities:
+      add: ["NET_ADMIN"]
+  livenessProbe:
+    enabled: false
+  readinessProbe:
+    enabled: false
+  resources:
+  services:
+    udp:
+      type: ClusterIP
+      protocol: UDP
+      ports:
+        - name: gtp-u
+          port: 2152
+          targetPort: 2152
+          nodePort: ""
+        - name: pfcp
+          port: 8805
+          targetPort: 8805
+          nodePort: ""
+      sessionAffinity: None
+      sessionAffinityConfig: {}
+      clusterIP: ""
+      loadBalancerIP: ""
+      loadBalancerSourceRanges: []
+      externalTrafficPolicy: Cluster
+      annotations: {}
+  metrics:
+    enabled: false
+
 mongodb:
   # mongodb.enabled -- set to 'false' to disable automatically deploying dependent charts
   enabled: true
-  # not needed if .Values.mongodb.enabled: true since fields are automatically filled up.
-  db_uri: mongodb
-  useStatefulSet: true
   auth:
     enabled: false
 
-securityPolicy:
-  enabled: false
+webconsole:
+  enabled: true
+  config:
+    logLevel: info
+  image:
+    registry: docker.io
+    repository: openverso/free5gc-webconsole
+    tag: 1.1.0
+    pullPolicy: IfNotPresent
+    pullSecrets: []
+  command: []
+  args: ["--config", "/etc/free5gc/webuicfg.yaml"]
+  extraEnvVars: []
+  replicaCount: 1
+  updateStrategy:
+    type: RollingUpdate
+    rollingUpdate: {}
+  schedulerName: ""
+  topologySpreadConstraints: []
+  priorityClassName: ""
+  extraVolumes: []
+  extraVolumeMounts: []
+  sidecars: []
+  initContainers: []
+  podLabels: {}
+  podAnnotations: {}
+  affinity: {}
+  nodeSelector: {}
+  tolerations: []
+  podSecurityContext:
+    enabled: false
+    fsGroup: 1001
+  containerSecurityContext:
+    enabled: false
+    runAsUser: 1001
+    runAsNonRoot: true
+  livenessProbe:
+    enabled: true
+    tcpSocket:
+      port: 5000
+    initialDelaySeconds: 120
+    periodSeconds: 10
+    timeoutSeconds: 5
+    failureThreshold: 6
+    successThreshold: 1
+  readinessProbe:
+    enabled: true
+    tcpSocket:
+      port: 5000
+    initialDelaySeconds: 30
+    periodSeconds: 10
+    timeoutSeconds: 5
+    failureThreshold: 6
+    successThreshold: 1
+  resources:
+  ## Configure the ingress resource that allows you to access the webconsole
+  ## ref: https://kubernetes.io/docs/concepts/services-networking/ingress/
+  ##
+  ingress:
+    ## @param ingress.enabled Enable ingress record generation for webconsole
+    ##
+    enabled: true
+    ## @param ingress.pathType Ingress path type
+    ##
+    pathType: ImplementationSpecific
+    ## @param ingress.apiVersion Force Ingress API version (automatically detected if not set)
+    ##
+    apiVersion: ""
+    ## @param ingress.ingressClassName IngressClass that will be be used to implement the Ingress (Kubernetes 1.18+)
+    ## This is supported in Kubernetes 1.18+ and required if you have more than one IngressClass marked as the default for your cluster .
+    ## ref: https://kubernetes.io/blog/2020/04/02/improvements-to-the-ingress-api-in-kubernetes-1.18/
+    ##
+    ingressClassName: ""
+    ## @param ingress.hostname Default host for the ingress record
+    ## If empty, defaults to {{.Release.Name}}-{{Release.Namespace}}.{{.Values.clusterDomain}}
+    ##
+    hostname: ""
+    ## @param ingress.path Default path for the ingress record
+    ## NOTE: You may need to set this to '/*' in order to use this with ALB ingress controllers
+    ##
+    path: /
+    ## @param ingress.annotations Additional annotations for the Ingress resource. To enable certificate autogeneration, place here your cert-manager annotations.
+    ## For a full list of possible ingress annotations, please see
+    ## ref: https://github.com/kubernetes/ingress-nginx/blob/master/docs/user-guide/nginx-configuration/annotations.md
+    ## Use this parameter to set the required annotations for cert-manager, see
+    ## ref: https://cert-manager.io/docs/usage/ingress/#supported-annotations
+    ##
+    ## e.g:
+    ## annotations:
+    ##   kubernetes.io/ingress.class: nginx
+    ##   cert-manager.io/cluster-issuer: cluster-issuer-name
+    ##
+    annotations: {}
+    ## @param ingress.tls Enable TLS configuration for the host defined at `ingress.hostname` parameter
+    ## TLS certificates will be retrieved from a TLS secret with name: `{{- printf "%s-tls" .Values.ingress.hostname }}`
+    ## You can:
+    ##   - Use the `ingress.secrets` parameter to create this TLS secret
+    ##   - Rely on cert-manager to create it by setting the corresponding annotations
+    ##   - Rely on Helm to create self-signed certificates by setting `ingress.selfSigned=true`
+    ##
+    tls: false
+    ## @param ingress.selfSigned Create a TLS secret for this ingress record using self-signed certificates generated by Helm
+    ##
+    selfSigned: false
+    ## @param ingress.extraHosts An array with additional hostname(s) to be covered with the ingress record
+    ## e.g:
+    ## extraHosts:
+    ##   - name: free5gc.local
+    ##     path: /
+    ##
+    extraHosts: []
+    ## @param ingress.extraPaths An array with additional arbitrary paths that may need to be added to the ingress under the main host
+    ## e.g:
+    ## extraPaths:
+    ## - path: /*
+    ##   backend:
+    ##     serviceName: ssl-redirect
+    ##     servicePort: use-annotation
+    ##
+    extraPaths: []
+    ## @param ingress.extraTls TLS configuration for additional hostname(s) to be covered with this ingress record
+    ## ref: https://kubernetes.io/docs/concepts/services-networking/ingress/#tls
+    ## e.g:
+    ## extraTls:
+    ## - hosts:
+    ##     - free5gc.local
+    ##   secretName: free5gc.local-tls
+    ##
+    extraTls: []
+    ## @param ingress.secrets Custom TLS certificates as secrets
+    ## NOTE: 'key' and 'certificate' are expected in PEM format
+    ## NOTE: 'name' should line up with a 'secretName' set further up
+    ## If it is not set and you're using cert-manager, this is unneeded, as it will create a secret for you with valid certificates
+    ## If it is not set and you're NOT using cert-manager either, self-signed certificates will be created valid for 365 days
+    ## It is also possible to create and manage the certificates outside of this helm chart
+    ## Please see README.md for more information
+    ## e.g:
+    ## secrets:
+    ##   - name: free5gc.local-tls
+    ##     key: |-
+    ##       -----BEGIN RSA PRIVATE KEY-----
+    ##       ...
+    ##       -----END RSA PRIVATE KEY-----
+    ##     certificate: |-
+    ##       -----BEGIN CERTIFICATE-----
+    ##       ...
+    ##       -----END CERTIFICATE-----
+    ##
+    secrets: []
+    ## @param ingress.extraRules Additional rules to be covered with this ingress record
+    ## ref: https://kubernetes.io/docs/concepts/services-networking/ingress/#ingress-rules
+    ## e.g:
+    ## extraRules:
+    ## - host: free5gc.local
+    ##     http:
+    ##       path: /
+    ##       backend:
+    ##         service:
+    ##           name: free5gc-svc
+    ##           port:
+    ##             name: http
+    ##
+    extraRules: []

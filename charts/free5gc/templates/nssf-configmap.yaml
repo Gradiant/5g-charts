@@ -1,9 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: {{ include "common.names.fullname" . }}-nssf
-  labels: {{- include "common.labels.standard" . | nindent 4 }}
-    app.kubernetes.io/component: nssf
-data:
-  nssfcfg.yaml: |
-{{ tpl (.Files.Get "resources/nssfcfg.yaml") . | indent 4 }}

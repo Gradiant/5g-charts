@@ -1,0 +1,19 @@
+{{- define "free5gc.configmap" -}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "common.names.fullname" . }}-{{ .component }}
+  labels: {{- include "common.labels.standard" . | nindent 4 }}
+    app.kubernetes.io/component: {{ .component }}
+data:
+  {{ .component }}cfg.yaml: |
+    {{- if .Values.config.advancedConfig }}
+    {{ toYaml .Values.config.advancedConfig }}
+    {{- else }}
+{{ tpl (.Files.Get (printf "resources/config/%scfg.yaml" .component)) . | indent 4 }}
+    {{- end }}
+  {{- if .uerouting }}
+  uerouting.yaml: |
+{{ tpl (.Files.Get "resources/config/uerouting.yaml" ) . | indent 4 }}
+  {{- end }}
+{{- end -}}

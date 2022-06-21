@@ -1,0 +1,16 @@
+{{- if .Values.smf.enabled }}
+{{- $component := .Values.smf | deepCopy }}
+{{- $values := merge (dict "Values" $component "component" "smf" "uerouting" true) . }}
+{{ template "free5gc.deployment" $values }}
+---
+{{ template "free5gc.configmap" $values }}
+---
+{{ template "free5gc.hpa" $values }}
+---
+{{- range $k, $v := $component.services }}
+{{- $_ := set $component "service" $v }}
+{{- $values := merge (dict "Values" $component "component" "smf" "service" $k) $ }}
+{{ template "free5gc.svc" $values }}
+---
+{{- end }}
+{{- end }}

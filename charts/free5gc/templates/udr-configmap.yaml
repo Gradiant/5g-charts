@@ -1,9 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: {{ include "common.names.fullname" . }}-udr
-  labels: {{- include "common.labels.standard" . | nindent 4 }}
-    app.kubernetes.io/component: udr
-data:
-  udrcfg.yaml: |
-{{ tpl (.Files.Get "resources/udrcfg.yaml") . | indent 4 }}
