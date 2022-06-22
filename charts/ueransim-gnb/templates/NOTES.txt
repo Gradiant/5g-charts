@@ -3,7 +3,7 @@ ueransim-gnb successfully installed!
 Check gnodeb log with:
 
 ```
-kubectl -n {{ .Release.Namespace }} logs svc/{{ include "common.names.fullname" . }} -c gnodeb
+kubectl -n {{ .Release.Namespace }} logs deployment/{{ include "common.names.fullname" . }}
 ```
 
 ---
@@ -13,7 +13,7 @@ kubectl -n {{ .Release.Namespace }} logs svc/{{ include "common.names.fullname" 
 You have also deployed {{ .Values.ues.count }} ues. You can enter ues terminal with:
 
 ```
-kubectl -n {{ .Release.Namespace }} exec -ti svc/{{ include "common.names.fullname" . }} -c ues -- /bin/bash
+kubectl -n {{ .Release.Namespace }} exec -ti deployment/{{ include "common.names.fullname" . }}-ues -- /bin/bash
 ```
 There is a tun interface for each ue. 
 You can bind your application to the interface to test ue connectivity.
