@@ -102,6 +102,8 @@ spec:
           volumeMounts:
             - name: config
               mountPath:  /etc/free5gc/
+              #mountPath:  /etc/free5gc/{{ printf "%scfg.yaml" .component }}
+              #subPath: {{ printf "%scfg.yaml" .component | quote }}
             {{- if .Values.extraVolumeMounts }}
             {{- include "common.tplvalues.render" (dict "value" .Values.extraVolumeMounts "context" $) | nindent 12 }}
             {{- end }}

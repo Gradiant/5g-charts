@@ -38,7 +38,7 @@ amf:
     sst: 1
     sd: "ffffff"
     advancedConfig: {}
-  command:  []
+  command: ["/bin/bash","-c","sleep 5 && amf --config /etc/free5gc/amfcfg.yaml"]
   args: []
   extraEnvVars: []
   replicaCount: 1
@@ -51,7 +51,11 @@ amf:
   extraVolumes: []
   extraVolumeMounts: []
   sidecars: []
-  initContainers: []
+  initContainers:
+  - name: wait-nssf
+    image: busybox:1.28
+    env:
+    command: ['sh', '-c', 'until wget --spider http://free5gc-nssf:8000/nnssf-nsselection/v1/; do echo "retry in 5s";sleep 5; done']
   podLabels: {}
   podAnnotations: {}
   affinity: {}
@@ -66,17 +70,21 @@ amf:
     runAsNonRoot: true
   livenessProbe:
     enabled: true
-    tcpSocket:
-      port: 8000
-    initialDelaySeconds: 120
+    exec:
+      command:
+      - cat
+      - /proc/net/sctp/eps
+    initialDelaySeconds: 30
     periodSeconds: 10
     timeoutSeconds: 5
-    failureThreshold: 6
+    failureThreshold: 2
     successThreshold: 1
   readinessProbe:
     enabled: true
-    tcpSocket:
-      port: 8000
+    exec:
+      command:
+      - cat
+      - /proc/net/sctp/eps
     initialDelaySeconds: 30
     periodSeconds: 10
     timeoutSeconds: 5
@@ -94,7 +102,7 @@ amf:
           nodePort: ""
       sessionAffinity: None
       sessionAffinityConfig: {}
-      clusterIP: ""
+      clusterIP: None
       loadBalancerIP: ""
       loadBalancerSourceRanges: []
       externalTrafficPolicy: Cluster
@@ -134,7 +142,11 @@ ausf:
   extraVolumes: []
   extraVolumeMounts: []
   sidecars: []
-  initContainers: []
+  initContainers:
+  - name: wait-udm
+    image: busybox:1.28
+    env:
+    command: ['sh', '-c', 'until wget --spider http://free5gc-udm:8000; do echo "retry in 1s";sleep 5; done']
   podLabels: {}
   podAnnotations: {}
   affinity: {}
@@ -259,6 +271,11 @@ nrf:
 nssf:
   enabled: true
   config:
+    mcc: 999
+    mnc: 70
+    tac: 1
+    sst: 1
+    sd: "ffffff"
     logLevel: info
     nsi:
       sst: 1
@@ -277,7 +294,11 @@ nssf:
   extraVolumes: []
   extraVolumeMounts: []
   sidecars: []
-  initContainers: []
+  initContainers:
+  - name: wait-ausf
+    image: busybox:1.28
+    env:
+    command: ['sh', '-c', 'until wget --spider http://free5gc-ausf:8000/nausf-auth/v1/; do echo "retry in 5s";sleep 5; done']
   podLabels: {}
   podAnnotations: {}
   affinity: {}
@@ -344,7 +365,11 @@ pcf:
   extraVolumes: []
   extraVolumeMounts: []
   sidecars: []
-  initContainers: []
+  initContainers:
+  - name: wait-amf
+    image: busybox:1.28
+    env:
+    command: ['sh', '-c', 'until wget --spider http://free5gc-amf:8000/namf-comm/v1/; do echo "retry in 5s";sleep 5; done']
   podLabels: {}
   podAnnotations: {}
   affinity: {}
@@ -416,7 +441,11 @@ smf:
   extraVolumes: []
   extraVolumeMounts: []
   sidecars: []
-  initContainers: []
+  initContainers:
+  - name: wait-udp
+    image: busybox:1.28
+    env:
+    command: ['sh', '-c', 'until nc -vz -u free5gc-upf-udp 8805; do echo "retry in 5s";sleep 5; done']
   podLabels: {}
   podAnnotations: {}
   affinity: {}
@@ -528,7 +557,11 @@ udm:
   extraVolumes: []
   extraVolumeMounts: []
   sidecars: []
-  initContainers: []
+  initContainers:
+  - name: wait-udr
+    image: busybox:1.28
+    env:
+    command: ['sh', '-c', 'until wget --spider http://free5gc-udr:8000/nudr-dr/v1/; do echo "retry in 5s";sleep 5; done']
   podLabels: {}
   podAnnotations: {}
   affinity: {}
@@ -597,7 +630,11 @@ udr:
   extraVolumes: []
   extraVolumeMounts: []
   sidecars: []
-  initContainers: []
+  initContainers:
+  - name: wait-nrf
+    image: busybox:1.28
+    env:
+    command: ['sh', '-c', 'until wget --spider http://free5gc-nrf:8000; do echo "retry in 5s";sleep 5; done']
   podLabels: {}
   podAnnotations: {}
   affinity: {}
@@ -672,7 +709,11 @@ upf:
   extraVolumes: []
   extraVolumeMounts: []
   sidecars: []
-  initContainers: []
+  initContainers:
+  - name: wait-pcf
+    image: busybox:1.28
+    env:
+    command: ['sh', '-c', 'until wget --spider http://free5gc-pcf:8000/npcf-am-policy-control/v1; do echo "retry in 5s";sleep 5; done']
   podLabels: {}
   podAnnotations: {}
   affinity: {}
@@ -707,7 +748,7 @@ upf:
           nodePort: ""
       sessionAffinity: None
       sessionAffinityConfig: {}
-      clusterIP: ""
+      clusterIP: None
       loadBalancerIP: ""
       loadBalancerSourceRanges: []
       externalTrafficPolicy: Cluster

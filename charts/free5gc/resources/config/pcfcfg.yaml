@@ -28,6 +28,8 @@ configuration:
     {{- else }}
     url: {{ .Values.mongodb.db_uri }}
     {{- end  }}
+  locality: area1 # Name of the location where a set of AMF, SMF, PCF and UPFs are located
+
 
 # the kind of log output
   # debugLevel: how detailed to output, value: trace, debug, info, warn, error, fatal, panic

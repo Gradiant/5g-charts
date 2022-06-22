@@ -15,12 +15,12 @@ configuration:
 
   # The IP list of the N4 interface on this UPF (Can't set to 0.0.0.0)
   pfcp:
-    - name: {{ include "common.names.fullname" . }}-upf-udp
+    - addr: {{ include "common.names.fullname" . }}-upf-udp
 
   # The IP list of the N3/N9 interfaces on this UPF
   # If there are multiple connection, set addr to 0.0.0.0 or list all the addresses
   gtpu:
-    - name: {{ include "common.names.fullname" . }}-upf-udp
+    - addr: 0.0.0.0
     # [optional] gtpu.name
     # - name: upf.5gc.nctu.me
     # [optional] gtpu.ifname
