@@ -22,4 +22,4 @@ maintainers:
 name: iperf3
 sources:
   - https://iperf.fr/
-version: 0.1.1
+version: 0.1.2
