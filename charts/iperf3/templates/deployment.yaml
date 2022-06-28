@@ -52,11 +52,22 @@ spec:
           {{- if .Values.containerSecurityContext.enabled }}
           securityContext: {{- omit .Values.containerSecurityContext "enabled" | toYaml | nindent 12 }}
           {{- end }}
+          {{- if .Values.command }}
+          command: {{- include "common.tplvalues.render" ( dict "value" .Values.command "context" $) | nindent 12 }}
+          {{- else }}
+          command: ["iperf3"]
+          {{- end }}
+          {{- if .Values.args }}
+          args: {{- include "common.tplvalues.render" ( dict "value" .Values.args "context" $) | nindent 12 }}        
+          {{- else }}
           args:
+            {{- if .Values.config.json }}
             - --json
+            {{- end }}
             - -s
-            - -i {{ .Values.interval }}
-            - --format {{ .Values.format }}
+            - --interval={{ .Values.config.interval }}
+            - --format={{ .Values.config.format }}
+          {{- end }}
           {{- if .Values.resources }}
           resources: {{- toYaml .Values.resources | nindent 12 }}
           {{- end }}
