@@ -24,4 +24,4 @@ maintainers:
 name: ueransim-gnb
 sources:
   - https://github.com/aligungr/UERANSIM
-version: 0.2.0
+version: 0.2.1
