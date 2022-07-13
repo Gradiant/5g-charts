@@ -1065,7 +1065,7 @@ upf:
     logLevel: info
     pdn:
       addr: 10.45.0.1/16
-    dev: eth0 # net1 if multus enabled
+    dev: eth0  # net1 if multus enabled
     advertise: ""
     advancedConfig: {}
   command: []
@@ -1153,11 +1153,12 @@ mongodb:
     enabled: false
 
 jobCommands:
-  - open5gs-dbctl add 999700000000001 10.45.0.5 465B5CE8B199B49FAA5F0A2EE238A6BC E8ED289DEBA952E4283B54E88E6183CA # To use with UERANSIM
-  - open5gs-dbctl add 999700000000002 10.45.0.10 465B5CE8B199B49FAA5F0A2EE238A6BC E8ED289DEBA952E4283B54E88E6183CA # To use with UERANSIM
-  - open5gs-dbctl add 999700000000003 10.45.0.15 465B5CE8B199B49FAA5F0A2EE238A6BC E8ED289DEBA952E4283B54E88E6183CA # To use with UERANSIM
-  - open5gs-dbctl add 999700000000004 10.45.0.20 465B5CE8B199B49FAA5F0A2EE238A6BC E8ED289DEBA952E4283B54E88E6183CA # To use with UERANSIM
-  - 'mongo --eval "db.subscribers.update({\"imsi\": \"999700000000001\"},{\$set: { \"slice.0.sd\": \"111111\" }});" $DB_URI' # To use with UERANSIM
-  - 'mongo --eval "db.subscribers.update({\"imsi\": \"999700000000002\"},{\$set: { \"slice.0.sd\": \"111111\" }});" $DB_URI' # To use with UERANSIM
-  - 'mongo --eval "db.subscribers.update({\"imsi\": \"999700000000003\"},{\$set: { \"slice.0.sd\": \"111111\" }});" $DB_URI' # To use with UERANSIM
-  - 'mongo --eval "db.subscribers.update({\"imsi\": \"999700000000004\"},{\$set: { \"slice.0.sd\": \"111111\" }});" $DB_URI' # To use with UERANSIM
+  - open5gs-dbctl add 999700000000001 10.45.0.5 465B5CE8B199B49FAA5F0A2EE238A6BC E8ED289DEBA952E4283B54E88E6183CA  # To use with UERANSIM
+  - open5gs-dbctl add 999700000000002 10.45.0.10 465B5CE8B199B49FAA5F0A2EE238A6BC E8ED289DEBA952E4283B54E88E6183CA  # To use with UERANSIM
+  - open5gs-dbctl add 999700000000003 10.45.0.15 465B5CE8B199B49FAA5F0A2EE238A6BC E8ED289DEBA952E4283B54E88E6183CA  # To use with UERANSIM
+  - open5gs-dbctl add 999700000000004 10.45.0.20 465B5CE8B199B49FAA5F0A2EE238A6BC E8ED289DEBA952E4283B54E88E6183CA  # To use with UERANSIM
+  - 'mongo --eval "db.subscribers.update({\"imsi\": \"999700000000001\"},{\$set: { \"slice.0.sd\": \"111111\" }});" $DB_URI'  # To use with UERANSIM
+  - 'mongo --eval "db.subscribers.update({\"imsi\": \"999700000000002\"},{\$set: { \"slice.0.sd\": \"111111\" }});" $DB_URI'  # To use with UERANSIM
+  - 'mongo --eval "db.subscribers.update({\"imsi\": \"999700000000003\"},{\$set: { \"slice.0.sd\": \"111111\" }});" $DB_URI'  # To use with UERANSIM
+  - 'mongo --eval "db.subscribers.update({\"imsi\": \"999700000000004\"},{\$set: { \"slice.0.sd\": \"111111\" }});" $DB_URI'  # To use with UERANSIM
+  
