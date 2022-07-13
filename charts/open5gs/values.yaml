@@ -624,7 +624,9 @@ pcrf:
     advancedConfig: {}
   command: []
   args: ["open5gs-pcrfd"]
-  extraEnvVars: []
+  extraEnvVars:
+    - name: DB_URI
+      value: mongodb://{{ include "common.names.fullname" . }}-mongodb/open5gs
   replicaCount: 1
   updateStrategy:
     type: RollingUpdate
