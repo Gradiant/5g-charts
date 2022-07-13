@@ -3,15 +3,16 @@ logger:
 parameter: {}
 
 smf:
-    pfcp:
-      - name: "{{ include "common.names.fullname" . }}-smf"
+    # pfcp:
+    #   - name: "{{ include "common.names.fullname" . }}-smf"
+    #     dnn: internet
 
 upf:
     pfcp:
       dev: eth0
     gtpu:
-      dev: {{ .Values.upf.dev }}
-      advertise: {{ default (printf "%s-%s-udp" (include "common.names.fullname" .) .component) .Values.upf.advertise }}
+      dev: {{ .Values.upf.config.dev }}
+      # advertise: {{ default (printf "%s-%s-udp" (include "common.names.fullname" .) .component) .Values.upf.advertise }}
     subnet:
       - addr: {{ .Values.upf.config.pdn.addr }}
 

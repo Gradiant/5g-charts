@@ -1,0 +1,64 @@
+{{- if .Values.webui.enabled -}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "common.names.fullname" . }}-webui
+  labels: {{- include "common.labels.standard" . | nindent 4 }}
+    app.kubernetes.io/component: webui
+spec:
+  replicas: 1
+  selector:
+    matchLabels: {{- include "common.labels.matchLabels" . | nindent 6 }}
+      app.kubernetes.io/component: webui
+  template:
+    metadata:
+      labels: {{- include "common.labels.standard" . | nindent 8 }}
+        app.kubernetes.io/component: webui
+    spec:
+{{ include "open5gs.imagePullSecrets" . | indent 6 }}
+      initContainers:
+      - name: init
+        image: bitnami/mongodb:4.4.1-debian-10-r39
+        env:
+        - name: DB_URI
+          {{- if not .Values.db_uri }}
+          value: mongodb://{{ .Release.Name }}-mongodb/open5gs
+          {{- else }}
+          value:  {{ .Values.db_uri }}
+          {{- end  }}
+        command: 
+          - /bin/bash
+          - /add_admin.sh
+        volumeMounts:
+        - name: populate
+          mountPath: /add_admin.sh
+          subPath: add_admin.sh
+      containers:
+      - name: webui
+        image: {{ template "open5gs.webui.image" . }}
+        imagePullPolicy: {{ .Values.webui.image.pullPolicy | quote }}
+        env:
+        - name: DB_URI
+          {{- if not .Values.db_uri }}
+          value: mongodb://{{ .Release.Name }}-mongodb/open5gs
+          {{- else }}
+          value:  {{ .Values.db_uri }}
+          {{- end  }}
+        ports:
+        - name: http
+          containerPort: 3000
+          protocol: TCP
+        livenessProbe:
+          httpGet:
+            path: /                                                   
+            port: http
+          initialDelaySeconds: 60
+          periodSeconds: 15
+        resources:
+{{ toYaml .Values.webui.resources | indent 10 }}
+      terminationGracePeriodSeconds: 0
+      volumes:
+      - name: populate
+        configMap:
+          name: {{ include "common.names.fullname" . }}-webui
+{{- end }}

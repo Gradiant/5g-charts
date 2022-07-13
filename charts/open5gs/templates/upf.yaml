@@ -1,7 +1,7 @@
 {{- if .Values.upf.enabled }}
 {{- $component := .Values.upf | deepCopy }}
 {{- $values := merge (dict "Values" $component "component" "upf" ) . }}
-{{ template "open5gs.deployment" $values }}
+{{ template "open5gs.statefulset" $values }}
 ---
 {{ template "open5gs.configmap" $values }}
 ---

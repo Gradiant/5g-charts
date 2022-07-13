@@ -7,7 +7,7 @@ commonAnnotations: {}
 image:
   registry: docker.io
   repository: openverso/open5gs
-  tag: 2.4.7-metrics
+  tag: 2.4.8
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
   ## ref: https://kubernetes.io/docs/user-guide/images/#pre-pulling-images
@@ -25,7 +25,7 @@ image:
   ##
   debug: false
 
-## @section WordPress Configuration parameters
+## @section Open5GS Configuration parameters
 
 amf:
   enabled: true
@@ -35,7 +35,7 @@ amf:
     mnc: 70
     tac: 1
     sst: 1
-    sd: "ffffff"
+    sd: "0x111111"
     advancedConfig: {}
   command: []
   args: ["open5gs-amfd"]
@@ -278,7 +278,9 @@ hss:
     advancedConfig: {}
   command: []
   args: ["open5gs-hssd"]
-  extraEnvVars: []
+  extraEnvVars:
+    - name: DB_URI
+      value: mongodb://{{ include "common.names.fullname" . }}-mongodb/open5gs
   replicaCount: 1
   updateStrategy:
     type: RollingUpdate
@@ -478,7 +480,7 @@ nssf:
     logLevel: info
     nsi:
       sst: 1
-      sd: "ffffff"
+      sd: "0x111111"
     advancedConfig: {}
   command: []
   args: ["open5gs-nssfd"]
@@ -551,7 +553,9 @@ pcf:
     advancedConfig: {}
   command: []
   args: ["open5gs-pcfd"]
-  extraEnvVars: []
+  extraEnvVars:
+    - name: DB_URI
+      value: mongodb://{{ include "common.names.fullname" . }}-mongodb/open5gs
   replicaCount: 1
   updateStrategy:
     type: RollingUpdate
@@ -989,7 +993,9 @@ udr:
     advancedConfig: {}
   command: []
   args: ["open5gs-udrd"]
-  extraEnvVars: []
+  extraEnvVars:
+    - name: DB_URI
+      value: mongodb://{{ include "common.names.fullname" . }}-mongodb/open5gs
   replicaCount: 1
   updateStrategy:
     type: RollingUpdate
@@ -1057,7 +1063,7 @@ upf:
     logLevel: info
     pdn:
       addr: 10.45.0.1/16
-    dev: eth0
+    dev: eth0 # net1 if multus enabled
     advertise: ""
     advancedConfig: {}
   command: []
@@ -1079,7 +1085,9 @@ upf:
   sidecars: []
   initContainers: []
   podLabels: {}
-  podAnnotations: {}
+  podAnnotations: {
+    # k8s.v1.cni.cncf.io/networks: avrodriguez/dataplane-if # uncomment to use Multus
+  }
   affinity: {}
   nodeSelector: {}
   tolerations: []
@@ -1119,8 +1127,35 @@ upf:
   metrics:
     enabled: false
 
+webui:
+  image:
+    registry: docker.io
+    repository: openverso/open5gs-webui
+    tag: 2.4.8
+    pullPolicy: IfNotPresent
+  enabled: true
+  resources: {}
+  ingress:
+    enabled: true
+    certManager: false
+    pathType: ImplementationSpecific
+    hostname: ""
+    path: /
+    annotations: {}
+    tls: false
+
 mongodb:
   # mongodb.enabled -- set to 'false' to disable automatically deploying dependent charts
   enabled: true
   auth:
     enabled: false
+
+jobCommands:
+  - open5gs-dbctl add 999700000000001 10.45.0.5 465B5CE8B199B49FAA5F0A2EE238A6BC E8ED289DEBA952E4283B54E88E6183CA # To use with UERANSIM
+  - open5gs-dbctl add 999700000000002 10.45.0.10 465B5CE8B199B49FAA5F0A2EE238A6BC E8ED289DEBA952E4283B54E88E6183CA # To use with UERANSIM
+  - open5gs-dbctl add 999700000000003 10.45.0.15 465B5CE8B199B49FAA5F0A2EE238A6BC E8ED289DEBA952E4283B54E88E6183CA # To use with UERANSIM
+  - open5gs-dbctl add 999700000000004 10.45.0.20 465B5CE8B199B49FAA5F0A2EE238A6BC E8ED289DEBA952E4283B54E88E6183CA # To use with UERANSIM
+  - 'mongo --eval "db.subscribers.update({\"imsi\": \"999700000000001\"},{\$set: { \"slice.0.sd\": \"111111\" }});" $DB_URI' # To use with UERANSIM
+  - 'mongo --eval "db.subscribers.update({\"imsi\": \"999700000000002\"},{\$set: { \"slice.0.sd\": \"111111\" }});" $DB_URI' # To use with UERANSIM
+  - 'mongo --eval "db.subscribers.update({\"imsi\": \"999700000000003\"},{\$set: { \"slice.0.sd\": \"111111\" }});" $DB_URI' # To use with UERANSIM
+  - 'mongo --eval "db.subscribers.update({\"imsi\": \"999700000000004\"},{\$set: { \"slice.0.sd\": \"111111\" }});" $DB_URI' # To use with UERANSIM

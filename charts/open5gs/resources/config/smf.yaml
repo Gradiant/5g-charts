@@ -2,18 +2,22 @@ logger:
   level: {{ .Values.smf.config.logLevel }}
 parameter: {}
 
+{{- if .Values.nrf.enabled }}
 nrf:
   sbi:
     - name: "{{ include "common.names.fullname" . }}-nrf"
       port: 7777
+{{- end }}
 
 upf:
     pfcp:
       - name: "{{ include "common.names.fullname" . }}-upf-udp"
-        apn: internet
+        dnn: internet
 
 smf:
+  {{- if .Values.pcrf.enabled }}
   freeDiameter: smf.conf
+  {{- end }}
   sbi:
     dev: eth0
     port: 7777
