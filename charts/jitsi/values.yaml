@@ -40,9 +40,9 @@ web:
     - host: jitsi.k8s.gradiant.org
       paths: ['/']
     tls:
-     - secretName: jitsi.k8s.gradiant.org-tls
-       hosts:
-         - jitsi.k8s.gradiant.org
+    - secretName: jitsi.k8s.gradiant.org-tls
+      hosts:
+        - jitsi.k8s.gradiant.org
 
   # Useful for ingresses that don't support http-to-https redirect by themself, (namely: GKE),
   httpRedirect: false
@@ -198,10 +198,9 @@ jvb:
       limits:
         cpu: 20m
         memory: 32Mi
-  
+
 octo:
   enabled: false
-
 
 jibri:
   ## Enabling Jibri will allow users to record

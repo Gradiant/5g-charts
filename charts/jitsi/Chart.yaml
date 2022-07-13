@@ -7,7 +7,7 @@ sources:
   - https://github.com/jitsi-contrib/jitsi-helm
 maintainers:
 - email: mmarquez@gradiant.org
-  name: mmarquez
+  name: mmarquez999
 name: jitsi
 version: 0.0.1
 keywords:
