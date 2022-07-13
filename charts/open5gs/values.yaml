@@ -1161,4 +1161,3 @@ jobCommands:
   - 'mongo --eval "db.subscribers.update({\"imsi\": \"999700000000002\"},{\$set: { \"slice.0.sd\": \"111111\" }});" $DB_URI'  # To use with UERANSIM
   - 'mongo --eval "db.subscribers.update({\"imsi\": \"999700000000003\"},{\$set: { \"slice.0.sd\": \"111111\" }});" $DB_URI'  # To use with UERANSIM
   - 'mongo --eval "db.subscribers.update({\"imsi\": \"999700000000004\"},{\$set: { \"slice.0.sd\": \"111111\" }});" $DB_URI'  # To use with UERANSIM
-  
