@@ -65,7 +65,7 @@ name: ueransim-gnb
 amf:
   # if set amf.ip takes precedence over amf.hostname
   ip:
-  hostname: open5gs-amf
+  hostname: open5gs-amf-sctp
 interfaces:
   n2:
     dev: eth0
@@ -76,7 +76,7 @@ interfaces:
 mcc: '999'
 mnc: '70'
 sst: 1
-sd: "0xffffff"
+sd: "0x111111"
 tac: '0001'
 
 resources:
