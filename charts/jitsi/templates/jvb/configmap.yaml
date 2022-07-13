@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "jitsi-meet.jvb.fullname" . }}
+  labels:
+    {{- include "jitsi-meet.jvb.labels" . | nindent 4 }}
+data:
+  JVB_BREWERY_MUC: '{{ .Values.jvb.breweryMuc }}'
+  JVB_PORT: '{{ .Values.jvb.UDPPort }}'
+  JVB_STUN_SERVERS: '{{.Values.jvb.stunServers }}'
+  JVB_TCP_HARVESTER_DISABLED: '1'
+  XMPP_SERVER: '{{ include "jitsi-meet.xmpp.server" . }}'
+  {{- range $key, $value := .Values.jvb.extraEnvs }}
+  {{- if not (kindIs "invalid" $value) }}
+  {{ $key }}: {{ tpl $value $ | quote }}
+  {{- end }}
+  {{- end }}
+  COLIBRI_REST_ENABLED: 'true'
+  {{- if .Values.jvb.websockets.enabled }}
+  ENABLE_COLIBRI_WEBSOCKET: 'true'
+  {{- else }}
+  ENABLE_COLIBRI_WEBSOCKET: 'false'
+  {{- end }}
+  {{- if .Values.octo.enabled }}
+  ENABLE_OCTO: "1"
+  JVB_OCTO_BIND_PORT: "4096"
+  JVB_OCTO_REGION: "all"
+  {{- end }}
