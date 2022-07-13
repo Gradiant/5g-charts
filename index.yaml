@@ -94,6 +94,30 @@ entries:
     urls:
     - https://github.com/Gradiant/openverso-charts/releases/download/iperf3-0.1.0/iperf3-0.1.0.tgz
     version: 0.1.0
+  jitsi:
+  - apiVersion: v2
+    appVersion: stable-6865
+    created: "2022-07-13T14:47:59.763463331Z"
+    dependencies:
+    - condition: prosody.enabled
+      name: prosody
+      repository: ""
+      version: 1.2.2
+    description: 'Helm chart to deploy Jitsi services on Kubernetes. '
+    digest: 4aff06e05f97ef78c2d6a2b1ca68dcbc469012022f799198fddfa7e3b5846b40
+    home: https://github.com/gradiant/openverso-charts
+    keywords:
+    - apps
+    - k8s
+    maintainers:
+    - email: mmarquez@gradiant.org
+      name: mmarquez999
+    name: jitsi
+    sources:
+    - https://github.com/jitsi-contrib/jitsi-helm
+    urls:
+    - https://github.com/Gradiant/openverso-charts/releases/download/jitsi-0.0.1/jitsi-0.0.1.tgz
+    version: 0.0.1
   oai-enb:
   - apiVersion: v1
     appVersion: 1.2.2
@@ -1051,4 +1075,4 @@ entries:
     urls:
     - https://github.com/Gradiant/openverso-charts/releases/download/ueransim-gnb-0.1.0/ueransim-gnb-0.1.0.tgz
     version: 0.1.0
-generated: "2022-07-13T10:07:51.419572671Z"
+generated: "2022-07-13T14:47:59.763567233Z"
