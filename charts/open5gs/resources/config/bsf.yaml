@@ -1,6 +1,3 @@
-{{- if eq .Values.bsf.configType "configYaml" }}
-{{ toYaml .Values.bsf.configYaml }}
-{{- else if eq .Values.bsf.configType "config" }}
 logger:
   level: {{ .Values.bsf.config.logLevel }}
 parameter: {}
@@ -14,5 +11,3 @@ bsf:
   sbi:
     dev: eth0
     port: 7777
-
-{{- end }}

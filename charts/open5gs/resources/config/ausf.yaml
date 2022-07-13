@@ -1,6 +1,3 @@
-{{- if eq .Values.ausf.configType "configYaml" }}
-{{ toYaml .Values.ausf.configYaml }}
-{{- else if eq .Values.ausf.configType "config" }}
 logger:
   level: {{ .Values.ausf.config.logLevel }}
 parameter: {}
@@ -14,5 +11,3 @@ ausf:
   sbi:
     dev: eth0
     port: 7777
-
-{{- end }}

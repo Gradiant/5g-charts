@@ -1,29 +1,18 @@
-{{- if eq .Values.upf.configType "configYaml" }}
-{{ toYaml .Values.upf.configYaml }}
-{{- else if eq .Values.upf.configType "config" }}
 logger:
   level: {{ .Values.upf.config.logLevel }}
 parameter: {}
 
 smf:
-    pfcp:
-      - name: "{{ include "common.names.fullname" . }}-smf"
+    # pfcp:
+    #   - name: "{{ include "common.names.fullname" . }}-smf"
+    #     dnn: internet
 
 upf:
     pfcp:
       dev: eth0
     gtpu:
-      dev: {{ .Values.upf.dev }}
-      {{- if .Values.upf.externalService.enabled }}
-      {{- if .Values.upf.externalService.advertise }}
-      advertise: {{ .Values.upf.externalService.advertise }}
-      {{- else }}
-      advertise: {{ include "common.names.fullname" . }}-upf-ext.{{ .Release.Namespace }}.{{ .Values.upf.externalService.advertiseDomain }}
-      {{- end }}
-      {{- end }}
+      dev: {{ .Values.upf.config.dev }}
+      # advertise: {{ default (printf "%s-%s-udp" (include "common.names.fullname" .) .component) .Values.upf.advertise }}
     subnet:
       - addr: {{ .Values.upf.config.pdn.addr }}
-
-{{- end }}
-
 

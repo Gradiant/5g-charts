@@ -1,6 +1,3 @@
-{{- if eq .Values.sgwu.configType "configYaml" }}
-{{ toYaml .Values.sgwu.configYaml }}
-{{- else if eq .Values.sgwu.configType "config" }}
 logger:
   level: {{ .Values.sgwu.config.logLevel }}
 
@@ -10,18 +7,10 @@ parameter:
 sgwu:
   gtpu:
     dev: eth0
-    {{- if .Values.sgwu.externalService.enabled }}
-    {{- if .Values.sgwu.externalService.advertise }}
-    advertise: {{ .Values.sgwu.externalService.advertise }}
-    {{- else }}
-    advertise: {{ include "common.names.fullname" . }}-sgwu-ext.{{ .Release.Namespace }}.{{ .Values.sgwu.externalService.advertiseDomain }}
-    {{- end }}
-    {{- end }}
+    advertise: {{ default (printf "%s-%s-udp" (include "common.names.fullname" .) .component) .Values.upf.advertise }}
   pfcp:
     dev: eth0
 
 sgwc:
   pfcp:
-    - name: "{{ include "common.names.fullname" . }}-sgwc"
-
-{{- end }}
+    - name: "{{ include "common.names.fullname" . }}-sgwc-udp"

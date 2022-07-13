@@ -1,0 +1,38 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ include "common.names.fullname" . }}-populate-db
+  labels: {{- include "common.labels.standard" . | nindent 4 }}
+spec:
+  template:
+    spec:
+      containers:
+      - name: open5gs-dbctl
+        image: openverso/open5gs-dbctl
+        env:
+        - name: DB_URI
+          value: mongodb://{{ include "common.names.fullname" . }}-mongodb/open5gs
+        command: 
+        - /bin/bash
+        - -c
+        - "/populate.sh"
+        volumeMounts:
+        - name: populate-script
+          mountPath: /populate.sh
+          subPath: "populate.sh"
+      restartPolicy: OnFailure
+      volumes:
+      - name: populate-script
+        configMap:
+          name: {{ include "common.names.fullname" . }}-populate-db 
+          defaultMode: 0777
+  backoffLimit: 4
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "common.names.fullname" . }}-populate-db
+  labels: {{- include "common.labels.standard" . | nindent 4 }}
+data:
+  populate.sh: |
+{{ tpl (.Files.Get "resources/populate.sh") . | indent 4 }}

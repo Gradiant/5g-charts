@@ -1,22 +1,23 @@
-{{- if eq .Values.smf.configType "configYaml" }}
-{{ toYaml .Values.smf.configYaml }}
-{{- else if eq .Values.smf.configType "config" }}
 logger:
   level: {{ .Values.smf.config.logLevel }}
 parameter: {}
 
+{{- if .Values.nrf.enabled }}
 nrf:
   sbi:
     - name: "{{ include "common.names.fullname" . }}-nrf"
       port: 7777
+{{- end }}
 
 upf:
     pfcp:
-      - name: "{{ include "common.names.fullname" . }}-upf"
-        apn: internet
+      - name: "{{ include "common.names.fullname" . }}-upf-udp"
+        dnn: internet
 
 smf:
+  {{- if .Values.pcrf.enabled }}
   freeDiameter: smf.conf
+  {{- end }}
   sbi:
     dev: eth0
     port: 7777
@@ -33,7 +34,4 @@ smf:
     - 8.8.8.8
     - 8.8.4.4
   mtu: 1400
-
-{{- end }}
-
 

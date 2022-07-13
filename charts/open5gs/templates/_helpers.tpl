@@ -94,22 +94,11 @@ imagePullSecrets:
 {{- range .Values.global.imagePullSecrets }}
   - name: {{ . }}.Val
 {{- end }}
-{{- else if or .Values.image.pullSecrets .Values.webui.image.pullSecrets }}
+{{- else if .Values.image.pullSecrets }}
 imagePullSecrets:
 {{- range .Values.image.pullSecrets }}
-  - name: {{ . }}
-{{- end }}
-{{- range .Values.webui.image.pullSecrets }}
   - name: {{ . }}
 {{- end }}
 {{- end -}}
-{{- else if or .Values.image.pullSecrets .Values.webui.image.pullSecrets  }}
-imagePullSecrets:
-{{- range .Values.image.pullSecrets }}
-  - name: {{ . }}
-{{- end }}
-{{- range .Values.webui.image.pullSecrets }}
-  - name: {{ . }}
-{{- end }}
 {{- end -}}
 {{- end -}}

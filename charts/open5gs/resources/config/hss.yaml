@@ -1,11 +1,8 @@
-{{- if eq .Values.hss.configType "configYaml" }}
-{{ toYaml .Values.hss.configYaml }}
-{{- else if eq .Values.hss.configType "config" }}
+db_uri:  {{ default (printf "mongodb://%s-mongodb/open5gs" .Release.Name)  .Values.db_uri  }}
+
 logger:
   level: {{ .Values.hss.config.logLevel }}
 parameter: {}
 
 hss:
   freeDiameter: hss.conf
-
-{{- end }}

@@ -1,13 +1,10 @@
-{{- if eq .Values.mme.configType "configYaml" }}
-{{ toYaml .Values.mme.configYaml }}
-{{- else if eq .Values.mme.configType "config" }}
 logger:
   level: {{ .Values.mme.config.logLevel }}
 parameter: {}
 
 sgwc:
   gtpc:
-    - name: "{{ include "common.names.fullname" . }}-sgwc"
+    - name: "{{ include "common.names.fullname" . }}-sgwc-udp"
 
 smf:
   gtpc:
@@ -36,5 +33,3 @@ mme:
       ciphering_order : [ EEA0, EEA1, EEA2 ]
   network_name:
       full: Gradiant4G
-
-{{- end }}
