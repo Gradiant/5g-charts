@@ -16,6 +16,9 @@ spec:
   {{- end }}
   ports:
     - port: {{ default 10000 .Values.jvb.UDPPort }}
+      {{- if or (eq .Values.jvb.service.type "NodePort") (eq .Values.jvb.service.type "LoadBalancer") }}
+      nodePort: {{ .Values.jvb.NodePort }}
+      {{- end }}
       protocol: UDP
       name: rtp-udp
     {{- if .Values.jvb.websockets.enabled }}
