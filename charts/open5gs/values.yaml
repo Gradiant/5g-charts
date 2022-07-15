@@ -122,7 +122,7 @@ amf:
         prometheus.io/path: "/metrics"
   metrics:
     serviceMonitor:
-      enabled: true
+      enabled: false
       namespace: ""
       interval: ""
       scrapeTimeout: ""
@@ -908,7 +908,7 @@ smf:
         prometheus.io/path: "/metrics"
   metrics:
     serviceMonitor:
-      enabled: true
+      enabled: false
       namespace: ""
       interval: ""
       scrapeTimeout: ""
@@ -1152,12 +1152,12 @@ mongodb:
   auth:
     enabled: false
 
-jobCommands:
-  - open5gs-dbctl add 999700000000001 10.45.0.5 465B5CE8B199B49FAA5F0A2EE238A6BC E8ED289DEBA952E4283B54E88E6183CA  # To use with UERANSIM
-  - open5gs-dbctl add 999700000000002 10.45.0.10 465B5CE8B199B49FAA5F0A2EE238A6BC E8ED289DEBA952E4283B54E88E6183CA  # To use with UERANSIM
-  - open5gs-dbctl add 999700000000003 10.45.0.15 465B5CE8B199B49FAA5F0A2EE238A6BC E8ED289DEBA952E4283B54E88E6183CA  # To use with UERANSIM
-  - open5gs-dbctl add 999700000000004 10.45.0.20 465B5CE8B199B49FAA5F0A2EE238A6BC E8ED289DEBA952E4283B54E88E6183CA  # To use with UERANSIM
-  - 'mongo --eval "db.subscribers.update({\"imsi\": \"999700000000001\"},{\$set: { \"slice.0.sd\": \"111111\" }});" $DB_URI'  # To use with UERANSIM
-  - 'mongo --eval "db.subscribers.update({\"imsi\": \"999700000000002\"},{\$set: { \"slice.0.sd\": \"111111\" }});" $DB_URI'  # To use with UERANSIM
-  - 'mongo --eval "db.subscribers.update({\"imsi\": \"999700000000003\"},{\$set: { \"slice.0.sd\": \"111111\" }});" $DB_URI'  # To use with UERANSIM
-  - 'mongo --eval "db.subscribers.update({\"imsi\": \"999700000000004\"},{\$set: { \"slice.0.sd\": \"111111\" }});" $DB_URI'  # To use with UERANSIM
+populate:
+  enabled: false
+  image:
+    registry: docker.io
+    repository: openverso/open5gs-dbctl
+    tag: 0.10.1
+    pullPolicy: IfNotPresent
+  commands:
+  - open5gs-dbctl add 999700000000001 465B5CE8B199B49FAA5F0A2EE238A6BC E8ED289DEBA952E4283B54E88E6183CA  # To use with UERANSIM
