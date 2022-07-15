@@ -137,7 +137,7 @@ jvb:
   UDPPort: 10000
   ## nodePort used if service type is set to 'LoadBalancer' or 'NodePort'.
   ## It will be automatically allocated if it is left with default value
-  NodePort: 0
+  nodePort: 0
   ## Set publicIP for JVB so it can be reachable by all participants, if needed.
   ## Change publicIP to the external IP allocated for this LoadBalancer service and redeploy
   publicIP: nil
