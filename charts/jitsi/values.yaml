@@ -135,7 +135,7 @@ jvb:
   stunServers: 'meet-jit-si-turnrelay.jitsi.net:443'
   useHostPort: false
   UDPPort: 10000
-  ## nodePort used if service type is set to 'LoadBalancer' or 'NodePort'. 
+  ## nodePort used if service type is set to 'LoadBalancer' or 'NodePort'.
   ## It will be automatically allocated if it is left with default value
   NodePort: 0
   ## Set publicIP for JVB so it can be reachable by all participants, if needed.
