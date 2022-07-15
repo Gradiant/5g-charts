@@ -124,8 +124,6 @@ jicofo:
   extraEnvs: {}
 
 jvb:
-  # Change publicIP to the external IP allocated for this LoadBalancer service and redeploy
-  publicIP: 1.2.3.4
   replicaCount: 1
   image:
     repository: jitsi/jvb
@@ -136,7 +134,13 @@ jvb:
 
   stunServers: 'meet-jit-si-turnrelay.jitsi.net:443'
   useHostPort: false
-  UDPPort: 30000
+  UDPPort: 10000
+  ## nodePort used if service type is set to 'LoadBalancer' or 'NodePort'.
+  ## It will be automatically allocated if it is left with default value
+  nodePort: 0
+  ## Set publicIP for JVB so it can be reachable by all participants, if needed.
+  ## Change publicIP to the external IP allocated for this LoadBalancer service and redeploy
+  publicIP: nil
   service:
     enabled:
     type: LoadBalancer

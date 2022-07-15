@@ -9,7 +9,7 @@ maintainers:
 - email: mmarquez@gradiant.org
   name: mmarquez999
 name: jitsi
-version: 0.0.1
+version: 0.0.2
 keywords:
   - apps
   - k8s
