@@ -97,6 +97,29 @@ entries:
   jitsi:
   - apiVersion: v2
     appVersion: stable-6865
+    created: "2022-07-15T11:22:17.226800564Z"
+    dependencies:
+    - condition: prosody.enabled
+      name: prosody
+      repository: ""
+      version: 1.2.2
+    description: 'Helm chart to deploy Jitsi services on Kubernetes. '
+    digest: baacd15531024cbce4c25e09f75101f0b1d730368d9ea1b487c58748690deafb
+    home: https://github.com/gradiant/openverso-charts
+    keywords:
+    - apps
+    - k8s
+    maintainers:
+    - email: mmarquez@gradiant.org
+      name: mmarquez999
+    name: jitsi
+    sources:
+    - https://github.com/jitsi-contrib/jitsi-helm
+    urls:
+    - https://github.com/Gradiant/openverso-charts/releases/download/jitsi-0.0.2/jitsi-0.0.2.tgz
+    version: 0.0.2
+  - apiVersion: v2
+    appVersion: stable-6865
     created: "2022-07-13T14:47:59.763463331Z"
     dependencies:
     - condition: prosody.enabled
@@ -1075,4 +1098,4 @@ entries:
     urls:
     - https://github.com/Gradiant/openverso-charts/releases/download/ueransim-gnb-0.1.0/ueransim-gnb-0.1.0.tgz
     version: 0.1.0
-generated: "2022-07-13T14:47:59.763567233Z"
+generated: "2022-07-15T11:22:17.226891264Z"
