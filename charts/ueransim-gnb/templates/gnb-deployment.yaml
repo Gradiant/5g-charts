@@ -80,8 +80,3 @@ spec:
         - name: config
           configMap:
             name: {{ include "common.names.fullname" . }}
-        {{- if .Values.ues.enabled  }}
-        - name: config-ues
-          configMap:
-            name: {{ include "common.names.fullname" . }}-ues
-        {{- end }}
