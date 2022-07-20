@@ -1,8 +1,12 @@
+## Configuration
+# set of configurable values. For advanced configuration override args with .Values.args.
 ## [kmgtKMGT] format to report: Kbits, Mbits, Gbits, Tbits
-format: M
-## interval  #         seconds between periodic throughput reports
-interval: 1
-
+config:
+  format: M
+   ## interval  #  seconds between periodic throughput reports
+  interval: 1
+  ## -J, --json   output in JSON format
+  json: false
 ## @section Global parameters
 ## Global Docker image parameters
 ## Please, note that this will override the image parameters, including dependencies, configured to use the global value
@@ -47,7 +51,7 @@ extraDeploy: []
 
 image:
   registry: docker.io
-  repository: networkstatic/iperf3
+  repository: openverso/iperf3
   tag: latest
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
@@ -65,6 +69,13 @@ image:
   ## Enable debug mode
   ##
   debug: false
+
+## @param command Override default container command (useful when using custom images)
+##
+command: []
+## @param args Override default container args (useful when using custom images)
+##
+args: []
 
 replicaCount: 1
 ##  resource requests and limits

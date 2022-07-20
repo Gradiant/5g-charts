@@ -1,0 +1,19 @@
+apiVersion: v2
+appVersion: stable-6865
+description: >
+  Helm chart to deploy Jitsi services on Kubernetes.
+home: https://github.com/gradiant/openverso-charts
+sources:
+  - https://github.com/jitsi-contrib/jitsi-helm
+maintainers:
+- email: mmarquez@gradiant.org
+  name: mmarquez999
+name: jitsi
+version: 0.0.2
+keywords:
+  - apps
+  - k8s
+dependencies:
+  - name: prosody
+    condition: prosody.enabled
+    version: 1.2.2

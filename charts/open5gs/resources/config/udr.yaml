@@ -1,6 +1,5 @@
-{{- if eq .Values.udr.configType "configYaml" }}
-{{ toYaml .Values.udr.configYaml }}
-{{- else if eq .Values.udr.configType "config" }}
+db_uri:  {{ default (printf "mongodb://%s-mongodb/open5gs" .Release.Name)  .Values.db_uri  }}
+
 logger:
   level: {{ .Values.udr.config.logLevel }}
 parameter: {}
@@ -14,5 +13,3 @@ udr:
   sbi:
     dev: eth0
     port: 7777
-
-{{- end }}

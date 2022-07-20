@@ -1,6 +1,3 @@
-{{- if eq .Values.sgwc.configType "configYaml" }}
-{{ toYaml .Values.sgwc.configYaml }}
-{{- else if eq .Values.sgwc.configType "config" }}
 logger:
   level: {{ .Values.sgwc.config.logLevel }}
 
@@ -15,10 +12,5 @@ sgwc:
 
 sgwu:
   pfcp:
-    - name: "{{ include "common.names.fullname" . }}-sgwu"
-
-{{- end }}
-
-
-
+    - name: "{{ include "common.names.fullname" . }}-sgwu-udp"
 

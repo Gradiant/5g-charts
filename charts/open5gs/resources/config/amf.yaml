@@ -1,6 +1,3 @@
-{{- if eq .Values.amf.configType "configYaml" }}
-{{ toYaml .Values.amf.configYaml }}
-{{- else if eq .Values.amf.configType "config" }}
 logger:
   level: {{ .Values.amf.config.logLevel }}
 parameter: {}
@@ -39,5 +36,9 @@ amf:
       ciphering_order : [ NEA0, NEA1, NEA2 ]
   network_name:
       full: Gradiant5G
-  amf_name: open5gs-amf0
-{{- end }}
+  amf_name: {{ include "common.names.fullname" . }}-amf
+  {{- if .Values.amf.metrics.enabled }}
+  metrics:
+    addr: 0.0.0.0
+    port: 9090
+  {{- end }}

@@ -1,0 +1,166 @@
+{{- $serverID := default "podIP" .Values.jvb.websockets.serverID }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "jitsi-meet.jvb.fullname" . }}
+  labels:
+    {{- include "jitsi-meet.jvb.labels" . | nindent 4 }}
+  {{- with .Values.jvb.annotations }}
+  annotations:
+    {{ toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  replicas: {{ .Values.jvb.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "jitsi-meet.jvb.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "jitsi-meet.jvb.selectorLabels" . | nindent 8 }}
+      {{- range $label, $value := mergeOverwrite .Values.global.podLabels .Values.jvb.podLabels }}
+        {{ $label }}: {{ $value }}
+      {{- end }}
+      annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/jvb/configmap.yaml") . | sha256sum }}
+        checksum/secret: {{ include (print $.Template.BasePath "/jvb/xmpp-secret.yaml") . | sha256sum }}
+        {{- if and .Values.jvb.metrics.enabled  .Values.jvb.metrics.prometheusAnnotations  }}
+        prometheus.io/port: "9888"
+        prometheus.io/scrape: "true"
+        {{- end }}
+      {{- range $annotation, $value := mergeOverwrite .Values.global.podAnnotations .Values.jvb.podAnnotations }}
+        {{ $annotation }}: {{ $value|quote }}
+      {{- end }}
+    spec:
+    {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+      serviceAccountName: {{ include "jitsi-meet.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.jvb.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.jvb.securityContext | nindent 12 }}
+          image: "{{ .Values.jvb.image.repository }}:{{ default .Chart.AppVersion .Values.jvb.image.tag }}"
+          imagePullPolicy: {{ pluck "pullPolicy" .Values.jvb.image .Values.image | first }}
+          envFrom:
+          - secretRef:
+              name: {{ include "call-nested" (list . "prosody" "prosody.fullname") }}-jvb
+          - configMapRef:
+              name: {{ include "call-nested" (list . "prosody" "prosody.fullname") }}-common
+          - configMapRef:
+              name: {{ include "jitsi-meet.jvb.fullname" . }}
+          env:
+          {{- if or .Values.jvb.useNodeIP .Values.jvb.publicIP }}
+          - name: DOCKER_HOST_ADDRESS
+            {{- if .Values.jvb.publicIP }}
+            value: {{ .Values.jvb.publicIP }}
+            {{- else }}
+            valueFrom:
+              fieldRef:
+                fieldPath: status.hostIP
+            {{- end }}
+          {{- end }}
+          {{- if .Values.jvb.websockets.enabled }}
+          - name: JVB_WS_SERVER_ID
+            {{- if eq $serverID "service" }}
+            value: {{ include "jitsi-meet.jvb.fullname" . }}.{{ .Release.Namespace }}.svc
+            {{- else if eq $serverID "podIP" }}
+            valueFrom:
+              fieldRef:
+                fieldPath: status.podIP
+            {{- else }}
+            value: {{ $serverID | quote }}
+            {{- end }}
+          {{- end }}
+          {{- if  .Values.octo.enabled }}
+          - name: JVB_OCTO_BIND_ADDRESS
+            valueFrom:
+              fieldRef:
+                fieldPath: status.hostIP
+          - name: JVB_OCTO_PUBLIC_ADDRESS
+            valueFrom:
+              fieldRef:
+                fieldPath: status.podIP
+          {{- end }}
+          ports:
+            - name: rtp-udp
+              containerPort: {{ .Values.jvb.UDPPort }}
+              {{- if .Values.jvb.useHostPort }}
+              hostPort: {{ .Values.jvb.UDPPort }}
+              {{- end }}
+              protocol: UDP
+          {{- if .Values.jvb.websockets.enabled }}
+            - name: colibri-ws-tcp
+              containerPort: 9090
+              protocol: TCP
+          {{- end }}
+          {{- with .Values.jvb.livenessProbe }}
+          livenessProbe:
+          {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.jvb.readinessProbe }}
+          readinessProbe:
+          {{- toYaml . | nindent 12 }}
+          {{- end }}
+          resources:
+            {{- toYaml .Values.jvb.resources | nindent 12 }}
+          {{- with .Values.jvb.extraVolumeMounts }}
+          volumeMounts:
+          {{- toYaml . | nindent 10 }}
+          {{- end }}
+
+        {{- if .Values.jvb.metrics.enabled }}
+        - name: metrics
+          image: {{ .Values.jvb.metrics.image.repository }}:{{ .Values.jvb.metrics.image.tag }}
+          imagePullPolicy: {{ .Values.jvb.metrics.image.pullPolicy }}
+          securityContext:
+            runAsUser: 10001
+          command:
+            - /prometheus-jitsi-meet-exporter
+            - -videobridge-url
+            - http://localhost:8080/colibri/stats
+          ports:
+            - containerPort: 9888
+              name: tcp-metrics
+              protocol: TCP
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 9888
+            initialDelaySeconds: 3
+            periodSeconds: 5
+          resources:
+        {{- toYaml .Values.jvb.metrics.resources | nindent 12 }}
+      {{- end }}
+
+      {{- with .Values.jvb.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+    {{- if or .Values.jvb.useHostPort .Values.jvb.affinity }}
+      affinity:
+      {{- if .Values.jvb.affinity }}
+        {{- toYaml .Values.jvb.affinity | nindent 8 }}
+      {{- else }}
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app.kubernetes.io/component
+                operator: In
+                values:
+                - jvb
+            topologyKey: "kubernetes.io/hostname"
+      {{- end }}
+    {{- end }}
+    {{- with .Values.jvb.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- with .Values.jvb.extraVolumes }}
+      volumes:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}

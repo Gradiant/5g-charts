@@ -51,10 +51,11 @@ spec:
           {{- end }}
           args:
             - /opt/oai/bin/nr-softmodem.Rel15
-            - -E
-            - --sa
             - -O
             - /oai.conf
+            - --sa
+            - -E
+            - --continuous-tx
           env:
             - name: CONFIG_TEMPLATE_PATH
               value: /opt/oai/etc/gnb.sa.tdd.conf

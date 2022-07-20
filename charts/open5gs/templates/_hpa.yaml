@@ -1,0 +1,12 @@
+{{- define "open5gs.hpa" -}}
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: {{ template "common.names.fullname" . }}-{{ .component }}
+spec:
+  maxReplicas: 1
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: {{ template "common.names.fullname" . }}-{{ .component }}
+{{- end -}}
