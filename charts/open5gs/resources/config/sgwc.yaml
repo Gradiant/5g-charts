@@ -13,4 +13,4 @@ sgwc:
 sgwu:
   pfcp:
     - name: "{{ include "common.names.fullname" . }}-sgwu-udp"
-
+      apn: internet
