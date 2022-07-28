@@ -1,7 +1,21 @@
+amf:
+  enabled: false
+ausf:
+  enabled: false
+bsf:
+  enabled: false
+nrf:
+  enabled: false
+nssf:
+  enabled: false
+pcf:
+  enabled: false
+udm:
+  enabled: false
+udr:
+  enabled: false
 mme:
-  mcc: "001"
-  mnc: "01"
-webui:
-  ingress:
-    enabled: true
-    hostname: core.cloudrenzo.gradiant.org
+  config:
+    mcc: 999
+    mnc: 70
+    tac: 1
