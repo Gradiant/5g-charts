@@ -7,10 +7,10 @@ parameter:
 sgwu:
   gtpu:
     dev: eth0
-    advertise: {{ default (printf "%s-%s-udp" (include "common.names.fullname" .) .component) .Values.upf.advertise }}
+    # advertise: {{ default (printf "%s-%s-udp" (include "common.names.fullname" .) .component) .Values.upf.advertise }}
   pfcp:
     dev: eth0
 
 sgwc:
-  pfcp:
-    - name: "{{ include "common.names.fullname" . }}-sgwc-udp"
+  # pfcp:
+  #   - name: "{{ include "common.names.fullname" . }}-sgwc-udp"
