@@ -8,7 +8,7 @@ sgwc:
 
 smf:
   gtpc:
-    - name: "{{ include "common.names.fullname" . }}-smf"
+    - name: "{{ include "common.names.fullname" . }}-smf-udp"
 
 mme:
   freeDiameter: mme.conf
