@@ -27,7 +27,7 @@ These new values will:
 Once this deployment has been completed, register a subscriber in the EPC by running the script provided, `register_subscriber.sh`:
 
 ```
-source <(curl -s https://gradiant.github.io/openverso-charts/docs/open5gs-srslte/register_subscriber.sh)
+curl -s https://gradiant.github.io/openverso-charts/docs/open5gs-srslte/register_subscriber.sh | bash -s
 ```
 Its execution will manually add the values specified in this script (**IMSI, KI and OPc**) to MongoDB. The changes can be verified following 2 different approaches:
 
@@ -83,13 +83,13 @@ Check that the eNodeB senses UE's presence and the UE gets connected to the netw
 ```
 kubectl logs srs-lte-srs-lte-0 enb -f
 ```
-![alt text](https://gradiant.github.io/openverso-charts/docs/open5gs-srslte/screenshots/enb_ue_connected.png "UE connected to eNodeB")
+![UE connectd to eNodeB](https://raw.githubusercontent.com/Gradiant/openverso-charts/gh-pages/docs/open5gs-srslte/screenshots/enb_ue_connected.png "UE connected to eNodeB")
 
 Check that the UE got successfully attached to the network:
  ```
 kubectl logs srs-lte-srs-lte-0 ue -f
 ```
-![alt text](https://gradiant.github.io/openverso-charts/docs/open5gs-srslte/screenshots/ue_attached.png "UE attached to network")
+![UE attached to network](https://raw.githubusercontent.com/Gradiant/openverso-charts/gh-pages/docs/open5gs-srslte/screenshots/ue_attached.png "UE attached to network")
 
 Hence, check that the UE created a tunnel interface (`tun_srsue`):
 ```
@@ -98,19 +98,19 @@ kubectl exec srs-lte-srs-lte-0 -c ue -ti -- bash
 ip addr
 ```
 
-![alt text](https://gradiant.github.io/openverso-charts/docs/open5gs-srslte/screenshots/tun_interface_ue.png "UE's tunnel interface")
+![UE's tunnel interface](https://raw.githubusercontent.com/Gradiant/openverso-charts/gh-pages/docs/open5gs-srslte/screenshots/tun_interface_ue.png "UE's tunnel interface")
 
 Check that the UE has connectivity through this interface:
 ```
 ping gradiant.org -I tun_srsue
 ```
-![alt text](https://gradiant.github.io/openverso-charts/docs/open5gs-srslte/screenshots/ping_ue.png "UEs connectivity")
+![UEs connectivity](https://raw.githubusercontent.com/Gradiant/openverso-charts/gh-pages/docs/open5gs-srslte/screenshots/ping_ue.png "UEs connectivity")
 
 Moreover, if using `traceroute`, check that the first hop is `10.45.0.1` (PGW-U's side of the tunnel created):
 ```
-trarecout google.com -i tun_srsue
+traceroute google.com -i tun_srsue
 ```
-![alt text](https://gradiant.github.io/openverso-charts/docs/open5gs-srslte/screenshots/traceroute_ue.png "UEs connectivity")
+![UEs connectivity](https://raw.githubusercontent.com/Gradiant/openverso-charts/gh-pages/docs/open5gs-srslte/screenshots/traceroute_ue.png "UEs connectivity")
 
 Therefore, the UE's traffic can be captured in the PGW-U (UPF). The installation of **tcpdump** in the corresponding pod is needed in order to complete this check:
 ```
@@ -120,7 +120,7 @@ apt update && apt install tcpdump
 
 tcpdump -i ogstun
 ```
-![alt text](https://gradiant.github.io/openverso-charts/docs/open5gs-srslte/screenshots/tcpdump.png "Capturing traffic in the PGW-U")
+![Capturing traffic in the PGW-U](https://raw.githubusercontent.com/Gradiant/openverso-charts/gh-pages/docs/open5gs-srslte/screenshots/tcpdump.png "Capturing traffic in the PGW-U")
 
 # Clean
 Clean the deployment for this demo by uninstalling the 2 helm charts previously installed:

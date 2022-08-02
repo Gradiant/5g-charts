@@ -67,7 +67,7 @@ kubectl exec deployment/ueransim-gnb-ues -ti -- bash
 ip addr
 ```
 
-![alt text](https://gradiant.github.io/openverso-charts/docs/open5gs-ueransim-gnb/screenshots/ues_tunnels.png "UEs tunnel interfaces")
+![UEs tunnel interfaces](https://raw.githubusercontent.com/Gradiant/openverso-charts/gh-pages/docs/open5gs-ueransim-gnb/screenshots/ues_tunnels.png "UEs tunnel interfaces")
 
 Check that UEs have connectivity through these interfaces:
 ```
@@ -75,7 +75,7 @@ ping gradiant.org -I uesimtun0
 
 ping gradiant.org -I uesimtun1
 ```
-![alt text](https://gradiant.github.io/openverso-charts/docs/open5gs-ueransim-gnb/screenshots/ues_ping.png "UEs connectivity")
+![UEs connectivity](https://raw.githubusercontent.com/Gradiant/openverso-charts/gh-pages/docs/open5gs-ueransim-gnb/screenshots/ues_ping.png "UEs connectivity")
 
 It's even possible to check that the UEs' traffic is being routed correctly through their PDU sessions, capturing the packets in the UPF. The installation of **tcpdump** in the corresponding pod is needed in order to complete this check:
 ```
@@ -85,7 +85,7 @@ apt update && apt install tcpdump
 
 tcpdump -i ogstun
 ```
-![alt text](https://gradiant.github.io/openverso-charts/docs/open5gs-ueransim-gnb/screenshots/tcpdump.png "Capturing traffic in the UPF")
+![Capturing traffic in the UPF](https://raw.githubusercontent.com/Gradiant/openverso-charts/gh-pages/docs/open5gs-ueransim-gnb/screenshots/tcpdump.png "Capturing traffic in the UPF")
 
 # Add additional subscribers using *open5gs-populate*
 
