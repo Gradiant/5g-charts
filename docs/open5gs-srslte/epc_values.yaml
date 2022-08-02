@@ -19,6 +19,3 @@ mme:
     mcc: 999
     mnc: 70
     tac: 1
-webui:
-  ingress:
-    enabled: false
