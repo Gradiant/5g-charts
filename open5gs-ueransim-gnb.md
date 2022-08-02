@@ -1,7 +1,5 @@
 ---
 title: Open5GS and UERANSIM
-layout: default
-filename: open5gs-ueransim-gnb.md
 --- 
 
 # Open5gs and UERANSIM 

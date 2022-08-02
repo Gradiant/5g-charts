@@ -1,4 +1,5 @@
 theme: jekyll-theme-slate
+baseurl: /openverso-charts
 relative_links:
   enabled:     true
   collections: true

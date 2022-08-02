@@ -1,7 +1,5 @@
 ---
 title: Open5GS and srsLTE
-layout: default
-filename: open5gs-srslte.md
 --- 
 
 # Open5GS and srsLTE 
