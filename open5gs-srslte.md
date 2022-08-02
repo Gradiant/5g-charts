@@ -1,3 +1,9 @@
+---
+title: Open5GS and srsLTE
+layout: default
+filename: open5gs-srslte.md
+--- 
+
 # Open5GS and srsLTE 
 
 4G end to end communication demo with Open5GS and srsRAN.
@@ -31,7 +37,7 @@ curl -s https://gradiant.github.io/openverso-charts/docs/open5gs-srslte/register
 ```
 Its execution will manually add the values specified in this script (**IMSI, KI and OPc**) to MongoDB. The changes can be verified following 2 different approaches:
 
-1. **Directly through MongoDB**
+- **Directly through MongoDB**
 
 ```
 kubectl exec deployment/open5gs-mongodb -ti -- bash
@@ -42,7 +48,7 @@ use open5gs
 
 db.subscribers.find().pretty()
 ```
-2. **Using the Open5GS WebUI**: forward a local port to a port on the corresponding Pod by specifying the WebUI Service. Then, the Open5GS WebUI will be available at `localhost:3000`. To do this, execute:
+- **Using the Open5GS WebUI**: forward a local port to a port on the corresponding Pod by specifying the WebUI Service. Then, the Open5GS WebUI will be available at `localhost:3000`. To do this, execute:
 ```
 kubectl port-forward svc/open5gs-webui 3000:3000
 ```

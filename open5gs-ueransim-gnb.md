@@ -1,3 +1,9 @@
+---
+title: Open5GS and UERANSIM
+layout: default
+filename: open5gs-ueransim-gnb.md
+--- 
+
 # Open5gs and UERANSIM 
 
 5G end to end (SA) communication demo with Open5gs and UERANSIM.
@@ -101,7 +107,7 @@ open5gs-dbctl add_ue_with_slice <imsi> <key> <opc> <apn> <sst> <sd>
 
 After that, the changes can be verified following 2 different approaches:
 
-1. **Directly through MongoDB**
+- **Directly through MongoDB**
 
 ```
 kubectl exec deployment/open5gs-mongodb -ti -- bash
@@ -112,7 +118,7 @@ use open5gs
 
 db.subscribers.find().pretty()
 ```
-2. **Using the Open5GS WebUI**: forward a local port to a port on the corresponding Pod by specifying the WebUI Service. Then, the Open5GS WebUI will be available at `localhost:3000`. To do this, execute:
+- **Using the Open5GS WebUI**: forward a local port to a port on the corresponding Pod by specifying the WebUI Service. Then, the Open5GS WebUI will be available at `localhost:3000`. To do this, execute:
 ```
 kubectl port-forward svc/open5gs-webui 3000:3000
 ```
