@@ -1,0 +1,24 @@
+amf:
+  enabled: false
+ausf:
+  enabled: false
+bsf:
+  enabled: false
+nrf:
+  enabled: false
+nssf:
+  enabled: false
+pcf:
+  enabled: false
+udm:
+  enabled: false
+udr:
+  enabled: false
+mme:
+  config:
+    mcc: 999
+    mnc: 70
+    tac: 1
+webui:
+  ingress:
+    enabled: false

@@ -1,0 +1,14 @@
+image:
+  tag: 2022.w20
+
+gnb:
+  gnbName: Gradiant
+  mcc: '999'
+  mnc: '70'
+  mncLength: '2'
+  tac: '0001'
+  sst: '1'
+  sd0: '1b207'
+  sd1: '0'
+  # -- hostname of the amf core service.
+  amf: "open5gs-amf-sctp"

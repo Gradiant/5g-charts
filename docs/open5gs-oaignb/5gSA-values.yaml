@@ -1,0 +1,38 @@
+hss:
+  enabled: false
+
+mme:
+  enabled: false
+
+pcrf:
+  enabled: false
+
+sgwc:
+  enabled: false
+
+sgwu:
+  enabled: false
+
+amf:
+  config:
+    mcc: 999
+    mnc: 70
+    tac: 1
+    sst: 1
+    sd: "0x1b207"
+
+nssf:
+  config:
+    nsi:
+      sst: 1
+      sd: "0x1b207"
+
+webui:
+  ingress:
+    enabled: false
+
+populate:
+  enabled: true
+  commands:
+  - open5gs-dbctl add 999700000053411 10.45.0.10 02366BDEC178628BC809841190A3F316 4BDB2D50BA9AFEC95D62928620EF6D34
+  - 'mongo --eval "db.subscribers.update({\"imsi\": \"999700000053411\"},{\$set: { \"slice.0.sd\": \"1b207\" }});" $DB_URI'

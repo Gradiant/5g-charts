@@ -1,0 +1,25 @@
+device:
+  name: UHD
+  # For best performance in 2x2 MIMO and >= 15 MHz use the following device_args settings:
+  #     USRP B210: num_recv_frames=64,num_send_frames=64
+  #     And for 75 PRBs, also append ",master_clock_rate=15.36e6" to the device args
+  # For best performance when BW<5 MHz (25 PRB), use the following device_args settings:
+  #     USRP B210: send_frame_size=512,recv_frame_size=512
+  args: auto
+
+enb:
+  mcc: '999'
+  mnc: '70'
+  tac: '0001'
+  mme: open5gs-mme-sctp
+resources:
+  limits:
+    ettus.com/usrp: 1
+
+## @param tolerations tolerations pods assignment
+## ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
+##
+tolerations:
+  - key: ettus.com/usrp
+    operator: Equal
+    effect: NoSchedule
