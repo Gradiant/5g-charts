@@ -875,6 +875,9 @@
                 "extraEnvVars": {
                     "type": "array"
                 },
+                "db_uri": {
+                    "type": "string"
+                },
                 "extraVolumeMounts": {
                     "type": "array"
                 },
@@ -1833,6 +1836,9 @@
                 "extraEnvVars": {
                     "type": "array"
                 },
+                "db_uri": {
+                    "type": "string"
+                },
                 "extraVolumeMounts": {
                     "type": "array"
                 },
@@ -2068,6 +2074,9 @@
                 },
                 "extraEnvVars": {
                     "type": "array"
+                },
+                "db_uri": {
+                    "type": "string"
                 },
                 "extraVolumeMounts": {
                     "type": "array"
@@ -3268,6 +3277,9 @@
                 },
                 "extraEnvVars": {
                     "type": "array"
+                },
+                "db_uri": {
+                    "type": "string"
                 },
                 "extraVolumeMounts": {
                     "type": "array"

@@ -1,4 +1,4 @@
-db_uri:  {{ default (printf "mongodb://%s-mongodb/open5gs" .Release.Name)  .Values.db_uri  }}
+db_uri:  {{ tpl .Values.pcrf.db_uri . }}
 
 logger:
   level: {{ .Values.pcrf.config.logLevel }}

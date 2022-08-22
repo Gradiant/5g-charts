@@ -278,9 +278,9 @@ hss:
     advancedConfig: {}
   command: []
   args: ["open5gs-hssd"]
-  extraEnvVars:
-    - name: DB_URI
-      value: mongodb://{{ include "common.names.fullname" . }}-mongodb/open5gs
+  extraEnvVars: []
+  # db_uri: "{{ (printf \"mongodb://%s-mongodb/open5gs\" .Release.Name) }}"
+  db_uri: "mongodb://{{ .Release.Name }}-mongodb/open5gs"
   replicaCount: 1
   updateStrategy:
     type: RollingUpdate
@@ -553,9 +553,9 @@ pcf:
     advancedConfig: {}
   command: []
   args: ["open5gs-pcfd"]
-  extraEnvVars:
-    - name: DB_URI
-      value: mongodb://{{ include "common.names.fullname" . }}-mongodb/open5gs
+  extraEnvVars: []
+  # db_uri: "{{ (printf \"mongodb://%s-mongodb/open5gs\" .Release.Name) }}"
+  db_uri: "mongodb://{{ .Release.Name }}-mongodb/open5gs"
   replicaCount: 1
   updateStrategy:
     type: RollingUpdate
@@ -624,9 +624,9 @@ pcrf:
     advancedConfig: {}
   command: []
   args: ["open5gs-pcrfd"]
-  extraEnvVars:
-    - name: DB_URI
-      value: mongodb://{{ include "common.names.fullname" . }}-mongodb/open5gs
+  extraEnvVars: []
+  # db_uri: "{{ (printf \"mongodb://%s-mongodb/open5gs\" .Release.Name) }}"
+  db_uri: "mongodb://{{ .Release.Name }}-mongodb/open5gs"
   replicaCount: 1
   updateStrategy:
     type: RollingUpdate
@@ -995,9 +995,9 @@ udr:
     advancedConfig: {}
   command: []
   args: ["open5gs-udrd"]
-  extraEnvVars:
-    - name: DB_URI
-      value: mongodb://{{ include "common.names.fullname" . }}-mongodb/open5gs
+  extraEnvVars: []
+  # db_uri: "{{ (printf \"mongodb://%s-mongodb/open5gs\" .Release.Name) }}"
+  db_uri: "mongodb://{{ .Release.Name }}-mongodb/open5gs"
   replicaCount: 1
   updateStrategy:
     type: RollingUpdate
