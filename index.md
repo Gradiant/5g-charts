@@ -6,7 +6,7 @@ The main objective of OpenVerso, the National Network of Excellence in 5G and fu
 
 Follow the README.md of each chart to evaluate the technologies in your kubernetes cluster.
 
-Also check our [**available tutorials**](#check-our-tutorials) to deploy different setups that combine these technologies.
+Also, here you can check out our **available tutorials** to deploy different setups that combine these technologies.
 
 ## Install chart from helm repository
 
@@ -57,9 +57,3 @@ An example to test specific chart lint and install, send console logs also to th
 ```bash
 scripts/lint-install.sh open5gs | tee reports/open5gs.log
 ```
-
-## Check our tutorials
-Check the tutorials that we developed in order to test the deployment of **different technologies working together**. These tutorials make use of charts available at Gradiant's openverso helm repo.
-
-1. [Open5GS and srsLTE](open5gs-srslte.md)
-2. [Open5GS and UERANSIM](open5gs-ueransim-gnb.md)
