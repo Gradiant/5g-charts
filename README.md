@@ -35,6 +35,13 @@ install using the URL of the release. For example, to install open5gs v0.1.0 cha
 helm install https://github.com/Gradiant/openverso-charts/releases/download/open5gs-0.1.0/open5gs-0.1.0.tgz
 ```
 
+## Check out our tutorials
+
+We have developed some tutorials meant to **guide you through the combined deployment of different technologies**. It is an easy and quick way of testing these technologies and exploring how they work.
+
+These tutorials make use of charts available at this helm repo, and their corresponding documentation can be found at:
+[https://gradiant.github.io/openverso-charts/](https://gradiant.github.io/openverso-charts/)
+
 ## Development
 
 - clone repo
