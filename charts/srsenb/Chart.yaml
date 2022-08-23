@@ -16,7 +16,7 @@ maintainers:
 - email: cgiraldo@gradiant.org
   name: cgiraldo
 name: srs-enb
-version: 0.1.1
+version: 0.1.2
 keywords:
   - lte
   - enodeb
