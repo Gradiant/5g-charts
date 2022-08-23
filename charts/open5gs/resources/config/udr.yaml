@@ -1,5 +1,3 @@
-db_uri:  {{ tpl .Values.udr.db_uri . }}
-
 logger:
   level: {{ .Values.udr.config.logLevel }}
 parameter: {}

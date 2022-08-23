@@ -1,5 +1,3 @@
-db_uri:  {{ tpl .Values.pcf.db_uri . }}
-
 logger:
   level: {{ .Values.pcf.config.logLevel }}
 parameter: {}

@@ -2,6 +2,9 @@
     "$schema": "http://json-schema.org/schema#",
     "type": "object",
     "properties": {
+        "db_uri": {
+            "type": "string"
+        },
         "amf": {
             "type": "object",
             "properties": {
@@ -874,9 +877,6 @@
                 },
                 "extraEnvVars": {
                     "type": "array"
-                },
-                "db_uri": {
-                    "type": "string"
                 },
                 "extraVolumeMounts": {
                     "type": "array"
@@ -1836,9 +1836,6 @@
                 "extraEnvVars": {
                     "type": "array"
                 },
-                "db_uri": {
-                    "type": "string"
-                },
                 "extraVolumeMounts": {
                     "type": "array"
                 },
@@ -2074,9 +2071,6 @@
                 },
                 "extraEnvVars": {
                     "type": "array"
-                },
-                "db_uri": {
-                    "type": "string"
                 },
                 "extraVolumeMounts": {
                     "type": "array"
@@ -3277,9 +3271,6 @@
                 },
                 "extraEnvVars": {
                     "type": "array"
-                },
-                "db_uri": {
-                    "type": "string"
                 },
                 "extraVolumeMounts": {
                     "type": "array"

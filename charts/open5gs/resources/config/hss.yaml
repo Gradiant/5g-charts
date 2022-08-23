@@ -1,5 +1,3 @@
-db_uri:  {{ tpl .Values.hss.db_uri . }}
-
 logger:
   level: {{ .Values.hss.config.logLevel }}
 parameter: {}
