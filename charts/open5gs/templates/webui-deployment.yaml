@@ -21,11 +21,7 @@ spec:
         image: bitnami/mongodb:4.4.1-debian-10-r39
         env:
         - name: DB_URI
-          {{- if not .Values.db_uri }}
-          value: mongodb://{{ .Release.Name }}-mongodb/open5gs
-          {{- else }}
-          value:  {{ .Values.db_uri }}
-          {{- end  }}
+          value: {{ tpl .Values.db_uri . }}
         command: 
           - /bin/bash
           - /add_admin.sh
@@ -39,11 +35,7 @@ spec:
         imagePullPolicy: {{ .Values.webui.image.pullPolicy | quote }}
         env:
         - name: DB_URI
-          {{- if not .Values.db_uri }}
-          value: mongodb://{{ .Release.Name }}-mongodb/open5gs
-          {{- else }}
-          value:  {{ .Values.db_uri }}
-          {{- end  }}
+          value: {{ tpl .Values.db_uri . }}
         ports:
         - name: http
           containerPort: 3000

@@ -28,7 +28,7 @@ spec:
         imagePullPolicy: {{ .Values.populate.pullPolicy | quote }}
         env:
         - name: DB_URI
-          value: {{ default (printf "mongodb://%s-mongodb/open5gs" .Release.Name)  .Values.db_uri  }}
+          value: {{ tpl .Values.db_uri . }}
         command: 
         - /bin/bash
         - -c
@@ -39,7 +39,7 @@ spec:
         imagePullPolicy: {{ .Values.populate.pullPolicy | quote }}
         env:
         - name: DB_URI
-          value: {{ default (printf "mongodb://%s-mongodb/open5gs" .Release.Name)  .Values.db_uri  }}
+          value: {{ tpl .Values.db_uri . }}
         command: 
         - /bin/bash
         - -c
