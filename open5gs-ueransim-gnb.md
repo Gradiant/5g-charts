@@ -31,15 +31,17 @@ These new values will:
 
 # Deployment RAN
 
-Now, deploy the RAN (ueransim-gnb) using the `gnb-ues-values.yaml` file provided in order to overwrite some of the default values of the **ueransim-gnb chart**:
+Now, deploy the RAN (ueransim-gnb) using the *gnb-ues-values.yaml* file provided in order to overwrite some of the default values of the **ueransim-gnb chart**:
 
 ```
 helm install ueransim-gnb openverso/ueransim-gnb --version 0.2.2 --values https://gradiant.github.io/openverso-charts/docs/open5gs-ueransim-gnb/gnb-ues-values.yaml 
 ```
 
-Thus, this deployment will not only launch the **gNodeB**, but it will also enable the launching of **2 UEs**. They will use consecutive MSIDNs, starting from the ***ues.initialMSISDN*** set in the ***values.yaml*** (0000000001, by default).
+Thus, this deployment will not only launch the **gNodeB**, but it will also enable the launching of **2 UEs**. They will use consecutive MSIDNs, starting from the value of ***ues.initialMSISDN*** (0000000001, by default).
 
 It is important to notice that the default values of **mcc, mnc, sst, sd and tac** match those configured in the **open5gs** chart and the registered UEs.
+
+In addition, take into account that the value given for ***amf.hostname*** must match the name of the AMF service deployed by the open5gs chart. Therefore, in case you use a differente release name for the open5gs chart, make sure that this value is set accordingly. 
 
 
 # Verify deployment

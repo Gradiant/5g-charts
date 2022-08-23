@@ -64,6 +64,8 @@ Thus, this deployment will not only launch the **eNodeB** and connect it to the 
 
 It is important to notice that the default values of **MCC, MNC, and TAC** set for the eNB match those configured in the **open5gs** chart. Also, the **IMSI, KI and OPc** given for the UE match the ones provided in `register_subscriber.sh`.
 
+In addition, take into account that the value given for ***enb.mme*** must match the name of the MME service deployed by the open5gs chart. Therefore, in case you use a differente release name for the open5gs chart, make sure that this value is set accordingly. 
+
 
 # Verify deployment
 
