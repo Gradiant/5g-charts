@@ -1,7 +1,7 @@
 apiVersion: v2
 appVersion: "2.4.9"
 description: >
-  Helm chart to deploy Open5gs UDR service on Kubernetes.
+  Helm chart to deploy Open5gs SGWU service on Kubernetes.
 home: https://github.com/gradiant/openverso-charts
 sources:
   - http://open5gs.org
@@ -9,7 +9,7 @@ icon: https://open5gs.org/assets/img/open5gs_logo.png
 maintainers:
 - email: cgiraldo@gradiant.org
   name: cgiraldo
-name: open5gs-udr
+name: open5gs-sgwu
 version: 2.0.0
 keywords:
   - ngc
@@ -19,7 +19,3 @@ dependencies:
     tags:
       - bitnami-common
     version: 1.x.x
-  - name: mongodb
-    version: ~12.1.19
-    repository: https://charts.bitnami.com/bitnami
-    condition: mongodb.enabled

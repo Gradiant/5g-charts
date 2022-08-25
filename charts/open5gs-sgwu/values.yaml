@@ -21,19 +21,19 @@ global:
 ## @param kubeVersion Force target Kubernetes version (using Helm capabilities if not set)
 ##
 kubeVersion: ""
-## @param nameOverride String to partially override open5gs-smf.fullname template (will maintain the release name)
+## @param nameOverride String to partially override open5gs-sgwu.fullname template (will maintain the release name)
 ##
 nameOverride: ""
-## @param fullnameOverride String to fully override open5gs-smf.fullname template
+## @param fullnameOverride String to fully override open5gs-sgwu.fullname template
 ##
 fullnameOverride: ""
 ## @param namespaceOverride String to fully override common.names.namespace
 ##
 namespaceOverride: ""
-## @param commonAnnotations Common annotations to add to all open5gs-smf resources (sub-charts are not considered). Evaluated as a template
+## @param commonAnnotations Common annotations to add to all open5gs-sgwu resources (sub-charts are not considered). Evaluated as a template
 ##
 commonAnnotations: {}
-## @param commonLabels Common labels to add to all open5gs-smf resources (sub-charts are not considered). Evaluated as a template
+## @param commonLabels Common labels to add to all open5gs-sgwu resources (sub-charts are not considered). Evaluated as a template
 ##
 commonLabels: {}
 
@@ -41,7 +41,7 @@ commonLabels: {}
 ##
 extraDeploy: []
 
-## @section open5gs-smf parameters
+## @section open5gs-sgwu parameters
 
 ## Bitnami open5gs image version
 ## ref: https://hub.docker.com/r/openverso/open5gs/tags/
@@ -77,34 +77,15 @@ image:
 
 config:
   logLevel: info
-  # advertise: provide custom SBI address to be advertised to NRF
-  nrf:
-    sbi:
-      hostname: "" # if empty default is open5gs-nrf fullname
-      port:  # default is 7777
-  upf:
+  sgwc:
     pfcp:
-      hostname: "" # if empty default is open5gs-nrf fullname
-      port:  # default is 8805
-  pcrf:
-    enabled: true
-    frdi:
-      hostname: "" # if empty default is open5gs-pcrf-frdi fullname
-      port:  # default is 3868
-  dnsList:
-    - 8.8.8.8
-    - 8.8.4.4
-    - 2001:4860:4860::8888
-    - 2001:4860:4860::8844
-  subnetList:
-    - addr: 10.45.0.1/16
-      dnn: internet
-  mtu: 1400
+      hostname: "" # if empty default is open5gs-sgwc-pfcp fullname
+      port: 8805
 
 ## @param customOpen5gsConfig overwrite open5gs configuration file
 customOpen5gsConfig: {}
 
-## @param replicaCount Number of open5gs-smf Pods to run (requires ReadWriteMany PVC support)
+## @param replicaCount Number of open5gs-sgwu Pods to run (requires ReadWriteMany PVC support)
 ##
 replicaCount: 1
 ## @param command Override default container command (useful when using custom images)
@@ -120,7 +101,7 @@ args: []
 ##
 updateStrategy:
   type: RollingUpdate
-## @param priorityClassName open5gs-smf pods' priorityClassName
+## @param priorityClassName open5gs-sgwu pods' priorityClassName
 ##
 priorityClassName: ""
 ## @param schedulerName Name of the k8s scheduler (other than default)
@@ -180,8 +161,6 @@ serviceAccount:
 ## @param containerPorts [object] Container ports
 ##
 containerPorts:
-  sbi: 7777
-  gtpc: 2123
   gtpu: 2152
   pfcp: 8805
 ## @param sessionAffinity Control where client requests go, to the same pod or round-robin. Values: ClientIP or None
@@ -224,7 +203,7 @@ affinity: {}
 ## ref: https://kubernetes.io/docs/user-guide/node-selection/
 ##
 nodeSelector: {}
-## open5gs-smf container's resource requests and limits
+## open5gs-sgwu container's resource requests and limits
 ## ref: http://kubernetes.io/docs/user-guide/compute-resources/
 ## @param resources.requests [object] The requested resources for the init container
 ## @param resources.limits The resources limits for the init container
@@ -236,71 +215,22 @@ resources:
   limits: {}
 ## Configure Pods Security Context
 ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-pod
-## @param podSecurityContext.enabled Enable open5gs-smf pods' Security Context
-## @param podSecurityContext.fsGroup open5gs-smf pods' group ID
+## @param podSecurityContext.enabled Enable open5gs-sgwu pods' Security Context
+## @param podSecurityContext.fsGroup open5gs-sgwu pods' group ID
 ##
 podSecurityContext:
   enabled: true
   fsGroup: 1001
 ## Configure Container Security Context (only main container)
 ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-container
-## @param containerSecurityContext.enabled Enable open5gs-smf containers' Security Context
-## @param containerSecurityContext.runAsUser open5gs-smf containers' Security Context
+## @param containerSecurityContext.enabled Enable open5gs-sgwu containers' Security Context
+## @param containerSecurityContext.runAsUser open5gs-sgwu containers' Security Context
 ## @param containerSecurityContext.runAsNonRoot Set Controller container's Security Context runAsNonRoot
 ##
 containerSecurityContext:
   enabled: true
   runAsUser: 1001
   runAsNonRoot: true
-## Configure extra options for startup probe
-## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/#configure-probes
-## @param startupProbe.enabled Enable startupProbe
-## @param startupProbe.initialDelaySeconds Initial delay seconds for startupProbe
-## @param startupProbe.periodSeconds Period seconds for startupProbe
-## @param startupProbe.timeoutSeconds Timeout seconds for startupProbe
-## @param startupProbe.failureThreshold Failure threshold for startupProbe
-## @param startupProbe.successThreshold Success threshold for startupProbe
-##
-startupProbe:
-  enabled: false
-  path: /
-  initialDelaySeconds: 600
-  periodSeconds: 10
-  timeoutSeconds: 5
-  failureThreshold: 5
-  successThreshold: 1
-## Configure extra options for liveness probe
-## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/#configure-probes
-## @param livenessProbe.enabled Enable livenessProbe
-## @param livenessProbe.initialDelaySeconds Initial delay seconds for livenessProbe
-## @param livenessProbe.periodSeconds Period seconds for livenessProbe
-## @param livenessProbe.timeoutSeconds Timeout seconds for livenessProbe
-## @param livenessProbe.failureThreshold Failure threshold for livenessProbe
-## @param livenessProbe.successThreshold Success threshold for livenessProbe
-##
-livenessProbe:
-  enabled: true
-  initialDelaySeconds: 600
-  periodSeconds: 10
-  timeoutSeconds: 5
-  failureThreshold: 5
-  successThreshold: 1
-## Configure extra options for readiness probe
-## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/#configure-probes
-## @param readinessProbe.enabled Enable readinessProbe
-## @param readinessProbe.initialDelaySeconds Initial delay seconds for readinessProbe
-## @param readinessProbe.periodSeconds Period seconds for readinessProbe
-## @param readinessProbe.timeoutSeconds Timeout seconds for readinessProbe
-## @param readinessProbe.failureThreshold Failure threshold for readinessProbe
-## @param readinessProbe.successThreshold Success threshold for readinessProbe
-##
-readinessProbe:
-  enabled: true
-  initialDelaySeconds: 30
-  periodSeconds: 5
-  timeoutSeconds: 1
-  failureThreshold: 5
-  successThreshold: 1
 ## @param customStartupProbe Override default startup probe
 ##
 customStartupProbe: {}
@@ -327,104 +257,6 @@ podLabels: {}
 ## Kubernetes configuration. For minikube, set this to NodePort, elsewhere use LoadBalancer
 ##
 services:
-  sbi:
-    ## @param service.type Kubernetes Service type
-    ##
-    type: ClusterIP
-    ## @param service.ports.sbi Service HTTP port
-    ##
-    ports:
-      sbi: 7777
-    ## @param service.loadBalancerSourceRanges Restricts access for LoadBalancer (only with `service.type: LoadBalancer`)
-    ## e.g:
-    ## loadBalancerSourceRanges:
-    ##   - 0.0.0.0/0
-    ##
-    loadBalancerSourceRanges: []
-    ## @param service.loadBalancerIP loadBalancerIP for the open5gs-smf Service (optional, cloud specific)
-    ## ref: https://kubernetes.io/docs/user-guide/services/#type-loadbalancer
-    loadBalancerIP: ""
-    ## @param service.nodePorts [object] Kubernetes node port
-    ## nodePorts:
-    ##   sbi: <to set explicitly, choose port between 30000-32767>
-    ##
-    nodePorts:
-      sbi: ""
-    ## @param service.externalTrafficPolicy Enable client source IP preservation
-    ## ref https://kubernetes.io/docs/tasks/access-application-cluster/create-external-load-balancer/#preserving-the-client-source-ip
-    ##
-    externalTrafficPolicy: Cluster
-    ## @param service.clusterIP %%MAIN_CONTAINER_NAME%% service Cluster IP
-    ## e.g.:
-    ## clusterIP: None
-    ##
-    clusterIP: ""
-    ## @param service.extraPorts Extra ports to expose (normally used with the `sidecar` value)
-    ##
-    extraPorts: []
-    ## @param service.annotations Additional custom annotations for %%MAIN_CONTAINER_NAME%% service
-    ##
-    annotations: {}
-    ## @param service.sessionAffinity Session Affinity for Kubernetes service, can be "None" or "ClientIP"
-    ## If "ClientIP", consecutive client requests will be directed to the same Pod
-    ## ref: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies
-    ##
-    sessionAffinity: None
-    ## @param service.sessionAffinityConfig Additional settings for the sessionAffinity
-    ## sessionAffinityConfig:
-    ##   clientIP:
-    ##     timeoutSeconds: 300
-    ##
-    sessionAffinityConfig: {}
-  frdi:
-    ## @param service.type Kubernetes Service type
-    ##
-    type: ClusterIP
-    ## @param service.ports.frdi Service HTTP port
-    ##
-    ports:
-      frdi: 3868
-    ## @param service.loadBalancerSourceRanges Restricts access for LoadBalancer (only with `service.type: LoadBalancer`)
-    ## e.g:
-    ## loadBalancerSourceRanges:
-    ##   - 0.0.0.0/0
-    ##
-    loadBalancerSourceRanges: []
-    ## @param service.loadBalancerIP loadBalancerIP for the open5gs-smf Service (optional, cloud specific)
-    ## ref: https://kubernetes.io/docs/user-guide/services/#type-loadbalancer
-    loadBalancerIP: ""
-    ## @param service.nodePorts [object] Kubernetes node port
-    ## nodePorts:
-    ##   frdi: <to set explicitly, choose port between 30000-32767>
-    ##
-    nodePorts:
-      frdi: ""
-    ## @param service.externalTrafficPolicy Enable client source IP preservation
-    ## ref https://kubernetes.io/docs/tasks/access-application-cluster/create-external-load-balancer/#preserving-the-client-source-ip
-    ##
-    externalTrafficPolicy: Cluster
-    ## @param service.clusterIP %%MAIN_CONTAINER_NAME%% service Cluster IP
-    ## e.g.:
-    ## clusterIP: None
-    ##
-    clusterIP: ""
-    ## @param service.extraPorts Extra ports to expose (normally used with the `sidecar` value)
-    ##
-    extraPorts: []
-    ## @param service.annotations Additional custom annotations for %%MAIN_CONTAINER_NAME%% service
-    ##
-    annotations: {}
-    ## @param service.sessionAffinity Session Affinity for Kubernetes service, can be "None" or "ClientIP"
-    ## If "ClientIP", consecutive client requests will be directed to the same Pod
-    ## ref: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies
-    ##
-    sessionAffinity: None
-    ## @param service.sessionAffinityConfig Additional settings for the sessionAffinity
-    ## sessionAffinityConfig:
-    ##   clientIP:
-    ##     timeoutSeconds: 300
-    ##
-    sessionAffinityConfig: {}
   pfcp:
     ## @param service.type Kubernetes Service type
     ##
@@ -439,7 +271,7 @@ services:
     ##   - 0.0.0.0/0
     ##
     loadBalancerSourceRanges: []
-    ## @param service.loadBalancerIP loadBalancerIP for the open5gs-smf Service (optional, cloud specific)
+    ## @param service.loadBalancerIP loadBalancerIP for the open5gs-sgwu Service (optional, cloud specific)
     ## ref: https://kubernetes.io/docs/user-guide/services/#type-loadbalancer
     loadBalancerIP: ""
     ## @param service.nodePorts [object] Kubernetes node port
@@ -448,55 +280,6 @@ services:
     ##
     nodePorts:
       pfcp: ""
-    ## @param service.externalTrafficPolicy Enable client source IP preservation
-    ## ref https://kubernetes.io/docs/tasks/access-application-cluster/create-external-load-balancer/#preserving-the-client-source-ip
-    ##
-    externalTrafficPolicy: Cluster
-    ## @param service.clusterIP %%MAIN_CONTAINER_NAME%% service Cluster IP
-    ## e.g.:
-    ## clusterIP: None
-    ##
-    clusterIP: ""
-    ## @param service.extraPorts Extra ports to expose (normally used with the `sidecar` value)
-    ##
-    extraPorts: []
-    ## @param service.annotations Additional custom annotations for %%MAIN_CONTAINER_NAME%% service
-    ##
-    annotations: {}
-    ## @param service.sessionAffinity Session Affinity for Kubernetes service, can be "None" or "ClientIP"
-    ## If "ClientIP", consecutive client requests will be directed to the same Pod
-    ## ref: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies
-    ##
-    sessionAffinity: None
-    ## @param service.sessionAffinityConfig Additional settings for the sessionAffinity
-    ## sessionAffinityConfig:
-    ##   clientIP:
-    ##     timeoutSeconds: 300
-    ##
-    sessionAffinityConfig: {}
-  gtpc:
-    ## @param service.type Kubernetes Service type
-    ##
-    type: ClusterIP
-    ## @param service.ports.gtpc Service HTTP port
-    ##
-    ports:
-      gtpc: 2123
-    ## @param service.loadBalancerSourceRanges Restricts access for LoadBalancer (only with `service.type: LoadBalancer`)
-    ## e.g:
-    ## loadBalancerSourceRanges:
-    ##   - 0.0.0.0/0
-    ##
-    loadBalancerSourceRanges: []
-    ## @param service.loadBalancerIP loadBalancerIP for the open5gs-smf Service (optional, cloud specific)
-    ## ref: https://kubernetes.io/docs/user-guide/services/#type-loadbalancer
-    loadBalancerIP: ""
-    ## @param service.nodePorts [object] Kubernetes node port
-    ## nodePorts:
-    ##   gtpc: <to set explicitly, choose port between 30000-32767>
-    ##
-    nodePorts:
-      gtpc: ""
     ## @param service.externalTrafficPolicy Enable client source IP preservation
     ## ref https://kubernetes.io/docs/tasks/access-application-cluster/create-external-load-balancer/#preserving-the-client-source-ip
     ##
@@ -537,7 +320,7 @@ services:
     ##   - 0.0.0.0/0
     ##
     loadBalancerSourceRanges: []
-    ## @param service.loadBalancerIP loadBalancerIP for the open5gs-smf Service (optional, cloud specific)
+    ## @param service.loadBalancerIP loadBalancerIP for the open5gs-sgwu Service (optional, cloud specific)
     ## ref: https://kubernetes.io/docs/user-guide/services/#type-loadbalancer
     loadBalancerIP: ""
     ## @param service.nodePorts [object] Kubernetes node port
@@ -572,9 +355,3 @@ services:
     ##     timeoutSeconds: 300
     ##
     sessionAffinityConfig: {}
-
-metrics:
-  enabled: false
-
-open5gs-nrf:
-  enabled: false

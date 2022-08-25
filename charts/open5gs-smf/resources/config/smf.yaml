@@ -5,6 +5,9 @@ logger:
 parameter: {}
 
 smf:
+  {{- if .Values.config.pcrf.enabled }}
+  freeDiameter: smf.conf
+  {{- end }}
   sbi:
     - addr:
         - "0.0.0.0"

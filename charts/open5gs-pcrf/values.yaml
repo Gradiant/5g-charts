@@ -21,19 +21,19 @@ global:
 ## @param kubeVersion Force target Kubernetes version (using Helm capabilities if not set)
 ##
 kubeVersion: ""
-## @param nameOverride String to partially override open5gs-pcf.fullname template (will maintain the release name)
+## @param nameOverride String to partially override open5gs-pcrf.fullname template (will maintain the release name)
 ##
 nameOverride: ""
-## @param fullnameOverride String to fully override open5gs-pcf.fullname template
+## @param fullnameOverride String to fully override open5gs-pcrf.fullname template
 ##
 fullnameOverride: ""
 ## @param namespaceOverride String to fully override common.names.namespace
 ##
 namespaceOverride: ""
-## @param commonAnnotations Common annotations to add to all open5gs-pcf resources (sub-charts are not considered). Evaluated as a template
+## @param commonAnnotations Common annotations to add to all open5gs-pcrf resources (sub-charts are not considered). Evaluated as a template
 ##
 commonAnnotations: {}
-## @param commonLabels Common labels to add to all open5gs-pcf resources (sub-charts are not considered). Evaluated as a template
+## @param commonLabels Common labels to add to all open5gs-pcrf resources (sub-charts are not considered). Evaluated as a template
 ##
 commonLabels: {}
 
@@ -41,7 +41,7 @@ commonLabels: {}
 ##
 extraDeploy: []
 
-## @section open5gs-pcf parameters
+## @section open5gs-pcrf parameters
 
 ## Bitnami open5gs image version
 ## ref: https://hub.docker.com/r/openverso/open5gs/tags/
@@ -77,14 +77,14 @@ image:
 
 config:
   logLevel: info
-  # advertise: provide custom SBI address to be advertised to NRF
-  nrf:
-    sbi:
-      hostname: "" # if empty default is open5gs-nrf fullname
-      port:  # default is 7777
+  smf:
+    frdi:
+      hostname: "" # if empty default is open5gs-smf-frdi fullname
+      port:  # default is 3868
+
 ## @param customOpen5gsConfig overwrite open5gs configuration file
 customOpen5gsConfig: {}
-## @param replicaCount Number of open5gs-pcf Pods to run (requires ReadWriteMany PVC support)
+## @param replicaCount Number of open5gs-pcrf Pods to run (requires ReadWriteMany PVC support)
 ##
 replicaCount: 1
 ## @param command Override default container command (useful when using custom images)
@@ -100,7 +100,7 @@ args: []
 ##
 updateStrategy:
   type: RollingUpdate
-## @param priorityClassName open5gs-pcf pods' priorityClassName
+## @param priorityClassName open5gs-pcrf pods' priorityClassName
 ##
 priorityClassName: ""
 ## @param schedulerName Name of the k8s scheduler (other than default)
@@ -160,7 +160,7 @@ serviceAccount:
 ## @param containerPorts [object] Container ports
 ##
 containerPorts:
-  sbi: 7777
+  frdi: 3868
 ## @param sessionAffinity Control where client requests go, to the same pod or round-robin. Values: ClientIP or None
 ## ref: https://kubernetes.io/docs/user-guide/services/
 ##
@@ -201,7 +201,7 @@ affinity: {}
 ## ref: https://kubernetes.io/docs/user-guide/node-selection/
 ##
 nodeSelector: {}
-## open5gs-pcf container's resource requests and limits
+## open5gs-pcrf container's resource requests and limits
 ## ref: http://kubernetes.io/docs/user-guide/compute-resources/
 ## @param resources.requests [object] The requested resources for the init container
 ## @param resources.limits The resources limits for the init container
@@ -213,70 +213,23 @@ resources:
   limits: {}
 ## Configure Pods Security Context
 ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-pod
-## @param podSecurityContext.enabled Enable open5gs-pcf pods' Security Context
-## @param podSecurityContext.fsGroup open5gs-pcf pods' group ID
+## @param podSecurityContext.enabled Enable open5gs-pcrf pods' Security Context
+## @param podSecurityContext.fsGroup open5gs-pcrf pods' group ID
 ##
 podSecurityContext:
   enabled: true
   fsGroup: 1001
 ## Configure Container Security Context (only main container)
 ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-container
-## @param containerSecurityContext.enabled Enable open5gs-pcf containers' Security Context
-## @param containerSecurityContext.runAsUser open5gs-pcf containers' Security Context
+## @param containerSecurityContext.enabled Enable open5gs-pcrf containers' Security Context
+## @param containerSecurityContext.runAsUser open5gs-pcrf containers' Security Context
 ## @param containerSecurityContext.runAsNonRoot Set Controller container's Security Context runAsNonRoot
 ##
 containerSecurityContext:
   enabled: true
   runAsUser: 1001
   runAsNonRoot: true
-## Configure extra options for startup probe
-## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/#configure-probes
-## @param startupProbe.enabled Enable startupProbe
-## @param startupProbe.initialDelaySeconds Initial delay seconds for startupProbe
-## @param startupProbe.periodSeconds Period seconds for startupProbe
-## @param startupProbe.timeoutSeconds Timeout seconds for startupProbe
-## @param startupProbe.failureThreshold Failure threshold for startupProbe
-## @param startupProbe.successThreshold Success threshold for startupProbe
-##
-startupProbe:
-  enabled: false
-  initialDelaySeconds: 600
-  periodSeconds: 10
-  timeoutSeconds: 5
-  failureThreshold: 5
-  successThreshold: 1
-## Configure extra options for liveness probe
-## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/#configure-probes
-## @param livenessProbe.enabled Enable livenessProbe
-## @param livenessProbe.initialDelaySeconds Initial delay seconds for livenessProbe
-## @param livenessProbe.periodSeconds Period seconds for livenessProbe
-## @param livenessProbe.timeoutSeconds Timeout seconds for livenessProbe
-## @param livenessProbe.failureThreshold Failure threshold for livenessProbe
-## @param livenessProbe.successThreshold Success threshold for livenessProbe
-##
-livenessProbe:
-  enabled: true
-  initialDelaySeconds: 600
-  periodSeconds: 10
-  timeoutSeconds: 5
-  failureThreshold: 5
-  successThreshold: 1
-## Configure extra options for readiness probe
-## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/#configure-probes
-## @param readinessProbe.enabled Enable readinessProbe
-## @param readinessProbe.initialDelaySeconds Initial delay seconds for readinessProbe
-## @param readinessProbe.periodSeconds Period seconds for readinessProbe
-## @param readinessProbe.timeoutSeconds Timeout seconds for readinessProbe
-## @param readinessProbe.failureThreshold Failure threshold for readinessProbe
-## @param readinessProbe.successThreshold Success threshold for readinessProbe
-##
-readinessProbe:
-  enabled: true
-  initialDelaySeconds: 30
-  periodSeconds: 5
-  timeoutSeconds: 1
-  failureThreshold: 5
-  successThreshold: 1
+
 ## @param customStartupProbe Override default startup probe
 ##
 customStartupProbe: {}
@@ -303,29 +256,29 @@ podLabels: {}
 ## Kubernetes configuration. For minikube, set this to NodePort, elsewhere use LoadBalancer
 ##
 services:
-  sbi:
+  frdi:
     ## @param service.type Kubernetes Service type
     ##
     type: ClusterIP
-    ## @param service.ports.sbi Service HTTP port
+    ## @param service.ports.frdi Service HTTP port
     ##
     ports:
-      sbi: 7777
+      frdi: 3868
     ## @param service.loadBalancerSourceRanges Restricts access for LoadBalancer (only with `service.type: LoadBalancer`)
     ## e.g:
     ## loadBalancerSourceRanges:
     ##   - 0.0.0.0/0
     ##
     loadBalancerSourceRanges: []
-    ## @param service.loadBalancerIP loadBalancerIP for the open5gs-pcf Service (optional, cloud specific)
+    ## @param service.loadBalancerIP loadBalancerIP for the open5gs-amf Service (optional, cloud specific)
     ## ref: https://kubernetes.io/docs/user-guide/services/#type-loadbalancer
     loadBalancerIP: ""
     ## @param service.nodePorts [object] Kubernetes node port
     ## nodePorts:
-    ##   http: <to set explicitly, choose port between 30000-32767>
+    ##   frdi: <to set explicitly, choose port between 30000-32767>
     ##
     nodePorts:
-      sbi: ""
+      frdi: ""
     ## @param service.externalTrafficPolicy Enable client source IP preservation
     ## ref https://kubernetes.io/docs/tasks/access-application-cluster/create-external-load-balancer/#preserving-the-client-source-ip
     ##
@@ -353,8 +306,9 @@ services:
     ##
     sessionAffinityConfig: {}
 
-
 dbURI: "" # if empty default is mongodb://{{ mongodb fullname}}/open5gs
 mongodb:
-  # mongodb.enabled -- should be deployed with udr
-  enabled: false
+  # mongodb.enabled -- set to 'false' to disable automatically deploying dependent charts
+  enabled: true
+  auth:
+    enabled: false

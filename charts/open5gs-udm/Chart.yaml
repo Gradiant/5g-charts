@@ -19,7 +19,3 @@ dependencies:
     tags:
       - bitnami-common
     version: 1.x.x
-  - name: open5gs-nrf
-    version: 2.0.0
-    repository: "file://../open5gs-nrf"
-    condition: open5gs-nrf.enabled

@@ -234,8 +234,10 @@ podSecurityContext:
 ##
 containerSecurityContext:
   enabled: true
-  runAsUser: 1001
-  runAsNonRoot: true
+  runAsNonRoot: false
+  privileged: true
+  capabilities:
+    add: ["NET_ADMIN"]
 #######################################
 ## Only Custom Probes available for UPF
 #######################################

@@ -1,0 +1,20 @@
+{{ $open5gsName := ternary .Release.Name (printf "%s-open5gs" .Release.Name) (contains "open5gs" .Release.Name) }}
+
+logger:
+  level: {{ .Values.config.logLevel }}
+parameter: {}
+
+sgwu:
+  pfcp:
+    - addr:
+        - "0.0.0.0"
+      port: {{ .Values.containerPorts.pfcp }}
+  gtpu:
+    - addr:
+        - "0.0.0.0"
+      port: {{ .Values.containerPorts.gtpu }}
+
+sgwc:
+  pfcp:
+    - name: {{ default (printf "%s-sgwc-pfcp" $open5gsName) .Values.config.sgwc.pfcp.hostname }}
+      port: {{ .Values.config.sgwc.pfcp.port }}

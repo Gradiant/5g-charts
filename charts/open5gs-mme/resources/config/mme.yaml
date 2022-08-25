@@ -1,0 +1,39 @@
+{{ $open5gsName := ternary .Release.Name (printf "%s-open5gs" .Release.Name) (contains "open5gs" .Release.Name) }}
+logger:
+  level: {{ .Values.config.logLevel }}
+parameter: {}
+
+mme:
+  s1ap:
+    - addr:
+        - "0.0.0.0"
+      port: {{ .Values.containerPorts.s1ap }}
+  gtpc:
+    - addr:
+        - "0.0.0.0"
+      port: {{ .Values.containerPorts.gtpc }}
+  freeDiameter: mme.conf
+  gummei:
+    {{- range .Values.config.gummeiList }}
+    - {{- toYaml . | nindent 6 }}
+    {{- end }}
+  tai:
+    {{- range .Values.config.taiList }}
+    - {{- toYaml . | nindent 6 }}
+    {{- end }}
+  security:
+    integrity_order : [ EIA2, EIA1, EIA0 ]
+    ciphering_order : [ EEA0, EEA1, EEA2 ]
+  network_name:
+    full: {{ .Values.config.networkName }}
+  mme_name: {{ include "common.names.fullname" . }}
+
+sgwc:
+  gtpc:
+    - name: {{ default (printf "%s-sgwc-gtpc" $open5gsName) .Values.config.sgwc.gtpc.hostname }}
+      port: {{ default 2123 .Values.config.sgwc.gtpc.port }}
+
+smf:
+  gtpc:
+    - name: {{ default (printf "%s-smf-gtpc" $open5gsName) .Values.config.smf.gtpc.hostname }}
+      port: {{ default 2123 .Values.config.smf.gtpc.port }}

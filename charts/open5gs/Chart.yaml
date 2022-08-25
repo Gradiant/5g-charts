@@ -20,6 +20,10 @@ dependencies:
     tags:
       - bitnami-common
     version: 1.x.x
+  - name: mongodb
+    version: ~12.1.19
+    repository: https://charts.bitnami.com/bitnami
+    condition: mongodb.enabled
   - name: open5gs-amf
     version: 2.0.0
     repository: "file://../open5gs-amf"
@@ -35,6 +39,16 @@ dependencies:
     repository: "file://../open5gs-bsf"
     condition: bsf.enabled
     alias: bsf
+  - name: open5gs-hss
+    version: 2.0.0
+    repository: "file://../open5gs-hss"
+    condition: hss.enabled
+    alias: hss
+  - name: open5gs-mme
+    version: 2.0.0
+    repository: "file://../open5gs-mme"
+    condition: mme.enabled
+    alias: mme
   - name: open5gs-nrf
     version: 2.0.0
     repository: "file://../open5gs-nrf"
@@ -50,6 +64,21 @@ dependencies:
     repository: "file://../open5gs-pcf"
     condition: pcf.enabled
     alias: pcf
+  - name: open5gs-pcrf
+    version: 2.0.0
+    repository: "file://../open5gs-pcrf"
+    condition: pcrf.enabled
+    alias: pcrf
+  - name: open5gs-sgwc
+    version: 2.0.0
+    repository: "file://../open5gs-sgwc"
+    condition: sgwc.enabled
+    alias: sgwc
+  - name: open5gs-sgwu
+    version: 2.0.0
+    repository: "file://../open5gs-sgwu"
+    condition: sgwu.enabled
+    alias: sgwu
   - name: open5gs-smf
     version: 2.0.0
     repository: "file://../open5gs-smf"

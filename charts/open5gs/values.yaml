@@ -1,4 +1,21 @@
 
+# We enable a global mongodb
+mongodb:
+  enabled: true
+  auth:
+    enabled: false
+udr:
+  mongodb:
+    enabled: false
+hss:
+  mongodb:
+    enabled: false
+pcrf:
+  mongodb:
+    enabled: false
+pcf:
+  mongodb:
+    enabled: false
 
 db_uri: "mongodb://{{ .Release.Name }}-mongodb/open5gs"
 

@@ -31,7 +31,7 @@ spec:
         {{- include "common.tplvalues.render" (dict "value" .Values.podAnnotations "context" $) | nindent 8 }}
         {{- end }}
     spec:
-      {{- include "open5gs.smf.imagePullSecrets" . | nindent 6 }}
+      {{- include "open5gs.sgwu.imagePullSecrets" . | nindent 6 }}
       {{- if .Values.podSecurityContext.enabled }}
       securityContext: {{- omit .Values.podSecurityContext "enabled" | toYaml | nindent 8 }}
       {{- end }}
@@ -43,7 +43,7 @@ spec:
         podAntiAffinity: {{- include "common.affinities.pods" (dict "type" .Values.podAntiAffinityPreset "context" $) | nindent 10 }}
         nodeAffinity: {{- include "common.affinities.nodes" (dict "type" .Values.nodeAffinityPreset.type "key" .Values.nodeAffinityPreset.key "values" .Values.nodeAffinityPreset.values) | nindent 10 }}
       {{- end }}
-      serviceAccountName: {{ include "open5gs.smf.serviceAccountName" . }}
+      serviceAccountName: {{ include "open5gs.sgwu.serviceAccountName" . }}
       {{- if .Values.schedulerName }}
       schedulerName: {{ .Values.schedulerName }}
       {{- end }}
@@ -68,7 +68,7 @@ spec:
         {{- end }}
       containers:
         - name: {{ include "common.names.fullname" . }}
-          image: {{ template "open5gs.smf.image" . }}
+          image: {{ template "open5gs.sgwu.image" . }}
           imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
           {{- if .Values.command }}
           command: {{- include "common.tplvalues.render" (dict "value" .Values.command "context" $) | nindent 12 }}
@@ -77,7 +77,7 @@ spec:
           args: {{- include "common.tplvalues.render" (dict "value" .Values.args "context" $) | nindent 12 }}
           {{- else }}
           args: 
-            - "open5gs-smfd"
+            - "open5gs-sgwud"
           {{- end }}
           {{- if .Values.containerSecurityContext.enabled }}
           securityContext: {{- omit .Values.containerSecurityContext "enabled" | toYaml | nindent 12 }}
@@ -99,64 +99,25 @@ spec:
           lifecycle: {{- include "common.tplvalues.render" (dict "value" .Values.lifecycleHooks "context" $) | nindent 12 }}
           {{- end }}
           ports:
-            - name: sbi
-              containerPort: {{ .Values.containerPorts.sbi }}
             - name: pfcp
               containerPort: {{ .Values.containerPorts.pfcp }}
-              protocol: UDP
-            - name: gtpc
-              containerPort: {{ .Values.containerPorts.gtpc }}
               protocol: UDP
             - name: gtpu
               containerPort: {{ .Values.containerPorts.gtpu }}
               protocol: UDP
-              
-          {{- if .Values.startupProbe.enabled }}
-          startupProbe:
-          # Using tcpSocket instead of httpGet because open5gs only support HTTP/2
-            tcpSocket:
-              port: sbi
-            initialDelaySeconds: {{ .Values.startupProbe.initialDelaySeconds }}
-            periodSeconds: {{ .Values.startupProbe.periodSeconds }}
-            timeoutSeconds: {{ .Values.startupProbe.timeoutSeconds }}
-            successThreshold: {{ .Values.startupProbe.successThreshold }}
-            failureThreshold: {{ .Values.startupProbe.failureThreshold }}
-          {{- else if .Values.customStartupProbe }}
+          {{- if .Values.customStartupProbe }}
           startupProbe: {{- include "common.tplvalues.render" (dict "value" .Values.customStartupProbe "context" $) | nindent 12 }}
           {{- end }}
-          {{- if .Values.livenessProbe.enabled }}
-          livenessProbe:
-          # Using tcpSocket instead of httpGet because open5gs only support HTTP/2
-            tcpSocket:
-              port: sbi
-            initialDelaySeconds: {{ .Values.livenessProbe.initialDelaySeconds }}
-            periodSeconds: {{ .Values.livenessProbe.periodSeconds }}
-            timeoutSeconds: {{ .Values.livenessProbe.timeoutSeconds }}
-            successThreshold: {{ .Values.livenessProbe.successThreshold }}
-            failureThreshold: {{ .Values.livenessProbe.failureThreshold }}
-          {{- else if .Values.customLivenessProbe }}
+          {{- if .Values.customLivenessProbe }}
           livenessProbe: {{- include "common.tplvalues.render" (dict "value" .Values.customLivenessProbe "context" $) | nindent 12 }}
           {{- end }}
-          {{- if .Values.readinessProbe.enabled }}
-          readinessProbe:
-          # Using tcpSocket instead of httpGet because open5gs only support HTTP/2
-            tcpSocket:
-              port: sbi
-            initialDelaySeconds: {{ .Values.readinessProbe.initialDelaySeconds }}
-            periodSeconds: {{ .Values.readinessProbe.periodSeconds }}
-            timeoutSeconds: {{ .Values.readinessProbe.timeoutSeconds }}
-            successThreshold: {{ .Values.readinessProbe.successThreshold }}
-            failureThreshold: {{ .Values.readinessProbe.failureThreshold }}
-          {{- else if .Values.customReadinessProbe }}
+          {{- if .Values.customReadinessProbe }}
           readinessProbe: {{- include "common.tplvalues.render" (dict "value" .Values.customReadinessProbe "context" $) | nindent 12 }}
           {{- end }}
           {{- if .Values.resources }}
           resources: {{- toYaml .Values.resources | nindent 12 }}
           {{- end }}
           volumeMounts:
-            - name: diameter-config
-              mountPath: /opt/open5gs/etc/freeDiameter/smf.conf
-              subPath: "smf.conf"
             - name: config
               mountPath:  /opt/open5gs/etc/open5gs/
             {{- if .Values.extraVolumeMounts }}
@@ -166,9 +127,6 @@ spec:
         {{- include "common.tplvalues.render" (dict "value" .Values.sidecars "context" $) | nindent 8 }}
         {{- end }}
       volumes:
-        - name: diameter-config
-          configMap:
-            name: {{ include "common.names.fullname" . }}-diameter
         - name: config
           configMap:
             name: {{ include "common.names.fullname" . }}
