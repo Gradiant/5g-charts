@@ -1,6 +1,6 @@
 # open5gs
 
-![Version: 1.2.1](https://img.shields.io/badge/Version-1.2.1-informational?style=flat-square) ![AppVersion: 2.4.8](https://img.shields.io/badge/AppVersion-2.4.8-informational?style=flat-square)
+![Version: 1.2.3](https://img.shields.io/badge/Version-1.2.3-informational?style=flat-square) ![AppVersion: 2.4.9](https://img.shields.io/badge/AppVersion-2.4.9-informational?style=flat-square)
 
 Helm chart to deploy Open5gs services on Kubernetes.
 
@@ -277,7 +277,7 @@ Helm chart to deploy Open5gs services on Kubernetes.
 | image.pullSecrets | list | `[]` |  |
 | image.registry | string | `"docker.io"` |  |
 | image.repository | string | `"openverso/open5gs"` |  |
-| image.tag | string | `"2.4.8"` |  |
+| image.tag | string | `"2.4.9"` |  |
 | kubeVersion | string | `""` |  |
 | mme.affinity | object | `{}` |  |
 | mme.args[0] | string | `"open5gs-mmed"` |  |
@@ -928,7 +928,7 @@ Helm chart to deploy Open5gs services on Kubernetes.
 | webui.image.pullPolicy | string | `"IfNotPresent"` |  |
 | webui.image.registry | string | `"docker.io"` |  |
 | webui.image.repository | string | `"openverso/open5gs-webui"` |  |
-| webui.image.tag | string | `"2.4.8"` |  |
+| webui.image.tag | string | `"2.4.9"` |  |
 | webui.ingress.annotations | object | `{}` |  |
 | webui.ingress.certManager | bool | `false` |  |
 | webui.ingress.enabled | bool | `true` |  |
