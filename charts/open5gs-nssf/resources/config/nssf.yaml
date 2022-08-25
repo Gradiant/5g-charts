@@ -1,0 +1,28 @@
+{{ $open5gsName := ternary .Release.Name (printf "%s-open5gs" .Release.Name) (contains "open5gs" .Release.Name) }}
+logger:
+  level: {{ .Values.config.logLevel }}
+parameter: {}
+
+nssf:
+  sbi:
+    - addr:
+        - "0.0.0.0"
+      port: {{ .Values.containerPorts.sbi }}
+      {{- if .Values.config.advertise }}
+      advertise: "{{ tpl .Values.config.advertise }}"
+      {{- end }}
+  nsi:
+    {{- range .Values.config.nsiList }}
+    - name: {{ default (printf "%s-nrf-sbi" $open5gsName) .nrf.hostname }}
+      port: {{ default 7777 .nrf.port }}
+      s_nssai:
+        sst: {{ .sst | quote }}
+        {{- if .sd }}
+        sd: {{ .sd | quote }}
+        {{- end }}
+    {{- end }}
+
+nrf:
+  sbi:
+    - name: {{ default (printf "%s-nrf-sbi" $open5gsName) .Values.config.nrf.sbi.hostname }}
+      port: {{ default 7777 .Values.config.nrf.sbi.port }}

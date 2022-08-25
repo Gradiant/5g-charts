@@ -21,7 +21,7 @@ spec:
       labels: {{- include "common.labels.standard" . | nindent 8 }}
         app.kubernetes.io/component: populate
     spec:
-      {{- include "open5gs.imagePullSecrets" . | nindent 6 }}
+      {{- include "open5gs.populate.imagePullSecrets" . | nindent 6 }}
       initContainers:
       - name: init
         image: {{ template "open5gs.populate.image" . }}
