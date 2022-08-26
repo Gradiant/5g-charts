@@ -6,12 +6,10 @@ parameter: {}
 
 sgwu:
   pfcp:
-    - dev:
-        - "eth0"
+    - dev: "eth0"
       port: {{ .Values.containerPorts.pfcp }}
   gtpu:
-    - dev:
-        - "eth0"
+    - dev: "eth0"
       port: {{ .Values.containerPorts.gtpu }}
 
 sgwc:

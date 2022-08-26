@@ -79,6 +79,7 @@ config:
   logLevel: info
   # advertise: provide custom SBI address to be advertised to NRF
   nrf:
+    enabled: true
     sbi:
       hostname: "" # if empty default is open5gs-nrf fullname
       port:  # default is 7777
