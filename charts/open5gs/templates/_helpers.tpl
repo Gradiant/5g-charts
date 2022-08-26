@@ -2,7 +2,7 @@
 Return the proper Open5gs image name
 */}}
 {{- define "open5gs.populate.image" -}}
-{{- include "common.images.image" (dict "imageRoot" .Values.populate.image "global" .Values.global) -}}
+{{- include "common.images.image" (dict "imageRoot" .Values.populate.image "global" .Values.global ) -}}
 {{- end -}}
 
 {{/*

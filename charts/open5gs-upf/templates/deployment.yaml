@@ -116,8 +116,10 @@ spec:
           ports:
             - name: pfcp
               containerPort: {{ .Values.containerPorts.pfcp }}
+              protocol: UDP
             - name: gtpu
               containerPort: {{ .Values.containerPorts.gtpu }}
+              protocol: UDP
           {{- if .Values.customStartupProbe }}
           startupProbe: {{- include "common.tplvalues.render" (dict "value" .Values.customStartupProbe "context" $) | nindent 12 }}
           {{- end }}

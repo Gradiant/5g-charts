@@ -6,12 +6,12 @@ parameter: {}
 
 sgwc:
   pfcp:
-    - addr:
-        - "0.0.0.0"
+    - dev:
+        - "eth0"
       port: {{ .Values.containerPorts.pfcp }}
   gtpc:
-    - addr:
-        - "0.0.0.0"
+    - dev:
+        - "eth0"
       port: {{ .Values.containerPorts.gtpc }}
 sgwu:
   pfcp:

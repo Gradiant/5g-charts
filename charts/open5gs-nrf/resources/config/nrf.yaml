@@ -4,6 +4,5 @@ parameter: {}
 
 nrf:
   sbi:
-    - addr:
-        - "0.0.0.0"
+    - dev: "eth0"
       port: {{ .Values.containerPorts.sbi }}

@@ -5,8 +5,7 @@ parameter: {}
 
 udr:
   sbi:
-    - addr:
-        - "0.0.0.0"
+    - dev: "eth0"
       port: {{ .Values.containerPorts.sbi }}
       {{- if .Values.config.advertise }}
       advertise: "{{ tpl .Values.config.advertise }}"

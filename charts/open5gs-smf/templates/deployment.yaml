@@ -154,9 +154,11 @@ spec:
           resources: {{- toYaml .Values.resources | nindent 12 }}
           {{- end }}
           volumeMounts:
+            {{- if .Values.config.pcrf.enabled }}
             - name: diameter-config
               mountPath: /opt/open5gs/etc/freeDiameter/smf.conf
               subPath: "smf.conf"
+            {{- end }}
             - name: config
               mountPath:  /opt/open5gs/etc/open5gs/
             {{- if .Values.extraVolumeMounts }}
@@ -166,9 +168,11 @@ spec:
         {{- include "common.tplvalues.render" (dict "value" .Values.sidecars "context" $) | nindent 8 }}
         {{- end }}
       volumes:
+        {{- if .Values.config.pcrf.enabled }}
         - name: diameter-config
           configMap:
             name: {{ include "common.names.fullname" . }}-diameter
+        {{- end }}
         - name: config
           configMap:
             name: {{ include "common.names.fullname" . }}

@@ -5,12 +5,12 @@ parameter: {}
 
 mme:
   s1ap:
-    - addr:
-        - "0.0.0.0"
+    - dev:
+        - "eth0"
       port: {{ .Values.containerPorts.s1ap }}
   gtpc:
-    - addr:
-        - "0.0.0.0"
+    - dev:
+        - "eth0"
       port: {{ .Values.containerPorts.gtpc }}
   freeDiameter: mme.conf
   gummei:
