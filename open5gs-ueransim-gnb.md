@@ -19,7 +19,7 @@ helm repo add openverso https://gradiant.github.io/openverso-charts/
 First, deploy the NGC (open5gs) using the `5gSA-values.yaml` file provided in order to overwrite some of the default values of the **Open5GS chart**:
 
 ```
-helm install open5gs openverso/open5gs --version 1.2.1 --values https://gradiant.github.io/openverso-charts/docs/open5gs-ueransim-gnb/5gSA-values.yaml 
+helm install open5gs openverso/open5gs --version 1.2.3 --values https://gradiant.github.io/openverso-charts/docs/open5gs-ueransim-gnb/5gSA-values.yaml 
 ```
 
 These new values will:

@@ -19,7 +19,7 @@ helm repo add openverso https://gradiant.github.io/openverso-charts/
 First, deploy the EPC (open5gs) using the `epc-values.yaml` file provided in order to overwrite some of the default values of the **Open5GS chart**:
 
 ```
-helm install open5gs openverso/open5gs --version 1.2.1 --values https://gradiant.github.io/openverso-charts/docs/open5gs-srslte/epc-values.yaml 
+helm install open5gs openverso/open5gs --version 1.2.3 --values https://gradiant.github.io/openverso-charts/docs/open5gs-srslte/epc-values.yaml 
 ```
 
 These new values will:
@@ -57,7 +57,7 @@ kubectl port-forward svc/open5gs-webui 3000:3000
 Now, deploy the RAN (srs-lte) using the `lte-values.yaml` file provided in order to overwrite some of the default values of the **srs-lte chart**:
 
 ```
-helm install srs-lte openverso/srs-lte --version 0.1.2 --values https://gradiant.github.io/openverso-charts/docs/open5gs-srslte/lte-values.yaml 
+helm install srs-lte openverso/srs-lte --version 0.1.3 --values https://gradiant.github.io/openverso-charts/docs/open5gs-srslte/lte-values.yaml 
 ```
 
 Thus, this deployment will not only launch the **eNodeB** and connect it to the Open5GS EPC, but it will also enable the launching of **1 UE**.
