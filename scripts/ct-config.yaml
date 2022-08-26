@@ -1,4 +1,5 @@
 chart-repos:
  - bitnami=https://charts.bitnami.com/bitnami
+ - openverso=https://gradiant.github.io/openverso-charts
 helm-extra-args: "--timeout 300s"
 validate-maintainers: false

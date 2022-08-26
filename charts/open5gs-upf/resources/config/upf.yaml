@@ -1,0 +1,25 @@
+{{ $open5gsName := ternary .Release.Name (printf "%s-open5gs" .Release.Name) (contains "open5gs" .Release.Name) }}
+
+logger:
+  level: {{ .Values.config.logLevel }}
+parameter: {}
+
+upf:
+  pfcp:
+    - dev: "eth0"
+      port: {{ .Values.containerPorts.pfcp }}
+  gtpu:
+    - dev: "eth0"
+      port: {{ .Values.containerPorts.gtpu }}
+      {{- if .Values.config.advertise }}
+      advertise: "{{ tpl .Values.config.gtpu.advertise }}"
+      {{- end }}
+  subnet:
+    {{- range .Values.config.subnetList }}
+    - {{- omit . "createDev" "enableNAT" | toYaml | nindent 6 }}
+    {{- end }}
+
+smf:
+  pfcp:
+    - name: {{ default (printf "%s-smf-pfcp" $open5gsName) .Values.config.smf.pfcp.hostname }}
+      port: {{ default 8805 .Values.config.smf.pfcp.port }}

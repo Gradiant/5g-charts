@@ -1,0 +1,8 @@
+logger:
+  level: {{ .Values.config.logLevel }}
+parameter: {}
+
+nrf:
+  sbi:
+    - dev: "eth0"
+      port: {{ .Values.containerPorts.sbi }}

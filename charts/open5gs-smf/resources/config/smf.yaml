@@ -1,0 +1,45 @@
+{{ $open5gsName := ternary .Release.Name (printf "%s-open5gs" .Release.Name) (contains "open5gs" .Release.Name) }}
+
+logger:
+  level: {{ .Values.config.logLevel }}
+parameter: {}
+
+smf:
+  {{- if .Values.config.pcrf.enabled }}
+  freeDiameter: smf.conf
+  {{- end }}
+  sbi:
+    - dev: "eth0"
+      port: {{ .Values.containerPorts.sbi }}
+      {{- if .Values.config.advertise }}
+      advertise: "{{ tpl .Values.config.advertise }}"
+      {{- end }}
+  pfcp:
+    - dev: "eth0"
+      port: {{ .Values.containerPorts.pfcp }}
+  gtpc:
+    - dev: "eth0"
+      port: {{ .Values.containerPorts.gtpc }}
+  gtpu:
+    - dev: "eth0"
+      port: {{ .Values.containerPorts.gtpu }}
+  subnet:
+    {{- range .Values.config.subnetList }}
+    - {{- toYaml . | nindent 6 }}
+    {{- end }}
+  dns:
+    {{- range .Values.config.dnsList }}
+    - {{- toYaml . | nindent 6 }}
+    {{- end }}
+  mtu: {{ .Values.config.mtu }}
+
+{{- if .Values.config.nrf.enabled }}
+nrf:
+  sbi:
+    - name: {{ default (printf "%s-nrf-sbi" $open5gsName) .Values.config.nrf.sbi.hostname }}
+      port: {{ .Values.config.nrf.sbi.port }}
+{{- end }}
+upf:
+  pfcp:
+    - name: {{ default (printf "%s-upf-pfcp" $open5gsName) .Values.config.upf.pfcp.hostname }}
+      port: {{ .Values.config.upf.pfcp.port }}

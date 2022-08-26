@@ -1,0 +1,17 @@
+{{ $open5gsName := ternary .Release.Name (printf "%s-open5gs" .Release.Name) (contains "open5gs" .Release.Name) }}
+logger:
+  level: {{ .Values.config.logLevel }}
+parameter: {}
+
+udm:
+  sbi:
+    - dev: "eth0"
+      port: {{ .Values.containerPorts.sbi }}
+      {{- if .Values.config.advertise }}
+      advertise: "{{ tpl .Values.config.advertise }}"
+      {{- end }}
+
+nrf:
+  sbi:
+    - name: {{ default (printf "%s-nrf-sbi" $open5gsName) .Values.config.nrf.sbi.hostname }}
+      port: {{ .Values.config.nrf.sbi.port }}
