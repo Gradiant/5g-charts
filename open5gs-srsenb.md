@@ -29,25 +29,19 @@ It is recommended to keep the UE with the **airplane mode turned on** until the 
 First, deploy the EPC (open5gs) using the `epc-values.yaml` file provided in order to overwrite some of the default values of the **Open5GS chart**:
 
 ```
-helm install open5gs openverso/open5gs --version 1.2.3 --values https://gradiant.github.io/openverso-charts/docs/open5gs-srsenb/epc-values.yaml 
+helm install open5gs openverso/open5gs --version 2.0.0 --values https://gradiant.github.io/openverso-charts/docs/open5gs-srsenb/epc-values.yaml 
 ```
 
 These new values will:
 
 - Disable the Open5gs NGC, deploying only the components of the Open5gs 4G/5G NSA Core.
 - Set the MCC, MNC and TAC to be used by the MME. Take into account that these values are tied together with the **sysmocom USIM's** credentials.
-- Disable the Ingress for accessing the Open5GS WebUI. 
-
-Once this deployment has been completed, register a subscriber in the EPC by running the script provided, `register_subscriber.sh`:
-
-```
-curl -s https://gradiant.github.io/openverso-charts/docs/open5gs-srsenb/register_subscriber.sh | bash -s
-```
-Its execution will manually add the values specified in this script (**IMSI, KI and OPc**) to MongoDB. Thus, these parameters must be set accordingly to the credentials configured in the **sysmocom USIM**, so make sure that the values in the script match those of your USIM before executing it. 
+- Disable the Ingress for accessing the Open5GS WebUI.
+- Enable the *populate* option, which will create a Deployment using the `openverso/open5gs-dbctl` image. This will provide an easy way to manage the subscribers. In addition, the *initCommands* specified will register an initial subscriber in the EPC, with the *imsi, key, opc* and *apn* provided. Thus, these parameters must be set accordingly to the credentials configured in the **sysmocom USIM**: make sure that the values provided in this command match those of your USIM before installing the chart. 
 
 It is also important to notice that the first 5 or 6 digits of the **IMSI** correspond to the **MCC** (first 3 digits) and **MNC** (2 or 3 following ones). Therefore, they must match the ones previously configured for the MME as well.  
 
-The changes can be verified following 2 different approaches:
+Once this deployment has been completed, the subscriber's registration can be verified following 2 different approaches:
 
 - **Directly through MongoDB**
 
@@ -77,7 +71,7 @@ helm install srs-enb openverso/srs-enb --version 0.1.2 --values https://gradiant
 
 Thus, this deployment will launch the **eNodeB** and connect it to the Open5GS EPC.
 
-It is important to notice that the default values of **MCC, MNC, and TAC** set for the eNB match those configured in the **open5gs** chart. Also, take into account that the value given for ***enb.mme*** must match the name of the MME service deployed by the open5gs chart. Therefore, in case you use a differente release name for the open5gs chart, make sure that this value is set accordingly.
+It is important to notice that the default values of **MCC, MNC, and TAC** set for the eNB match those configured in the **open5gs** chart. Also, take into account that the value given for ***enb.mme*** must match the name of the corresponding MME service deployed by the open5gs chart. Therefore, in case you use a differente release name for the open5gs chart, make sure that this value is set accordingly.
 
 Notice as well that the `enb-values.yaml` configures the srs-enb chart for requiring a **USRP hardware resource** during its deployment. 
 

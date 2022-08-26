@@ -1,5 +1,5 @@
 amf:
-  hostname: open5gs-amf-sctp
+  hostname: open5gs-amf-ngap
 
 mcc: '999'
 mnc: '70'

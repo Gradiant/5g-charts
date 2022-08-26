@@ -11,7 +11,7 @@ enb:
   mcc: '999'
   mnc: '70'
   tac: '0001'
-  mme: open5gs-mme-sctp
+  mme: open5gs-mme-s1ap
 
 resources:
   limits:

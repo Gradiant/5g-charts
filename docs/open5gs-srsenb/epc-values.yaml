@@ -14,6 +14,10 @@ udm:
   enabled: false
 udr:
   enabled: false
+smf:
+  config:
+    nrf:
+      enabled: false
 mme:
   config:
     mcc: 999
@@ -22,3 +26,8 @@ mme:
 webui:
   ingress:
     enabled: false
+
+populate:
+  enabled: true
+  initCommands:
+  - open5gs-dbctl add_ue_with_apn 999700000053410 2C9623736F9F37BD7BF6F6797F3CA9AF 09C74182747FA179A650BBE2147FCCDC internet

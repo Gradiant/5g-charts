@@ -19,13 +19,13 @@ helm repo add openverso https://gradiant.github.io/openverso-charts/
 First, deploy the NGC (open5gs) using the `5gSA-values.yaml` file provided in order to overwrite some of the default values of the **Open5GS chart**:
 
 ```
-helm install open5gs openverso/open5gs --version 1.2.3 --values https://gradiant.github.io/openverso-charts/docs/open5gs-ueransim-gnb/5gSA-values.yaml 
+helm install open5gs openverso/open5gs --version 2.0.0 --values https://gradiant.github.io/openverso-charts/docs/open5gs-ueransim-gnb/5gSA-values.yaml 
 ```
 
 These new values will:
 
 - Disable the Open5gs EPC, deploying only the functions of the Open5gs 5G SA Core.
-- Enable the *populate* option, which will create a Deployment using the `openverso/open5gs-dbctl` image. This will provide an easy way to manage the subscribers. In addition, the *commands* specified will register two subscribers initially, with the *imsi, key, opc, apn, sst* and *sd* provided.
+- Enable the *populate* option, which will create a Deployment using the `openverso/open5gs-dbctl` image. This will provide an easy way to manage the subscribers. In addition, the *initCommands* specified will register two subscribers initially, with the *imsi, key, opc, apn, sst* and *sd* provided.
 - Disable the Ingress for accessing the Open5GS WebUI.  
 
 
@@ -41,7 +41,7 @@ Thus, this deployment will not only launch the **gNodeB**, but it will also enab
 
 It is important to notice that the default values of **mcc, mnc, sst, sd and tac** match those configured in the **open5gs** chart and the registered UEs.
 
-In addition, take into account that the value given for ***amf.hostname*** must match the name of the AMF service deployed by the open5gs chart. Therefore, in case you use a differente release name for the open5gs chart, make sure that this value is set accordingly. 
+In addition, take into account that the value given for ***amf.hostname*** must match the name of the correponding AMF service deployed by the open5gs chart. Therefore, in case you use a differente release name for the open5gs chart, make sure that this value is set accordingly. 
 
 
 # Verify deployment

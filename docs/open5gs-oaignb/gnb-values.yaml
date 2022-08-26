@@ -11,4 +11,4 @@ gnb:
   sd0: '1b207'
   sd1: '0'
   # -- hostname of the amf core service.
-  amf: "open5gs-amf-sctp"
+  amf: "open5gs-amf-ngap"

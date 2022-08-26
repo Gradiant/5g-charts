@@ -19,21 +19,17 @@ helm repo add openverso https://gradiant.github.io/openverso-charts/
 First, deploy the EPC (open5gs) using the `epc-values.yaml` file provided in order to overwrite some of the default values of the **Open5GS chart**:
 
 ```
-helm install open5gs openverso/open5gs --version 1.2.3 --values https://gradiant.github.io/openverso-charts/docs/open5gs-srslte/epc-values.yaml 
+helm install open5gs openverso/open5gs --version 2.0.0 --values https://gradiant.github.io/openverso-charts/docs/open5gs-srslte/epc-values.yaml 
 ```
 
 These new values will:
 
 - Disable the Open5gs NGC, deploying only the components of the Open5gs 4G/5G NSA Core.
 - Set the MCC, MNC and TAC to be used by the MME.
-- Disable the Ingress for accessing the Open5GS WebUI. 
+- Disable the Ingress for accessing the Open5GS WebUI.
+- Enable the *populate* option, which will create a Deployment using the `openverso/open5gs-dbctl` image. This will provide an easy way to manage the subscribers. In addition, the *initCommands* specified will register an initial subscriber in the EPC, with the *imsi, key, opc* and *apn* provided.
 
-Once this deployment has been completed, register a subscriber in the EPC by running the script provided, `register_subscriber.sh`:
-
-```
-curl -s https://gradiant.github.io/openverso-charts/docs/open5gs-srslte/register_subscriber.sh | bash -s
-```
-Its execution will manually add the values specified in this script (**IMSI, KI and OPc**) to MongoDB. The changes can be verified following 2 different approaches:
+Once this deployment has been completed, the subscriber's registration can be verified following 2 different approaches:
 
 - **Directly through MongoDB**
 
@@ -62,9 +58,9 @@ helm install srs-lte openverso/srs-lte --version 0.1.3 --values https://gradiant
 
 Thus, this deployment will not only launch the **eNodeB** and connect it to the Open5GS EPC, but it will also enable the launching of **1 UE**.
 
-It is important to notice that the default values of **MCC, MNC, and TAC** set for the eNB match those configured in the **open5gs** chart. Also, the **IMSI, KI and OPc** given for the UE match the ones provided in `register_subscriber.sh`.
+It is important to notice that the default values of **MCC, MNC, and TAC** set for the eNB match those configured in the **open5gs** chart. Also, the **IMSI, KI and OPc** given for the UE match the ones provided in the `open5gs-dbctl` command.
 
-In addition, take into account that the value given for ***enb.mme*** must match the name of the MME service deployed by the open5gs chart. Therefore, in case you use a differente release name for the open5gs chart, make sure that this value is set accordingly. 
+In addition, take into account that the value given for ***enb.mme*** must match the name of the corresponding MME service deployed by the open5gs chart. Therefore, in case you use a differente release name for the open5gs chart, make sure that this value is set accordingly. 
 
 
 # Verify deployment

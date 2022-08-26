@@ -35,9 +35,9 @@ helm install open5gs openverso/open5gs --version 1.2.3 --values https://gradiant
 These new values will:
 
 - Disable the Open5gs EPC, deploying only the functions of the Open5gs 5G SA Core.
-- Enable the *populate* option, which will create a Deployment using the `openverso/open5gs-dbctl` image. This will provide an easy way to manage the subscribers. In addition, the *commands* specified will manage the registration of the corresponding subscriber. As you can see, the subscriber is registered by providing the *imsi, IPv4, key* and *opc*, and also by configuring its corresponding **slice** (providing the *sst* and *sd*). Take into account that the values provided are tied together with the **sysmocom USIM's** credentials in the UE.
-- Set the MCC, MNC, TAC to be used by the AMF, as well as the SST and SD for the slice, which are also used by the NSSF. Notice that these values match the corresponding ones already mentioned for the subscriber's registration, being also tied together with the **sysmocom USIM's** credentials.
+- Set the MCC, MNC, TAC to be used by the AMF, as well as the SST and SD for the slice, which are also used by the NSSF. Notice that these values match the ones mentioned later for the subscriber's registration, being also tied together with the **sysmocom USIM's** credentials.
 - Disable the Ingress for accessing the Open5GS WebUI.
+- Enable the *populate* option, which will create a Deployment using the `openverso/open5gs-dbctl` image. This will provide an easy way to manage the subscribers. In addition, the *initCommands* specified will manage the registration of the corresponding subscriber. As you can see, the subscriber is registered by providing the *imsi, key, opc, apn, sst* and *sd*, thus configuring already its corresponding **slice**. Take into account that the values provided are tied together with the **sysmocom USIM's** credentials in the UE.
 
 The successful registration can be verified following 2 different approaches:
 
@@ -71,7 +71,7 @@ Thus, this deployment will launch the **eNodeB** and connect it to the Open5GS N
 
 It is important to notice that the default values in th **gnb** section for **mcc, mnc, mncLength, tac, sst and sd0** match those configured in the **open5gs** chart and the registered UE.
 
-In addition, take into account that the value given for ***gnb.amf*** must match the name of the AMF service deployed by the open5gs chart. Therefore, in case you use a differente release name for the open5gs chart, make sure that this value is set accordingly.
+In addition, take into account that the value given for ***gnb.amf*** must match the name of the corresponding AMF service deployed by the open5gs chart. Therefore, in case you use a differente release name for the open5gs chart, make sure that this value is set accordingly.
 
 The value for ***image.tag*** provided is set to `2022.w20`, since it was the version of the `openverso/oai` image tested in this tutorial.
 
