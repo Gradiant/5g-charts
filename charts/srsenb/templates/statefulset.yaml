@@ -39,10 +39,10 @@ spec:
 {{ toYaml .Values.resources | indent 10 }}
         volumeMounts:
         - name: srsenb-config
-          mountPath: /etc/srslte/rr.conf
+          mountPath: /etc/srsran/rr.conf
           subPath: "rr.conf"
         - name: srsenb-config
-          mountPath: /etc/srslte/enb.conf
+          mountPath: /etc/srsran/enb.conf
           subPath: "enb.conf"
       volumes:
       - name: srsenb-config
