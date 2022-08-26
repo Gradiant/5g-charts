@@ -1,0 +1,16 @@
+{{- if .Values.upf.enabled }}
+{{- $component := .Values.upf | deepCopy }}
+{{- $values := merge (dict "Values" $component "component" "upf" ) . }}
+{{ template "open5gs.statefulset" $values }}
+---
+{{ template "open5gs.configmap" $values }}
+---
+{{ template "open5gs.hpa" $values }}
+---
+{{- range $k, $v := $component.services }}
+{{- $_ := set $component "service" $v }}
+{{- $values := merge (dict "Values" $component "component" "upf" "service" $k) $ }}
+{{ template "open5gs.svc" $values }}
+---
+{{- end }}
+{{- end }}

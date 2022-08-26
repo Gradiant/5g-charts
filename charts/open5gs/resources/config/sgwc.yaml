@@ -1,0 +1,16 @@
+logger:
+  level: {{ .Values.sgwc.config.logLevel }}
+
+parameter:
+  no_ipv6: true
+
+sgwc:
+  gtpc:
+    dev: eth0
+  pfcp:
+    dev: eth0
+
+sgwu:
+  pfcp:
+    - name: "{{ include "common.names.fullname" . }}-sgwu-udp"
+      apn: internet

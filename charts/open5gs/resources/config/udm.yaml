@@ -1,0 +1,13 @@
+logger:
+  level: {{ .Values.udm.config.logLevel }}
+parameter: {}
+
+nrf:
+  sbi:
+    - name: "{{ include "common.names.fullname" . }}-nrf"
+      port: 7777
+
+udm:
+  sbi:
+    dev: eth0
+    port: 7777

@@ -1,0 +1,6 @@
+logger:
+  level: {{ .Values.hss.config.logLevel }}
+parameter: {}
+
+hss:
+  freeDiameter: hss.conf

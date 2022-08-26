@@ -1,0 +1,14 @@
+logger:
+  level: {{ .Values.pcf.config.logLevel }}
+parameter: {}
+
+nrf:
+  sbi:
+    - name: "{{ include "common.names.fullname" . }}-nrf"
+      port: 7777
+
+pcf:
+  sbi:
+    dev: eth0
+    port: 7777
+

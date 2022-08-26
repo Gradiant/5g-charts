@@ -1,0 +1,13 @@
+logger:
+  level: {{ .Values.ausf.config.logLevel }}
+parameter: {}
+
+nrf:
+  sbi:
+    - name: "{{ include "common.names.fullname" . }}-nrf"
+      port: 7777
+
+ausf:
+  sbi:
+    dev: eth0
+    port: 7777
