@@ -110,7 +110,11 @@ spec:
             - name: gtpu
               containerPort: {{ .Values.containerPorts.gtpu }}
               protocol: UDP
-              
+            {{- if .Values.config.pcrf.enabled }}
+            - name: frdi
+              containerPort: {{ .Values.containerPorts.frdi }}
+              protocol: SCTP
+            {{- end }}              
           {{- if .Values.startupProbe.enabled }}
           startupProbe:
           # Using tcpSocket instead of httpGet because open5gs only support HTTP/2
