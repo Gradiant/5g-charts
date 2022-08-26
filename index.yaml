@@ -304,6 +304,35 @@ entries:
     version: 0.2.0
   open5gs:
   - apiVersion: v2
+    appVersion: 2.4.9
+    created: "2022-08-26T09:48:13.106130071Z"
+    dependencies:
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 1.x.x
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: https://charts.bitnami.com/bitnami
+      version: ~12.1.19
+    description: 'Helm chart to deploy Open5gs services on Kubernetes. '
+    digest: 127811ccd6d7d052defa3e86a2af1ebc95d518cdfb49422a205eea9652f43dae
+    home: https://github.com/gradiant/openverso-charts
+    icon: https://open5gs.org/assets/img/open5gs_logo.png
+    keywords:
+    - epc
+    - ngc
+    maintainers:
+    - email: cgiraldo@gradiant.org
+      name: cgiraldo
+    name: open5gs
+    sources:
+    - http://open5gs.org
+    urls:
+    - https://github.com/Gradiant/openverso-charts/releases/download/open5gs-1.2.3/open5gs-1.2.3.tgz
+    version: 1.2.3
+  - apiVersion: v2
     appVersion: 2.4.8
     created: "2022-08-23T09:22:17.98985052Z"
     dependencies:
@@ -846,6 +875,25 @@ entries:
     version: 0.1.0
   srs-enb:
   - apiVersion: v1
+    appVersion: 22.04.1
+    created: "2022-08-26T09:48:13.402418947Z"
+    description: 'SRS enodeb '
+    digest: 0eae9f8b5e5af438a4f1b2ad108f9f802ef7d5a0326ed87a68896f3ddc8a7666
+    home: https://github.com/Gradiant/charts
+    icon: https://pbs.twimg.com/profile_images/1153713220127006724/KfcRHyU-_400x400.jpg
+    keywords:
+    - lte
+    - enodeb
+    maintainers:
+    - email: cgiraldo@gradiant.org
+      name: cgiraldo
+    name: srs-enb
+    sources:
+    - https://github.com/srsLTE/srsLTE
+    urls:
+    - https://github.com/Gradiant/openverso-charts/releases/download/srs-enb-0.1.2/srs-enb-0.1.2.tgz
+    version: 0.1.2
+  - apiVersion: v1
     appVersion: 20.10.1
     created: "2021-04-16T12:09:04.286994901Z"
     description: 'SRS enodeb '
@@ -902,6 +950,25 @@ entries:
     - https://github.com/Gradiant/openverso-charts/releases/download/srs-epc-0.1.0/srs-epc-0.1.0.tgz
     version: 0.1.0
   srs-lte:
+  - apiVersion: v1
+    appVersion: 22.04.1
+    created: "2022-08-26T09:48:13.698542416Z"
+    description: 'SRSLte enodeb + ue. '
+    digest: db19e2fbd6963a4f161d72cb9bb8492acdb1d6b4de0974b36ccda8912ae8e8cb
+    home: https://github.com/Gradiant/charts
+    icon: https://docs.srsran.com/en/latest/_static/logo.png
+    keywords:
+    - lte
+    - enodeb
+    maintainers:
+    - email: cgiraldo@gradiant.org
+      name: cgiraldo
+    name: srs-lte
+    sources:
+    - https://github.com/srsLTE/srsLTE
+    urls:
+    - https://github.com/Gradiant/openverso-charts/releases/download/srs-lte-0.1.3/srs-lte-0.1.3.tgz
+    version: 0.1.3
   - apiVersion: v1
     appVersion: 20.04.1
     created: "2022-07-28T11:50:41.817061529Z"
@@ -1117,4 +1184,4 @@ entries:
     urls:
     - https://github.com/Gradiant/openverso-charts/releases/download/ueransim-gnb-0.1.0/ueransim-gnb-0.1.0.tgz
     version: 0.1.0
-generated: "2022-08-23T09:22:17.990125922Z"
+generated: "2022-08-26T09:48:13.698978433Z"
