@@ -29,9 +29,9 @@ mme:
 sgwc:
   gtpc:
     - name: {{ default (printf "%s-sgwc-gtpc" $open5gsName) .Values.config.sgwc.gtpc.hostname }}
-      port: {{ default 2123 .Values.config.sgwc.gtpc.port }}
+      port: {{ .Values.config.sgwc.gtpc.port }}
 
 smf:
   gtpc:
     - name: {{ default (printf "%s-smf-gtpc" $open5gsName) .Values.config.smf.gtpc.hostname }}
-      port: {{ default 2123 .Values.config.smf.gtpc.port }}
+      port: {{ .Values.config.smf.gtpc.port }}

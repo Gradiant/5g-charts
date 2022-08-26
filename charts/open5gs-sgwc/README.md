@@ -1,8 +1,8 @@
-# open5gs
+# open5gs-sgwc
 
 ![Version: 2.0.0](https://img.shields.io/badge/Version-2.0.0-informational?style=flat-square) ![AppVersion: 2.4.9](https://img.shields.io/badge/AppVersion-2.4.9-informational?style=flat-square)
 
-Helm chart to deploy Open5gs NRF service on Kubernetes.
+Helm chart to deploy Open5gs SGWC service on Kubernetes.
 
 **Homepage:** <https://github.com/gradiant/openverso-charts>
 
@@ -31,13 +31,24 @@ Helm chart to deploy Open5gs NRF service on Kubernetes.
 | command | list | `[]` |  |
 | commonAnnotations | object | `{}` |  |
 | commonLabels | object | `{}` |  |
-| config.advancedConfig | object | `{}` |  |
+| config.dnsList[0] | string | `"8.8.8.8"` |  |
+| config.dnsList[1] | string | `"8.8.4.4"` |  |
+| config.dnsList[2] | string | `"2001:4860:4860::8888"` |  |
+| config.dnsList[3] | string | `"2001:4860:4860::8844"` |  |
 | config.logLevel | string | `"info"` |  |
-| containerPorts.sbi | int | `7777` |  |
+| config.mtu | int | `1400` |  |
+| config.sgwu.pfcpList[0].apn[0] | string | `"internet"` |  |
+| config.sgwu.pfcpList[0].hostname | string | `""` |  |
+| config.sgwu.pfcpList[0].port | int | `8805` |  |
+| config.subnetList[0].addr | string | `"10.45.0.1/16"` |  |
+| config.subnetList[0].dnn | string | `"internet"` |  |
+| containerPorts.gtpc | int | `2123` |  |
+| containerPorts.pfcp | int | `8805` |  |
 | containerSecurityContext.enabled | bool | `true` |  |
 | containerSecurityContext.runAsNonRoot | bool | `true` |  |
 | containerSecurityContext.runAsUser | int | `1001` |  |
 | customLivenessProbe | object | `{}` |  |
+| customOpen5gsConfig | object | `{}` |  |
 | customReadinessProbe | object | `{}` |  |
 | customStartupProbe | object | `{}` |  |
 | extraDeploy | list | `[]` |  |
@@ -61,13 +72,6 @@ Helm chart to deploy Open5gs NRF service on Kubernetes.
 | initContainers | list | `[]` |  |
 | kubeVersion | string | `""` |  |
 | lifecycleHooks | object | `{}` |  |
-| livenessProbe.enabled | bool | `true` |  |
-| livenessProbe.failureThreshold | int | `5` |  |
-| livenessProbe.initialDelaySeconds | int | `600` |  |
-| livenessProbe.path | string | `"/"` |  |
-| livenessProbe.periodSeconds | int | `10` |  |
-| livenessProbe.successThreshold | int | `1` |  |
-| livenessProbe.timeoutSeconds | int | `5` |  |
 | nameOverride | string | `""` |  |
 | namespaceOverride | string | `""` |  |
 | nodeAffinityPreset.key | string | `""` |  |
@@ -81,43 +85,39 @@ Helm chart to deploy Open5gs NRF service on Kubernetes.
 | podSecurityContext.enabled | bool | `true` |  |
 | podSecurityContext.fsGroup | int | `1001` |  |
 | priorityClassName | string | `""` |  |
-| readinessProbe.enabled | bool | `true` |  |
-| readinessProbe.failureThreshold | int | `5` |  |
-| readinessProbe.initialDelaySeconds | int | `30` |  |
-| readinessProbe.path | string | `"/"` |  |
-| readinessProbe.periodSeconds | int | `5` |  |
-| readinessProbe.successThreshold | int | `1` |  |
-| readinessProbe.timeoutSeconds | int | `1` |  |
 | replicaCount | int | `1` |  |
 | resources.limits | object | `{}` |  |
 | resources.requests.cpu | string | `"200m"` |  |
 | resources.requests.memory | string | `"256Mi"` |  |
 | schedulerName | string | `""` |  |
-| service.annotations | object | `{}` |  |
-| service.clusterIP | string | `""` |  |
-| service.externalTrafficPolicy | string | `"Cluster"` |  |
-| service.extraPorts | list | `[]` |  |
-| service.loadBalancerIP | string | `""` |  |
-| service.loadBalancerSourceRanges | list | `[]` |  |
-| service.nodePorts.http | string | `""` |  |
-| service.nodePorts.https | string | `""` |  |
-| service.ports.sbi | int | `7777` |  |
-| service.sessionAffinity | string | `"None"` |  |
-| service.sessionAffinityConfig | object | `{}` |  |
-| service.type | string | `"ClusterIP"` |  |
 | serviceAccount.annotations | object | `{}` |  |
 | serviceAccount.automountServiceAccountToken | bool | `true` |  |
 | serviceAccount.create | bool | `false` |  |
 | serviceAccount.name | string | `""` |  |
+| services.gtpc.annotations | object | `{}` |  |
+| services.gtpc.clusterIP | string | `""` |  |
+| services.gtpc.externalTrafficPolicy | string | `"Cluster"` |  |
+| services.gtpc.extraPorts | list | `[]` |  |
+| services.gtpc.loadBalancerIP | string | `""` |  |
+| services.gtpc.loadBalancerSourceRanges | list | `[]` |  |
+| services.gtpc.nodePorts.gtpc | string | `""` |  |
+| services.gtpc.ports.gtpc | int | `2123` |  |
+| services.gtpc.sessionAffinity | string | `"None"` |  |
+| services.gtpc.sessionAffinityConfig | object | `{}` |  |
+| services.gtpc.type | string | `"ClusterIP"` |  |
+| services.pfcp.annotations | object | `{}` |  |
+| services.pfcp.clusterIP | string | `""` |  |
+| services.pfcp.externalTrafficPolicy | string | `"Cluster"` |  |
+| services.pfcp.extraPorts | list | `[]` |  |
+| services.pfcp.loadBalancerIP | string | `""` |  |
+| services.pfcp.loadBalancerSourceRanges | list | `[]` |  |
+| services.pfcp.nodePorts.pfcp | string | `""` |  |
+| services.pfcp.ports.pfcp | int | `8805` |  |
+| services.pfcp.sessionAffinity | string | `"None"` |  |
+| services.pfcp.sessionAffinityConfig | object | `{}` |  |
+| services.pfcp.type | string | `"ClusterIP"` |  |
 | sessionAffinity | string | `"None"` |  |
 | sidecars | list | `[]` |  |
-| startupProbe.enabled | bool | `false` |  |
-| startupProbe.failureThreshold | int | `5` |  |
-| startupProbe.initialDelaySeconds | int | `600` |  |
-| startupProbe.path | string | `"/"` |  |
-| startupProbe.periodSeconds | int | `10` |  |
-| startupProbe.successThreshold | int | `1` |  |
-| startupProbe.timeoutSeconds | int | `5` |  |
 | tolerations | list | `[]` |  |
 | topologySpreadConstraints | list | `[]` |  |
 | updateStrategy.type | string | `"RollingUpdate"` |  |

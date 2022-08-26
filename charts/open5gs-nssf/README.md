@@ -1,8 +1,8 @@
-# open5gs
+# open5gs-nssf
 
 ![Version: 2.0.0](https://img.shields.io/badge/Version-2.0.0-informational?style=flat-square) ![AppVersion: 2.4.9](https://img.shields.io/badge/AppVersion-2.4.9-informational?style=flat-square)
 
-Helm chart to deploy Open5gs NRF service on Kubernetes.
+Helm chart to deploy Open5gs NSSF service on Kubernetes.
 
 **Homepage:** <https://github.com/gradiant/openverso-charts>
 
@@ -31,13 +31,19 @@ Helm chart to deploy Open5gs NRF service on Kubernetes.
 | command | list | `[]` |  |
 | commonAnnotations | object | `{}` |  |
 | commonLabels | object | `{}` |  |
-| config.advancedConfig | object | `{}` |  |
 | config.logLevel | string | `"info"` |  |
+| config.nrf.sbi.hostname | string | `""` |  |
+| config.nrf.sbi.port | int | `7777` |  |
+| config.nsiList[0].nrf.hostname | string | `""` |  |
+| config.nsiList[0].nrf.port | int | `7777` |  |
+| config.nsiList[0].sd | string | `"0x111111"` |  |
+| config.nsiList[0].sst | int | `1` |  |
 | containerPorts.sbi | int | `7777` |  |
 | containerSecurityContext.enabled | bool | `true` |  |
 | containerSecurityContext.runAsNonRoot | bool | `true` |  |
 | containerSecurityContext.runAsUser | int | `1001` |  |
 | customLivenessProbe | object | `{}` |  |
+| customOpen5gsConfig | object | `{}` |  |
 | customReadinessProbe | object | `{}` |  |
 | customStartupProbe | object | `{}` |  |
 | extraDeploy | list | `[]` |  |
@@ -64,7 +70,6 @@ Helm chart to deploy Open5gs NRF service on Kubernetes.
 | livenessProbe.enabled | bool | `true` |  |
 | livenessProbe.failureThreshold | int | `5` |  |
 | livenessProbe.initialDelaySeconds | int | `600` |  |
-| livenessProbe.path | string | `"/"` |  |
 | livenessProbe.periodSeconds | int | `10` |  |
 | livenessProbe.successThreshold | int | `1` |  |
 | livenessProbe.timeoutSeconds | int | `5` |  |
@@ -84,7 +89,6 @@ Helm chart to deploy Open5gs NRF service on Kubernetes.
 | readinessProbe.enabled | bool | `true` |  |
 | readinessProbe.failureThreshold | int | `5` |  |
 | readinessProbe.initialDelaySeconds | int | `30` |  |
-| readinessProbe.path | string | `"/"` |  |
 | readinessProbe.periodSeconds | int | `5` |  |
 | readinessProbe.successThreshold | int | `1` |  |
 | readinessProbe.timeoutSeconds | int | `1` |  |
@@ -93,22 +97,21 @@ Helm chart to deploy Open5gs NRF service on Kubernetes.
 | resources.requests.cpu | string | `"200m"` |  |
 | resources.requests.memory | string | `"256Mi"` |  |
 | schedulerName | string | `""` |  |
-| service.annotations | object | `{}` |  |
-| service.clusterIP | string | `""` |  |
-| service.externalTrafficPolicy | string | `"Cluster"` |  |
-| service.extraPorts | list | `[]` |  |
-| service.loadBalancerIP | string | `""` |  |
-| service.loadBalancerSourceRanges | list | `[]` |  |
-| service.nodePorts.http | string | `""` |  |
-| service.nodePorts.https | string | `""` |  |
-| service.ports.sbi | int | `7777` |  |
-| service.sessionAffinity | string | `"None"` |  |
-| service.sessionAffinityConfig | object | `{}` |  |
-| service.type | string | `"ClusterIP"` |  |
 | serviceAccount.annotations | object | `{}` |  |
 | serviceAccount.automountServiceAccountToken | bool | `true` |  |
 | serviceAccount.create | bool | `false` |  |
 | serviceAccount.name | string | `""` |  |
+| services.sbi.annotations | object | `{}` |  |
+| services.sbi.clusterIP | string | `""` |  |
+| services.sbi.externalTrafficPolicy | string | `"Cluster"` |  |
+| services.sbi.extraPorts | list | `[]` |  |
+| services.sbi.loadBalancerIP | string | `""` |  |
+| services.sbi.loadBalancerSourceRanges | list | `[]` |  |
+| services.sbi.nodePorts.sbi | string | `""` |  |
+| services.sbi.ports.sbi | int | `7777` |  |
+| services.sbi.sessionAffinity | string | `"None"` |  |
+| services.sbi.sessionAffinityConfig | object | `{}` |  |
+| services.sbi.type | string | `"ClusterIP"` |  |
 | sessionAffinity | string | `"None"` |  |
 | sidecars | list | `[]` |  |
 | startupProbe.enabled | bool | `false` |  |

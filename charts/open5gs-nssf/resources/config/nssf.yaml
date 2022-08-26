@@ -13,7 +13,7 @@ nssf:
   nsi:
     {{- range .Values.config.nsiList }}
     - name: {{ default (printf "%s-nrf-sbi" $open5gsName) .nrf.hostname }}
-      port: {{ default 7777 .nrf.port }}
+      port: {{ .nrf.port }}
       s_nssai:
         sst: {{ .sst | quote }}
         {{- if .sd }}
@@ -24,4 +24,4 @@ nssf:
 nrf:
   sbi:
     - name: {{ default (printf "%s-nrf-sbi" $open5gsName) .Values.config.nrf.sbi.hostname }}
-      port: {{ default 7777 .Values.config.nrf.sbi.port }}
+      port: {{ .Values.config.nrf.sbi.port }}

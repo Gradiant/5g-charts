@@ -1,8 +1,0 @@
-logger:
-  level: {{ .Values.nrf.config.logLevel }}
-parameter: {}
-
-nrf:
-  sbi:
-    dev: eth0
-    port: 7777

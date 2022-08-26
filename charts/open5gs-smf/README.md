@@ -1,8 +1,8 @@
-# open5gs
+# open5gs-smf
 
 ![Version: 2.0.0](https://img.shields.io/badge/Version-2.0.0-informational?style=flat-square) ![AppVersion: 2.4.9](https://img.shields.io/badge/AppVersion-2.4.9-informational?style=flat-square)
 
-Helm chart to deploy Open5gs NRF service on Kubernetes.
+Helm chart to deploy Open5gs SMF service on Kubernetes.
 
 **Homepage:** <https://github.com/gradiant/openverso-charts>
 
@@ -31,13 +31,31 @@ Helm chart to deploy Open5gs NRF service on Kubernetes.
 | command | list | `[]` |  |
 | commonAnnotations | object | `{}` |  |
 | commonLabels | object | `{}` |  |
-| config.advancedConfig | object | `{}` |  |
+| config.dnsList[0] | string | `"8.8.8.8"` |  |
+| config.dnsList[1] | string | `"8.8.4.4"` |  |
+| config.dnsList[2] | string | `"2001:4860:4860::8888"` |  |
+| config.dnsList[3] | string | `"2001:4860:4860::8844"` |  |
 | config.logLevel | string | `"info"` |  |
+| config.mtu | int | `1400` |  |
+| config.nrf.enabled | bool | `true` |  |
+| config.nrf.sbi.hostname | string | `""` |  |
+| config.nrf.sbi.port | int | `7777` |  |
+| config.pcrf.enabled | bool | `true` |  |
+| config.pcrf.frdi.hostname | string | `""` |  |
+| config.pcrf.frdi.port | int | `3868` |  |
+| config.subnetList[0].addr | string | `"10.45.0.1/16"` |  |
+| config.subnetList[0].dnn | string | `"internet"` |  |
+| config.upf.pfcp.hostname | string | `""` |  |
+| config.upf.pfcp.port | int | `8805` |  |
+| containerPorts.gtpc | int | `2123` |  |
+| containerPorts.gtpu | int | `2152` |  |
+| containerPorts.pfcp | int | `8805` |  |
 | containerPorts.sbi | int | `7777` |  |
 | containerSecurityContext.enabled | bool | `true` |  |
 | containerSecurityContext.runAsNonRoot | bool | `true` |  |
 | containerSecurityContext.runAsUser | int | `1001` |  |
 | customLivenessProbe | object | `{}` |  |
+| customOpen5gsConfig | object | `{}` |  |
 | customReadinessProbe | object | `{}` |  |
 | customStartupProbe | object | `{}` |  |
 | extraDeploy | list | `[]` |  |
@@ -64,10 +82,10 @@ Helm chart to deploy Open5gs NRF service on Kubernetes.
 | livenessProbe.enabled | bool | `true` |  |
 | livenessProbe.failureThreshold | int | `5` |  |
 | livenessProbe.initialDelaySeconds | int | `600` |  |
-| livenessProbe.path | string | `"/"` |  |
 | livenessProbe.periodSeconds | int | `10` |  |
 | livenessProbe.successThreshold | int | `1` |  |
 | livenessProbe.timeoutSeconds | int | `5` |  |
+| metrics.enabled | bool | `false` |  |
 | nameOverride | string | `""` |  |
 | namespaceOverride | string | `""` |  |
 | nodeAffinityPreset.key | string | `""` |  |
@@ -84,7 +102,6 @@ Helm chart to deploy Open5gs NRF service on Kubernetes.
 | readinessProbe.enabled | bool | `true` |  |
 | readinessProbe.failureThreshold | int | `5` |  |
 | readinessProbe.initialDelaySeconds | int | `30` |  |
-| readinessProbe.path | string | `"/"` |  |
 | readinessProbe.periodSeconds | int | `5` |  |
 | readinessProbe.successThreshold | int | `1` |  |
 | readinessProbe.timeoutSeconds | int | `1` |  |
@@ -93,22 +110,65 @@ Helm chart to deploy Open5gs NRF service on Kubernetes.
 | resources.requests.cpu | string | `"200m"` |  |
 | resources.requests.memory | string | `"256Mi"` |  |
 | schedulerName | string | `""` |  |
-| service.annotations | object | `{}` |  |
-| service.clusterIP | string | `""` |  |
-| service.externalTrafficPolicy | string | `"Cluster"` |  |
-| service.extraPorts | list | `[]` |  |
-| service.loadBalancerIP | string | `""` |  |
-| service.loadBalancerSourceRanges | list | `[]` |  |
-| service.nodePorts.http | string | `""` |  |
-| service.nodePorts.https | string | `""` |  |
-| service.ports.sbi | int | `7777` |  |
-| service.sessionAffinity | string | `"None"` |  |
-| service.sessionAffinityConfig | object | `{}` |  |
-| service.type | string | `"ClusterIP"` |  |
 | serviceAccount.annotations | object | `{}` |  |
 | serviceAccount.automountServiceAccountToken | bool | `true` |  |
 | serviceAccount.create | bool | `false` |  |
 | serviceAccount.name | string | `""` |  |
+| services.frdi.annotations | object | `{}` |  |
+| services.frdi.clusterIP | string | `""` |  |
+| services.frdi.externalTrafficPolicy | string | `"Cluster"` |  |
+| services.frdi.extraPorts | list | `[]` |  |
+| services.frdi.loadBalancerIP | string | `""` |  |
+| services.frdi.loadBalancerSourceRanges | list | `[]` |  |
+| services.frdi.nodePorts.frdi | string | `""` |  |
+| services.frdi.ports.frdi | int | `3868` |  |
+| services.frdi.sessionAffinity | string | `"None"` |  |
+| services.frdi.sessionAffinityConfig | object | `{}` |  |
+| services.frdi.type | string | `"ClusterIP"` |  |
+| services.gtpc.annotations | object | `{}` |  |
+| services.gtpc.clusterIP | string | `""` |  |
+| services.gtpc.externalTrafficPolicy | string | `"Cluster"` |  |
+| services.gtpc.extraPorts | list | `[]` |  |
+| services.gtpc.loadBalancerIP | string | `""` |  |
+| services.gtpc.loadBalancerSourceRanges | list | `[]` |  |
+| services.gtpc.nodePorts.gtpc | string | `""` |  |
+| services.gtpc.ports.gtpc | int | `2123` |  |
+| services.gtpc.sessionAffinity | string | `"None"` |  |
+| services.gtpc.sessionAffinityConfig | object | `{}` |  |
+| services.gtpc.type | string | `"ClusterIP"` |  |
+| services.gtpu.annotations | object | `{}` |  |
+| services.gtpu.clusterIP | string | `""` |  |
+| services.gtpu.externalTrafficPolicy | string | `"Cluster"` |  |
+| services.gtpu.extraPorts | list | `[]` |  |
+| services.gtpu.loadBalancerIP | string | `""` |  |
+| services.gtpu.loadBalancerSourceRanges | list | `[]` |  |
+| services.gtpu.nodePorts.gtpu | string | `""` |  |
+| services.gtpu.ports.gtpu | int | `2152` |  |
+| services.gtpu.sessionAffinity | string | `"None"` |  |
+| services.gtpu.sessionAffinityConfig | object | `{}` |  |
+| services.gtpu.type | string | `"ClusterIP"` |  |
+| services.pfcp.annotations | object | `{}` |  |
+| services.pfcp.clusterIP | string | `""` |  |
+| services.pfcp.externalTrafficPolicy | string | `"Cluster"` |  |
+| services.pfcp.extraPorts | list | `[]` |  |
+| services.pfcp.loadBalancerIP | string | `""` |  |
+| services.pfcp.loadBalancerSourceRanges | list | `[]` |  |
+| services.pfcp.nodePorts.pfcp | string | `""` |  |
+| services.pfcp.ports.pfcp | int | `8805` |  |
+| services.pfcp.sessionAffinity | string | `"None"` |  |
+| services.pfcp.sessionAffinityConfig | object | `{}` |  |
+| services.pfcp.type | string | `"ClusterIP"` |  |
+| services.sbi.annotations | object | `{}` |  |
+| services.sbi.clusterIP | string | `""` |  |
+| services.sbi.externalTrafficPolicy | string | `"Cluster"` |  |
+| services.sbi.extraPorts | list | `[]` |  |
+| services.sbi.loadBalancerIP | string | `""` |  |
+| services.sbi.loadBalancerSourceRanges | list | `[]` |  |
+| services.sbi.nodePorts.sbi | string | `""` |  |
+| services.sbi.ports.sbi | int | `7777` |  |
+| services.sbi.sessionAffinity | string | `"None"` |  |
+| services.sbi.sessionAffinityConfig | object | `{}` |  |
+| services.sbi.type | string | `"ClusterIP"` |  |
 | sessionAffinity | string | `"None"` |  |
 | sidecars | list | `[]` |  |
 | startupProbe.enabled | bool | `false` |  |

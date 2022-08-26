@@ -1,4 +1,4 @@
-# open5gs
+# open5gs-udr
 
 ![Version: 2.0.0](https://img.shields.io/badge/Version-2.0.0-informational?style=flat-square) ![AppVersion: 2.4.9](https://img.shields.io/badge/AppVersion-2.4.9-informational?style=flat-square)
 
@@ -21,6 +21,7 @@ Helm chart to deploy Open5gs UDR service on Kubernetes.
 | Repository | Name | Version |
 |------------|------|---------|
 | https://charts.bitnami.com/bitnami | common | 1.x.x |
+| https://charts.bitnami.com/bitnami | mongodb | ~12.1.19 |
 
 ## Values
 
@@ -31,15 +32,18 @@ Helm chart to deploy Open5gs UDR service on Kubernetes.
 | command | list | `[]` |  |
 | commonAnnotations | object | `{}` |  |
 | commonLabels | object | `{}` |  |
-| config.advancedConfig | object | `{}` |  |
 | config.logLevel | string | `"info"` |  |
+| config.nrf.sbi.hostname | string | `""` |  |
+| config.nrf.sbi.port | int | `7777` |  |
 | containerPorts.sbi | int | `7777` |  |
 | containerSecurityContext.enabled | bool | `true` |  |
 | containerSecurityContext.runAsNonRoot | bool | `true` |  |
 | containerSecurityContext.runAsUser | int | `1001` |  |
 | customLivenessProbe | object | `{}` |  |
+| customOpen5gsConfig | object | `{}` |  |
 | customReadinessProbe | object | `{}` |  |
 | customStartupProbe | object | `{}` |  |
+| dbURI | string | `""` |  |
 | extraDeploy | list | `[]` |  |
 | extraEnvVars | list | `[]` |  |
 | extraEnvVarsCM | string | `""` |  |
@@ -64,10 +68,11 @@ Helm chart to deploy Open5gs UDR service on Kubernetes.
 | livenessProbe.enabled | bool | `true` |  |
 | livenessProbe.failureThreshold | int | `5` |  |
 | livenessProbe.initialDelaySeconds | int | `600` |  |
-| livenessProbe.path | string | `"/"` |  |
 | livenessProbe.periodSeconds | int | `10` |  |
 | livenessProbe.successThreshold | int | `1` |  |
 | livenessProbe.timeoutSeconds | int | `5` |  |
+| mongodb.auth.enabled | bool | `false` |  |
+| mongodb.enabled | bool | `true` | set to 'false' to disable automatically deploying dependent charts |
 | nameOverride | string | `""` |  |
 | namespaceOverride | string | `""` |  |
 | nodeAffinityPreset.key | string | `""` |  |
@@ -84,7 +89,6 @@ Helm chart to deploy Open5gs UDR service on Kubernetes.
 | readinessProbe.enabled | bool | `true` |  |
 | readinessProbe.failureThreshold | int | `5` |  |
 | readinessProbe.initialDelaySeconds | int | `30` |  |
-| readinessProbe.path | string | `"/"` |  |
 | readinessProbe.periodSeconds | int | `5` |  |
 | readinessProbe.successThreshold | int | `1` |  |
 | readinessProbe.timeoutSeconds | int | `1` |  |
@@ -93,28 +97,26 @@ Helm chart to deploy Open5gs UDR service on Kubernetes.
 | resources.requests.cpu | string | `"200m"` |  |
 | resources.requests.memory | string | `"256Mi"` |  |
 | schedulerName | string | `""` |  |
-| service.annotations | object | `{}` |  |
-| service.clusterIP | string | `""` |  |
-| service.externalTrafficPolicy | string | `"Cluster"` |  |
-| service.extraPorts | list | `[]` |  |
-| service.loadBalancerIP | string | `""` |  |
-| service.loadBalancerSourceRanges | list | `[]` |  |
-| service.nodePorts.http | string | `""` |  |
-| service.nodePorts.https | string | `""` |  |
-| service.ports.sbi | int | `7777` |  |
-| service.sessionAffinity | string | `"None"` |  |
-| service.sessionAffinityConfig | object | `{}` |  |
-| service.type | string | `"ClusterIP"` |  |
 | serviceAccount.annotations | object | `{}` |  |
 | serviceAccount.automountServiceAccountToken | bool | `true` |  |
 | serviceAccount.create | bool | `false` |  |
 | serviceAccount.name | string | `""` |  |
+| services.sbi.annotations | object | `{}` |  |
+| services.sbi.clusterIP | string | `""` |  |
+| services.sbi.externalTrafficPolicy | string | `"Cluster"` |  |
+| services.sbi.extraPorts | list | `[]` |  |
+| services.sbi.loadBalancerIP | string | `""` |  |
+| services.sbi.loadBalancerSourceRanges | list | `[]` |  |
+| services.sbi.nodePorts.sbi | string | `""` |  |
+| services.sbi.ports.sbi | int | `7777` |  |
+| services.sbi.sessionAffinity | string | `"None"` |  |
+| services.sbi.sessionAffinityConfig | object | `{}` |  |
+| services.sbi.type | string | `"ClusterIP"` |  |
 | sessionAffinity | string | `"None"` |  |
 | sidecars | list | `[]` |  |
 | startupProbe.enabled | bool | `false` |  |
 | startupProbe.failureThreshold | int | `5` |  |
 | startupProbe.initialDelaySeconds | int | `600` |  |
-| startupProbe.path | string | `"/"` |  |
 | startupProbe.periodSeconds | int | `10` |  |
 | startupProbe.successThreshold | int | `1` |  |
 | startupProbe.timeoutSeconds | int | `5` |  |

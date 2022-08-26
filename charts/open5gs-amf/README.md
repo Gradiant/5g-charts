@@ -1,8 +1,8 @@
-# open5gs
+# open5gs-amf
 
 ![Version: 2.0.0](https://img.shields.io/badge/Version-2.0.0-informational?style=flat-square) ![AppVersion: 2.4.9](https://img.shields.io/badge/AppVersion-2.4.9-informational?style=flat-square)
 
-Helm chart to deploy Open5gs NRF service on Kubernetes.
+Helm chart to deploy Open5gs AMF service on Kubernetes.
 
 **Homepage:** <https://github.com/gradiant/openverso-charts>
 
@@ -31,13 +31,30 @@ Helm chart to deploy Open5gs NRF service on Kubernetes.
 | command | list | `[]` |  |
 | commonAnnotations | object | `{}` |  |
 | commonLabels | object | `{}` |  |
-| config.advancedConfig | object | `{}` |  |
+| config.guamiList[0].amf_id.region | int | `2` |  |
+| config.guamiList[0].amf_id.set | int | `1` |  |
+| config.guamiList[0].plmn_id.mcc | int | `999` |  |
+| config.guamiList[0].plmn_id.mnc | int | `70` |  |
 | config.logLevel | string | `"info"` |  |
+| config.networkName | string | `"Gradiant"` |  |
+| config.nrf.sbi.hostname | string | `""` |  |
+| config.nrf.sbi.port | int | `7777` |  |
+| config.plmnList[0].plmn_id.mcc | int | `999` |  |
+| config.plmnList[0].plmn_id.mnc | int | `70` |  |
+| config.plmnList[0].s_nssai[0].sd | int | `111111` |  |
+| config.plmnList[0].s_nssai[0].sst | int | `1` |  |
+| config.taiList[0].plmn_id.mcc | int | `999` |  |
+| config.taiList[0].plmn_id.mnc | int | `70` |  |
+| config.taiList[0].tac[0] | int | `1` |  |
+| config.taiList[0].tac[1] | int | `2` |  |
+| config.taiList[0].tac[2] | int | `3` |  |
+| containerPorts.ngap | int | `38412` |  |
 | containerPorts.sbi | int | `7777` |  |
 | containerSecurityContext.enabled | bool | `true` |  |
 | containerSecurityContext.runAsNonRoot | bool | `true` |  |
 | containerSecurityContext.runAsUser | int | `1001` |  |
 | customLivenessProbe | object | `{}` |  |
+| customOpen5gsConfig | object | `{}` |  |
 | customReadinessProbe | object | `{}` |  |
 | customStartupProbe | object | `{}` |  |
 | extraDeploy | list | `[]` |  |
@@ -64,10 +81,10 @@ Helm chart to deploy Open5gs NRF service on Kubernetes.
 | livenessProbe.enabled | bool | `true` |  |
 | livenessProbe.failureThreshold | int | `5` |  |
 | livenessProbe.initialDelaySeconds | int | `600` |  |
-| livenessProbe.path | string | `"/"` |  |
 | livenessProbe.periodSeconds | int | `10` |  |
 | livenessProbe.successThreshold | int | `1` |  |
 | livenessProbe.timeoutSeconds | int | `5` |  |
+| metrics.enabled | bool | `false` |  |
 | nameOverride | string | `""` |  |
 | namespaceOverride | string | `""` |  |
 | nodeAffinityPreset.key | string | `""` |  |
@@ -84,7 +101,6 @@ Helm chart to deploy Open5gs NRF service on Kubernetes.
 | readinessProbe.enabled | bool | `true` |  |
 | readinessProbe.failureThreshold | int | `5` |  |
 | readinessProbe.initialDelaySeconds | int | `30` |  |
-| readinessProbe.path | string | `"/"` |  |
 | readinessProbe.periodSeconds | int | `5` |  |
 | readinessProbe.successThreshold | int | `1` |  |
 | readinessProbe.timeoutSeconds | int | `1` |  |
@@ -93,22 +109,32 @@ Helm chart to deploy Open5gs NRF service on Kubernetes.
 | resources.requests.cpu | string | `"200m"` |  |
 | resources.requests.memory | string | `"256Mi"` |  |
 | schedulerName | string | `""` |  |
-| service.annotations | object | `{}` |  |
-| service.clusterIP | string | `""` |  |
-| service.externalTrafficPolicy | string | `"Cluster"` |  |
-| service.extraPorts | list | `[]` |  |
-| service.loadBalancerIP | string | `""` |  |
-| service.loadBalancerSourceRanges | list | `[]` |  |
-| service.nodePorts.http | string | `""` |  |
-| service.nodePorts.https | string | `""` |  |
-| service.ports.sbi | int | `7777` |  |
-| service.sessionAffinity | string | `"None"` |  |
-| service.sessionAffinityConfig | object | `{}` |  |
-| service.type | string | `"ClusterIP"` |  |
 | serviceAccount.annotations | object | `{}` |  |
 | serviceAccount.automountServiceAccountToken | bool | `true` |  |
 | serviceAccount.create | bool | `false` |  |
 | serviceAccount.name | string | `""` |  |
+| services.ngap.annotations | object | `{}` |  |
+| services.ngap.clusterIP | string | `""` |  |
+| services.ngap.externalTrafficPolicy | string | `"Cluster"` |  |
+| services.ngap.extraPorts | list | `[]` |  |
+| services.ngap.loadBalancerIP | string | `""` |  |
+| services.ngap.loadBalancerSourceRanges | list | `[]` |  |
+| services.ngap.nodePorts.ngap | string | `""` |  |
+| services.ngap.ports.ngap | int | `38412` |  |
+| services.ngap.sessionAffinity | string | `"None"` |  |
+| services.ngap.sessionAffinityConfig | object | `{}` |  |
+| services.ngap.type | string | `"ClusterIP"` |  |
+| services.sbi.annotations | object | `{}` |  |
+| services.sbi.clusterIP | string | `""` |  |
+| services.sbi.externalTrafficPolicy | string | `"Cluster"` |  |
+| services.sbi.extraPorts | list | `[]` |  |
+| services.sbi.loadBalancerIP | string | `""` |  |
+| services.sbi.loadBalancerSourceRanges | list | `[]` |  |
+| services.sbi.nodePorts.sbi | string | `""` |  |
+| services.sbi.ports.sbi | int | `7777` |  |
+| services.sbi.sessionAffinity | string | `"None"` |  |
+| services.sbi.sessionAffinityConfig | object | `{}` |  |
+| services.sbi.type | string | `"ClusterIP"` |  |
 | sessionAffinity | string | `"None"` |  |
 | sidecars | list | `[]` |  |
 | startupProbe.enabled | bool | `false` |  |

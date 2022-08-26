@@ -37,9 +37,9 @@ smf:
 nrf:
   sbi:
     - name: {{ default (printf "%s-nrf-sbi" $open5gsName) .Values.config.nrf.sbi.hostname }}
-      port: {{ default 7777 .Values.config.nrf.sbi.port }}
+      port: {{ .Values.config.nrf.sbi.port }}
 {{- end }}
 upf:
   pfcp:
     - name: {{ default (printf "%s-upf-pfcp" $open5gsName) .Values.config.upf.pfcp.hostname }}
-      port: {{ default 8805 .Values.config.upf.pfcp.port }}
+      port: {{ .Values.config.upf.pfcp.port }}
