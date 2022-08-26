@@ -305,6 +305,110 @@ entries:
   open5gs:
   - apiVersion: v2
     appVersion: 2.4.9
+    created: "2022-08-26T11:00:18.039159723Z"
+    dependencies:
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 1.x.x
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: https://charts.bitnami.com/bitnami
+      version: ~12.1.19
+    - alias: amf
+      condition: amf.enabled
+      name: open5gs-amf
+      repository: https://gradiant.github.io/openverso-charts
+      version: ~2.0.0
+    - alias: ausf
+      condition: ausf.enabled
+      name: open5gs-ausf
+      repository: https://gradiant.github.io/openverso-charts
+      version: ~2.0.0
+    - alias: bsf
+      condition: bsf.enabled
+      name: open5gs-bsf
+      repository: https://gradiant.github.io/openverso-charts
+      version: ~2.0.0
+    - alias: hss
+      condition: hss.enabled
+      name: open5gs-hss
+      repository: https://gradiant.github.io/openverso-charts
+      version: ~2.0.0
+    - alias: mme
+      condition: mme.enabled
+      name: open5gs-mme
+      repository: https://gradiant.github.io/openverso-charts
+      version: ~2.0.0
+    - alias: nrf
+      condition: nrf.enabled
+      name: open5gs-nrf
+      repository: https://gradiant.github.io/openverso-charts
+      version: ~2.0.0
+    - alias: nssf
+      condition: nssf.enabled
+      name: open5gs-nssf
+      repository: https://gradiant.github.io/openverso-charts
+      version: ~2.0.0
+    - alias: pcf
+      condition: pcf.enabled
+      name: open5gs-pcf
+      repository: https://gradiant.github.io/openverso-charts
+      version: ~2.0.0
+    - alias: pcrf
+      condition: pcrf.enabled
+      name: open5gs-pcrf
+      repository: https://gradiant.github.io/openverso-charts
+      version: ~2.0.0
+    - alias: sgwc
+      condition: sgwc.enabled
+      name: open5gs-sgwc
+      repository: https://gradiant.github.io/openverso-charts
+      version: ~2.0.0
+    - alias: sgwu
+      condition: sgwu.enabled
+      name: open5gs-sgwu
+      repository: https://gradiant.github.io/openverso-charts
+      version: ~2.0.0
+    - alias: smf
+      condition: smf.enabled
+      name: open5gs-smf
+      repository: https://gradiant.github.io/openverso-charts
+      version: ~2.0.0
+    - alias: udm
+      condition: udm.enabled
+      name: open5gs-udm
+      repository: https://gradiant.github.io/openverso-charts
+      version: ~2.0.0
+    - alias: udr
+      condition: udr.enabled
+      name: open5gs-udr
+      repository: https://gradiant.github.io/openverso-charts
+      version: ~2.0.0
+    - alias: upf
+      condition: upf.enabled
+      name: open5gs-upf
+      repository: https://gradiant.github.io/openverso-charts
+      version: ~2.0.0
+    description: 'Helm chart to deploy Open5gs services on Kubernetes. '
+    digest: 047b626a3ee6194b169218a24452a4097f27825c212a4566a50d87c25e6acb6a
+    home: https://github.com/gradiant/openverso-charts
+    icon: https://open5gs.org/assets/img/open5gs_logo.png
+    keywords:
+    - epc
+    - ngc
+    maintainers:
+    - email: cgiraldo@gradiant.org
+      name: cgiraldo
+    name: open5gs
+    sources:
+    - http://open5gs.org
+    urls:
+    - https://github.com/Gradiant/openverso-charts/releases/download/open5gs-2.0.0/open5gs-2.0.0.tgz
+    version: 2.0.0
+  - apiVersion: v2
+    appVersion: 2.4.9
     created: "2022-08-26T09:48:13.106130071Z"
     dependencies:
     - name: common
@@ -1579,4 +1683,4 @@ entries:
     urls:
     - https://github.com/Gradiant/openverso-charts/releases/download/ueransim-gnb-0.1.0/ueransim-gnb-0.1.0.tgz
     version: 0.1.0
-generated: "2022-08-26T10:57:31.107373831Z"
+generated: "2022-08-26T11:00:18.039415422Z"
