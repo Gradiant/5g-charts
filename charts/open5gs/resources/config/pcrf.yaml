@@ -1,7 +1,0 @@
-logger:
-  level: {{ .Values.pcrf.config.logLevel }}
-parameter: {}
-
-pcrf:
-  freeDiameter: pcrf.conf
-

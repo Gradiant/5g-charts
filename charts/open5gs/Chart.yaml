@@ -10,7 +10,7 @@ maintainers:
 - email: cgiraldo@gradiant.org
   name: cgiraldo
 name: open5gs
-version: 1.2.3
+version: 2.0.0
 keywords:
   - epc
   - ngc
@@ -24,3 +24,78 @@ dependencies:
     version: ~12.1.19
     repository: https://charts.bitnami.com/bitnami
     condition: mongodb.enabled
+  - name: open5gs-amf
+    version: ~2.0.0
+    repository: https://gradiant.github.io/openverso-charts
+    condition: amf.enabled
+    alias: amf
+  - name: open5gs-ausf
+    version: ~2.0.0
+    repository: https://gradiant.github.io/openverso-charts
+    condition: ausf.enabled
+    alias: ausf
+  - name: open5gs-bsf
+    version: ~2.0.0
+    repository: https://gradiant.github.io/openverso-charts
+    condition: bsf.enabled
+    alias: bsf
+  - name: open5gs-hss
+    version: ~2.0.0
+    repository: https://gradiant.github.io/openverso-charts
+    condition: hss.enabled
+    alias: hss
+  - name: open5gs-mme
+    version: ~2.0.0
+    repository: https://gradiant.github.io/openverso-charts
+    condition: mme.enabled
+    alias: mme
+  - name: open5gs-nrf
+    version: ~2.0.0
+    repository: https://gradiant.github.io/openverso-charts
+    condition: nrf.enabled
+    alias: nrf
+  - name: open5gs-nssf
+    version: ~2.0.0
+    repository: https://gradiant.github.io/openverso-charts
+    condition: nssf.enabled
+    alias: nssf
+  - name: open5gs-pcf
+    version: ~2.0.0
+    repository: https://gradiant.github.io/openverso-charts
+    condition: pcf.enabled
+    alias: pcf
+  - name: open5gs-pcrf
+    version: ~2.0.0
+    repository: https://gradiant.github.io/openverso-charts
+    condition: pcrf.enabled
+    alias: pcrf
+  - name: open5gs-sgwc
+    version: ~2.0.0
+    repository: https://gradiant.github.io/openverso-charts
+    condition: sgwc.enabled
+    alias: sgwc
+  - name: open5gs-sgwu
+    version: ~2.0.0
+    repository: https://gradiant.github.io/openverso-charts
+    condition: sgwu.enabled
+    alias: sgwu
+  - name: open5gs-smf
+    version: ~2.0.0
+    repository: https://gradiant.github.io/openverso-charts
+    condition: smf.enabled
+    alias: smf
+  - name: open5gs-udm
+    version: ~2.0.0
+    repository: https://gradiant.github.io/openverso-charts
+    condition: udm.enabled
+    alias: udm
+  - name: open5gs-udr
+    version: ~2.0.0
+    repository: https://gradiant.github.io/openverso-charts
+    condition: udr.enabled
+    alias: udr
+  - name: open5gs-upf
+    version: ~2.0.0
+    repository: https://gradiant.github.io/openverso-charts
+    condition: upf.enabled
+    alias: upf
