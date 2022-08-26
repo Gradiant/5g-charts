@@ -32,7 +32,7 @@ spec:
         command: 
         - /bin/bash
         - -c
-        - {{ join "&&" .Values.populate.commands | quote }}
+        - {{ join "&&" .Values.populate.initCommands | quote }}
       containers:
       - name: populate
         image: {{ template "open5gs.populate.image" . }}

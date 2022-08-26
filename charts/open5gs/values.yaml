@@ -7,9 +7,11 @@ populate:
     repository: openverso/open5gs-dbctl
     tag: 0.10.1
     pullPolicy: IfNotPresent
-  commands:
-  - open5gs-dbctl add 999700000000001 465B5CE8B199B49FAA5F0A2EE238A6BC E8ED289DEBA952E4283B54E88E6183CA  # To use with UERANSIM
-
+  initCommands: [] 
+  # example of initCommands:
+  #  - open5gs-dbctl add 999700000000001 465B5CE8B199B49FAA5F0A2EE238A6BC E8ED289DEBA952E4283B54E88E6183CA
+  #  - open5gs-dbctl add_ue_with_apn 999700000000002 465B5CE8B199B49FAA5F0A2EE238A6BC E8ED289DEBA952E4283B54E88E6183CA internet
+  #  - open5gs-dbctl add_ue_with_slice 999700000000003 465B5CE8B199B49FAA5F0A2EE238A6BC E8ED289DEBA952E4283B54E88E6183CA internet 1 111111
 
 # We enable a common mongodb
 mongodb:
@@ -28,3 +30,4 @@ pcrf:
 pcf:
   mongodb:
     enabled: false
+
