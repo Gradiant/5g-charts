@@ -122,11 +122,11 @@ kubectl logs deployment/open5gs-mme -f
 
 We installed and used the **PingTools** application in the UE in order to test the UE's connectivity. Open this application and check that UE was assigned an IP address and it is connected to the eNodeB and to the Internet:
 
-![UE connected to network](https://raw.githubusercontent.com/Gradiant/openverso-charts/gh-pages/docs/open5gs-srsenb/screenshots/connected_pingtools.jpg "UE connected to network")
+<img src="https://raw.githubusercontent.com/Gradiant/openverso-charts/gh-pages/docs/open5gs-srsenb/screenshots/connected_pingtools.jpg" width="270" height="561" title="UE connected to network" alt="UE connected to network">
 
 Through the ***ping*** section of the app, you can easily test the UE's connectivity to the Internet:
 
-![UE's connectivity](https://raw.githubusercontent.com/Gradiant/openverso-charts/gh-pages/docs/open5gs-srsenb/screenshots/ping.jpg "UE's connectivity")
+<img src="https://raw.githubusercontent.com/Gradiant/openverso-charts/gh-pages/docs/open5gs-srsenb/screenshots/ping.jpg" width="270" height="458.75" title="UE's connectivity" alt="UE's connectivity">
 
 Therefore, the UE's traffic can be captured in the PGW-U (UPF). The installation of **tcpdump** in the corresponding pod is needed in order to complete this check:
 ```
