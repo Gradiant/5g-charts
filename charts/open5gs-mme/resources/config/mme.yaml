@@ -1,4 +1,4 @@
-{{ $open5gsName := ternary .Release.Name (printf "%s-open5gs" .Release.Name) (contains "open5gs" .Release.Name) }}
+{{ $open5gsName := .Release.Name }}
 logger:
   level: {{ .Values.config.logLevel }}
 parameter: {}
