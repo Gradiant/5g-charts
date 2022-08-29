@@ -29,7 +29,7 @@ It is recommended to keep the UE with the **airplane mode turned on** until the 
 First, deploy the NGC (open5gs) using the `5gSA-values.yaml` file provided in order to overwrite some of the default values of the **Open5GS chart**:
 
 ```
-helm install open5gs openverso/open5gs --version 1.2.3 --values https://gradiant.github.io/openverso-charts/docs/open5gs-oaignb/5gSA-values.yaml 
+helm install open5gs openverso/open5gs --version 2.0.0 --values https://gradiant.github.io/openverso-charts/docs/open5gs-oaignb/5gSA-values.yaml 
 ```
 
 These new values will:
@@ -128,7 +128,7 @@ Check that the gNodeB is seeing data from the UE:
 
 It's even possible to check that the UEs' traffic is being routed correctly through their PDU sessions, capturing the packets in the UPF. The installation of **tcpdump** in the corresponding pod is needed in order to complete this check:
 ```
-kubectl exec open5gs-upf-0 -ti -- bash
+kubectl exec deployment/open5gs-upf -ti -- bash
 
 apt update && apt install tcpdump
 

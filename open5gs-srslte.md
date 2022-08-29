@@ -116,7 +116,7 @@ traceroute google.com -i tun_srsue
 
 Therefore, the UE's traffic can be captured in the PGW-U (UPF). The installation of **tcpdump** in the corresponding pod is needed in order to complete this check:
 ```
-kubectl exec open5gs-upf-0 -ti -- bash
+kubectl exec deployment/open5gs-upf -ti -- bash
 
 apt update && apt install tcpdump
 

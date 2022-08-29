@@ -85,7 +85,7 @@ ping gradiant.org -I uesimtun1
 
 It's even possible to check that the UEs' traffic is being routed correctly through their PDU sessions, capturing the packets in the UPF. The installation of **tcpdump** in the corresponding pod is needed in order to complete this check:
 ```
-kubectl exec open5gs-upf-0 -ti -- bash
+kubectl exec deployment/open5gs-upf -ti -- bash
 
 apt update && apt install tcpdump
 
