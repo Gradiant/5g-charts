@@ -10,7 +10,7 @@ maintainers:
 - email: cgiraldo@gradiant.org
   name: cgiraldo
 name: open5gs-smf
-version: 2.0.0
+version: 2.0.1
 keywords:
   - ngc
 dependencies:
