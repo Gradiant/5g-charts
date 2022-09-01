@@ -9,8 +9,10 @@ icon: https://open5gs.org/assets/img/open5gs_logo.png
 maintainers:
 - email: cgiraldo@gradiant.org
   name: cgiraldo
+- email: avrodriguez@gradiant.org
+  name: avrodriguez
 name: open5gs-upf
-version: 2.0.1
+version: 2.0.2
 keywords:
   - ngc
 dependencies:

@@ -9,7 +9,7 @@ upf:
     - dev: "eth0"
       port: {{ .Values.containerPorts.pfcp }}
   gtpu:
-    - dev: "eth0"
+    - dev: "{{ .Values.config.gtpu.dev }}"
       port: {{ .Values.containerPorts.gtpu }}
       {{- if .Values.config.advertise }}
       advertise: "{{ tpl .Values.config.gtpu.advertise }}"
