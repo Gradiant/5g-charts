@@ -37,12 +37,9 @@ uacAcc:
   
 # Initial PDU sessions to be established
 sessions:
-  - type: 'IPv4'
-    apn: '{{ .Values.ues.apn }}'
-    slice:
-      sst: {{ .Values.sst }}
-      sd: {{ .Values.sd }}
-    emergency: false
+  {{- range .Values.ues.apnList }}
+  - {{- toYaml . | nindent 4 }}
+  {{- end }}
 
 # Configured NSSAI for this UE by HPLMN
 configured-nssai:
