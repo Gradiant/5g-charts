@@ -362,7 +362,7 @@ ingress:
   ## @param ingress.hostname Default host for the ingress resource
   ##
   hostname: ""
-  ## @param ingress.path The Path to WebUI. 
+  ## @param ingress.path The Path to WebUI.
   path: /
   ## @param ingress.annotations Additional annotations for the Ingress resource. To enable certificate autogeneration, place here your cert-manager annotations.
   ## For a full list of possible ingress annotations, please see
