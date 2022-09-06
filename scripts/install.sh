@@ -20,6 +20,8 @@ data:
       addresses:
       - ${kind_IP}00-${kind_IP}20
 EOF
+echo "Waiting for local-path-provisioner to be ready"
+kubectl rollout status deployment -n local-path-storage local-path-provisioner --timeout=90s
 
 docker run -ti --rm \
   --net=host \
