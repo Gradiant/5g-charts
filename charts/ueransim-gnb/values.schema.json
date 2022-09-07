@@ -12,7 +12,7 @@
             "properties": {
                 "ip": {
                     "form": true,
-                    "type": "null",
+                    "type": "string",
                     "title": "AMF IP",
                     "description": "If empty, amf.hostname will be resolved"
                 },
@@ -45,7 +45,7 @@
             "type": "array"
         },
         "fullnameOverride": {
-            "type": "null"
+            "type": "string"
         },
         "global": {
             "type": "object",
@@ -54,10 +54,10 @@
                     "type": "array"
                 },
                 "imageRegistry": {
-                    "type": "null"
+                    "type": "string"
                 },
                 "storageClass": {
-                    "type": "null"
+                    "type": "string"
                 }
             }
         },
@@ -114,13 +114,13 @@
             }
         },
         "kubeVersion": {
-            "type": "null"
+            "type": "string"
         },
         "name": {
             "type": "string"
         },
         "nameOverride": {
-            "type": "null"
+            "type": "string"
         },
         "nodeSelector": {
             "type": "object"
