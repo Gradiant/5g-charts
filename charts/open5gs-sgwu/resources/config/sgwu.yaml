@@ -11,6 +11,9 @@ sgwu:
   gtpu:
     - dev: "eth0"
       port: {{ .Values.containerPorts.gtpu }}
+      {{- if .Values.config.sgwu.gtpu.advertise }}
+      advertise: "{{ tpl .Values.config.sgwu.gtpu.advertise }}"
+      {{- end }}
 
 sgwc:
   pfcp:
