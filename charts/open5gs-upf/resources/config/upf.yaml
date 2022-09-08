@@ -11,8 +11,8 @@ upf:
   gtpu:
     - dev: "eth0"
       port: {{ .Values.containerPorts.gtpu }}
-      {{- if .Values.config.advertise }}
-      advertise: "{{ tpl .Values.config.gtpu.advertise }}"
+      {{- if .Values.config.upf.gtpu.advertise }}
+      advertise: "{{ tpl .Values.config.upf.gtpu.advertise }}"
       {{- end }}
   subnet:
     {{- range .Values.config.subnetList }}

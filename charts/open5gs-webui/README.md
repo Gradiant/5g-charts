@@ -1,6 +1,6 @@
 # open5gs-webui
 
-![Version: 2.0.0](https://img.shields.io/badge/Version-2.0.0-informational?style=flat-square) ![AppVersion: 2.4.9](https://img.shields.io/badge/AppVersion-2.4.9-informational?style=flat-square)
+![Version: 2.0.2](https://img.shields.io/badge/Version-2.0.2-informational?style=flat-square) ![AppVersion: 2.4.9](https://img.shields.io/badge/AppVersion-2.4.9-informational?style=flat-square)
 
 Helm chart to deploy Open5gs WebUI service on Kubernetes.
 
@@ -60,10 +60,17 @@ Helm chart to deploy Open5gs WebUI service on Kubernetes.
 | image.repository | string | `"openverso/open5gs-webui"` |  |
 | image.tag | string | `"2.4.9"` |  |
 | ingress.annotations | object | `{}` |  |
+| ingress.apiVersion | string | `""` |  |
 | ingress.enabled | bool | `true` |  |
+| ingress.extraHosts | list | `[]` |  |
+| ingress.extraPaths | list | `[]` |  |
+| ingress.extraRules | list | `[]` |  |
+| ingress.extraTls | list | `[]` |  |
 | ingress.hostname | string | `""` |  |
+| ingress.ingressClassName | string | `""` |  |
 | ingress.path | string | `"/"` |  |
 | ingress.pathType | string | `"ImplementationSpecific"` |  |
+| ingress.secrets | list | `[]` |  |
 | ingress.tls | bool | `false` |  |
 | initContainers | list | `[]` |  |
 | kubeVersion | string | `""` |  |
@@ -97,8 +104,7 @@ Helm chart to deploy Open5gs WebUI service on Kubernetes.
 | readinessProbe.timeoutSeconds | int | `1` |  |
 | replicaCount | int | `1` |  |
 | resources.limits | object | `{}` |  |
-| resources.requests.cpu | string | `"200m"` |  |
-| resources.requests.memory | string | `"256Mi"` |  |
+| resources.requests | object | `{}` |  |
 | schedulerName | string | `""` |  |
 | serviceAccount.annotations | object | `{}` |  |
 | serviceAccount.automountServiceAccountToken | bool | `true` |  |
@@ -110,7 +116,7 @@ Helm chart to deploy Open5gs WebUI service on Kubernetes.
 | services.http.extraPorts | list | `[]` |  |
 | services.http.loadBalancerIP | string | `""` |  |
 | services.http.loadBalancerSourceRanges | list | `[]` |  |
-| services.http.nodePorts.sbi | string | `""` |  |
+| services.http.nodePorts.http | string | `""` |  |
 | services.http.ports.http | int | `3000` |  |
 | services.http.sessionAffinity | string | `"None"` |  |
 | services.http.sessionAffinityConfig | object | `{}` |  |

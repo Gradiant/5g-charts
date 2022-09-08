@@ -11,8 +11,8 @@ smf:
   sbi:
     - dev: "eth0"
       port: {{ .Values.containerPorts.sbi }}
-      {{- if .Values.config.advertise }}
-      advertise: "{{ tpl .Values.config.advertise }}"
+      {{- if .Values.config.sbi.advertise }}
+      advertise: "{{ tpl .Values.config.sbi.advertise }}"
       {{- end }}
   pfcp:
     - dev: "eth0"
