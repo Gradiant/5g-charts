@@ -80,6 +80,7 @@ config:
   # advertise: Provide custom SGW-U GTP-U address to be advertised inside S1AP messages
   sgwu:
     gtpu:
+      dev: ""
       advertise: ""
   sgwc:
     pfcp:

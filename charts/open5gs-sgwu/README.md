@@ -1,6 +1,6 @@
 # open5gs-sgwu
 
-![Version: 2.0.3](https://img.shields.io/badge/Version-2.0.3-informational?style=flat-square) ![AppVersion: 2.4.9](https://img.shields.io/badge/AppVersion-2.4.9-informational?style=flat-square)
+![Version: 2.0.4](https://img.shields.io/badge/Version-2.0.4-informational?style=flat-square) ![AppVersion: 2.4.9](https://img.shields.io/badge/AppVersion-2.4.9-informational?style=flat-square)
 
 Helm chart to deploy Open5gs SGWU service on Kubernetes.
 
@@ -35,6 +35,7 @@ Helm chart to deploy Open5gs SGWU service on Kubernetes.
 | config.sgwc.pfcp.hostname | string | `""` |  |
 | config.sgwc.pfcp.port | int | `8805` |  |
 | config.sgwu.gtpu.advertise | string | `""` |  |
+| config.sgwu.gtpu.dev | string | `""` |  |
 | containerPorts.gtpu | int | `2152` |  |
 | containerPorts.pfcp | int | `8805` |  |
 | containerSecurityContext.enabled | bool | `true` |  |

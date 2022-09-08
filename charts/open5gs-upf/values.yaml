@@ -80,6 +80,7 @@ config:
   # advertise: Provide custom UPF GTP-U address to be advertised inside NGAP messages
   upf:
     gtpu:
+      dev: ""
       advertise: ""
   smf:
     pfcp:
