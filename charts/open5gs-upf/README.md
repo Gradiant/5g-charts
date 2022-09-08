@@ -1,6 +1,6 @@
 # open5gs-upf
 
-![Version: 2.0.4](https://img.shields.io/badge/Version-2.0.4-informational?style=flat-square) ![AppVersion: 2.4.9](https://img.shields.io/badge/AppVersion-2.4.9-informational?style=flat-square)
+![Version: 2.0.5](https://img.shields.io/badge/Version-2.0.5-informational?style=flat-square) ![AppVersion: 2.4.9](https://img.shields.io/badge/AppVersion-2.4.9-informational?style=flat-square)
 
 Helm chart to deploy Open5gs UPF service on Kubernetes.
 
@@ -40,6 +40,7 @@ Helm chart to deploy Open5gs UPF service on Kubernetes.
 | config.subnetList[0].dnn | string | `"internet"` |  |
 | config.subnetList[0].enableNAT | bool | `true` |  |
 | config.upf.gtpu.advertise | string | `""` |  |
+| config.upf.gtpu.dev | string | `""` |  |
 | containerPorts.gtpu | int | `2152` |  |
 | containerPorts.pfcp | int | `8805` |  |
 | containerSecurityContext.capabilities.add[0] | string | `"NET_ADMIN"` |  |

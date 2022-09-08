@@ -47,6 +47,9 @@
                             "properties": {
                                 "advertise": {
                                     "type": "string"
+                                },
+                                "dev": {
+                                    "type": "string"
                                 }
                             }
                         }
