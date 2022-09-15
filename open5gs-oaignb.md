@@ -24,6 +24,16 @@ The following hardware equipment is required in order to replicate the setup use
 
 It is recommended to keep the UE with the **airplane mode turned on** until the NGC and RAN have been successfully deployed and connected.
 
+# Additional Requirement: ettus-device-plugin Daemonset
+
+You need another prerequisite in your Kubernetes cluster in order to complete this deployment successfully. You will have to deploy an **ettus-device-plugin Daemonset** that is meant to manage the USRPs as Kubernetes Node Resources and automatically mount them in the corresponding Pods.
+
+Go to https://github.com/Gradiant/ettus-device-plugin, where you will find additional information and where the corresponding Kubernetes manifest is located (***ettus-daemonset.yaml***). Then, execute the following command in order to create the corresponding Kubernetes resource:
+```
+kubectl apply -f https://gradiant.github.io/openverso-charts/docs/open5gs-oaignb/ettus-daemonset.yaml
+```
+After this is completed, you can rely on Kubernetes to place the device plugin's Pod onto Nodes, to restart the daemon Pod after failure, and to help automate upgrades.
+
 # Deployment NGC and registration of subscriber
 
 First, deploy the NGC (open5gs) using the `5gSA-values.yaml` file provided in order to overwrite some of the default values of the **Open5GS chart**:
