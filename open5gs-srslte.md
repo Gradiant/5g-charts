@@ -19,7 +19,7 @@ helm repo add openverso https://gradiant.github.io/openverso-charts/
 First, deploy the EPC (open5gs) using the `epc-values.yaml` file provided in order to overwrite some of the default values of the **Open5GS chart**:
 
 ```
-helm install open5gs openverso/open5gs --version 2.0.0 --values https://gradiant.github.io/openverso-charts/docs/open5gs-srslte/epc-values.yaml 
+helm install open5gs openverso/open5gs --version 2.0.5 --values https://gradiant.github.io/openverso-charts/docs/open5gs-srslte/epc-values.yaml 
 ```
 
 These new values will:
