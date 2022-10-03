@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: kamailio-ims-mariadb-conf
+  labels: {{- include "common.labels.standard" . | nindent 4 }}
+data:
+  mariadb-conf.sh: |
+{{ tpl (.Files.Get "resources/mariadb-custom-config.cnf") . | indent 4 }}
+

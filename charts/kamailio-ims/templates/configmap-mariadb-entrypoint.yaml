@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: kamailio-ims-mariadb-entrypoint
+  labels: {{- include "common.labels.standard" . | nindent 4 }}
+data:
+  mariadb-entrypoint.sh: |
+{{ tpl (.Files.Get "resources/mariadb-entrypoint.sh") . | indent 4 }}
+

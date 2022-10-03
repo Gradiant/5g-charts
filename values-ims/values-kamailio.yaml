@@ -1,0 +1,10 @@
+mariadb:
+  image:
+    tag: 10.9.3
+  auth:
+    rootPassword: "ims"
+  primary:
+    persistence:
+      enabled: true
+    existingConfigmap: "kamailio-ims-mariadb-conf"
+  initdbScriptsConfigMap: "kamailio-ims-mariadb-entrypoint"

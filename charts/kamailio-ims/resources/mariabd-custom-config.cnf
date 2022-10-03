@@ -1,0 +1,9 @@
+[mysqld]
+user		= mysql
+bind-address		= 0.0.0.0
+#
+# * Fine Tuning
+#
+key_buffer_size		= 16M
+
+max_connections        = 250

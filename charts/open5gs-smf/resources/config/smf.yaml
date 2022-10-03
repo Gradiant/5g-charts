@@ -32,6 +32,10 @@ smf:
     - {{- toYaml . | nindent 6 }}
     {{- end }}
   mtu: {{ .Values.config.mtu }}
+  {{- if .Values.config.pcscf.enabled }}
+  p-cscf:
+    - ${PCSCF_IP}
+  {{- end }}
 
 {{- if .Values.config.nrf.enabled }}
 nrf:

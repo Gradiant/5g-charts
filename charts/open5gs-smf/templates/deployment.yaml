@@ -157,11 +157,22 @@ spec:
           {{- if .Values.resources }}
           resources: {{- toYaml .Values.resources | nindent 12 }}
           {{- end }}
+          {{- if .Values.config.pcscf.enabled }}
+          command:
+            - "/bin/bash" 
+            - "-c"
+            - "/k8s-entrypoint.sh"
+          {{- end }}
           volumeMounts:
             {{- if .Values.config.pcrf.enabled }}
             - name: diameter-config
               mountPath: /opt/open5gs/etc/freeDiameter/smf.conf
               subPath: "smf.conf"
+            {{- end }}
+            {{- if .Values.config.pcscf.enabled }}
+            - name: entrypoint
+              mountPath: /k8s-entrypoint.sh
+              subPath: k8s-entrypoint.sh
             {{- end }}
             - name: config
               mountPath:  /opt/open5gs/etc/open5gs/
@@ -176,6 +187,12 @@ spec:
         - name: diameter-config
           configMap:
             name: {{ include "common.names.fullname" . }}-diameter
+        {{- end }}
+        {{- if .Values.config.pcscf.enabled }}
+        - name: entrypoint
+          configMap:
+            name: {{ include "common.names.fullname" . }}-entrypoint
+            defaultMode: 0777
         {{- end }}
         - name: config
           configMap:

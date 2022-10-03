@@ -1,0 +1,29 @@
+apiVersion: v2
+appVersion: "5.3"
+description: >
+  Helm chart to deploy Kamailio IMS on Kubernetes.
+home: https://github.com/gradiant/openverso-charts
+sources:
+  - https://github.com/kamailio/kamailio
+maintainers:
+- email: mmarquez@gradiant.org
+  name: mmarquez999
+name: open5gs
+version: 0.0.0
+keywords:
+  - ims
+  - volte
+dependencies:
+  - name: common
+    repository: https://charts.bitnami.com/bitnami
+    tags:
+      - bitnami-common
+    version: 1.x.x
+  - name: mongodb
+    version: ~12.1.19
+    repository: https://charts.bitnami.com/bitnami
+    condition: mongodb.enabled
+  - name: mariadb
+    version: 11.3.1
+    repository: https://charts.bitnami.com/bitnami
+    alias: mariadb
