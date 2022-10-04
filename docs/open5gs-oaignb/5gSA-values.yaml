@@ -38,7 +38,7 @@ amf:
           mnc: 70
         s_nssai:
           - sst: 1
-            sd: 01b207
+            sd: "0x01b207"
 
 nssf:
   config:
