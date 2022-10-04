@@ -13,6 +13,11 @@ amf:
   ngap:
     - dev: "eth0"
       port: {{ .Values.containerPorts.ngap }}
+  {{- if .Values.metrics.enabled }}
+  metrics:
+    addr: 0.0.0.0
+    port: 9090
+  {{- end }}
   guami:
     {{- range .Values.config.guamiList }}
     - {{- toYaml . | nindent 6 }}
@@ -32,12 +37,6 @@ amf:
   security:
     integrity_order : [ NIA2, NIA1, NIA0 ]
     ciphering_order : [ NEA0, NEA1, NEA2 ]
-
-  {{- if .Values.metrics.enabled }}
-  metrics:
-    addr: 0.0.0.0
-    port: 9090
-  {{- end }}
 
 nrf:
   sbi:
