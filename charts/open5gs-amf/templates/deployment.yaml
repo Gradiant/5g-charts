@@ -101,6 +101,8 @@ spec:
           ports:
             - name: sbi
               containerPort: {{ .Values.containerPorts.sbi }}
+            - name: metrics
+              containerPort: {{ .Values.containerPorts.metrics }}
             - name: ngap
               containerPort: {{ .Values.containerPorts.ngap }}
               protocol: SCTP
