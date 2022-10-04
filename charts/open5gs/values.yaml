@@ -18,15 +18,32 @@ mongodb:
   enabled: true
   auth:
     enabled: false
-udr:
-  mongodb:
-    enabled: false
+
+# Common
+smf:
+upf:
+
+# 4G
 hss:
   mongodb:
     enabled: false
+mme:
 pcrf:
   mongodb:
     enabled: false
+sgwc:
+sgwu:
+
+# 5G
+amf:
+ausf:
+bsf:
+nrf:
+nssf:
 pcf:
+  mongodb:
+    enabled: false
+udm:
+udr:
   mongodb:
     enabled: false
