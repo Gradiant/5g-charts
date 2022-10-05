@@ -17,6 +17,11 @@ smf:
   pfcp:
     - dev: "eth0"
       port: {{ .Values.containerPorts.pfcp }}
+  {{- if .Values.metrics.enabled }}
+  metrics:
+    addr: 0.0.0.0
+    port: 9090
+  {{- end }}
   gtpc:
     - dev: "eth0"
       port: {{ .Values.containerPorts.gtpc }}
