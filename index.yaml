@@ -1515,6 +1515,30 @@ entries:
   open5gs-amf:
   - apiVersion: v2
     appVersion: 2.4.9
+    created: "2022-10-05T10:51:35.667146806Z"
+    dependencies:
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 1.x.x
+    description: 'Helm chart to deploy Open5gs AMF service on Kubernetes. '
+    digest: 8f21f12a6e7e1be3b1a3448138f4a382dc66aa713b0a62d50bb0e49659d7175b
+    home: https://github.com/gradiant/openverso-charts
+    icon: https://open5gs.org/assets/img/open5gs_logo.png
+    keywords:
+    - ngc
+    maintainers:
+    - email: cgiraldo@gradiant.org
+      name: cgiraldo
+    name: open5gs-amf
+    sources:
+    - http://open5gs.org
+    urls:
+    - https://github.com/Gradiant/openverso-charts/releases/download/open5gs-amf-2.0.7/open5gs-amf-2.0.7.tgz
+    version: 2.0.7
+  - apiVersion: v2
+    appVersion: 2.4.9
     created: "2022-10-05T09:25:05.956219594Z"
     dependencies:
     - name: common
@@ -2717,6 +2741,30 @@ entries:
   open5gs-smf:
   - apiVersion: v2
     appVersion: 2.4.9
+    created: "2022-10-05T10:51:35.795577435Z"
+    dependencies:
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 1.x.x
+    description: 'Helm chart to deploy Open5gs SMF service on Kubernetes. '
+    digest: cff0a171c772023b7b8df11d9c909a2be1f21a1b1bbc1617ccc829ca0df0f863
+    home: https://github.com/gradiant/openverso-charts
+    icon: https://open5gs.org/assets/img/open5gs_logo.png
+    keywords:
+    - ngc
+    maintainers:
+    - email: cgiraldo@gradiant.org
+      name: cgiraldo
+    name: open5gs-smf
+    sources:
+    - http://open5gs.org
+    urls:
+    - https://github.com/Gradiant/openverso-charts/releases/download/open5gs-smf-2.0.5/open5gs-smf-2.0.5.tgz
+    version: 2.0.5
+  - apiVersion: v2
+    appVersion: 2.4.9
     created: "2022-10-04T15:31:03.771823061Z"
     dependencies:
     - name: common
@@ -3682,4 +3730,4 @@ entries:
     urls:
     - https://github.com/Gradiant/openverso-charts/releases/download/ueransim-gnb-0.1.0/ueransim-gnb-0.1.0.tgz
     version: 0.1.0
-generated: "2022-10-05T09:25:05.956502017Z"
+generated: "2022-10-05T10:51:35.795945342Z"
