@@ -20,45 +20,77 @@ mongodb:
     enabled: false
 smf:
   enabled: true
+  image:
+    tag: 2.4.11
 upf:
   enabled: true
+  image:
+    tag: 2.4.11
 webui:
   enabled: true
+  image:
+    tag: 2.4.11
 
 # 4G
 hss:
   enabled: true
+  image:
+    tag: 2.4.11
   mongodb:
     enabled: false
 mme:
   enabled: true
+  image:
+    tag: 2.4.11
 pcrf:
   enabled: true
+  image:
+    tag: 2.4.11
   mongodb:
     enabled: false
 sgwc:
   enabled: true
+  image:
+    tag: 2.4.11
 sgwu:
   enabled: true
+  image:
+    tag: 2.4.11
 
 # 5G
 amf:
   enabled: true
+  image:
+    tag: 2.4.11
 ausf:
   enabled: true
+  image:
+    tag: 2.4.11
 bsf:
   enabled: true
+  image:
+    tag: 2.4.11
 nrf:
   enabled: true
+  image:
+    tag: 2.4.11
 nssf:
   enabled: true
+  image:
+    tag: 2.4.11
 pcf:
   enabled: true
+  image:
+    tag: 2.4.11
   mongodb:
     enabled: false
 udm:
   enabled: true
+  image:
+    tag: 2.4.11
 udr:
   enabled: true
+  image:
+    tag: 2.4.11
   mongodb:
     enabled: false
