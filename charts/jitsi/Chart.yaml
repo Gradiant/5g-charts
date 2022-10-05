@@ -1,7 +1,7 @@
 apiVersion: v2
 appVersion: stable-6865
 description: >
-  Helm chart to deploy Jitsi services on Kubernetes.
+  Helm chart to deploy Jitsi on Kubernetes.
 home: https://github.com/gradiant/openverso-charts
 sources:
   - https://github.com/jitsi-contrib/jitsi-helm
