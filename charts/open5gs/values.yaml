@@ -19,30 +19,46 @@ mongodb:
   auth:
     enabled: false
 smf:
+  enabled: true
 upf:
+  enabled: true
 webui:
+  enabled: true
 
 # 4G
 hss:
+  enabled: true
   mongodb:
     enabled: false
 mme:
+  enabled: true
 pcrf:
+  enabled: true
   mongodb:
     enabled: false
 sgwc:
+  enabled: true
 sgwu:
+  enabled: true
 
 # 5G
 amf:
+  enabled: true
 ausf:
+  enabled: true
 bsf:
+  enabled: true
 nrf:
+  enabled: true
 nssf:
+  enabled: true
 pcf:
+  enabled: true
   mongodb:
     enabled: false
 udm:
+  enabled: true
 udr:
+  enabled: true
   mongodb:
     enabled: false
