@@ -102,7 +102,7 @@ config:
         mnc: 70
       s_nssai:
         - sst: 1
-          sd: 111111
+          sd: "0x111111"
   networkName: Gradiant
 
 ## @param customOpen5gsConfig overwrite open5gs configuration file

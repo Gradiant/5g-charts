@@ -94,7 +94,7 @@
                                     "type": "object",
                                     "properties": {
                                         "sd": {
-                                            "type": "integer"
+                                            "type": "string"
                                         },
                                         "sst": {
                                             "type": "integer"
