@@ -35,10 +35,10 @@
                                 "type": "object",
                                 "properties": {
                                     "mcc": {
-                                        "type": "integer"
+                                        "type": "string"
                                     },
                                     "mnc": {
-                                        "type": "integer"
+                                        "type": "string"
                                     }
                                 }
                             }
@@ -108,10 +108,10 @@
                                 "type": "object",
                                 "properties": {
                                     "mcc": {
-                                        "type": "integer"
+                                        "type": "string"
                                     },
                                     "mnc": {
-                                        "type": "integer"
+                                        "type": "string"
                                     }
                                 }
                             },
