@@ -5,5 +5,5 @@ metadata:
   labels: {{- include "common.labels.standard" . | nindent 4 }}
 data:
   mariadb-entrypoint.sh: |
-{{ tpl (.Files.Get "resources/mariadb-entrypoint.sh") . | indent 4 }}
+{{ tpl (.Files.Get "resources/mariadb/mariadb-entrypoint.sh") . | indent 4 }}
 

@@ -1,0 +1,96 @@
+apiVersion: {{ include "common.capabilities.deployment.apiVersion" . }}
+kind: Deployment
+metadata:
+  name: {{ include "common.names.fullname" . }}
+  labels: labels: {{- include "common.labels.standard" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.bind9.replicaCount }}
+  selector:
+    matchLabels:
+      matchLabels: {{- include "common.labels.matchLabels" . | nindent 6 }}
+  template:
+    metadata:
+      roll: {{ randAlphaNum 5 | quote }}
+      annotations:
+        {{- if .Values.bind9.podAnnotations }}
+        {{- include "common.tplvalues.render" (dict "value" .Values.bind9.podAnnotations "context" $) | nindent 8 }}
+        {{- end }}
+      labels: {{- include "common.labels.standard" . | nindent 8 }}
+    spec:
+      # hostNetwork: true
+      affinity:
+        {{- toYaml .Values.bind9.affinity | nindent 8 }}
+      initContainers:
+        - name: load-dns-zones
+          image: {{ template "bind9.image" . }}
+          imagePullPolicy: {{ .Values.bind9.image.pullPolicy | quote }}
+          command:
+            - "/bin/bash" 
+            - "-c"
+            - "/bind9-entrypoint.sh"
+          # securityContext:
+          #   privileged: true
+          #   capabilities:
+          #     add: ["NET_ADMIN"]
+          env:
+          - name: IMS_DOMAIN
+            value: {{ .Values.ims_domain | quote }}
+          - name: EPC_DOMAIN
+            value: {{ .Values.epc_domain | quote }}
+          - name: BIND_HOSTNAME
+            value: {{ .Values.bind9.hostname | quote }}
+          - name: PCSCF_HOSTNAME
+            value: {{ .Values.kamailio.pcscf.hostname | quote }}
+          - name: SCSCF_HOSTNAME
+            value: {{ .Values.kamailio.scscf.hostname | quote }}
+          - name: ICSCF_HOSTNAME
+            value: {{ .Values.kamailio.icscf.hostname | quote }}
+          - name: FHOSS_HOSTNAME
+            value: {{ .Values.fhoss.hostname | quote }}
+          volumeMounts:
+            - name: bind9-entrypoint
+              mountPath:  /bind9.entrypoint.sh
+              subPath: bind9-entrypoint.sh
+      containers:
+        - name: {{ include "common.names.fullname" . }}-bind9
+          image: {{ template "bind9.image" . }}
+          imagePullPolicy: {{ .Values.bind9.image.pullPolicy | quote }}
+          ports:
+            - name: dns-tcp
+              containerPort: {{ .Values.service.targetPort }}
+              protocol: TCP
+            - name: dns-udp
+              containerPort: {{ .Values.service.targetPort }}
+              protocol: UDP
+          {{- if .Values.readinessProbe.enabled }}
+          readinessProbe:
+            tcpSocket:
+              port: dns-tcp
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          {{- end }}
+          {{- if .Values.readinessProbe.enabled }}
+          livenessProbe:
+            tcpSocket:
+              port: dns-udp
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          {{- end }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+          - name: bind-config
+            mountPath: /etc/bind
+          - name: bind-zone-config
+            mountPath: /var/lib/bind
+      volumes:
+        - name: bind-config
+          configMap:
+            name: bind-config
+            items:
+              - key: named.conf
+                path: named.conf
+        - name: bind-zone-config
+          configMap:
+            name: bind-zone-config
+{{- toYaml .Values.zoneconfigs | nindent 12 }}
