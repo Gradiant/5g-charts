@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: kamailio-ims-bind9-entrypoint
+  labels: {{- include "common.labels.standard" . | nindent 4 }}
+data:
+  bind9-entrypoint.sh: |
+{{ tpl (.Files.Get "resources/bind9/bind9-entrypoint.sh") . | indent 4 }}

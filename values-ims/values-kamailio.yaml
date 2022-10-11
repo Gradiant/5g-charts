@@ -45,6 +45,25 @@ bind9:
     ## Set to true if you would like to see extra information on logs
     ##
     debug: false
+  services:
+    labels:
+    tcp:
+      type: LoadBalancer
+      annotations: {}
+      port: 53
+      targetPort: 53
+    udp:
+      type: LoadBalancer
+      annotations: {}
+      port: 53
+      targetPort: 53
+  readinessProbe:
+    enabled: true
+  livenessProbe:
+    enabled: true
+  resources:
+    requests: {}
+    limits: {}
 
 kamailio:
   pcscf:

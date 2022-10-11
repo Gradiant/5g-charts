@@ -1,0 +1,95 @@
+apiVersion: {{ include "common.capabilities.deployment.apiVersion" . }}
+kind: Deployment
+metadata:
+  name: {{ include "common.names.fullname" . }}
+  labels: labels: {{- include "common.labels.standard" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.bind9.replicaCount }}
+  selector:
+    matchLabels:
+      matchLabels: {{- include "common.labels.matchLabels" . | nindent 6 }}
+  template:
+    metadata:
+      # Bind requires a restart to pick up changes in zone configs
+      # This roll will restart the Pod on every upgrade
+      roll: {{ randAlphaNum 5 | quote }}
+      annotations:
+        {{- if .Values.bind9.podAnnotations }}
+        {{- include "common.tplvalues.render" (dict "value" .Values.bind9.podAnnotations "context" $) | nindent 8 }}
+        {{- end }}
+      labels: {{- include "common.labels.standard" . | nindent 8 }}
+    spec:
+      # hostNetwork: true --> No needed if we define a service
+      affinity:
+        {{- toYaml .Values.bind9.affinity | nindent 8 }}
+      containers:
+        - name: {{ include "common.names.fullname" . }}
+          image: {{ template "bind9.image" . }}
+          imagePullPolicy: {{ .Values.bind9.image.pullPolicy | quote }}
+          ports:
+            - name: bind9-tcp
+              containerPort: {{ .Values.bind9.services.tcp.targetPort }}
+              protocol: TCP
+            - name: bind9-udp
+              containerPort: {{ .Values.bind9.services.udp.targetPort }}
+              protocol: UDP
+          {{- if .Values.bind9.readinessProbe.enabled }}
+          readinessProbe:
+            tcpSocket:
+              port: dns-tcp
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          {{- end }}
+          {{- if .Values.bind9.readinessProbe.enabled }}
+          livenessProbe:
+            tcpSocket:
+              port: dns-udp
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          {{- end }}
+          resources:
+            {{- toYaml .Values.bind9.resources | nindent 12 }}
+          env:
+          - name: IMS_DOMAIN
+            value: {{ .Values.ims_domain | quote }}
+          - name: EPC_DOMAIN
+            value: {{ .Values.epc_domain | quote }}
+          - name: BIND_HOSTNAME
+            value: {{ .Values.bind9.hostname | quote }}
+          - name: PCSCF_HOSTNAME
+            value: {{ .Values.kamailio.pcscf.hostname | quote }}
+          - name: SCSCF_HOSTNAME
+            value: {{ .Values.kamailio.scscf.hostname | quote }}
+          - name: ICSCF_HOSTNAME
+            value: {{ .Values.kamailio.icscf.hostname | quote }}
+          - name: FHOSS_HOSTNAME
+            value: {{ .Values.fhoss.hostname | quote }}
+          volumeMounts:
+            - name: bind9-entrypoint
+              mountPath:  /bind9-entrypoint.sh
+              subPath: bind9-entrypoint.sh
+            - name: bind9-config
+              mountPath: /etc/bind
+            - name: bind9-zone-config
+              mountPath: /etc/bind
+      volumes:
+        - name: bind9-config
+          configMap:
+            name: kamailio-ims-bind9-config
+            items:
+              - key: named.conf
+                path: named.conf
+        - name: bind9-zone-config
+          configMap:
+            name: kamailio-ims-bind9-zone-config
+            items:
+              - key: epc_zone
+                path: epc_zone
+              - key: ims_zone
+                path: ims_zone
+              - key: e164.arpa
+                path: e164.arpa
+        - name: bind9-entrypoint
+          configMap:
+            name: kamailio-ims-bind9-entrypoint
+            defaultMode: 0777

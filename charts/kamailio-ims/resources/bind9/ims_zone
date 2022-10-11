@@ -1,4 +1,4 @@
-$ORIGIN ims.mnc001.mcc001.3gppnetwork.org.
+$ORIGIN ${IMS_DOMAIN}.
 $TTL 1W
 @                       1D IN SOA       localhost. root.localhost. (
                                         1		; serial
