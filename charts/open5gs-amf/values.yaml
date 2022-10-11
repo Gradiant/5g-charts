@@ -56,7 +56,7 @@ extraDeploy: []
 image:
   registry: docker.io
   repository: openverso/open5gs
-  tag: "2.4.9"
+  tag: "2.4.11"
   digest: ""
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
@@ -86,23 +86,23 @@ config:
       port: 7777
   guamiList:
     - plmn_id:
-        mcc: 999
-        mnc: 70
+        mcc: "999"
+        mnc: "70"
       amf_id:
         region: 2
         set: 1
   taiList:
     - plmn_id:
-        mcc: 999
-        mnc: 70
+        mcc: "999"
+        mnc: "70"
       tac: [1, 2, 3]
   plmnList:
     - plmn_id:
-        mcc: 999
-        mnc: 70
+        mcc: "999"
+        mnc: "70"
       s_nssai:
         - sst: 1
-          sd: 111111
+          sd: "0x111111"
   networkName: Gradiant
 
 ## @param customOpen5gsConfig overwrite open5gs configuration file
@@ -186,6 +186,7 @@ serviceAccount:
 containerPorts:
   sbi: 7777
   ngap: 38412
+  metrics: 9090
 ## @param sessionAffinity Control where client requests go, to the same pod or round-robin. Values: ClientIP or None
 ## ref: https://kubernetes.io/docs/user-guide/services/
 ##
@@ -425,6 +426,87 @@ services:
     ##     timeoutSeconds: 300
     ##
     sessionAffinityConfig: {}
+  metrics:
+    ## @param service.type Kubernetes Service type
+    ##
+    type: ClusterIP
+    ## @param service.ports.ngap Service HTTP port
+    ##
+    ports:
+      metrics: 9090
+    ## @param service.loadBalancerSourceRanges Restricts access for LoadBalancer (only with `service.type: LoadBalancer`)
+    ## e.g:
+    ## loadBalancerSourceRanges:
+    ##   - 0.0.0.0/0
+    ##
+    loadBalancerSourceRanges: []
+    ## @param service.loadBalancerIP loadBalancerIP for the open5gs-amf Service (optional, cloud specific)
+    ## ref: https://kubernetes.io/docs/user-guide/services/#type-loadbalancer
+    loadBalancerIP: ""
+    ## @param service.nodePorts [object] Kubernetes node port
+    ## nodePorts:
+    ##   ngap: <to set explicitly, choose port between 30000-32767>
+    ##
+    nodePorts:
+      metrics: ""
+    ## @param service.externalTrafficPolicy Enable client source IP preservation
+    ## ref https://kubernetes.io/docs/tasks/access-application-cluster/create-external-load-balancer/#preserving-the-client-source-ip
+    ##
+    externalTrafficPolicy: Cluster
+    ## @param service.clusterIP %%MAIN_CONTAINER_NAME%% service Cluster IP
+    ## e.g.:
+    ## clusterIP: None
+    ##
+    clusterIP: ""
+    ## @param service.extraPorts Extra ports to expose (normally used with the `sidecar` value)
+    ##
+    extraPorts: []
+    ## @param service.annotations Additional custom annotations for %%MAIN_CONTAINER_NAME%% service
+    ##
+    annotations:
+      # prometheus.io/scrape: "true"
+      # prometheus.io/port: "3000"
+      prometheus.io/path: "/metrics"
+    ## @param service.sessionAffinity Session Affinity for Kubernetes service, can be "None" or "ClientIP"
+    ## If "ClientIP", consecutive client requests will be directed to the same Pod
+    ## ref: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies
+    ##
+    sessionAffinity: None
+    ## @param service.sessionAffinityConfig Additional settings for the sessionAffinity
+    ## sessionAffinityConfig:
+    ##   clientIP:
+    ##     timeoutSeconds: 300
+    ##
+    sessionAffinityConfig: {}
 
 metrics:
   enabled: false
+  ## Prometheus Service Monitor
+  ## ref: https://github.com/coreos/prometheus-operator
+  ##      https://github.com/coreos/prometheus-operator/blob/master/Documentation/api.md#endpoint
+  ##
+  serviceMonitor:
+    ## @param metrics.serviceMonitor.enabled Create ServiceMonitor resource(s) for scraping metrics using PrometheusOperator
+    ##
+    enabled: false
+    ## @param metrics.serviceMonitor.namespace The namespace in which the ServiceMonitor will be created
+    ##
+    namespace: ""
+    ## @param metrics.serviceMonitor.interval The interval at which metrics should be scraped
+    ##
+    interval: ""
+    ## @param metrics.serviceMonitor.scrapeTimeout The timeout after which the scrape is ended
+    ##
+    scrapeTimeout: ""
+    ## @param metrics.serviceMonitor.relabellings Metrics RelabelConfigs to apply to samples before scraping.
+    ##
+    relabelings: []
+    ## @param metrics.serviceMonitor.metricRelabelings Metrics RelabelConfigs to apply to samples before ingestion.
+    ##
+    metricRelabelings: []
+    ## @param metrics.serviceMonitor.honorLabels Specify honorLabels parameter to add the scrape endpoint
+    ##
+    honorLabels: false
+    ## @param metrics.serviceMonitor.additionalLabels Additional labels that can be used so ServiceMonitor resource(s) can be discovered by Prometheus
+    ##
+    additionalLabels: {}

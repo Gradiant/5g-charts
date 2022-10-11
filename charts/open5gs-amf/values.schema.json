@@ -40,10 +40,10 @@
                                 "type": "object",
                                 "properties": {
                                     "mcc": {
-                                        "type": "integer"
+                                        "type": "string"
                                     },
                                     "mnc": {
-                                        "type": "integer"
+                                        "type": "string"
                                     }
                                 }
                             }
@@ -81,10 +81,10 @@
                                 "type": "object",
                                 "properties": {
                                     "mcc": {
-                                        "type": "integer"
+                                        "type": "string"
                                     },
                                     "mnc": {
-                                        "type": "integer"
+                                        "type": "string"
                                     }
                                 }
                             },
@@ -94,7 +94,7 @@
                                     "type": "object",
                                     "properties": {
                                         "sd": {
-                                            "type": "integer"
+                                            "type": "string"
                                         },
                                         "sst": {
                                             "type": "integer"
@@ -122,10 +122,10 @@
                                 "type": "object",
                                 "properties": {
                                     "mcc": {
-                                        "type": "integer"
+                                        "type": "string"
                                     },
                                     "mnc": {
-                                        "type": "integer"
+                                        "type": "string"
                                     }
                                 }
                             },
@@ -143,6 +143,9 @@
         "containerPorts": {
             "type": "object",
             "properties": {
+                "metrics": {
+                    "type": "integer"
+                },
                 "ngap": {
                     "type": "integer"
                 },
@@ -278,6 +281,35 @@
             "properties": {
                 "enabled": {
                     "type": "boolean"
+                },
+                "serviceMonitor": {
+                    "type": "object",
+                    "properties": {
+                        "additionalLabels": {
+                            "type": "object"
+                        },
+                        "enabled": {
+                            "type": "boolean"
+                        },
+                        "honorLabels": {
+                            "type": "boolean"
+                        },
+                        "interval": {
+                            "type": "string"
+                        },
+                        "metricRelabelings": {
+                            "type": "array"
+                        },
+                        "namespace": {
+                            "type": "string"
+                        },
+                        "relabelings": {
+                            "type": "array"
+                        },
+                        "scrapeTimeout": {
+                            "type": "string"
+                        }
+                    }
                 }
             }
         },
@@ -390,6 +422,59 @@
         "services": {
             "type": "object",
             "properties": {
+                "metrics": {
+                    "type": "object",
+                    "properties": {
+                        "annotations": {
+                            "type": "object",
+                            "properties": {
+                                "prometheus.io/path": {
+                                    "type": "string"
+                                }
+                            }
+                        },
+                        "clusterIP": {
+                            "type": "string"
+                        },
+                        "externalTrafficPolicy": {
+                            "type": "string"
+                        },
+                        "extraPorts": {
+                            "type": "array"
+                        },
+                        "loadBalancerIP": {
+                            "type": "string"
+                        },
+                        "loadBalancerSourceRanges": {
+                            "type": "array"
+                        },
+                        "nodePorts": {
+                            "type": "object",
+                            "properties": {
+                                "metrics": {
+                                    "type": "string"
+                                }
+                            }
+                        },
+                        "ports": {
+                            "type": "object",
+                            "properties": {
+                                "metrics": {
+                                    "type": "integer"
+                                }
+                            }
+                        },
+                        "sessionAffinity": {
+                            "type": "string"
+                        },
+                        "sessionAffinityConfig": {
+                            "type": "object"
+                        },
+                        "type": {
+                            "type": "string"
+                        }
+                    }
+                },
                 "ngap": {
                     "type": "object",
                     "properties": {
