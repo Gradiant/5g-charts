@@ -1,5 +1,6 @@
-ims_domain: "ims.mnc001.mcc001.3gppnetwork.org"
-epc_domain: "openverso"
+imsDomain: "ims.mnc001.mcc001.3gppnetwork.org"
+epcDomain: "openverso"
+apnImsSubnet: 192.168.101.0/24
 
 mariadb:
   image:
@@ -10,7 +11,12 @@ mariadb:
     persistence:
       enabled: true
     existingConfigmap: "kamailio-ims-mariadb-conf"
+  hostname: mariadb
   initdbScriptsConfigMap: "kamailio-ims-mariadb-entrypoint"
+
+epc:
+  pcrfHostname: pcrf
+  upfHostname: upf
 
 bind9:
   hostname: bind9
@@ -47,16 +53,14 @@ bind9:
     debug: false
   services:
     labels:
-    tcp:
-      type: LoadBalancer
+    dns:
+      type: ClusterIP
       annotations: {}
       port: 53
-      targetPort: 53
-    udp:
-      type: LoadBalancer
+    rndc:
+      type: ClusterIP
       annotations: {}
-      port: 53
-      targetPort: 53
+      port: 953
   readinessProbe:
     enabled: true
   livenessProbe:
@@ -66,13 +70,218 @@ bind9:
     limits: {}
 
 kamailio:
+  replicaCount: 1
+  global:
+    imageRegistry: ""
+    ## E.g.
+    ## imagePullSecrets:
+    ##   - myRegistryKeySecretName
+    ##
+    imagePullSecrets: []
+    storageClass: ""
+  image:
+    registry: docker.io
+    repository: openverso/kamailio-ims
+    tag: "5.3-dev"
+    digest: ""
+    ## Specify a imagePullPolicy
+    ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
+    ## ref: https://kubernetes.io/docs/user-guide/images/#pre-pulling-images
+    ##
+    pullPolicy: IfNotPresent
+    ## Optionally specify an array of imagePullSecrets.
+    ## Secrets must be manually created in the namespace.
+    ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
+    ## e.g:
+    ## pullSecrets:
+    ##   - myRegistryKeySecretName
+    ##
+    pullSecrets: []
+    ## Set to true if you would like to see extra information on logs
+    ##
+    debug: false
   pcscf:
     hostname: pcscf
+    podAnnotations: {}
+    containerSecurityContext:
+      enabled: true
+      runAsNonRoot: false
+      privileged: false
+      capabilities:
+        add: ["NET_ADMIN"]
+    services:
+      labels:
+      frdi:
+        type: ClusterIP
+        annotations: {}
+        port: 3871
+      sip:
+        type: ClusterIP
+        annotations: {}
+        port: 5060
+      ipsec:
+        type: ClusterIP
+        annotations: {}
+        client:
+          port: 5100
+        server:
+          port: 6100
+    readinessProbe:
+      enabled: true
+    livenessProbe:
+      enabled: true
+    resources:
+      requests: {}
+      limits: {}
   icscf:
     hostname: icscf
+    podAnnotations: {}
+    services:
+      labels:
+      frdi:
+        type: ClusterIP
+        annotations: {}
+        port: 3869
+      sip:
+        type: ClusterIP
+        annotations: {}
+        port: 4060
+    readinessProbe:
+      enabled: true
+    livenessProbe:
+      enabled: true
+    resources:
+      requests: {}
+      limits: {}
   scscf:
     hostname: scscf
+    podAnnotations: {}
+    services:
+      labels:
+      frdi:
+        type: ClusterIP
+        annotations: {}
+        port: 3870
+      sip:
+        type: ClusterIP
+        annotations: {}
+        port: 6060
+    readinessProbe:
+      enabled: true
+    livenessProbe:
+      enabled: true
+    resources:
+      requests: {}
+      limits: {}
 
 fhoss:
   hostname: fhoss
+  replicaCount: 1
+  podAnnotations: {}
+  global:
+    imageRegistry: ""
+    ## E.g.
+    ## imagePullSecrets:
+    ##   - myRegistryKeySecretName
+    ##
+    imagePullSecrets: []
+    storageClass: ""
+  image:
+    registry: docker.io
+    repository: openverso/fhoss
+    tag: "develop"
+    digest: ""
+    ## Specify a imagePullPolicy
+    ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
+    ## ref: https://kubernetes.io/docs/user-guide/images/#pre-pulling-images
+    ##
+    pullPolicy: IfNotPresent
+    ## Optionally specify an array of imagePullSecrets.
+    ## Secrets must be manually created in the namespace.
+    ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
+    ## e.g:
+    ## pullSecrets:
+    ##   - myRegistryKeySecretName
+    ##
+    pullSecrets: []
+    ## Set to true if you would like to see extra information on logs
+    ##
+    debug: false
+  services:
+    labels:
+    frdi:
+      type: ClusertIP
+      annotations: {}
+      port: 3868
+    http:
+      type: ClusterIP
+      annotations: {}
+      port: 8080
+  readinessProbe:
+    enabled: true
+  livenessProbe:
+    enabled: true
+  resources:
+    requests: {}
+    limits: {}
+
+rtpengine:
+  replicaCount: 1
+  hostname: rtpengine
+  podAnnotations: {}
+  gatewayHostname: upf
+  portMaxRtp: 50000
+  portMinRtp: 49000
+  global:
+    imageRegistry: ""
+    ## E.g.
+    ## imagePullSecrets:
+    ##   - myRegistryKeySecretName
+    ##
+    imagePullSecrets: []
+    storageClass: ""
+  image:
+    registry: docker.io
+    repository: openverso/rtpengine
+    tag: "9.4.1.1"
+    digest: ""
+    ## Specify a imagePullPolicy
+    ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
+    ## ref: https://kubernetes.io/docs/user-guide/images/#pre-pulling-images
+    ##
+    pullPolicy: IfNotPresent
+    ## Optionally specify an array of imagePullSecrets.
+    ## Secrets must be manually created in the namespace.
+    ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
+    ## e.g:
+    ## pullSecrets:
+    ##   - myRegistryKeySecretName
+    ##
+    pullSecrets: []
+    ## Set to true if you would like to see extra information on logs
+    ##
+    debug: false
+  containerSecurityContext:
+    enabled: true
+    runAsNonRoot: false
+    privileged: false
+    capabilities:
+      add: ["NET_ADMIN"]
+  services:
+    labels:
+    ng:
+      type: ClusterIP
+      annotations: {}
+      port: 2223
+    rtp:
+      clusterIP: None
+      annotations: {}
+  readinessProbe:
+    enabled: true
+  livenessProbe:
+    enabled: true
+  resources:
+    requests: {}
+    limits: {}
+
   

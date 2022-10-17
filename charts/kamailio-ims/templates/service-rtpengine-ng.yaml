@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "common.names.fullname" . }}-ng
+  namespace: {{ .Release.Namespace | quote }}
+  labels: {{- include "common.labels.standard" . | nindent 4 }}
+  {{- if .Values.rtpengine.services.ng.annotations }}
+  annotations:
+    {{- toYaml .Values.rtpengine.services.ng.annotations | nindent 4 }}
+  {{- end }}
+spec:
+  type: {{ .Values.rtpengine.services.ng.type }}
+  externalTrafficPolicy: Cluster
+  ports:
+    - port: {{ .Values.rtpengine.services.ng.port }}
+      targetPort: rtpengine-ng
+      protocol: UDP
+      name: rtpengine-ng
+  publishNotReadyAddresses: true
+  selector: {{- include "common.labels.matchLabels" . | nindent 4 }}

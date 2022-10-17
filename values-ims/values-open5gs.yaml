@@ -53,13 +53,13 @@ mme:
   config:
     gummeiList:
       - plmn_id:
-          mcc: 001
-          mnc: 01
+          mcc: "001"
+          mnc: "01"
         mme_gid: 2
         mme_code: 1
     taiList:
       - plmn_id:
-          mcc: 001
-          mnc: 01
+          mcc: "001"
+          mnc: "01"
         tac: [1]
     networkName: Gradiant

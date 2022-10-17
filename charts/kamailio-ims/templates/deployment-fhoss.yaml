@@ -1,0 +1,63 @@
+apiVersion: {{ include "common.capabilities.deployment.apiVersion" . }}
+kind: Deployment
+metadata:
+  name: {{ include "common.names.fullname" . }}
+  labels: labels: {{- include "common.labels.standard" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.fhoss.replicaCount }}
+  selector:
+    matchLabels:
+      matchLabels: {{- include "common.labels.matchLabels" . | nindent 6 }}
+  template:
+    metadata:
+      annotations:
+        {{- if .Values.fhoss.podAnnotations }}
+        {{- include "common.tplvalues.render" (dict "value" .Values.fhoss.podAnnotations "context" $) | nindent 8 }}
+        {{- end }}
+      labels: {{- include "common.labels.standard" . | nindent 8 }}
+    spec:
+      affinity:
+        {{- toYaml .Values.fhoss.affinity | nindent 8 }}
+      containers:
+        - name: {{ include "common.names.fullname" . }}
+          image: {{ template "fhoss.image" . }}
+          imagePullPolicy: {{ .Values.fhoss.image.pullPolicy | quote }}
+          ports:
+            - name: fhoss-udp
+              containerPort: {{ .Values.fhoss.services.frdi.port }}
+              protocol: UDP
+            - name: fhoss-tcp
+              containerPort: {{ .Values.fhoss.services.frdi.port }}
+              protocol: TCP
+            - name: fhoss-http
+              containerPort: {{ .Values.fhoss.services.http.port }}
+              protocol: TCP
+          {{- if .Values.fhoss.readinessProbe.enabled }}
+          readinessProbe:
+            tcpSocket:
+              port: fhoss-tcp
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          {{- end }}
+          {{- if .Values.fhoss.readinessProbe.enabled }}
+          livenessProbe:
+            tcpSocket:
+              port: fhoss-tcp
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          {{- end }}
+          resources:
+            {{- toYaml .Values.fhoss.resources | nindent 12 }}
+          env:
+          - name: IMS_DOMAIN
+            value: {{ .Values.imsDomain | quote }}
+          - name: EPC_DOMAIN
+            value: {{ .Values.epcDomain | quote }}
+          - name: MARIADB_HOSTNAME
+            value: {{ .Values.mariadb.hostname | quote }}
+          - name: DNS_HOSTNAME
+            value: {{ .Values.dns.hostname | quote }}
+          - name: FHOSS_HOSTNAME
+            value: {{ .Values.fhoss.hostname | quote }}
+          volumeMounts:
+      volumes:

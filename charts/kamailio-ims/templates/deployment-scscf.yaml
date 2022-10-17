@@ -1,0 +1,76 @@
+apiVersion: {{ include "common.capabilities.deployment.apiVersion" . }}
+kind: Deployment
+metadata:
+  name: {{ include "common.names.fullname" . }}
+  labels: labels: {{- include "common.labels.standard" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.kamailio.replicaCount }}
+  selector:
+    matchLabels:
+      matchLabels: {{- include "common.labels.matchLabels" . | nindent 6 }}
+  template:
+    metadata:
+      annotations:
+        {{- if .Values.kamailio.scscf.podAnnotations }}
+        {{- include "common.tplvalues.render" (dict "value" .Values.kamailio.scscf.podAnnotations "context" $) | nindent 8 }}
+        {{- end }}
+      labels: {{- include "common.labels.standard" . | nindent 8 }}
+    spec:
+      affinity:
+        {{- toYaml .Values.kamailio.scscf.affinity | nindent 8 }}
+      containers:
+        - name: {{ include "common.names.fullname" . }}
+          image: {{ template "kamailio.image" . }}
+          imagePullPolicy: {{ .Values.kamailio.image.pullPolicy | quote }}
+          ports:
+            - name: scscf-frdi-udp
+              containerPort: {{ .Values.kamailio.scscf.services.frdi.port }}
+              protocol: UDP
+            - name: scscf-frdi-tcp
+              containerPort: {{ .Values.kamailio.scscf.services.frdi.port }}
+              protocol: TCP
+            - name: scscf-sip-udp
+              containerPort: {{ .Values.kamailio.scscf.services.sip.port }}
+              protocol: UDP
+            - name: scscf-sip-tcp
+              containerPort: {{ .Values.kamailio.scscf.services.sip.port }}
+              protocol: TCP
+          {{- if .Values.kamailio.scscf.readinessProbe.enabled }}
+          readinessProbe:
+            tcpSocket:
+              port: scscf-sip-tcp
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          {{- end }}
+          {{- if .Values.kamailio.scscf.readinessProbe.enabled }}
+          livenessProbe:
+            tcpSocket:
+              port: scscf-sip-tcp
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          {{- end }}
+          resources:
+            {{- toYaml .Values.kamailio.scscf.resources | nindent 12 }}
+          env:
+          - name: COMPONENT_NAME
+            value: "scscf-1"
+          - name: IMS_DOMAIN
+            value: {{ .Values.imsDomain | quote }}
+          - name: EPC_DOMAIN
+            value: {{ .Values.epcDomain | quote }}
+          - name: MARIADB_HOSTNAME
+            value: {{ .Values.mariadb.hostname | quote }}
+          - name: DNS_HOSTNAME
+            value: {{ .Values.dns.hostname | quote }}
+          - name: PCSCF_HOSTNAME
+            value: {{ .Values.kamailio.pcscf.hostname | quote }}
+          - name: ICSCF_HOSTNAME
+            value: {{ .Values.kamailio.icscf.hostname | quote }}
+          - name: SCSCF_HOSTNAME
+            value: {{ .Values.kamailio.scscf.hostname | quote }}
+          - name: RTPENGINE_HOSTNAME
+            value: {{ .Values.rtpengine.hostname | quote }}
+          - name: UPF_HOSTNAME
+            value: {{ .Values.epc.upf.hostname | quote }}
+          volumeMounts:
+      volumes:

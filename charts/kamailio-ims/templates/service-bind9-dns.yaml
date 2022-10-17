@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "common.names.fullname" . }}-dns
+  namespace: {{ .Release.Namespace | quote }}
+  labels: {{- include "common.labels.standard" . | nindent 4 }}
+  {{- if .Values.bind9.services.dns.annotations }}
+  annotations:
+    {{- toYaml .Values.bind9.services.dns.annotations | nindent 4 }}
+  {{- end }}
+spec:
+  type: {{ .Values.bind9.services.dns.type }}
+  externalTrafficPolicy: Cluster
+  ports:
+    - port: {{ .Values.bind9.services.dns.port }}
+      targetPort: bind9-tcp
+      protocol: TCP
+      name: bind9-tcp
+    - port: {{ .Values.bind9.services.dns.port }}
+      targetPort: bind9-udp
+      protocol: UDP
+      name: bind9-udp
+  publishNotReadyAddresses: true
+  selector: {{- include "common.labels.matchLabels" . | nindent 4 }}

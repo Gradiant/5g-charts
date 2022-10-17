@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "common.names.fullname" . }}-http
+  namespace: {{ .Release.Namespace | quote }}
+  labels: {{- include "common.labels.standard" . | nindent 4 }}
+  {{- if .Values.fhoss.services.http.annotations }}
+  annotations:
+    {{- toYaml .Values.fhoss.services.http.annotations | nindent 4 }}
+  {{- end }}
+spec:
+  type: {{ .Values.fhoss.services.http.type }}
+  externalTrafficPolicy: Cluster
+  ports:
+    - port: {{ .Values.fhoss.services.http.port }}
+      targetPort: fhoss-http
+      protocol: TCP
+      name: fhoss-http
+  publishNotReadyAddresses: true
+  selector: {{- include "common.labels.matchLabels" . | nindent 4 }}

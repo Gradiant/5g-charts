@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "common.names.fullname" . }}-sip
+  namespace: {{ .Release.Namespace | quote }}
+  labels: {{- include "common.labels.standard" . | nindent 4 }}
+  {{- if .Values.kamailio.pcscf.services.sip.annotations }}
+  annotations:
+    {{- toYaml .Values.kamailio.pcscf.services.sip.annotations | nindent 4 }}
+  {{- end }}
+spec:
+  type: {{ .Values.kamailio.pcscf.services.sip.type }}
+  externalTrafficPolicy: Cluster
+  ports:
+    - port: {{ .Values.kamailio.pcscf.services.sip.port }}
+      targetPort: pcscf-sip-udp
+      protocol: UDP
+      name: pcscf-sip-udp
+    - port: {{ .Values.kamailio.pcscf.services.sip.port }}
+      targetPort: pcscf-sip-tcp
+      protocol: TCP
+      name: pcscf-sip-tcp
+  publishNotReadyAddresses: true
+  selector: {{- include "common.labels.matchLabels" . | nindent 4 }}

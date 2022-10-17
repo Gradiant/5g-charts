@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "common.names.fullname" . }}-ipsec
+  namespace: {{ .Release.Namespace | quote }}
+  labels: {{- include "common.labels.standard" . | nindent 4 }}
+  {{- if .Values.kamailio.pcscf.services.ipsec.annotations }}
+  annotations:
+    {{- toYaml .Values.kamailio.pcscf.services.ipsec.annotations | nindent 4 }}
+  {{- end }}
+spec:
+  type: {{ .Values.kamailio.pcscf.services.ipsec.type }}
+  externalTrafficPolicy: Cluster
+  ports:
+    - port: {{ .Values.kamailio.pcscf.services.ipsec.client.port }}
+      targetPort: pcscf-ipsec-client-udp
+      protocol: UDP
+      name: pcscf-ipsec-client-udp
+    - port: {{ .Values.kamailio.pcscf.services.ipsec.client.port }}
+      targetPort: pcscf-ipsec-client-tcp
+      protocol: TCP
+      name: pcscf-ipsec-client-tcp
+    - port: {{ .Values.kamailio.pcscf.services.ipsec.server.port }}
+      targetPort: pcscf-ipsec-server-udp
+      protocol: UDP
+      name: pcscf-ipsec-server-udp
+    - port: {{ .Values.kamailio.pcscf.services.ipsec.server.port }}
+      targetPort: pcscf-ipsec-server-tcp
+      protocol: TCP
+      name: pcscf-ipsec-server-tcp
+  publishNotReadyAddresses: true
+  selector: {{- include "common.labels.matchLabels" . | nindent 4 }}

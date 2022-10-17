@@ -28,22 +28,25 @@ spec:
           imagePullPolicy: {{ .Values.bind9.image.pullPolicy | quote }}
           ports:
             - name: bind9-tcp
-              containerPort: {{ .Values.bind9.services.tcp.targetPort }}
+              containerPort: {{ .Values.bind9.services.dns.port }}
               protocol: TCP
             - name: bind9-udp
-              containerPort: {{ .Values.bind9.services.udp.targetPort }}
+              containerPort: {{ .Values.bind9.services.dns.port }}
               protocol: UDP
+            - name: bind9-rndc
+              containerPort: {{ .Values.bind9.services.rndc.port }}
+              protocol: TCP
           {{- if .Values.bind9.readinessProbe.enabled }}
           readinessProbe:
             tcpSocket:
-              port: dns-tcp
+              port: bind9-tcp
             initialDelaySeconds: 5
             periodSeconds: 10
           {{- end }}
           {{- if .Values.bind9.readinessProbe.enabled }}
           livenessProbe:
             tcpSocket:
-              port: dns-udp
+              port: bind9-tcp
             initialDelaySeconds: 5
             periodSeconds: 10
           {{- end }}
@@ -51,9 +54,9 @@ spec:
             {{- toYaml .Values.bind9.resources | nindent 12 }}
           env:
           - name: IMS_DOMAIN
-            value: {{ .Values.ims_domain | quote }}
+            value: {{ .Values.imsDomain | quote }}
           - name: EPC_DOMAIN
-            value: {{ .Values.epc_domain | quote }}
+            value: {{ .Values.epcDomain | quote }}
           - name: BIND_HOSTNAME
             value: {{ .Values.bind9.hostname | quote }}
           - name: PCSCF_HOSTNAME
@@ -64,6 +67,8 @@ spec:
             value: {{ .Values.kamailio.icscf.hostname | quote }}
           - name: FHOSS_HOSTNAME
             value: {{ .Values.fhoss.hostname | quote }}
+          - name: PCRF_HOSTNAME
+            value: {{ .Values.epc.pcrf.hostname | quote }}
           volumeMounts:
             - name: bind9-entrypoint
               mountPath:  /bind9-entrypoint.sh

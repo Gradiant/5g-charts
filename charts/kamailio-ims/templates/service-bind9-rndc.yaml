@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "common.names.fullname" . }}-rndc
+  namespace: {{ .Release.Namespace | quote }}
+  labels: {{- include "common.labels.standard" . | nindent 4 }}
+  {{- if .Values.bind9.services.rndc.annotations }}
+  annotations:
+    {{- toYaml .Values.bind9.services.rndc.annotations | nindent 4 }}
+  {{- end }}
+spec:
+  type: {{ .Values.bind9.services.rndc.type }}
+  externalTrafficPolicy: Cluster
+  ports:
+    - port: {{ .Values.bind9.services.rndc.port }}
+      targetPort: bind9-rndc
+      protocol: TCP
+      name: bind9-rndc
+  publishNotReadyAddresses: true
+  selector: {{- include "common.labels.matchLabels" . | nindent 4 }}

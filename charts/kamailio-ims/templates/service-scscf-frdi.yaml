@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "common.names.fullname" . }}-frdi
+  namespace: {{ .Release.Namespace | quote }}
+  labels: {{- include "common.labels.standard" . | nindent 4 }}
+  {{- if .Values.kamailio.scscf.services.frdi.annotations }}
+  annotations:
+    {{- toYaml .Values.kamailio.scscf.services.frdi.annotations | nindent 4 }}
+  {{- end }}
+spec:
+  type: {{ .Values.kamailio.scscf.services.frdi.type }}
+  externalTrafficPolicy: Cluster
+  ports:
+    - port: {{ .Values.kamailio.scscf.services.frdi.port }}
+      targetPort: scscf-frdi-udp
+      protocol: UDP
+      name: scscf-frdi-udp
+    - port: {{ .Values.kamailio.scscf.services.frdi.port }}
+      targetPort: scscf-frdi-tcp
+      protocol: TCP
+      name: scscf-frdi-tcp
+  publishNotReadyAddresses: true
+  selector: {{- include "common.labels.matchLabels" . | nindent 4 }}

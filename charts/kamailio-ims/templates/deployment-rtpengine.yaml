@@ -1,0 +1,64 @@
+apiVersion: {{ include "common.capabilities.deployment.apiVersion" . }}
+kind: Deployment
+metadata:
+  name: {{ include "common.names.fullname" . }}
+  labels: labels: {{- include "common.labels.standard" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.rtpengine.replicaCount }}
+  selector:
+    matchLabels:
+      matchLabels: {{- include "common.labels.matchLabels" . | nindent 6 }}
+  template:
+    metadata:
+      annotations:
+        {{- if .Values.rtpengine.podAnnotations }}
+        {{- include "common.tplvalues.render" (dict "value" .Values.rtpengine.podAnnotations "context" $) | nindent 8 }}
+        {{- end }}
+      labels: {{- include "common.labels.standard" . | nindent 8 }}
+    spec:
+      hostNetwork: true # Needed for working as headless service
+      affinity:
+        {{- toYaml .Values.rtpengine.affinity | nindent 8 }}
+      containers:
+        - name: {{ include "common.names.fullname" . }}
+          image: {{ template "rtpengine.image" . }}
+          imagePullPolicy: {{ .Values.rtpengine.image.pullPolicy | quote }}
+          {{- if .Values.rtpengine.containerSecurityContext.enabled }}
+          securityContext: {{- omit .Values.rtpengine.containerSecurityContext "enabled" | toYaml | nindent 12 }}
+          {{- end }}
+          ports:
+            - name: rtpengine-ng
+              containerPort: {{ .Values.rtpengine.services.ng.port }}
+              protocol: UDP
+            # - name: rtpengine-udp
+            #   containerPort: {{ .Values.rtpengine.services.udp.port }}
+            #   protocol: UDP
+          {{- if .Values.rtpengine.readinessProbe.enabled }}
+          readinessProbe:
+            tcpSocket:
+              port: rtpengine-ng
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          {{- end }}
+          {{- if .Values.rtpengine.readinessProbe.enabled }}
+          livenessProbe:
+            tcpSocket:
+              port: rtpengine-ng
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          {{- end }}
+          resources:
+            {{- toYaml .Values.rtpengine.resources | nindent 12 }}
+          env:
+          - name: GW_HOSTNAME
+            value: {{ .Values.rtpengine.gatewayHostname | quote }}
+          - name: APN_IMS_SUBNET
+            value: {{ .Values.apnImsSubnet | quote }}
+          - name: RTPENGINE_HOSTNAME
+            value: {{ .Values.rtpengine.hostname | quote }}
+          - name: PORT_MAX
+            value: {{ .Values.rtpengine.portMaxRtp | quote }}
+          - name: PORT_MIN
+            value: {{ .Values.rtpengine.portMinRtp | quote }}
+          volumeMounts:
+      volumes:
