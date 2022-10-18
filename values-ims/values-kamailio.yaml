@@ -24,10 +24,6 @@ bind9:
   podAnnotations: {}
   global:
     imageRegistry: ""
-    ## E.g.
-    ## imagePullSecrets:
-    ##   - myRegistryKeySecretName
-    ##
     imagePullSecrets: []
     storageClass: ""
   image:
@@ -35,21 +31,8 @@ bind9:
     repository: internetsystemsconsortium/bind9
     tag: "9.18"
     digest: ""
-    ## Specify a imagePullPolicy
-    ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
-    ## ref: https://kubernetes.io/docs/user-guide/images/#pre-pulling-images
-    ##
     pullPolicy: IfNotPresent
-    ## Optionally specify an array of imagePullSecrets.
-    ## Secrets must be manually created in the namespace.
-    ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
-    ## e.g:
-    ## pullSecrets:
-    ##   - myRegistryKeySecretName
-    ##
     pullSecrets: []
-    ## Set to true if you would like to see extra information on logs
-    ##
     debug: false
   services:
     labels:
@@ -73,10 +56,6 @@ kamailio:
   replicaCount: 1
   global:
     imageRegistry: ""
-    ## E.g.
-    ## imagePullSecrets:
-    ##   - myRegistryKeySecretName
-    ##
     imagePullSecrets: []
     storageClass: ""
   image:
@@ -84,21 +63,8 @@ kamailio:
     repository: openverso/kamailio-ims
     tag: "5.3-dev"
     digest: ""
-    ## Specify a imagePullPolicy
-    ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
-    ## ref: https://kubernetes.io/docs/user-guide/images/#pre-pulling-images
-    ##
     pullPolicy: IfNotPresent
-    ## Optionally specify an array of imagePullSecrets.
-    ## Secrets must be manually created in the namespace.
-    ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
-    ## e.g:
-    ## pullSecrets:
-    ##   - myRegistryKeySecretName
-    ##
     pullSecrets: []
-    ## Set to true if you would like to see extra information on logs
-    ##
     debug: false
   pcscf:
     hostname: pcscf
@@ -180,10 +146,6 @@ fhoss:
   podAnnotations: {}
   global:
     imageRegistry: ""
-    ## E.g.
-    ## imagePullSecrets:
-    ##   - myRegistryKeySecretName
-    ##
     imagePullSecrets: []
     storageClass: ""
   image:
@@ -191,21 +153,8 @@ fhoss:
     repository: openverso/fhoss
     tag: "develop"
     digest: ""
-    ## Specify a imagePullPolicy
-    ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
-    ## ref: https://kubernetes.io/docs/user-guide/images/#pre-pulling-images
-    ##
     pullPolicy: IfNotPresent
-    ## Optionally specify an array of imagePullSecrets.
-    ## Secrets must be manually created in the namespace.
-    ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
-    ## e.g:
-    ## pullSecrets:
-    ##   - myRegistryKeySecretName
-    ##
     pullSecrets: []
-    ## Set to true if you would like to see extra information on logs
-    ##
     debug: false
   services:
     labels:
@@ -234,10 +183,6 @@ rtpengine:
   portMinRtp: 49000
   global:
     imageRegistry: ""
-    ## E.g.
-    ## imagePullSecrets:
-    ##   - myRegistryKeySecretName
-    ##
     imagePullSecrets: []
     storageClass: ""
   image:
@@ -245,21 +190,8 @@ rtpengine:
     repository: openverso/rtpengine
     tag: "9.4.1.1"
     digest: ""
-    ## Specify a imagePullPolicy
-    ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
-    ## ref: https://kubernetes.io/docs/user-guide/images/#pre-pulling-images
-    ##
     pullPolicy: IfNotPresent
-    ## Optionally specify an array of imagePullSecrets.
-    ## Secrets must be manually created in the namespace.
-    ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
-    ## e.g:
-    ## pullSecrets:
-    ##   - myRegistryKeySecretName
-    ##
     pullSecrets: []
-    ## Set to true if you would like to see extra information on logs
-    ##
     debug: false
   containerSecurityContext:
     enabled: true

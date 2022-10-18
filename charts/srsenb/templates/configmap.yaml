@@ -9,3 +9,7 @@ data:
 {{ tpl (.Files.Get "resources/enb.conf") . | indent 4 }}
   rr.conf: |
 {{ tpl (.Files.Get "resources/rr.conf") . | indent 4 }}
+  {{- if .Values.enb.ims.enabled }}
+  rb.conf: |
+{{ tpl (.Files.Get "resources/rb.conf") . | indent 4 }}
+  {{- end }}

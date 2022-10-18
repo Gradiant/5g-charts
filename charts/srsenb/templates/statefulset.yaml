@@ -44,6 +44,11 @@ spec:
         - name: srsenb-config
           mountPath: /etc/srsran/enb.conf
           subPath: "enb.conf"
+        {{- if .Values.enb.ims.enabled }}
+        - name: srsenb-config
+          mountPath: /etc/srsran/rb.conf
+          subPath: "rb.conf"
+        {{- end }}
       volumes:
       - name: srsenb-config
         configMap:

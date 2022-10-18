@@ -1,0 +1,18 @@
+image:
+  registry: docker.io
+  repository: openverso/srsran
+  tag: "22_04_1"
+  pullPolicy: IfNotPresent
+
+device:
+  name: auto
+  args: auto
+
+enb:
+  mcc: '001'
+  mnc: '01'
+  tac: '0001'
+  mme: open5gs-mme-s1ap
+resources:
+  limits:
+    ettus.com/usrp: 1

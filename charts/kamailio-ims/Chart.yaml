@@ -8,7 +8,7 @@ sources:
 maintainers:
 - email: mmarquez@gradiant.org
   name: mmarquez999
-name: open5gs
+name: kamailio-ims
 version: 0.0.0
 keywords:
   - ims
@@ -19,10 +19,6 @@ dependencies:
     tags:
       - bitnami-common
     version: 1.x.x
-  - name: mongodb
-    version: ~12.1.19
-    repository: https://charts.bitnami.com/bitnami
-    condition: mongodb.enabled
   - name: mariadb
     version: 11.3.1
     repository: https://charts.bitnami.com/bitnami
