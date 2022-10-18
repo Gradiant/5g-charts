@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "common.names.fullname" . }}-frdi
+  name: {{ include "common.names.fullname" . }}-pcscf-frdi
   namespace: {{ .Release.Namespace | quote }}
   labels: {{- include "common.labels.standard" . | nindent 4 }}
   {{- if .Values.kamailio.pcscf.services.frdi.annotations }}
@@ -10,7 +10,9 @@ metadata:
   {{- end }}
 spec:
   type: {{ .Values.kamailio.pcscf.services.frdi.type }}
+  {{- if or (eq .Values.kamailio.pcscf.services.frdi.type "LoadBalancer") (eq .Values.kamailio.pcscf.services.frdi.type "NodePort") }}
   externalTrafficPolicy: Cluster
+  {{- end }}
   ports:
     - port: {{ .Values.kamailio.pcscf.services.frdi.port }}
       targetPort: pcscf-frdi-udp

@@ -1,13 +1,12 @@
 apiVersion: {{ include "common.capabilities.deployment.apiVersion" . }}
 kind: Deployment
 metadata:
-  name: {{ include "common.names.fullname" . }}
-  labels: labels: {{- include "common.labels.standard" . | nindent 4 }}
+  name: {{ include "common.names.fullname" . }}-pcscf
+  labels: {{- include "common.labels.standard" . | nindent 4 }}
 spec:
   replicas: {{ .Values.kamailio.replicaCount }}
   selector:
-    matchLabels:
-      matchLabels: {{- include "common.labels.matchLabels" . | nindent 6 }}
+    matchLabels: {{- include "common.labels.matchLabels" . | nindent 6 }}
   template:
     metadata:
       annotations:
@@ -38,16 +37,16 @@ spec:
             - name: pcscf-sip-tcp
               containerPort: {{ .Values.kamailio.pcscf.services.sip.port }}
               protocol: TCP
-            - name: pcscf-ipsec-client-udp
+            - name: pcscf-ipseccudp
               containerPort: {{ .Values.kamailio.pcscf.services.ipsec.client.port }}
               protocol: UDP
-            - name: pcscf-ipsec-client-tcp
+            - name: pcscf-ipsecctcp
               containerPort: {{ .Values.kamailio.pcscf.services.ipsec.client.port }}
               protocol: TCP
-            - name: pcscf-ipsec-server-udp
+            - name: pcscf-ipsecsudp
               containerPort: {{ .Values.kamailio.pcscf.services.ipsec.server.port }}
               protocol: UDP
-            - name: pcscf-ipsec-server-tcp
+            - name: pcscf-ipsecstcp
               containerPort: {{ .Values.kamailio.pcscf.services.ipsec.server.port }}
               protocol: TCP
           {{- if .Values.kamailio.pcscf.readinessProbe.enabled }}
@@ -76,7 +75,7 @@ spec:
           - name: MARIADB_HOSTNAME
             value: {{ .Values.mariadb.hostname | quote }}
           - name: DNS_HOSTNAME
-            value: {{ .Values.dns.hostname | quote }}
+            value: {{ .Values.bind9.hostname | quote }}
           - name: PCSCF_HOSTNAME
             value: {{ .Values.kamailio.pcscf.hostname | quote }}
           - name: ICSCF_HOSTNAME
@@ -86,6 +85,6 @@ spec:
           - name: RTPENGINE_HOSTNAME
             value: {{ .Values.rtpengine.hostname | quote }}
           - name: UPF_HOSTNAME
-            value: {{ .Values.epc.upf.hostname | quote }}
+            value: {{ .Values.epc.upfHostname | quote }}
           volumeMounts:
       volumes:

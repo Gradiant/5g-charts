@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "common.names.fullname" . }}-ng
+  name: {{ include "common.names.fullname" . }}-rtpengine-ng
   namespace: {{ .Release.Namespace | quote }}
   labels: {{- include "common.labels.standard" . | nindent 4 }}
   {{- if .Values.rtpengine.services.ng.annotations }}
@@ -10,7 +10,9 @@ metadata:
   {{- end }}
 spec:
   type: {{ .Values.rtpengine.services.ng.type }}
+  {{- if or (eq .Values.rtpengine.services.ng.type "LoadBalancer") (eq .Values.rtpengine.services.ng.type "NodePort") }}
   externalTrafficPolicy: Cluster
+  {{- end }}
   ports:
     - port: {{ .Values.rtpengine.services.ng.port }}
       targetPort: rtpengine-ng

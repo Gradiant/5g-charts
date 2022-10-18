@@ -10,7 +10,9 @@ metadata:
   {{- end }}
 spec:
   type: {{ .Values.bind9.services.dns.type }}
+  {{- if or (eq .Values.bind9.services.dns.type "LoadBalancer") (eq .Values.bind9.services.dns.type "NodePort") }}
   externalTrafficPolicy: Cluster
+  {{- end }}
   ports:
     - port: {{ .Values.bind9.services.dns.port }}
       targetPort: bind9-tcp

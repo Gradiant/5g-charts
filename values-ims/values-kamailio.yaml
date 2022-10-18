@@ -159,7 +159,7 @@ fhoss:
   services:
     labels:
     frdi:
-      type: ClusertIP
+      type: ClusterIP
       annotations: {}
       port: 3868
     http:

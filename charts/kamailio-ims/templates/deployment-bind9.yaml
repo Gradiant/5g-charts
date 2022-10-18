@@ -1,19 +1,18 @@
 apiVersion: {{ include "common.capabilities.deployment.apiVersion" . }}
 kind: Deployment
 metadata:
-  name: {{ include "common.names.fullname" . }}
-  labels: labels: {{- include "common.labels.standard" . | nindent 4 }}
+  name: {{ include "common.names.fullname" . }}-bind9
+  labels: {{- include "common.labels.standard" . | nindent 4 }}
 spec:
   replicas: {{ .Values.bind9.replicaCount }}
   selector:
-    matchLabels:
-      matchLabels: {{- include "common.labels.matchLabels" . | nindent 6 }}
+    matchLabels: {{- include "common.labels.matchLabels" . | nindent 6 }}
   template:
     metadata:
       # Bind requires a restart to pick up changes in zone configs
       # This roll will restart the Pod on every upgrade
-      roll: {{ randAlphaNum 5 | quote }}
       annotations:
+        rollme: {{ randAlphaNum 5 | quote }}
         {{- if .Values.bind9.podAnnotations }}
         {{- include "common.tplvalues.render" (dict "value" .Values.bind9.podAnnotations "context" $) | nindent 8 }}
         {{- end }}
@@ -68,15 +67,23 @@ spec:
           - name: FHOSS_HOSTNAME
             value: {{ .Values.fhoss.hostname | quote }}
           - name: PCRF_HOSTNAME
-            value: {{ .Values.epc.pcrf.hostname | quote }}
+            value: {{ .Values.epc.pcrfHostname | quote }}
           volumeMounts:
             - name: bind9-entrypoint
               mountPath:  /bind9-entrypoint.sh
               subPath: bind9-entrypoint.sh
             - name: bind9-config
-              mountPath: /etc/bind
-            - name: bind9-zone-config
-              mountPath: /etc/bind
+              mountPath: /etc/bind/named.conf
+              subPath: "named.conf"
+            - name: bind9-config
+              mountPath: /etc/bind/epc_zone
+              subPath: "epc_zone"
+            - name: bind9-config
+              mountPath: /etc/bind/ims_zone
+              subPath: "ims_zone"
+            - name: bind9-config
+              mountPath: /etc/bind/e164.arpa
+              subPath: "e164.arpa"
       volumes:
         - name: bind9-config
           configMap:
@@ -84,10 +91,6 @@ spec:
             items:
               - key: named.conf
                 path: named.conf
-        - name: bind9-zone-config
-          configMap:
-            name: kamailio-ims-bind9-zone-config
-            items:
               - key: epc_zone
                 path: epc_zone
               - key: ims_zone

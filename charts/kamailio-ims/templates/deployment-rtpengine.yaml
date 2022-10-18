@@ -1,13 +1,12 @@
 apiVersion: {{ include "common.capabilities.deployment.apiVersion" . }}
 kind: Deployment
 metadata:
-  name: {{ include "common.names.fullname" . }}
-  labels: labels: {{- include "common.labels.standard" . | nindent 4 }}
+  name: {{ include "common.names.fullname" . }}-rtpengine
+  labels: {{- include "common.labels.standard" . | nindent 4 }}
 spec:
   replicas: {{ .Values.rtpengine.replicaCount }}
   selector:
-    matchLabels:
-      matchLabels: {{- include "common.labels.matchLabels" . | nindent 6 }}
+    matchLabels: {{- include "common.labels.matchLabels" . | nindent 6 }}
   template:
     metadata:
       annotations:
@@ -16,7 +15,7 @@ spec:
         {{- end }}
       labels: {{- include "common.labels.standard" . | nindent 8 }}
     spec:
-      hostNetwork: true # Needed for working as headless service
+      hostNetwork: true
       affinity:
         {{- toYaml .Values.rtpengine.affinity | nindent 8 }}
       containers:
@@ -30,9 +29,6 @@ spec:
             - name: rtpengine-ng
               containerPort: {{ .Values.rtpengine.services.ng.port }}
               protocol: UDP
-            # - name: rtpengine-udp
-            #   containerPort: {{ .Values.rtpengine.services.udp.port }}
-            #   protocol: UDP
           {{- if .Values.rtpengine.readinessProbe.enabled }}
           readinessProbe:
             tcpSocket:

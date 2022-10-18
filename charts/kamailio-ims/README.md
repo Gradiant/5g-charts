@@ -74,7 +74,7 @@ Helm chart to deploy Kamailio IMS on Kubernetes.
 | fhoss.resources.requests | object | `{}` |  |
 | fhoss.services.frdi.annotations | object | `{}` |  |
 | fhoss.services.frdi.port | int | `3868` |  |
-| fhoss.services.frdi.type | string | `"ClusertIP"` |  |
+| fhoss.services.frdi.type | string | `"ClusterIP"` |  |
 | fhoss.services.http.annotations | object | `{}` |  |
 | fhoss.services.http.port | int | `8080` |  |
 | fhoss.services.http.type | string | `"ClusterIP"` |  |

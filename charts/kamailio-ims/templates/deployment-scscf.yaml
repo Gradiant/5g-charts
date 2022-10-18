@@ -1,13 +1,12 @@
 apiVersion: {{ include "common.capabilities.deployment.apiVersion" . }}
 kind: Deployment
 metadata:
-  name: {{ include "common.names.fullname" . }}
-  labels: labels: {{- include "common.labels.standard" . | nindent 4 }}
+  name: {{ include "common.names.fullname" . }}-scscf
+  labels: {{- include "common.labels.standard" . | nindent 4 }}
 spec:
   replicas: {{ .Values.kamailio.replicaCount }}
   selector:
-    matchLabels:
-      matchLabels: {{- include "common.labels.matchLabels" . | nindent 6 }}
+    matchLabels: {{- include "common.labels.matchLabels" . | nindent 6 }}
   template:
     metadata:
       annotations:
@@ -61,7 +60,7 @@ spec:
           - name: MARIADB_HOSTNAME
             value: {{ .Values.mariadb.hostname | quote }}
           - name: DNS_HOSTNAME
-            value: {{ .Values.dns.hostname | quote }}
+            value: {{ .Values.bind9.hostname | quote }}
           - name: PCSCF_HOSTNAME
             value: {{ .Values.kamailio.pcscf.hostname | quote }}
           - name: ICSCF_HOSTNAME
@@ -71,6 +70,6 @@ spec:
           - name: RTPENGINE_HOSTNAME
             value: {{ .Values.rtpengine.hostname | quote }}
           - name: UPF_HOSTNAME
-            value: {{ .Values.epc.upf.hostname | quote }}
+            value: {{ .Values.epc.upfHostname | quote }}
           volumeMounts:
       volumes:

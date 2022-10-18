@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "common.names.fullname" . }}-http
+  name: {{ include "common.names.fullname" . }}-fhoss-http
   namespace: {{ .Release.Namespace | quote }}
   labels: {{- include "common.labels.standard" . | nindent 4 }}
   {{- if .Values.fhoss.services.http.annotations }}
@@ -10,7 +10,9 @@ metadata:
   {{- end }}
 spec:
   type: {{ .Values.fhoss.services.http.type }}
+  {{- if or (eq .Values.fhoss.services.http.type "LoadBalancer") (eq .Values.fhoss.services.http.type "NodePort") }}
   externalTrafficPolicy: Cluster
+  {{- end }}
   ports:
     - port: {{ .Values.fhoss.services.http.port }}
       targetPort: fhoss-http

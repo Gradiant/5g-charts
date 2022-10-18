@@ -1,13 +1,12 @@
 apiVersion: {{ include "common.capabilities.deployment.apiVersion" . }}
 kind: Deployment
 metadata:
-  name: {{ include "common.names.fullname" . }}
-  labels: labels: {{- include "common.labels.standard" . | nindent 4 }}
+  name: {{ include "common.names.fullname" . }}-fhoss
+  labels: {{- include "common.labels.standard" . | nindent 4 }}
 spec:
   replicas: {{ .Values.fhoss.replicaCount }}
   selector:
-    matchLabels:
-      matchLabels: {{- include "common.labels.matchLabels" . | nindent 6 }}
+    matchLabels: {{- include "common.labels.matchLabels" . | nindent 6 }}
   template:
     metadata:
       annotations:
@@ -56,7 +55,7 @@ spec:
           - name: MARIADB_HOSTNAME
             value: {{ .Values.mariadb.hostname | quote }}
           - name: DNS_HOSTNAME
-            value: {{ .Values.dns.hostname | quote }}
+            value: {{ .Values.bind9.hostname | quote }}
           - name: FHOSS_HOSTNAME
             value: {{ .Values.fhoss.hostname | quote }}
           volumeMounts:

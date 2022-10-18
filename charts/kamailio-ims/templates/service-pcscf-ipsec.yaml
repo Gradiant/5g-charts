@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "common.names.fullname" . }}-ipsec
+  name: {{ include "common.names.fullname" . }}-pcscf-ipsec
   namespace: {{ .Release.Namespace | quote }}
   labels: {{- include "common.labels.standard" . | nindent 4 }}
   {{- if .Values.kamailio.pcscf.services.ipsec.annotations }}
@@ -10,23 +10,25 @@ metadata:
   {{- end }}
 spec:
   type: {{ .Values.kamailio.pcscf.services.ipsec.type }}
+  {{- if or (eq .Values.kamailio.pcscf.services.ipsec.type "LoadBalancer") (eq .Values.kamailio.pcscf.services.ipsec.type "NodePort") }}
   externalTrafficPolicy: Cluster
+  {{- end }}
   ports:
     - port: {{ .Values.kamailio.pcscf.services.ipsec.client.port }}
-      targetPort: pcscf-ipsec-client-udp
+      targetPort: pcscf-ipseccudp
       protocol: UDP
-      name: pcscf-ipsec-client-udp
+      name: pcscf-ipseccudp
     - port: {{ .Values.kamailio.pcscf.services.ipsec.client.port }}
-      targetPort: pcscf-ipsec-client-tcp
+      targetPort: pcscf-ipsecctcp
       protocol: TCP
-      name: pcscf-ipsec-client-tcp
+      name: pcscf-ipsecctcp
     - port: {{ .Values.kamailio.pcscf.services.ipsec.server.port }}
-      targetPort: pcscf-ipsec-server-udp
+      targetPort: pcscf-ipsecsudp
       protocol: UDP
-      name: pcscf-ipsec-server-udp
+      name: pcscf-ipsecsudp
     - port: {{ .Values.kamailio.pcscf.services.ipsec.server.port }}
-      targetPort: pcscf-ipsec-server-tcp
+      targetPort: pcscf-ipsecstcp
       protocol: TCP
-      name: pcscf-ipsec-server-tcp
+      name: pcscf-ipsecstcp
   publishNotReadyAddresses: true
   selector: {{- include "common.labels.matchLabels" . | nindent 4 }}
