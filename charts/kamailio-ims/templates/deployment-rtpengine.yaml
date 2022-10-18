@@ -51,7 +51,7 @@ spec:
           - name: APN_IMS_SUBNET
             value: {{ .Values.apnImsSubnet | quote }}
           - name: RTPENGINE_HOSTNAME
-            value: {{ .Values.rtpengine.hostname | quote }}
+            value: ""
           - name: PORT_MAX
             value: {{ .Values.rtpengine.portMaxRtp | quote }}
           - name: PORT_MIN

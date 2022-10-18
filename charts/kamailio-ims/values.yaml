@@ -15,8 +15,8 @@ mariadb:
   initdbScriptsConfigMap: "kamailio-ims-mariadb-entrypoint"
 
 epc:
-  pcrfHostname: pcrf
-  upfHostname: upf
+  pcrfHostname: open5gs-pcrf-frdi
+  upfHostname: open5gs-upf-gtpu
 
 bind9:
   hostname: bind9
@@ -229,7 +229,7 @@ rtpengine:
   replicaCount: 1
   hostname: rtpengine
   podAnnotations: {}
-  gatewayHostname: upf
+  gatewayHostname: open5gs-upf-gtpu
   portMaxRtp: 50000
   portMinRtp: 49000
   global:

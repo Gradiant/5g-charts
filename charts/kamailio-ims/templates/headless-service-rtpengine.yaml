@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "common.names.fullname" . }}-rtp
+  name: {{ include "common.names.fullname" . }}-rtpengine-rtp
   namespace: {{ .Release.Namespace | quote }}
   labels: {{- include "common.labels.standard" . | nindent 4 }}
   {{- if .Values.rtpengine.services.rtp.annotations }}

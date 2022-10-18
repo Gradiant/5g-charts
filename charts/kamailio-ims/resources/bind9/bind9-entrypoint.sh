@@ -2,7 +2,7 @@
 
 # dnsutils package needed in order to use host command
 apt-get update
-apt-get install dnsutils -y
+apt-get install dnsutils ed -y
 
 if [[ ! -z "$FHOSS_HOSTNAME" ]] ; then 
     export FHOSS_ADDR="$(host -4 $FHOSS_HOSTNAME |awk '/has.*address/{print $NF; exit}')"
@@ -39,23 +39,52 @@ exit 1
 fi
 
 #Replacements in named.conf
-sed -i 's|${IMS_DOMAIN}|'$IMS_DOMAIN'|g' /etc/bind/named.conf
-sed -i 's|${EPC_DOMAIN}|'$EPC_DOMAIN'|g' /etc/bind/named.conf
+ed /etc/bind/named.conf << END
+g/{IMS_DOMAIN}/s//${IMS_DOMAIN}/
+g/{EPC_DOMAIN}/s//${EPC_DOMAIN}/
+.
+w
+q
+END
+echo "Printing resulting named.conf...."
+cat /etc/bind/named.conf
 
 #Replacements in e164.arpa
-sed -i 's|${BIND_ADDR}|'$BIND_ADDR'|g' /etc/bind/e164.arpa
-sed -i 's|${IMS_DOMAIN}|'$IMS_DOMAIN'|g' /etc/bind/e164.arpa
+ed /etc/bind/e164.arpa << END
+g/{BIND_ADDR}/s//${BIND_ADDR}/
+g/{IMS_DOMAIN}/s//${IMS_DOMAIN}/
+.
+w
+q
+END
+echo "Printing resulting e164.arpa...."
+cat /etc/bind/e164.arpa
 
 #Replacements in epc_zone
-sed -i 's|${EPC_DOMAIN}|'$EPC_DOMAIN'|g' /etc/bind/epc_zone
-sed -i 's|${BIND_ADDR}|'$BIND_ADDR'|g' /etc/bind/epc_zone
-sed -i 's|${PCRF_ADDR}|'$PCRF_ADDR'|g' /etc/bind/epc_zone
+ed /etc/bind/epc_zone << END
+g/{BIND_ADDR}/s//${BIND_ADDR}/
+g/{PCRF_ADDR}/s//${PCRF_ADDR}/
+g/{EPC_DOMAIN}/s//${EPC_DOMAIN}/
+.
+w
+q
+END
+echo "Printing resulting epc_zone...."
+cat /etc/bind/epc_zone
 
 #Replacements in ims_zone
-sed -i 's|${IMS_DOMAIN}|'$IMS_DOMAIN'|g' /etc/bind/ims_zone
-sed -i 's|${BIND_ADDR}|'$BIND_ADDR'|g' /etc/bind/ims_zone
-sed -i 's|${PCSCF_ADDR}|'$PCSCF_ADDR'|g' /etc/bind/ims_zone
-sed -i 's|${ICSCF_ADDR}|'$ICSCF_ADDR'|g' /etc/bind/ims_zone
-sed -i 's|${SCSCF_ADDR}|'$SCSCF_ADDR'|g' /etc/bind/ims_zone
-sed -i 's|${FHOSS_ADDR}|'$FHOSS_ADDR'|g' /etc/bind/ims_zone
+ed /etc/bind/ims_zone << END
+g/{BIND_ADDR}/s//${BIND_ADDR}/
+g/{PCSCF_ADDR}/s//${PCSCF_ADDR}/
+g/{ICSCF_ADDR}/s//${ICSCF_ADDR}/
+g/{SCSCF_ADDR}/s//${SCSCF_ADDR}/
+g/{FHOSS_ADDR}/s//${FHOSS_ADDR}/
+g/{IMS_DOMAIN}/s//${IMS_DOMAIN}/
+.
+w
+q
+END
+echo "Printing resulting ims_zone...."
+cat /etc/bind/ims_zone
 
+tail -f /dev/null

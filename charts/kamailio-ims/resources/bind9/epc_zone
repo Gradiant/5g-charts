@@ -1,4 +1,4 @@
-$ORIGIN ${EPC_DOMAIN}.
+$ORIGIN {EPC_DOMAIN}.
 $TTL 1W
 @                       1D IN SOA       localhost. root.localhost. (
                                         1		; serial

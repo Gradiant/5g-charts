@@ -73,17 +73,17 @@ spec:
           - name: EPC_DOMAIN
             value: {{ .Values.epcDomain | quote }}
           - name: MARIADB_HOSTNAME
-            value: {{ .Values.mariadb.hostname | quote }}
+            value: {{ (printf "%s-mariadb" .Release.Name) | quote }}
           - name: DNS_HOSTNAME
-            value: {{ .Values.bind9.hostname | quote }}
+            value: {{ (printf "%s-bind9-dns" .Release.Name) | quote }}
           - name: PCSCF_HOSTNAME
-            value: {{ .Values.kamailio.pcscf.hostname | quote }}
+            value: {{ (printf "%s-pcscf-sip" .Release.Name) | quote }}
           - name: ICSCF_HOSTNAME
-            value: {{ .Values.kamailio.icscf.hostname | quote }}
+            value: {{ (printf "%s-icscf-sip" .Release.Name) | quote }}
           - name: SCSCF_HOSTNAME
-            value: {{ .Values.kamailio.scscf.hostname | quote }}
+            value: {{ (printf "%s-scscf-sip" .Release.Name) | quote }}
           - name: RTPENGINE_HOSTNAME
-            value: {{ .Values.rtpengine.hostname | quote }}
+            value: {{ (printf "%s-rtpengine-ng" .Release.Name) | quote }}
           - name: UPF_HOSTNAME
             value: {{ .Values.epc.upfHostname | quote }}
           volumeMounts:

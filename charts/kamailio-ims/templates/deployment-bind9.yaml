@@ -25,6 +25,10 @@ spec:
         - name: {{ include "common.names.fullname" . }}
           image: {{ template "bind9.image" . }}
           imagePullPolicy: {{ .Values.bind9.image.pullPolicy | quote }}
+          command:
+            - "/bin/bash" 
+            - "-c"
+            - "/bind9-entrypoint.sh"
           ports:
             - name: bind9-tcp
               containerPort: {{ .Values.bind9.services.dns.port }}
@@ -57,15 +61,15 @@ spec:
           - name: EPC_DOMAIN
             value: {{ .Values.epcDomain | quote }}
           - name: BIND_HOSTNAME
-            value: {{ .Values.bind9.hostname | quote }}
+            value: {{ (printf "%s-bind9-dns" .Release.Name) | quote }}
           - name: PCSCF_HOSTNAME
-            value: {{ .Values.kamailio.pcscf.hostname | quote }}
+            value: {{ (printf "%s-pcscf-sip" .Release.Name) | quote }}
           - name: SCSCF_HOSTNAME
-            value: {{ .Values.kamailio.scscf.hostname | quote }}
+            value: {{ (printf "%s-scscf-sip" .Release.Name) | quote }}
           - name: ICSCF_HOSTNAME
-            value: {{ .Values.kamailio.icscf.hostname | quote }}
+            value: {{ (printf "%s-icscf-sip" .Release.Name) | quote }}
           - name: FHOSS_HOSTNAME
-            value: {{ .Values.fhoss.hostname | quote }}
+            value: {{ (printf "%s-fhoss-frdi" .Release.Name) | quote }}
           - name: PCRF_HOSTNAME
             value: {{ .Values.epc.pcrfHostname | quote }}
           volumeMounts:
@@ -75,15 +79,19 @@ spec:
             - name: bind9-config
               mountPath: /etc/bind/named.conf
               subPath: "named.conf"
+              readOnly: false
             - name: bind9-config
               mountPath: /etc/bind/epc_zone
               subPath: "epc_zone"
+              readOnly: false
             - name: bind9-config
               mountPath: /etc/bind/ims_zone
               subPath: "ims_zone"
+              readOnly: false
             - name: bind9-config
               mountPath: /etc/bind/e164.arpa
               subPath: "e164.arpa"
+              readOnly: false
       volumes:
         - name: bind9-config
           configMap:
@@ -97,6 +105,7 @@ spec:
                 path: ims_zone
               - key: e164.arpa
                 path: e164.arpa
+            defaultMode: 0666
         - name: bind9-entrypoint
           configMap:
             name: kamailio-ims-bind9-entrypoint

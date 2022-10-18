@@ -53,10 +53,10 @@ spec:
           - name: EPC_DOMAIN
             value: {{ .Values.epcDomain | quote }}
           - name: MARIADB_HOSTNAME
-            value: {{ .Values.mariadb.hostname | quote }}
+            value: {{ (printf "%s-mariadb" .Release.Name) | quote }}
           - name: DNS_HOSTNAME
-            value: {{ .Values.bind9.hostname | quote }}
+            value: {{ (printf "%s-bind9-dns" .Release.Name) | quote }}
           - name: FHOSS_HOSTNAME
-            value: {{ .Values.fhoss.hostname | quote }}
+            value: {{ (printf "%s-fhoss-frdi" .Release.Name) | quote }}
           volumeMounts:
       volumes:

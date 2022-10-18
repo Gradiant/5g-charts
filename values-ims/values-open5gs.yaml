@@ -42,7 +42,7 @@ smf:
         dev: ogstun2
     pcscf:
       enabled: true
-      hostname: "kamailio-ims-pcscf"
+      hostname: "kamailio-ims-pcscf-frdi"
     pcrf:
       enabled: true
       frdi:
@@ -69,6 +69,6 @@ pcrf:
     pcscf:
       enabled: true
       frdi:
-        hostname: "kamailio-ims-pcscf"
+        hostname: "kamailio-ims-pcscf-frdi"
         diameterid: "pcscf.ims.mnc001.mcc001.3gppnetwork.org"
         port: 3871
