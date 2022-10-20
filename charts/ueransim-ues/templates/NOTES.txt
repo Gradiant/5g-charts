@@ -20,7 +20,3 @@ ping -I uesimtun0 gradiant.org
 traceroute -i uesimtun0 gradiant.org
 curl --interface uesimtun0 https://www.gradiant.org/ 
 ```
-{{- end }}
-
-
-
