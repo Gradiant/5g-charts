@@ -1,0 +1,204 @@
+{
+    "$schema": "http://json-schema.org/schema#",
+    "type": "object",
+    "properties": {
+        "affinity": {
+            "type": "object"
+        },
+        "apnList": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "apn": {
+                        "type": "string",
+                        "form": true,
+                        "title": "APN"
+                    },
+                    "emergency": {
+                        "type": "boolean"
+                    },
+                    "slice": {
+                        "type": "object",
+                        "properties": {
+                            "sd": {
+                                "type": "string",
+                                "form": "sd",
+                                "title": "Slice Differentiator"
+                            },
+                            "sst": {
+                                "type": "integer",
+                                "form": "sst",
+                                "title": "Slice/Service Type",
+                                "render": "slider",
+                                "sliderMin": 1,
+                                "sliderMax": 3
+                            }
+                        }
+                    },
+                    "type": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "clusterDomain": {
+            "type": "string"
+        },
+        "commonAnnotations": {
+            "type": "object"
+        },
+        "commonLabels": {
+            "type": "object"
+        },
+        "containerSecurityContext": {
+            "type": "object",
+            "properties": {
+                "enabled": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "count": {
+            "type": "integer",
+            "form": true,
+            "render": "slider",
+            "title": "Number of Ues",
+            "sliderMin": 1,
+            "sliderMax": 10
+        },
+        "extraDeploy": {
+            "type": "array"
+        },
+        "fullnameOverride": {
+            "type": "string"
+        },
+        "global": {
+            "type": "object",
+            "properties": {
+                "imagePullSecrets": {
+                    "type": "array"
+                },
+                "imageRegistry": {
+                    "type": "string"
+                },
+                "storageClass": {
+                    "type": "string"
+                }
+            }
+        },
+        "gnb": {
+            "type": "object",
+            "properties": {
+                "hostname": {
+                    "type": "string"
+                }
+            }
+        },
+        "image": {
+            "type": "object",
+            "properties": {
+                "debug": {
+                    "type": "boolean"
+                },
+                "pullPolicy": {
+                    "type": "string"
+                },
+                "pullSecrets": {
+                    "type": "array"
+                },
+                "registry": {
+                    "type": "string"
+                },
+                "repository": {
+                    "type": "string"
+                },
+                "tag": {
+                    "type": "string"
+                }
+            }
+        },
+        "initialMSISDN": {
+            "type": "string",
+            "form": true,
+            "title": "initialMSIDN",
+            "description": "ues MSIDN will be incremented from this initial value"
+        },
+        "key": {
+            "type": "string",
+            "form": true
+        },
+        "kubeVersion": {
+            "type": "string"
+        },
+        "mcc": {
+            "type": "string",
+            "form": "mcc",
+            "title": "Mobile Country Code"
+        },
+        "mnc": {
+            "type": "string",
+            "form": "mnc",
+            "title": "Mobile Network Code"
+        },
+        "name": {
+            "type": "string"
+        },
+        "nameOverride": {
+            "type": "string"
+        },
+        "nodeSelector": {
+            "type": "object"
+        },
+        "op": {
+            "type": "string",
+            "form": true
+        },
+        "opType": {
+            "type": "string",
+            "form": true,
+            "enum": ["OPC", "OP"]
+        },
+        "podAnnotations": {
+            "type": "object"
+        },
+        "podLabels": {
+            "type": "object"
+        },
+        "podSecurityContext": {
+            "type": "object",
+            "properties": {
+                "enabled": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "resources": {
+            "type": "object",
+            "properties": {
+                "limits": {
+                    "type": "object"
+                },
+                "requests": {
+                    "type": "object"
+                }
+            }
+        },
+        "sd": {
+            "type": "string",
+            "form": "sd",
+            "title": "Slice Differentiator"
+        },
+        "sst": {
+            "type": "integer",
+            "form": "sst",
+            "title": "Slice/Service Type",
+            "render": "slider",
+            "sliderMin": 1,
+            "sliderMax": 3
+        },
+        "tolerations": {
+            "type": "array"
+        }
+    }
+}
