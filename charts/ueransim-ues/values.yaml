@@ -82,6 +82,13 @@ apnList:
       sd: "0x111111"
     emergency: false
 
+## @param command Override default container command (useful when using custom images)
+##
+command: []
+## @param args Override default container args (useful when using custom images)
+##
+args: []
+
 resources:
   limits: {}
   requests: {}

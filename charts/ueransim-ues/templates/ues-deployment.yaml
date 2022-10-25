@@ -50,10 +50,17 @@ spec:
           env:
             - name: GNB_HOSTNAME
               value: {{ .Values.gnb.hostname }}
+          {{- if .Values.command }}
+          command: {{- include "common.tplvalues.render" (dict "value" .Values.command "context" $) | nindent 12 }}
+          {{- end }}
+          {{- if .Values.args }}
+          args: {{- include "common.tplvalues.render" (dict "value" .Values.args "context" $) | nindent 12 }}
+          {{- else }}
           args:
             - ue
             - -n
             - {{ .Values.count | quote }}
+          {{- end }}    
           {{- if .Values.resources }}
           resources: {{- toYaml .Values.resources | nindent 12 }}
           {{- end }}
