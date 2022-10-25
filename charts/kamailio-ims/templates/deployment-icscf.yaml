@@ -57,7 +57,7 @@ spec:
             value: {{ .Values.imsDomain | quote }}
           - name: EPC_DOMAIN
             value: {{ .Values.epcDomain | quote }}
-          - name: MARIADB_HOSTNAME
+          - name: MYSQL_HOSTNAME
             value: {{ (printf "%s-mariadb" .Release.Name) | quote }}
           - name: DNS_HOSTNAME
             value: {{ (printf "%s-bind9-dns" .Release.Name) | quote }}

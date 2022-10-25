@@ -1,5 +1,5 @@
 [mysqld]
-user		= mysql
+#user		= mysql
 bind-address		= 0.0.0.0
 #
 # * Fine Tuning

@@ -4,6 +4,6 @@ metadata:
   name: kamailio-ims-mariadb-conf
   labels: {{- include "common.labels.standard" . | nindent 4 }}
 data:
-  mariadb-conf.sh: |
+  my.cnf: |
 {{ tpl (.Files.Get "resources/mariadb/mariadb-custom-config.cnf") . | indent 4 }}
 

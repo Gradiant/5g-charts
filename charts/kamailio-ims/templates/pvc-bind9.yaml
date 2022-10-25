@@ -1,0 +1,20 @@
+{{- if .Values.bind9.persistence.enabled }}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ include "common.names.fullname" . }}-bind9-data
+  labels: {{- include "common.labels.standard" . | nindent 4 }}
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage:  "{{ .Values.bind9.persistence.size }}"
+  {{- if .Values.bind9.persistence.storageClass }}
+  {{- if (eq "-" .Values.bind9.persistence.storageClass) }}
+  storageClassName: ""
+  {{- else }}
+  storageClassName: "{{ .Values.bind9.persistence.storageClass }}"
+  {{- end }}
+  {{- end }}
+{{- end }}

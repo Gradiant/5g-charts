@@ -5,11 +5,16 @@ apnImsSubnet: 192.168.101.0/24
 mariadb:
   image:
     tag: 10.9.3
+    debug: true
   auth:
-    rootPassword: "ims"
+    rootPassword: ims
   primary:
+    livenessProbe:
+      enabled: false
+    readinessProbe:
+      enabled: false
     persistence:
-      enabled: true
+      enabled: false
     existingConfigmap: "kamailio-ims-mariadb-conf"
   hostname: mariadb
   initdbScriptsConfigMap: "kamailio-ims-mariadb-entrypoint"
@@ -45,12 +50,17 @@ bind9:
       annotations: {}
       port: 953
   readinessProbe:
-    enabled: true
+    enabled: false
   livenessProbe:
-    enabled: true
+    enabled: false
   resources:
     requests: {}
     limits: {}
+  persistence:
+    enabled: true
+    storageClass:
+    accessMode: ReadWriteOnce
+    size: 50Mi
 
 kamailio:
   replicaCount: 1
@@ -72,7 +82,7 @@ kamailio:
     containerSecurityContext:
       enabled: true
       runAsNonRoot: false
-      privileged: false
+      privileged: true
       capabilities:
         add: ["NET_ADMIN"]
     services:

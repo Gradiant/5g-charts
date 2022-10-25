@@ -52,11 +52,22 @@ spec:
             value: {{ .Values.imsDomain | quote }}
           - name: EPC_DOMAIN
             value: {{ .Values.epcDomain | quote }}
-          - name: MARIADB_HOSTNAME
+          - name: MYSQL_HOSTNAME
             value: {{ (printf "%s-mariadb" .Release.Name) | quote }}
           - name: DNS_HOSTNAME
             value: {{ (printf "%s-bind9-dns" .Release.Name) | quote }}
           - name: FHOSS_HOSTNAME
             value: {{ (printf "%s-fhoss-frdi" .Release.Name) | quote }}
+          command:
+            - "/bin/bash" 
+            - "-c"
+            - "/fhoss-k8s-entrypoint.sh"
           volumeMounts:
+            - name: entrypoint
+              mountPath:  /fhoss-k8s-entrypoint.sh
+              subPath: fhoss-k8s-entrypoint.sh
       volumes:
+        - name: entrypoint
+          configMap:
+            name: {{ include "common.names.fullname" . }}-fhoss-entrypoint
+            defaultMode: 0777

@@ -6,26 +6,32 @@ apt-get install dnsutils ed -y
 
 if [[ ! -z "$FHOSS_HOSTNAME" ]] ; then 
     export FHOSS_ADDR="$(host -4 $FHOSS_HOSTNAME |awk '/has.*address/{print $NF; exit}')"
+    echo "FHOSS: ${FHOSS_ADDR}"
 fi
 
 if [[ ! -z "$PCSCF_HOSTNAME" ]] ; then 
     export PCSCF_ADDR="$(host -4 $PCSCF_HOSTNAME |awk '/has.*address/{print $NF; exit}')"
+    echo "PCSCF: ${PCSCF_ADDR}"
 fi
 
 if [[ ! -z "$SCSCF_HOSTNAME" ]] ; then 
     export SCSCF_ADDR="$(host -4 $SCSCF_HOSTNAME |awk '/has.*address/{print $NF; exit}')"
+    echo "SCSCF: ${SCSCF_ADDR}"
 fi
 
 if [[ ! -z "$ICSCF_HOSTNAME" ]] ; then 
     export ICSCF_ADDR="$(host -4 $ICSCF_HOSTNAME |awk '/has.*address/{print $NF; exit}')"
+    echo "ICSCF: ${ICSCF_ADDR}"
 fi
 
 if [[ ! -z "$BIND_HOSTNAME" ]] ; then 
     export BIND_ADDR="$(host -4 $BIND_HOSTNAME |awk '/has.*address/{print $NF; exit}')"
+    echo "BIND: ${BIND_ADDR}"
 fi
 
 if [[ ! -z "$PCRF_HOSTNAME" ]] ; then 
     export PCRF_ADDR="$(host -4 $PCRF_HOSTNAME |awk '/has.*address/{print $NF; exit}')"
+    echo "PCRF: ${PCRF_ADDR}"
 fi
 
 if [ -z "$FHOSS_ADDR" ] \
