@@ -21,6 +21,7 @@ spec:
         - name: {{ include "common.names.fullname" . }}
           image: {{ template "kamailio.image" . }}
           imagePullPolicy: {{ .Values.kamailio.image.pullPolicy | quote }}
+          command: ["tail", "-f", "/dev/null"]
           {{- if .Values.kamailio.pcscf.containerSecurityContext.enabled }}
           securityContext: {{- omit .Values.kamailio.pcscf.containerSecurityContext "enabled" | toYaml | nindent 12 }}
           {{- end }}
@@ -76,8 +77,10 @@ spec:
             value: {{ (printf "%s-mariadb" .Release.Name) | quote }}
           - name: DNS_HOSTNAME
             value: {{ (printf "%s-bind9-dns" .Release.Name) | quote }}
-          - name: PCSCF_HOSTNAME
-            value: {{ (printf "%s-pcscf-sip" .Release.Name) | quote }}
+          - name: PCSCF_IP
+            valueFrom:
+              fieldRef:
+                fieldPath: status.podIP
           - name: ICSCF_HOSTNAME
             value: {{ (printf "%s-icscf-sip" .Release.Name) | quote }}
           - name: SCSCF_HOSTNAME
@@ -86,5 +89,7 @@ spec:
             value: {{ (printf "%s-rtpengine-ng" .Release.Name) | quote }}
           - name: UPF_HOSTNAME
             value: {{ .Values.epc.upfHostname | quote }}
+          - name: UPF_IP
+            value: 10.233.107.54
           volumeMounts:
       volumes:

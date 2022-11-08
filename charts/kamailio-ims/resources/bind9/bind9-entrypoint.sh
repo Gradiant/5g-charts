@@ -2,7 +2,7 @@
 
 # dnsutils package needed in order to use host command
 apt-get update
-apt-get install dnsutils ed -y
+apt-get install dnsutils ed gettext-base -y
 
 if [[ ! -z "$FHOSS_HOSTNAME" ]] ; then 
     export FHOSS_ADDR="$(host -4 $FHOSS_HOSTNAME |awk '/has.*address/{print $NF; exit}')"
@@ -44,53 +44,61 @@ echo "Unable to resolve some IPs... restarting"
 exit 1
 fi
 
-#Replacements in named.conf
-ed /etc/bind/named.conf << END
-g/{IMS_DOMAIN}/s//${IMS_DOMAIN}/
-g/{EPC_DOMAIN}/s//${EPC_DOMAIN}/
-.
-w
-q
-END
-echo "Printing resulting named.conf...."
-cat /etc/bind/named.conf
+# #Replacements in named.conf
+# ed /tmp/bind_files/named.conf << END
+# g/{IMS_DOMAIN}/s//${IMS_DOMAIN}/
+# g/{EPC_DOMAIN}/s//${EPC_DOMAIN}/
+# .
+# w
+# q
+# END
+# echo "Printing resulting named.conf...."
+# cat /tmp/bind_files/named.conf
 
-#Replacements in e164.arpa
-ed /etc/bind/e164.arpa << END
-g/{BIND_ADDR}/s//${BIND_ADDR}/
-g/{IMS_DOMAIN}/s//${IMS_DOMAIN}/
-.
-w
-q
-END
-echo "Printing resulting e164.arpa...."
-cat /etc/bind/e164.arpa
+# #Replacements in e164.arpa
+# ed /tmp/bind_files/e164.arpa << END
+# g/{BIND_ADDR}/s//${BIND_ADDR}/
+# g/{IMS_DOMAIN}/s//${IMS_DOMAIN}/
+# .
+# w
+# q
+# END
+# echo "Printing resulting e164.arpa...."
+# cat /tmp/bind_files/e164.arpa
 
-#Replacements in epc_zone
-ed /etc/bind/epc_zone << END
-g/{BIND_ADDR}/s//${BIND_ADDR}/
-g/{PCRF_ADDR}/s//${PCRF_ADDR}/
-g/{EPC_DOMAIN}/s//${EPC_DOMAIN}/
-.
-w
-q
-END
-echo "Printing resulting epc_zone...."
-cat /etc/bind/epc_zone
+# #Replacements in epc_zone
+# ed /tmp/bind_files/epc_zone << END
+# g/{BIND_ADDR}/s//${BIND_ADDR}/
+# g/{PCRF_ADDR}/s//${PCRF_ADDR}/
+# g/{EPC_DOMAIN}/s//${EPC_DOMAIN}/
+# .
+# w
+# q
+# END
+# echo "Printing resulting epc_zone...."
+# cat /etc/bind/epc_zone
 
-#Replacements in ims_zone
-ed /etc/bind/ims_zone << END
-g/{BIND_ADDR}/s//${BIND_ADDR}/
-g/{PCSCF_ADDR}/s//${PCSCF_ADDR}/
-g/{ICSCF_ADDR}/s//${ICSCF_ADDR}/
-g/{SCSCF_ADDR}/s//${SCSCF_ADDR}/
-g/{FHOSS_ADDR}/s//${FHOSS_ADDR}/
-g/{IMS_DOMAIN}/s//${IMS_DOMAIN}/
-.
-w
-q
-END
-echo "Printing resulting ims_zone...."
-cat /etc/bind/ims_zone
+# #Replacements in ims_zone
+# ed /tmp/bind_files/ims_zone << END
+# g/{BIND_ADDR}/s//${BIND_ADDR}/
+# g/{PCSCF_ADDR}/s//${PCSCF_ADDR}/
+# g/{ICSCF_ADDR}/s//${ICSCF_ADDR}/
+# g/{SCSCF_ADDR}/s//${SCSCF_ADDR}/
+# g/{FHOSS_ADDR}/s//${FHOSS_ADDR}/
+# g/{IMS_DOMAIN}/s//${IMS_DOMAIN}/
+# .
+# w
+# q
+# END
+# echo "Printing resulting ims_zone...."
+# cat /tmp/bind_files/ims_zone
 
-tail -f /dev/null
+envsubst '$EPC_DOMAIN','$IMS_DOMAIN' < /tmp/bind_files/named.conf > /tmp/bind/named.conf
+
+envsubst '$BIND_ADDR','$IMS_DOMAIN' < /tmp/bind_files/e164.arpa > /tmp/bind/e164.arpa
+
+envsubst '$PCRF_ADDR','$EPC_DOMAIN','$BIND_ADDR' < /tmp/bind_files/epc_zone > /tmp/bind/epc_zone
+
+envsubst '$BIND_ADDR','$PCSCF_ADDR','$ICSCF_ADDR','$SCSCF_ADDR','$FHOSS_ADDR','$IMS_DOMAIN' < /tmp/bind_files/ims_zone > /tmp/bind/ims_zone
+
+cp -nr /etc/bind/* /tmp/bind/

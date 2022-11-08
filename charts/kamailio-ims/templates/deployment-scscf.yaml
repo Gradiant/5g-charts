@@ -65,8 +65,10 @@ spec:
             value: {{ (printf "%s-pcscf-sip" .Release.Name) | quote }}
           - name: ICSCF_HOSTNAME
             value: {{ (printf "%s-icscf-sip" .Release.Name) | quote }}
-          - name: SCSCF_HOSTNAME
-            value: {{ (printf "%s-scscf-sip" .Release.Name) | quote }}
+          - name: SCSCF_IP
+            valueFrom:
+              fieldRef:
+                fieldPath: status.podIP
           - name: RTPENGINE_HOSTNAME
             value: {{ (printf "%s-rtpengine-ng" .Release.Name) | quote }}
           - name: UPF_HOSTNAME

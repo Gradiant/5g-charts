@@ -15,7 +15,6 @@ spec:
         {{- end }}
       labels: {{- include "common.labels.standard" . | nindent 8 }}
     spec:
-      hostNetwork: true
       affinity:
         {{- toYaml .Values.rtpengine.affinity | nindent 8 }}
       containers:
@@ -50,8 +49,10 @@ spec:
             value: {{ .Values.rtpengine.gatewayHostname | quote }}
           - name: APN_IMS_SUBNET
             value: {{ .Values.apnImsSubnet | quote }}
-          - name: RTPENGINE_HOSTNAME
-            value: ""
+          - name: INTERFACE_IP
+            valueFrom:
+              fieldRef:
+                fieldPath: status.podIP
           - name: PORT_MAX
             value: {{ .Values.rtpengine.portMaxRtp | quote }}
           - name: PORT_MIN

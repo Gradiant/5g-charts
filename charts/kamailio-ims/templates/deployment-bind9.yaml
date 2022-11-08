@@ -24,9 +24,33 @@ spec:
       initContainers:
         - name: prepopulate-config
           image:  {{ template "bind9.image" . }}
-         # command: ["/bin/bash", '-c', 'tail -f /dev/null']
-          command: ["/bin/bash",'-c', 'cp -nr /tmp/bind_files/* /tmp/bind/ && cp -nr /etc/bind/* /tmp/bind/']
+          command:
+            - "/bin/bash" 
+            - "-c"
+            - "/bind9-entrypoint.sh" 
+          env:
+            - name: IMS_DOMAIN
+              value: {{ .Values.imsDomain | quote }}
+            - name: EPC_DOMAIN
+              value: {{ .Values.epcDomain | quote }}
+            - name: BIND_ADDR
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.podIP
+            - name: PCSCF_HOSTNAME
+              value: {{ (printf "%s-pcscf-frdi" .Release.Name) | quote }}
+            - name: SCSCF_HOSTNAME
+              value: {{ (printf "%s-scscf-frdi" .Release.Name) | quote }}
+            - name: ICSCF_HOSTNAME
+              value: {{ (printf "%s-icscf-frdi" .Release.Name) | quote }}
+            - name: FHOSS_HOSTNAME
+              value: {{ (printf "%s-fhoss-frdi" .Release.Name) | quote }}
+            - name: PCRF_HOSTNAME
+              value: {{ .Values.epc.pcrfHostname | quote }}
           volumeMounts:
+            - name: bind9-entrypoint
+              mountPath:  /bind9-entrypoint.sh
+              subPath: bind9-entrypoint.sh
             - name: {{ include "common.names.fullname" . }}-bind9-data
               mountPath: /tmp/bind/
             - name: bind9-config
@@ -49,10 +73,6 @@ spec:
         - name: {{ include "common.names.fullname" . }}
           image: {{ template "bind9.image" . }}
           imagePullPolicy: {{ .Values.bind9.image.pullPolicy | quote }}
-          command:
-            - "/bin/bash" 
-            - "-c"
-            - "/bind9-entrypoint.sh"
           ports:
             - name: bind9-tcp
               containerPort: {{ .Values.bind9.services.dns.port }}
@@ -79,45 +99,9 @@ spec:
           {{- end }}
           resources:
             {{- toYaml .Values.bind9.resources | nindent 12 }}
-          env:
-          - name: IMS_DOMAIN
-            value: {{ .Values.imsDomain | quote }}
-          - name: EPC_DOMAIN
-            value: {{ .Values.epcDomain | quote }}
-          - name: BIND_HOSTNAME
-            value: {{ (printf "%s-bind9-dns" .Release.Name) | quote }}
-          - name: PCSCF_HOSTNAME
-            value: {{ (printf "%s-pcscf-sip" .Release.Name) | quote }}
-          - name: SCSCF_HOSTNAME
-            value: {{ (printf "%s-scscf-sip" .Release.Name) | quote }}
-          - name: ICSCF_HOSTNAME
-            value: {{ (printf "%s-icscf-sip" .Release.Name) | quote }}
-          - name: FHOSS_HOSTNAME
-            value: {{ (printf "%s-fhoss-frdi" .Release.Name) | quote }}
-          - name: PCRF_HOSTNAME
-            value: {{ .Values.epc.pcrfHostname | quote }}
           volumeMounts:
-            - name: bind9-entrypoint
-              mountPath:  /bind9-entrypoint.sh
-              subPath: bind9-entrypoint.sh
             - name: {{ include "common.names.fullname" . }}-bind9-data
               mountPath: /etc/bind/
-            # - name: bind9-config
-            #   mountPath: /etc/bind/named.conf
-            #   subPath: "named.conf"
-            #   readOnly: false
-            # - name: bind9-config
-            #   mountPath: /etc/bind/epc_zone
-            #   subPath: "epc_zone"
-            #   readOnly: false
-            # - name: bind9-config
-            #   mountPath: /etc/bind/ims_zone
-            #   subPath: "ims_zone"
-            #   readOnly: false
-            # - name: bind9-config
-            #   mountPath: /etc/bind/e164.arpa
-            #   subPath: "e164.arpa"
-            #   readOnly: false
       volumes:
         - name: {{ include "common.names.fullname" . }}-bind9-data
           {{- if not .Values.bind9.persistence.enabled }}
@@ -143,7 +127,3 @@ spec:
               - key: e164.arpa
                 path: e164.arpa
             defaultMode: 0666
-      #   - name: bind9-entrypoint
-      #     configMap:
-      #       name: kamailio-ims-bind9-entrypoint
-      #       defaultMode: 0777

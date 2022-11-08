@@ -1,4 +1,4 @@
-$ORIGIN {EPC_DOMAIN}.
+$ORIGIN ${EPC_DOMAIN}.
 $TTL 1W
 @                       1D IN SOA       localhost. root.localhost. (
                                         1		; serial
@@ -8,6 +8,6 @@ $TTL 1W
                                         1D )            ; minimum
 
                         1D IN NS        epcns
-epcns                   1D IN A         {BIND_ADDR}
+epcns                   1D IN A         ${BIND_ADDR}
 
-pcrf                    1D IN A         {PCRF_ADDR}
+pcrf                    1D IN A         ${PCRF_ADDR}

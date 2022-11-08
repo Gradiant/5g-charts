@@ -7,8 +7,8 @@ $TTL 1h
                                                         3600 ;minimum TTL
 )
 @ IN NS e164.arpa.
-@ IN A {BIND_ADDR}
+@ IN A ${BIND_ADDR}
 
 ; Wildcard to match any tel:+xxxx and change to sip:xxxx@{IMS_DOMAIN}
-* IN NAPTR 10 100 "u" "E2U+sip" "!(^.*$)!sip:\\1@{IMS_DOMAIN}!" .
-* IN NAPTR 20 100 "u" "E2U+sip" "!(^.*$)!sip:+\\1@{IMS_DOMAIN}!" .
+* IN NAPTR 10 100 "u" "E2U+sip" "!(^.*$)!sip:\\1@${IMS_DOMAIN}!" .
+* IN NAPTR 20 100 "u" "E2U+sip" "!(^.*$)!sip:+\\1@${IMS_DOMAIN}!" .

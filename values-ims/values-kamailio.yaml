@@ -34,7 +34,7 @@ bind9:
   image:
     registry: docker.io
     repository: internetsystemsconsortium/bind9
-    tag: "9.18"
+    tag: 9.18
     digest: ""
     pullPolicy: IfNotPresent
     pullSecrets: []

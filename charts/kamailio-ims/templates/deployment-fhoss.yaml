@@ -21,6 +21,7 @@ spec:
         - name: {{ include "common.names.fullname" . }}
           image: {{ template "fhoss.image" . }}
           imagePullPolicy: {{ .Values.fhoss.image.pullPolicy | quote }}
+          # command: ["tail", "-f", "/dev/null"]
           ports:
             - name: fhoss-udp
               containerPort: {{ .Values.fhoss.services.frdi.port }}
@@ -56,18 +57,7 @@ spec:
             value: {{ (printf "%s-mariadb" .Release.Name) | quote }}
           - name: DNS_HOSTNAME
             value: {{ (printf "%s-bind9-dns" .Release.Name) | quote }}
-          - name: FHOSS_HOSTNAME
-            value: {{ (printf "%s-fhoss-frdi" .Release.Name) | quote }}
-          command:
-            - "/bin/bash" 
-            - "-c"
-            - "/fhoss-k8s-entrypoint.sh"
-          volumeMounts:
-            - name: entrypoint
-              mountPath:  /fhoss-k8s-entrypoint.sh
-              subPath: fhoss-k8s-entrypoint.sh
-      volumes:
-        - name: entrypoint
-          configMap:
-            name: {{ include "common.names.fullname" . }}-fhoss-entrypoint
-            defaultMode: 0777
+          - name: FHOSS_IP
+            valueFrom:
+              fieldRef:
+                fieldPath: status.podIP

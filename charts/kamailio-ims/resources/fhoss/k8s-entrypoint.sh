@@ -34,7 +34,8 @@ MYSQL_IP=${MYSQL_IP:-"$(host -4 $MYSQL_HOSTNAME |awk '/has.*address/{print $NF; 
 export MYSQL_IP
 echo "MYSQL_IP: $MYSQL_IP"
 
-FHOSS_IP="$(hostname -I)"
+FHOSS_IP_spaced="$(hostname -I)"
+FHOSS_IP="$(echo ${FHOSS_IP_spaced} | xargs)"
 export FHOSS_IP
 echo "FHOSS_IP: $FHOSS_IP"
 
@@ -117,6 +118,9 @@ nameserver ${DNS_IP}
 w
 q
 END
+
+echo "Printing env variables..."
+set | grep FHOSS_IP
 
 cp /mnt/fhoss/hss.sh /
 cd / && ./hss.sh
