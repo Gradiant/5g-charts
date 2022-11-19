@@ -73,7 +73,7 @@ opType: OPC
 gnb:
   hostname: ueransim-gnb
 sst: 1
-sd: "0xffffff"
+sd: "0x111111"
 apnList:
   - type: 'IPv4'
     apn: 'internet'
