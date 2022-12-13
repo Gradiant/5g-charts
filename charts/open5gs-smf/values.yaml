@@ -659,3 +659,20 @@ metrics:
     ## @param metrics.serviceMonitor.additionalLabels Additional labels that can be used so ServiceMonitor resource(s) can be discovered by Prometheus
     ##
     additionalLabels: {}
+  ## VictoriaMetrics Service Scrape
+  ## ref: https://github.com/VictoriaMetrics/operator
+  ##      https://docs.victoriametrics.com/operator/api.html#vmservicescrape
+  ##
+  serviceScrape:
+    ## @param metrics.serviceScrape.enabled Create VMServiceScrape resource(s) for scraping metrics using VictoriaMetrics Operator
+    ##
+    enabled: false
+    ## @param metrics.serviceScrape.namespace The namespace in which the VMServiceScrape will be created
+    ##
+    namespace: ""
+    ## @param metrics.serviceScrape.scrape_interval The interval at which metrics should be scraped
+    ##
+    scrape_interval: "15s"
+    ## @param metrics.serviceScrape.additionalLabels Additional labels that can be used so VMServiceScrape resource(s) can be discovered by VictoriaMetrics
+    ##
+    additionalLabels: {}

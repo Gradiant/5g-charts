@@ -310,6 +310,23 @@
                             "type": "string"
                         }
                     }
+                },
+                "serviceScrape": {
+                    "type": "object",
+                    "properties": {
+                        "additionalLabels": {
+                            "type": "object"
+                        },
+                        "enabled": {
+                            "type": "boolean"
+                        },
+                        "namespace": {
+                            "type": "string"
+                        },
+                        "scrape_interval": {
+                            "type": "string"
+                        }
+                    }
                 }
             }
         },
