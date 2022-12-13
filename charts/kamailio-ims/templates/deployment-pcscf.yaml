@@ -21,7 +21,10 @@ spec:
         - name: {{ include "common.names.fullname" . }}
           image: {{ template "kamailio.image" . }}
           imagePullPolicy: {{ .Values.kamailio.image.pullPolicy | quote }}
-          command: ["tail", "-f", "/dev/null"]
+          command:
+            - "/bin/bash" 
+            - "-c"
+            - "/k8s-pcscf_entrypoint.sh"
           {{- if .Values.kamailio.pcscf.containerSecurityContext.enabled }}
           securityContext: {{- omit .Values.kamailio.pcscf.containerSecurityContext "enabled" | toYaml | nindent 12 }}
           {{- end }}
@@ -89,7 +92,15 @@ spec:
             value: {{ (printf "%s-rtpengine-ng" .Release.Name) | quote }}
           - name: UPF_HOSTNAME
             value: {{ .Values.epc.upfHostname | quote }}
-          - name: UPF_IP
-            value: 10.233.107.54
           volumeMounts:
+            - name: entrypoint
+              mountPath:  /k8s-pcscf_entrypoint.sh
+              subPath: k8s-pcscf_entrypoint.sh
+            - name: entrypoint
+              mountPath:  /k8s-pcscf_init.sh
+              subPath: k8s-pcscf_init.sh
       volumes:
+        - name: entrypoint
+          configMap:
+            name: {{ include "common.names.fullname" . }}-entrypoint
+            defaultMode: 0777

@@ -103,9 +103,9 @@ kamailio:
         server:
           port: 6100
     readinessProbe:
-      enabled: true
+      enabled: false
     livenessProbe:
-      enabled: true
+      enabled: false
     resources:
       requests: {}
       limits: {}
@@ -123,9 +123,9 @@ kamailio:
         annotations: {}
         port: 4060
     readinessProbe:
-      enabled: true
+      enabled: false
     livenessProbe:
-      enabled: true
+      enabled: false
     resources:
       requests: {}
       limits: {}
@@ -143,9 +143,9 @@ kamailio:
         annotations: {}
         port: 6060
     readinessProbe:
-      enabled: true
+      enabled: false
     livenessProbe:
-      enabled: true
+      enabled: false
     resources:
       requests: {}
       limits: {}
@@ -177,9 +177,9 @@ fhoss:
       annotations: {}
       port: 8080
   readinessProbe:
-    enabled: true
+    enabled: false
   livenessProbe:
-    enabled: true
+    enabled: false
   resources:
     requests: {}
     limits: {}
@@ -219,11 +219,9 @@ rtpengine:
       clusterIP: None
       annotations: {}
   readinessProbe:
-    enabled: true
+    enabled: false
   livenessProbe:
-    enabled: true
+    enabled: false
   resources:
     requests: {}
     limits: {}
-
-  

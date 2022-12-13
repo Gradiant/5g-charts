@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "common.names.fullname" . }}-entrypoint
+  labels: {{- include "common.labels.standard" . | nindent 4 }}
+data:
+  k8s-pcscf_entrypoint.sh: |
+{{ tpl (.Files.Get "resources/kamailio/k8s-pcscf_entrypoint.sh") . | indent 4 }}
+  k8s-pcscf_init.sh: |
+{{ tpl (.Files.Get "resources/kamailio/k8s-pcscf_init.sh") . | indent 4 }}
