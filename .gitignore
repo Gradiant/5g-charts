@@ -2,3 +2,4 @@
 *.lock
 reports/
 charts/*/charts/
+.ipynb_checkpoints/
