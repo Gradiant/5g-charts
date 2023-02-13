@@ -50,7 +50,7 @@ spec:
               add: ["NET_ADMIN"]
           env:
             - name: GNB_HOSTNAME
-              value: {{ template "common.names.fullname" . }}
+              value: {{ .Values.ues.gnb.hostname }}
           args:
             - ue
             - -n
