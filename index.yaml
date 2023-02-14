@@ -329,6 +329,115 @@ entries:
   open5gs:
   - apiVersion: v2
     appVersion: 2.4.11
+    created: "2023-02-14T07:06:24.590153376Z"
+    dependencies:
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 1.x.x
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: https://charts.bitnami.com/bitnami
+      version: ~12.1.19
+    - alias: amf
+      condition: amf.enabled
+      name: open5gs-amf
+      repository: file://../open5gs-amf
+      version: ~2.0.0
+    - alias: ausf
+      condition: ausf.enabled
+      name: open5gs-ausf
+      repository: file://../open5gs-ausf
+      version: ~2.0.0
+    - alias: bsf
+      condition: bsf.enabled
+      name: open5gs-bsf
+      repository: file://../open5gs-bsf
+      version: ~2.0.0
+    - alias: hss
+      condition: hss.enabled
+      name: open5gs-hss
+      repository: file://../open5gs-hss
+      version: ~2.0.0
+    - alias: mme
+      condition: mme.enabled
+      name: open5gs-mme
+      repository: file://../open5gs-mme
+      version: ~2.0.0
+    - alias: nrf
+      condition: nrf.enabled
+      name: open5gs-nrf
+      repository: file://../open5gs-nrf
+      version: ~2.0.0
+    - alias: nssf
+      condition: nssf.enabled
+      name: open5gs-nssf
+      repository: file://../open5gs-nssf
+      version: ~2.0.0
+    - alias: pcf
+      condition: pcf.enabled
+      name: open5gs-pcf
+      repository: file://../open5gs-pcf
+      version: ~2.0.0
+    - alias: pcrf
+      condition: pcrf.enabled
+      name: open5gs-pcrf
+      repository: file://../open5gs-pcrf
+      version: ~2.0.0
+    - alias: sgwc
+      condition: sgwc.enabled
+      name: open5gs-sgwc
+      repository: file://../open5gs-sgwc
+      version: ~2.0.0
+    - alias: sgwu
+      condition: sgwu.enabled
+      name: open5gs-sgwu
+      repository: file://../open5gs-sgwu
+      version: ~2.0.0
+    - alias: smf
+      condition: smf.enabled
+      name: open5gs-smf
+      repository: file://../open5gs-smf
+      version: ~2.0.0
+    - alias: udm
+      condition: udm.enabled
+      name: open5gs-udm
+      repository: file://../open5gs-udm
+      version: ~2.0.0
+    - alias: udr
+      condition: udr.enabled
+      name: open5gs-udr
+      repository: file://../open5gs-udr
+      version: ~2.0.0
+    - alias: upf
+      condition: upf.enabled
+      name: open5gs-upf
+      repository: file://../open5gs-upf
+      version: ~2.0.0
+    - alias: webui
+      condition: webui.enabled
+      name: open5gs-webui
+      repository: file://../open5gs-webui
+      version: ~2.0.0
+    description: 'Helm chart to deploy Open5gs services on Kubernetes. '
+    digest: 34c8e8681138e5165355fb13238d66eade45862c3cdfeafbd7d51592c5c1d17c
+    home: https://github.com/gradiant/openverso-charts
+    icon: https://open5gs.org/assets/img/open5gs-logo.png
+    keywords:
+    - epc
+    - ngc
+    maintainers:
+    - email: cgiraldo@gradiant.org
+      name: cgiraldo
+    name: open5gs
+    sources:
+    - http://open5gs.org
+    urls:
+    - https://github.com/Gradiant/openverso-charts/releases/download/open5gs-2.0.9/open5gs-2.0.9.tgz
+    version: 2.0.9
+  - apiVersion: v2
+    appVersion: 2.4.11
     created: "2022-10-10T11:08:03.016973665Z"
     dependencies:
     - name: common
@@ -1864,6 +1973,30 @@ entries:
     - https://github.com/Gradiant/openverso-charts/releases/download/open5gs-0.1.0/open5gs-0.1.0.tgz
     version: 0.1.0
   open5gs-amf:
+  - apiVersion: v2
+    appVersion: 2.4.11
+    created: "2023-02-14T07:06:24.764275799Z"
+    dependencies:
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 1.x.x
+    description: 'Helm chart to deploy Open5gs AMF service on Kubernetes. '
+    digest: 92db858da06bb2de8850314241f2536cd5d08fb5c17c0858d38bb182ea5f1a34
+    home: https://github.com/gradiant/openverso-charts
+    icon: https://open5gs.org/assets/img/open5gs-logo.png
+    keywords:
+    - ngc
+    maintainers:
+    - email: cgiraldo@gradiant.org
+      name: cgiraldo
+    name: open5gs-amf
+    sources:
+    - http://open5gs.org
+    urls:
+    - https://github.com/Gradiant/openverso-charts/releases/download/open5gs-amf-2.0.10/open5gs-amf-2.0.10.tgz
+    version: 2.0.10
   - apiVersion: v2
     appVersion: 2.4.11
     created: "2022-10-10T11:08:03.16983291Z"
@@ -3421,6 +3554,30 @@ entries:
   open5gs-smf:
   - apiVersion: v2
     appVersion: 2.4.11
+    created: "2023-02-14T07:06:24.980392708Z"
+    dependencies:
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 1.x.x
+    description: 'Helm chart to deploy Open5gs SMF service on Kubernetes. '
+    digest: de310c4767f3b37317e62488e82f77c53f7e5171f1e44b070c715a57688bbbdf
+    home: https://github.com/gradiant/openverso-charts
+    icon: https://open5gs.org/assets/img/open5gs-logo.png
+    keywords:
+    - ngc
+    maintainers:
+    - email: cgiraldo@gradiant.org
+      name: cgiraldo
+    name: open5gs-smf
+    sources:
+    - http://open5gs.org
+    urls:
+    - https://github.com/Gradiant/openverso-charts/releases/download/open5gs-smf-2.0.7/open5gs-smf-2.0.7.tgz
+    version: 2.0.7
+  - apiVersion: v2
+    appVersion: 2.4.11
     created: "2022-10-05T13:18:30.076930216Z"
     dependencies:
     - name: common
@@ -4601,4 +4758,4 @@ entries:
     urls:
     - https://github.com/Gradiant/openverso-charts/releases/download/ueransim-ues-0.1.0/ueransim-ues-0.1.0.tgz
     version: 0.1.0
-generated: "2022-10-25T15:01:32.556457912Z"
+generated: "2023-02-14T07:06:24.980912416Z"
