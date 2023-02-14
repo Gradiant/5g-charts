@@ -1,6 +1,6 @@
 # open5gs-amf
 
-![Version: 2.0.9](https://img.shields.io/badge/Version-2.0.9-informational?style=flat-square) ![AppVersion: 2.4.11](https://img.shields.io/badge/AppVersion-2.4.11-informational?style=flat-square)
+![Version: 2.0.10](https://img.shields.io/badge/Version-2.0.10-informational?style=flat-square) ![AppVersion: 2.4.11](https://img.shields.io/badge/AppVersion-2.4.11-informational?style=flat-square)
 
 Helm chart to deploy Open5gs AMF service on Kubernetes.
 
@@ -95,6 +95,10 @@ Helm chart to deploy Open5gs AMF service on Kubernetes.
 | metrics.serviceMonitor.namespace | string | `""` |  |
 | metrics.serviceMonitor.relabelings | list | `[]` |  |
 | metrics.serviceMonitor.scrapeTimeout | string | `""` |  |
+| metrics.serviceScrape.additionalLabels | object | `{}` |  |
+| metrics.serviceScrape.enabled | bool | `false` |  |
+| metrics.serviceScrape.namespace | string | `""` |  |
+| metrics.serviceScrape.scrape_interval | string | `"15s"` |  |
 | nameOverride | string | `""` |  |
 | namespaceOverride | string | `""` |  |
 | nodeAffinityPreset.key | string | `""` |  |
