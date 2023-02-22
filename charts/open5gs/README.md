@@ -1,6 +1,6 @@
 # open5gs
 
-![Version: 2.0.8](https://img.shields.io/badge/Version-2.0.8-informational?style=flat-square) ![AppVersion: 2.4.11](https://img.shields.io/badge/AppVersion-2.4.11-informational?style=flat-square)
+![Version: 2.0.9](https://img.shields.io/badge/Version-2.0.9-informational?style=flat-square) ![AppVersion: 2.4.11](https://img.shields.io/badge/AppVersion-2.4.11-informational?style=flat-square)
 
 Helm chart to deploy Open5gs services on Kubernetes.
 
