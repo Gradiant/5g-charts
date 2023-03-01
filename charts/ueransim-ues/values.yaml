@@ -63,7 +63,7 @@ image:
 
 name: ueransim-ues
 
-count: 1
+count: 10
 initialMSISDN: '0000000001'
 mcc: '999'
 mnc: '70'
