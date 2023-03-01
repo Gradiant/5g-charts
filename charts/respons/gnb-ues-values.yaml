@@ -1,6 +1,9 @@
 amf:
   hostname: open5gs-amf-ngap
 
+gnb:
+  hostname: ueransim-gnb
+
 mcc: '999'
 mnc: '70'
 sst: 1
@@ -9,5 +12,5 @@ tac: '0001'
 
 ues:
   enabled: true
-  count: 2
+  count: 10
   initialMSISDN: '0000000001'
