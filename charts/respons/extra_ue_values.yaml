@@ -1,6 +1,6 @@
 name: ueransim-ues
 
-count:435
+count: 435
 initialMSISDN: '0000000466'
 mcc: '999'
 mnc: '70'
