@@ -1,7 +1,7 @@
 name: ueransim-ues-second-batch
 
 count: 450
-initialMSISDN: '0000000451'
+initialMSISDN: '0000000901'
 mcc: '999'
 mnc: '70'
 key: 465B5CE8B199B49FAA5F0A2EE238A6BC
