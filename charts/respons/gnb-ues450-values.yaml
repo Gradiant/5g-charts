@@ -23,5 +23,5 @@ apnList:
     emergency: false
 ues:
   enabled: true
-  count: 512
+  count: 450
   initialMSISDN: '0000000001'
