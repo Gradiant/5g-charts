@@ -4,7 +4,6 @@ amf:
 gnb:
   hostname: ueransim-gnb
 
-
 mcc: '999'
 mnc: '70'
 key: 465B5CE8B199B49FAA5F0A2EE238A6BC
