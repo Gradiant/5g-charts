@@ -54,35 +54,50 @@
     >>>helm install open5gs openverso/open5gs --version 2.0.8 --values https://raw.githubusercontent.com/DISHDevEx/openverso-charts/master/charts/respons/5gSA-values.yaml
     ```
 
-Deploy UERANSIM
+6. Deploy UERANSIM
 
-helm install ueransim-gnb openverso/ueransim-gnb --version 0.2.2 --values https://raw.githubusercontent.com/DISHDevEx/openverso-charts/master/charts/respons/gnb-ues-values.yaml
+    ```console
+    >>>helm install ueransim-gnb openverso/ueransim-gnb --version 0.2.2 --values https://raw.githubusercontent.com/DISHDevEx/openverso-charts/master/charts/respons/gnb-ues-values.yaml
+    ```
 
-Ensure that your ten UE’s are set up correctly and you can enable their tunnel interfaces to connect to the internet via the network.
+### Ensure that your ten UE’s are set up correctly and you can enable their tunnel interfaces to connect to the internet via the network.
 
-Open an interactive terminal (-ti) for the Deployment (the kubernetes load balancer) of UEs.
+1. Open an interactive terminal (-ti) for the Deployment (the kubernetes load balancer) of UEs.
 
-kubectl -n openverso exec -ti deployment/ueransim-gnb-ues -- /bin/bash
+    ```console
+    >>>kubectl -n openverso exec -ti deployment/ueransim-gnb-ues -- /bin/bash
+    ```
+2. Inspect the IP addresses of the UEs.
 
-Inspect the IP addresses of the UEs.
+    ```console
+    >>>ip addr
+    ```
+3. Verify that the deployment can communicate with the internet, in particular with google .com (replaceable with dish.com or cats.com)
 
-ip addr
+    ```console
+    >>>ping -I uesimtun6 google.com
 
-Verify that the deployment can communicate with the internet, in particular with google .com (replaceable with dish.com or cats.com)
+    >>>traceroute -i uesimtun6 google.com
 
-ping -I uesimtun6 google.com
+    >>>curl --interface uesimtun6 https://www.google.com
+    ```
+4. Exit the bash session and return to your local machine terminal.
 
-traceroute -i uesimtun6 google.com
+5. Ensure Mongo DB is updated
 
-curl --interface uesimtun6 https://www.google.com
+    ```console
+    >>>kubectl -n openverso exec deployment/open5gs-mongodb -ti -- bash
 
-Exit the bash session and return to your local machine terminal.
+    >>>mongo
 
-Ensure Mongo DB is updated
+    >>>use open5gs
 
-kubectl -n openverso exec deployment/open5gs-mongodb -ti -- bash
+    >>>db.subscribers.find().pretty()
+    ```
+6. Ensure all pods are running
 
-mongo
+    ```console
+    >>>kubectl get pods -n openverso
 
 use open5gs
 
