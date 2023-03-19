@@ -24,25 +24,35 @@
     >>> aws eks --region us-east-1 update-kubeconfig --name response_expirimentation_cluster
     ```
 
-    do this every time you want to talk to a new cluster
+    (do this every time you want to talk to a new cluster)
 
-ensure your config file is set up correctly:
+2. ensure your config file is set up correctly:
 
- aws eks --region us-east-1 describe-cluster --name response_cluster --query cluster.status
+    ```console
+    >>>aws eks --region us-east-1 describe-cluster --name response_cluster --query cluster.status
+    ```
 
-Create openverso namespace and set it to current namespace
+3. Create openverso namespace and set it to current namespace
 
-kubectl create namespace openverso
+    ```console
+    >>>kubectl create namespace openverso
+    ```
 
-kubectl config set-context --current --namespace=openverso
+    ```console
+    >>>kubectl config set-context --current --namespace=openverso
+    ```
 
-Add OpenVerso to helm
+4. Add OpenVerso to helm
 
-helm repo add openverso https://gradiant.github.io/openverso-charts/
+    ```console
+    >>>helm repo add openverso https://gradiant.github.io/openverso-charts/
+    ```
 
-Deploy open5gs, using custom values from DishDevex
+5. Deploy open5gs, using custom values from DishDevex
 
-helm install open5gs openverso/open5gs --version 2.0.8 --values https://raw.githubusercontent.com/DISHDevEx/openverso-charts/master/charts/respons/5gSA-values.yaml
+    ```console
+    >>>helm install open5gs openverso/open5gs --version 2.0.8 --values https://raw.githubusercontent.com/DISHDevEx/openverso-charts/master/charts/respons/5gSA-values.yaml
+    ```
 
 Deploy UERANSIM
 
