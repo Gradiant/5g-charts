@@ -15,13 +15,16 @@
 
     Recommended settings: https://dish-wireless-network.atlassian.net/wiki/spaces/MSS/pages/427327690/Network+as+an+APP+deployment
 
-Network as App deployment (you have your EKS cluster and node group fired up):
+### Network as App deployment (you have your EKS cluster and node group fired up):
 
-    Update local kubectl config file:
 
-    aws eks --region us-east-1 update-kubeconfig --name response_expirimentation_cluster
+1. Update local kubectl config file:
 
-do this every time you want to talk to a new cluster
+    ```console
+    >>> aws eks --region us-east-1 update-kubeconfig --name response_expirimentation_cluster
+    ```
+
+    do this every time you want to talk to a new cluster
 
 ensure your config file is set up correctly:
 
