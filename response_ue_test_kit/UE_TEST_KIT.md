@@ -65,7 +65,7 @@ helm install -n openverso ueransim-ues-second-batch openverso/ueransim-ues --val
 helm install -n openverso ueransim-ues-third-batch openverso/ueransim-ues --values https://raw.githubusercontent.com/DISHDevEx/openverso-charts/vinny/10kUE/charts/respons/900_1350_ue_values.yaml
 ```
 
-### Enter the Terminal for your pod
+### Enter the Terminal for your UE pods
 ```console
 kubectl -n openverso exec -ti deployment/ueransim-ues-first-batch -- /bin/bash
 
@@ -75,9 +75,15 @@ kubectl -n openverso exec -ti deployment/ueransim-ues-third-batch -- /bin/bash
 ```
 
 ### Run curl/ping tests
+To run curl or ping tests via UEs, have the terminals for the UE pods open from the previous step. 
 
-curl.sh
-ping.sh
+Inside a pod containing a batch of UEs copy and paste the contents of either of the following files:
+
+```console
+response_ue_test_kit/simulation_scripts/curl.sh
+
+response_ue_test_kit/simulation_scripts/ping.sh
+```
 
 
 ### Trouble shooting section
