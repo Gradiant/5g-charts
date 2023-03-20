@@ -51,13 +51,13 @@
 5. Deploy open5gs, using custom values from DishDevex
 
     ```console
-    helm install open5gs openverso/open5gs --version 2.0.8 --values https://raw.githubusercontent.com/DISHDevEx/openverso-charts/master/charts/respons/5gSA-values.yaml
+    helm install open5gs openverso/open5gs --version 2.0.8 --values https://raw.githubusercontent.com/DISHDevEx/openverso-charts/master/charts/respons/5gSA_ues_values.yaml
     ```
 
-6. Deploy UERANSIM
+6. Deploy UERANSIM, using custom values from DishDevex
 
     ```console
-    helm install ueransim-gnb openverso/ueransim-gnb --version 0.2.2 --values https://raw.githubusercontent.com/DISHDevEx/openverso-charts/master/charts/respons/gnb-ues-values.yaml
+    helm install ueransim-gnb openverso/ueransim-gnb --version 0.2.2 --values https://raw.githubusercontent.com/DISHDevEx/openverso-charts/master/charts/respons/gnb_ues_values.yaml
     ```
 
 ### Ensure that your ten UE’s are set up correctly and you can enable their tunnel interfaces to connect to the internet via the network.
