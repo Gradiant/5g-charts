@@ -11,19 +11,20 @@ Here you can add more tests, or update previous test case parameters
 
 (1) To create scripts that populate open5gs mongodb:
     Run the ue_populate_creation file 
-    ```console
-    python ue_populate_creation.py
-    ```
+```console
+python ue_populate_creation.py
+```
     
 (2) To create scripts that emulate ue ping requests with a fixed upper limit:
-    ```console
-    python ping_test_creation.py
-    ```
+```console
+python ping_test_creation.py
+```
     
 (3) To create scripts that emulate ue curl requests continously:
-    ```console
-    python ping_test_creation.py
-    ```
+```console
+python ping_test_creation.py
+```
+
 # How to generate load on open5gs and UERANSIM with a large ue population
 
 ### Set up many ue environment
