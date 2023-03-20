@@ -36,9 +36,11 @@ helm install open5gs openverso/open5gs --version 2.0.9 --values https://raw.gith
 (2) Populate (5 mins)
 
     (a) First enter the terminal for the populate pod
+    
     ```console
     kubectl -n openverso exec -ti deployment/open5gs-populate -- /bin/bash
     ```
+    
     (b) Copy paste contents of:  openverso-charts/response_ue_test_kit/simulation_scripts/ue_populate.sh
 
 (3) Install GNB (1 minute)
