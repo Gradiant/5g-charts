@@ -77,7 +77,7 @@ kubectl -n openverso exec -ti deployment/ueransim-ues-third-batch -- /bin/bash
 ### Run curl/ping tests
 To run curl or ping tests via UEs, have the terminals for the UE pods open from the previous step. 
 
-Inside a pod containing a batch of UEs copy and paste the contents of either of the following files:
+paste the contents of either of the following files (inside the terminal for an UE pod):
 
 ```console
 response_ue_test_kit/simulation_scripts/curl.sh
