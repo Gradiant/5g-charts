@@ -53,7 +53,8 @@ helm install -n openverso ueransim-ues-first-batch openverso/ueransim-ues --valu
 ```
 
 
-optional: (this can cause many bugs in the app, slowly add batches of UE’s and wait for the previous batch to fully connect all of the ue tunnels 
+optional: (this can cause many bugs in the app, slowly add batches of UE’s and wait for the previous batch to fully connect all of the ue tunnels )
+
 (5) install second batch of 450 ues (3 mins)
 ```console
 helm install -n openverso ueransim-ues-second-batch openverso/ueransim-ues --values https://raw.githubusercontent.com/DISHDevEx/openverso-charts/vinny/10kUE/charts/respons/450_900_ue_values.yaml
