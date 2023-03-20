@@ -1,17 +1,24 @@
 import random
+import json
 
-list_of_websites_to_ping = ["buzzfeed.com","asos.com","indiatimes.com","tesla.com","nbc.com","reuters.com","npr.org","wsj.com","washingtonpost.com","foxnews.com","abcnews.go.com","bostonherald.com"]
-num_of_pings = 10000
-packet_size_bytes = 60000
+def write_ping_test(): 
+    
+    master_test_file = open('test_case_values.json')
+    master_test_file = json.load(master_test_file)
+    data_emulation_values = master_test_file["testCases"]["dataRequestEmulation"]
+    
+    list_of_websites_to_ping = data_emulation_values["webisteList"]
+    num_of_ues = data_emulation_values["ueBatchSize"]
+    num_of_pings = data_emulation_values["num_of_pings"]
+    packet_size_bytes = data_emulation_values["packet_size_bytes"]
 
-script = []
+    script = []
+    
+    for i in range(0,400):
+        rando_website = random.choice(list_of_websites_to_ping)
+        interval  = random.randint(0, 10)
+        script.append(f"ping -I uesimtun{i} {rando_website}  -s {packet_size_bytes} -i {interval} -c {num_of_pings} & \n")
 
-
-for i in range(0,400):
-     rando_website = random.choice(list_of_websites_to_ping)
-     interval  = random.randint(0, 10)
-     script.append(f"ping -I uesimtun{i} {rando_website}  -s {packet_size_bytes} -i {interval} -c {num_of_pings} & \n")
-
-file2 = open("ping.sh", "w")
-file2.writelines(script)
-file2.close()
+    file_to_write = open("test_cases/ping.sh", "w")
+    file_to_write.writelines(script)
+    file_to_write.close()

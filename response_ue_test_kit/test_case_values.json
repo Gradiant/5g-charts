@@ -1,0 +1,23 @@
+{
+  "testCases": {
+    "dataRequestEmulation": {
+      "ueBatchSize": 400,
+      "webisteList": [
+        "buzzfeed.com",
+        "asos.com",
+        "indiatimes.com",
+        "tesla.com",
+        "nbc.com",
+        "reuters.com",
+        "npr.org",
+        "wsj.com",
+        "washingtonpost.com",
+        "foxnews.com",
+        "abcnews.go.com",
+        "bostonherald.com"
+      ],
+      "packet_size_bytes": 60000,
+      "num_of_pings": 10000
+    }
+  }
+}
