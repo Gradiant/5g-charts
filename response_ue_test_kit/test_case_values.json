@@ -2,6 +2,7 @@
   "testCases": {
     "dataRequestEmulation": {
       "ueBatchSize": 400,
+      "numUEBatches":2,
       "webisteList": [
         "buzzfeed.com",
         "asos.com",

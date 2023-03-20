@@ -2,6 +2,28 @@
 
 This test kit is meant to enable large scale UE simulation to put load on the open5gs and UERANSIM infrastructure.   
 
+# How to create tests
+
+### Update the test_case_values.json
+Here you can add more tests, or update previous test case parameters
+
+### Using the script generation files:
+
+(1) To create scripts that populate open5gs mongodb:
+    Run the ue_populate_creation file 
+    ```console
+    python ue_populate_creation.py
+    ```
+(2) To create scripts that emulate ue ping requests with a fixed upper limit:
+    ```console
+    python ping_test_creation.py
+    ```
+(3) To create scripts that emulate ue curl requests continously:
+    ```console
+    python ping_test_creation.py
+    ```
+# How to generate load on open5gs and UERANSIM with a large ue population
+
 ### Set up many ue environment
 
 (1)install open5gs (2.5 mins)
