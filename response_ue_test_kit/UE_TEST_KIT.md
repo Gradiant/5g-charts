@@ -34,11 +34,12 @@ python ping_test_creation.py
 helm install open5gs openverso/open5gs --version 2.0.9 --values https://raw.githubusercontent.com/DISHDevEx/openverso-charts/vinny/10kUE/charts/respons/5gSA_no_ues_values.yaml
 ```
 (2) Populate (5 mins)
-(a) First enter the terminal for the populate pod
-```console
-kubectl -n openverso exec -ti deployment/open5gs-populate -- /bin/bash
-```
-(b) Copy paste contents of:  openverso-charts/response_ue_test_kit/simulation_scripts/ue_populate.sh
+
+    (a) First enter the terminal for the populate pod
+    ```console
+    kubectl -n openverso exec -ti deployment/open5gs-populate -- /bin/bash
+    ```
+    (b) Copy paste contents of:  openverso-charts/response_ue_test_kit/simulation_scripts/ue_populate.sh
 
 (3) Install GNB (1 minute)
 	helm install ueransim-gnb openverso/ueransim-gnb --version 0.2.5 --values https://raw.githubusercontent.com/DISHDevEx/openverso-charts/vinny/10kUE/charts/respons/gnb_no_ues_values.yaml
