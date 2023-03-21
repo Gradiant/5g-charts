@@ -9,7 +9,7 @@ ausf:
     - dev: "eth0"
       port: {{ .Values.containerPorts.sbi }}
       {{- if .Values.config.sbi.advertise }}
-      advertise: "{{ tpl .Values.config.sbi.advertise }}"
+      advertise: "{{ tpl .Values.config.sbi.advertise . }}"
       {{- end }}
 
 nrf:
