@@ -74,7 +74,6 @@ helm install ueransim-gnb openverso/ueransim-gnb --version 0.2.5 --values https:
 helm install -n openverso ueransim-ues-first-batch openverso/ueransim-ues --values https://raw.githubusercontent.com/DISHDevEx/openverso-charts/vinny/10kUE/charts/respons/0_450_ue_values.yaml
 ```
 
-
 optional: (this can cause many bugs in the app, slowly add batches of UE’s and wait for the previous batch to fully connect all of the ue tunnels )
 
 (5) install second batch of 450 ues (3 mins)
@@ -95,6 +94,12 @@ kubectl -n openverso exec -ti deployment/ueransim-ues-second-batch -- /bin/bash
 
 kubectl -n openverso exec -ti deployment/ueransim-ues-third-batch -- /bin/bash
 ```
+
+### Ensure all tunnels are connected
+```console
+ip addr
+```
+here you should see every ue denoted with a uesimtun{number}
 
 ### Run curl/ping tests
 To run curl or ping tests via UEs, have the terminals for the UE pods open from the previous step. 
