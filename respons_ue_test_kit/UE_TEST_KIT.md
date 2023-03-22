@@ -63,7 +63,7 @@ Open the terminal for the populate pod
 kubectl -n openverso exec -ti deployment/open5gs-populate -- /bin/bash
 ```
 
-Inside the terminal for the populate pod copy paste contents of:  openverso-charts/respons_ue_test_kit/simulation_scripts/ue_populate.sh
+**Inside the terminal for the populate pod copy paste contents of:  openverso-charts/respons_ue_test_kit/simulation_scripts/ue_populate.sh**
 
 (3) Install GNB (1 minute)
 ```console
