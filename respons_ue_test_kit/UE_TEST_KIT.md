@@ -63,7 +63,7 @@ Open the terminal for the populate pod
 kubectl -n openverso exec -ti deployment/open5gs-populate -- /bin/bash
 ```
 
-Inside the terminal for the populate pod copy paste contents of:  openverso-charts/response_ue_test_kit/simulation_scripts/ue_populate.sh
+Inside the terminal for the populate pod copy paste contents of:  openverso-charts/respons_ue_test_kit/simulation_scripts/ue_populate.sh
 
 (3) Install GNB (1 minute)
 ```console
@@ -107,9 +107,9 @@ To run curl or ping tests via UEs, have the terminals for the UE pods open from 
 paste the contents of either of the following files (inside the terminal for an UE pod):
 
 ```console
-response_ue_test_kit/simulation_scripts/curl.sh
+respons_ue_test_kit/simulation_scripts/curl.sh
 
-response_ue_test_kit/simulation_scripts/ping.sh
+respons_ue_test_kit/simulation_scripts/ping.sh
 ```
 
 
