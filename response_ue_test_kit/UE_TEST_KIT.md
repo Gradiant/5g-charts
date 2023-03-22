@@ -2,6 +2,28 @@
 
 This test kit is meant to enable large scale UE simulation to put load on the open5gs and UERANSIM infrastructure.   
 
+# Pre-requisites:
+(1) Set up your machine with the following CLI tools:
+
+    AWS CLI
+
+    Kubectl
+
+    Helm
+
+(2) Set up your local AWS CLI Environment Variables
+
+(3) Update local kubectl config file:
+
+```console
+aws eks --region us-east-1 update-kubeconfig --name response_expirimentation_cluster
+```
+
+(4) Add openverso to your helm repo
+```console
+helm repo add openverso https://gradiant.github.io/openverso-charts/
+```
+
 # How to create tests
 
 ### Update the test_case_values.json
