@@ -26,7 +26,7 @@ def write_ping_test():
         "dataRequestEmulation"
     ]
 
-    list_of_websites_to_ping = data_emulation_values["webisteList"]
+    list_of_websites_to_ping = data_emulation_values["websiteList"]
     num_ues = data_emulation_values["ueBatchSize"]
     num_of_pings = data_emulation_values["num_of_pings"]
     packet_size_bytes = data_emulation_values["packet_size_bytes"]

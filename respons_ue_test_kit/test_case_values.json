@@ -3,7 +3,7 @@
     "dataRequestEmulation": {
       "ueBatchSize": 400,
       "numUEBatches":2,
-      "webisteList": [
+      "websiteList": [
         "buzzfeed.com",
         "asos.com",
         "indiatimes.com",

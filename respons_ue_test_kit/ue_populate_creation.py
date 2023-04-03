@@ -15,7 +15,7 @@ def write_populate_script():
 
     RETURNS
     ------- 
-    None. Updating simulation_scripts/ue_populate.sh script to populate open5gs mongodb
+    None. Updating simulation_scripts/ue_populate.sh script to populate open5gs mongodbgi
     """
 
     # load test_case_values json to read in the test case paremeters
