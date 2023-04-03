@@ -38,7 +38,7 @@ def write_ping_test():
     for i in range(0, num_ues):
         # randomly select a website
         rando_website = random.choice(list_of_websites_to_ping)
-        # randomly select a spacing interval to ensure we dont overwhelm any servers
+        # randomly select a spacing interval to avoid overwhelming website servers.
         interval = random.randint(0, 10)
         # append script
         script.append(
