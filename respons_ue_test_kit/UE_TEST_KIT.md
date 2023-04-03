@@ -44,7 +44,7 @@ python ping_test_creation.py
     
 3. To create scripts that emulate ue curl requests continously:
 ```console
-python ping_test_creation.py
+python curl_test_creation.py
 ```
 
 # How to generate load on open5gs and UERANSIM with a large ue population
