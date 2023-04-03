@@ -8,8 +8,14 @@ import json
 def write_populate_script():
     """
     Write script that can be run inside of the populate pod in OPEN5GS to populate UEs.
-    Inputs:none
-    Outputs: updating simulation_scripts/ue_populate.sh script to populate open5gs mongodb
+
+    PARAMETERS
+    ----------
+    None
+
+    RETURNS
+    ------- 
+    None. Updating simulation_scripts/ue_populate.sh script to populate open5gs mongodb
     """
 
     # load test_case_values json to read in the test case paremeters

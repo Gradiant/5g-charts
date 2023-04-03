@@ -8,9 +8,15 @@ import json
 
 def write_curl_test():
     """
-    Write test case that enables ue to curl webite pages repeatedly.
-    Inputs:none
-    Outputs: updating simulation_scripts/curl.sh script to emulate curl requests from UEs
+    Write test case that enables ue to curl webite pages repeatedly
+    
+    PARAMETERS
+    ----------
+    None
+
+    RETURNS
+    ------- 
+    None. Updates 'simulation_scripts/curl.sh'
     """
 
     ##load test_case_values json to read in the test case paremeters

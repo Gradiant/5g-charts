@@ -9,11 +9,17 @@ import json
 def write_ping_test():
     """
     Write test case that enables ue to ping webite pages repeatedly
-    Inputs:none
-    Outputs: updating simulation_scripts/curl.sh script to emulate curl requests from UEs
+
+    PARAMETERS
+    ----------
+    None
+
+    RETURNS
+    ------- 
+    None. Updates 'simulation_scripts/ping.sh'
     """
 
-    # load test_case_values json to read in the test case paremeters
+    # load test_case_values json to read in the test case parameters
     master_test_file = open("test_case_values.json")
     master_test_file = json.load(master_test_file)
     data_emulation_values = master_test_file["testCases"][
