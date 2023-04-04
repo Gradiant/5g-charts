@@ -50,7 +50,7 @@ def write_populate_script():
             script.append(
                 f"open5gs-dbctl add_ue_with_slice 99970000000{i} 465B5CE8B199B49FAA5F0A2EE238A6BC E8ED289DEBA952E4283B54E88E6183CA internet 1 111111 \n"
             )
-        # Adding a sleep line in the script to ensure mongodb doesnt crash from large reqeusts.
+        # Adding a sleep line in the script to ensure mongodb doesnt crash from large requests.
         if i > 0 and i % 50 == 0:
             script.append("sleep 2 \n")
 

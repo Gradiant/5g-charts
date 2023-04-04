@@ -42,7 +42,7 @@ def write_ping_test():
         script.append(
             f"ping -I uesimtun{i} {rando_website} -s {packet_size_bytes} -i {interval} -c {num_of_pings} & \n"
         )
-
+        
     file_to_write = open("simulation_scripts/ping.sh", "w")
     file_to_write.writelines(script)
     file_to_write.close()
