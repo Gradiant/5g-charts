@@ -8,7 +8,7 @@ import json
 
 def write_ping_test():
     """
-    Write test case that enables ue to ping webite pages repeatedly
+    Write test case that enables ue to ping webite pages repeatedly.
 
     PARAMETERS
     ----------
