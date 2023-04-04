@@ -5,10 +5,9 @@ Module to create a script to emulate curl requests from UEs emulated via UERANSI
 import random
 import json
 
-
 def write_curl_test():
     """
-    Write test case that enables ue to curl webite pages repeatedly
+    Write test case that enables ue to curl webite pages repeatedly.
     
     PARAMETERS
     ----------
