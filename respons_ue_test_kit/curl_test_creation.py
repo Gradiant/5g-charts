@@ -19,7 +19,7 @@ def write_curl_test():
         None. Updates 'simulation_scripts/curl.sh'.
     """
 
-    ##Load test_case_values json to read in the test case paremeters.
+    # Load test_case_values json to read in the test case paremeters.
     master_test_file = open("test_case_values.json")
     master_test_file = json.load(master_test_file)
     data_emulation_values = master_test_file["testCases"]["dataRequestEmulation"]
@@ -29,7 +29,7 @@ def write_curl_test():
 
     script = []
 
-    ##Create an the script by providing a continous curl action for each UE to undertake.
+    # Create an the script by providing a continous curl action for each UE to undertake.
     for i in range(0, num_of_ues):
         rando_website = random.choice(list_of_websites_to_ping)
         ##randomly select a spacing interval to ensure we dont overwhelm any servers
