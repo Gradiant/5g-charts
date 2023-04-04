@@ -19,7 +19,7 @@ def write_curl_test():
         None. Updates 'simulation_scripts/curl.sh'.
     """
 
-    ##load test_case_values json to read in the test case paremeters
+    ##Load test_case_values json to read in the test case paremeters.
     master_test_file = open("test_case_values.json")
     master_test_file = json.load(master_test_file)
     data_emulation_values = master_test_file["testCases"]["dataRequestEmulation"]
