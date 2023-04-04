@@ -8,15 +8,15 @@ import json
 def write_populate_script():
     """
     Write script that can be run inside of the populate pod in OPEN5GS to populate MongoDB.
-    
+
     PARAMETERS
     ----------
         None.
-    
+
     Returns
     -------
         None. Updates 'simulation_scripts/ue_populate.sh'.
-    """ 
+    """
 
     # Load test_case_values json to read in the test case paremeters.
     master_test_file = open("test_case_values.json")
