@@ -28,10 +28,10 @@ def write_curl_test():
 
     script = []
 
-    # Create an the script by providing a continous curl action for each UE to undertake.
+    # Create the script by providing a continuous curl action for each UE to undertake.
     for i in range(0, num_of_ues):
         rando_website = random.choice(list_of_websites_to_ping)
-        # Randomly select a spacing interval to ensure we dont overwhelm any servers.
+        # Randomly select a spacing interval to not overwhelm any servers.
         interval = random.randint(0, 10)
         script.append(
             f"watch -n{interval} curl --output /dev/null --interface uesimtun{i} https://www.{rando_website} & \n"
