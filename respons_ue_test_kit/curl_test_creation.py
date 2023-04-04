@@ -12,11 +12,11 @@ def write_curl_test():
     
     PARAMETERS
     ----------
-    None
+        None.
 
     RETURNS
     ------- 
-    None. Updates 'simulation_scripts/curl.sh'
+        None. Updates 'simulation_scripts/curl.sh'.
     """
 
     ##load test_case_values json to read in the test case paremeters
@@ -29,13 +29,11 @@ def write_curl_test():
 
     script = []
 
-    ##create an the script by providing a continous curl action for each UE to undertake
+    ##Create an the script by providing a continous curl action for each UE to undertake.
     for i in range(0, num_of_ues):
-        ##randomly select a website
         rando_website = random.choice(list_of_websites_to_ping)
         ##randomly select a spacing interval to ensure we dont overwhelm any servers
         interval = random.randint(0, 10)
-        ##append script
         script.append(
             f"watch -n{interval} curl --output /dev/null --interface uesimtun{i} https://www.{rando_website} & \n"
         )
