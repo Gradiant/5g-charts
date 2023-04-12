@@ -68,7 +68,7 @@ def write_populate_script():
     file_to_write = open("simulation_scripts/ue_populate.sh", "w")
     file_to_write.writelines(script)
     file_to_write.close()
-    print("ue_populate.sh written to simulation_scripts/ue_populate.sh")
+    print("Wrote file `simulation_scripts/ue_populate.sh`")
 
 
 if __name__ == "__main__":
