@@ -4,6 +4,12 @@ logger:
   level: {{ .Values.config.logLevel }}
 parameter: {}
 
+sbi:
+  server:
+    no_tls: {{ .Values.config.sbi.server.no_tls }}
+  client:
+    no_tls: {{ .Values.config.sbi.client.no_tls }}
+
 smf:
   {{- if .Values.config.pcrf.enabled }}
   freeDiameter: smf.conf
@@ -12,7 +18,7 @@ smf:
     - dev: "eth0"
       port: {{ .Values.containerPorts.sbi }}
       {{- if .Values.config.sbi.advertise }}
-      advertise: "{{ tpl .Values.config.sbi.advertise }}"
+      advertise: "{{ tpl .Values.config.sbi.advertise . }}"
       {{- end }}
   pfcp:
     - dev: "eth0"

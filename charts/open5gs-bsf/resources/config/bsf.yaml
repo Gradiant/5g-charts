@@ -4,12 +4,18 @@ logger:
   level: {{ .Values.config.logLevel }}
 parameter: {}
 
+sbi:
+  server:
+    no_tls: {{ .Values.config.sbi.server.no_tls }}
+  client:
+    no_tls: {{ .Values.config.sbi.client.no_tls }}
+
 bsf:
   sbi:
     - dev: "eth0"
       port: {{ .Values.containerPorts.sbi }}
       {{- if .Values.config.sbi.advertise }}
-      advertise: "{{ tpl .Values.config.sbi.advertise }}"
+      advertise: "{{ tpl .Values.config.sbi.advertise . }}"
       {{- end }}
 
 nrf:

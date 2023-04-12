@@ -80,6 +80,10 @@ config:
   # advertise: provide custom SBI address to be advertised to NRF
   sbi:
     advertise: ""
+    server:
+      no_tls: true
+    client:
+      no_tls: true
   nrf:
     enabled: true
     sbi:

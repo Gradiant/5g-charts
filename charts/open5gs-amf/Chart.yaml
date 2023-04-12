@@ -10,7 +10,7 @@ maintainers:
   - email: cgiraldo@gradiant.org
     name: cgiraldo
 name: open5gs-amf
-version: 2.0.10
+version: 2.0.12
 keywords:
   - ngc
 dependencies:

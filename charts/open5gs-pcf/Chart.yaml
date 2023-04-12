@@ -10,7 +10,7 @@ maintainers:
 - email: cgiraldo@gradiant.org
   name: cgiraldo
 name: open5gs-pcf
-version: 2.0.4
+version: 2.0.6
 keywords:
   - ngc
 dependencies:
