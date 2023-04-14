@@ -2,14 +2,14 @@ upf:
   hpa:
     enabled: false
     maxReplicas: 5
-  replicaCount: 2
+  replicaCount: 3
   resources:
     requests:
       memory: "16Mi"
-      cpu: "1m"
+      cpu: "8m"
     limits:
       memory: "32Mi"
-      cpu: "2m"
+      cpu: "16m"
 
 hss:
   enabled: false
