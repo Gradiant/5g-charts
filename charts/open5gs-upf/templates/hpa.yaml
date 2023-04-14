@@ -3,7 +3,8 @@ kind: HorizontalPodAutoscaler
 metadata:
   name: {{ template "common.names.fullname" . }}
 spec:
-  maxReplicas: 1
+  maxReplicas: {{ .Values.maxReplicas }} # 1
+  minReplicas: {{ .Values.minReplicas }}
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
