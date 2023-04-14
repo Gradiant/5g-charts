@@ -1,8 +1,8 @@
 upf:
   hpa:
     enabled: false
-    maxReplicas: 10
-  replicaCount: 3
+    maxReplicas: 5
+  replicaCount: 2
   resources:
     requests:
       memory: "16Mi"
