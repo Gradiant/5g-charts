@@ -4,7 +4,7 @@ upf:
     tag: 2.6.2
   minReplicas: 1
   maxReplicas: 7
-  replicaCount: 4
+  replicaCount: 5
   resources:
     requests:
       memory: "32Mi"
