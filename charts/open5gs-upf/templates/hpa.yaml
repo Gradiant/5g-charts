@@ -2,14 +2,14 @@
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: open5gs-upf # {{ template "common.names.fullname" . }}
+  name: {{ template "common.names.fullname" . }}
 spec:
   minReplicas: {{ .Values.replicaCount }}
   maxReplicas: {{ .Values.hpa.maxReplicas }} # 1
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: open5gs-upf # {{ template "common.names.fullname" . }}
+    name: {{ template "common.names.fullname" . }}
   metrics:
   {{- if .Values.hpa.cpu }}
   - type: Resource

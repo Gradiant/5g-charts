@@ -1,20 +1,20 @@
-upf:
-  enabled: true
-  hpa:
-    enabled: false
-    maxReplicas: 5
-    # average total CPU usage per pod (1-100)
-    cpu: 80
-    # average memory usage per pod (100Mi-1Gi)
-    memory: "100Mi"
-  replicaCount: 3
-  resources:
-    requests:
-      memory: "16Mi"
-      cpu: "8m"
-    limits:
-      memory: "32Mi"
-      cpu: "16m"
+# upf:
+#   enabled: true
+#   hpa:
+#     enabled: false
+#     maxReplicas: 5
+#     # average total CPU usage per pod (1-100)
+#     cpu: 80
+#     # average memory usage per pod (100Mi-1Gi)
+#     memory: "100Mi"
+#   replicaCount: 3
+#   resources:
+#     requests:
+#       memory: "16Mi"
+#       cpu: "8m"
+#     limits:
+#       memory: "32Mi"
+#       cpu: "16m"
 
 hss:
   enabled: false
