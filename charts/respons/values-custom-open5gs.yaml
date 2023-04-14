@@ -26,6 +26,9 @@ upf:
   enabled: true
   image:
     tag: 2.6.2
+  replicaCount: 2
+  minReplicas: 1
+  maxReplicas: 5
 webui:
   enabled: true
   image:
