@@ -5,6 +5,13 @@ upf:
   minReplicas: 1
   maxReplicas: 7
   replicaCount: 2
+  resources:
+    requests:
+      memory: "8Mi"
+      cpu: "8m"
+    limits:
+      memory: "16Mi"
+      cpu: "16m"
 
 hss:
   enabled: false
