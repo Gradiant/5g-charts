@@ -1,6 +1,6 @@
 upf:
   maxReplicas: 1
-  maxReplicas: 5
+  maxReplicas: 4
   replicaCount: 3
   resources:
     requests:
