@@ -99,7 +99,7 @@ customOpen5gsConfig: {}
 ##
 replicaCount: 3
 hpa:
-  enabled: false
+  enabled: true
   maxReplicas: 5
   # average total CPU usage per pod (1-100)
   cpu: 80
