@@ -1,7 +1,7 @@
 upf:
   minReplicas: 1
   maxReplicas: 7
-  replicaCount: 2
+  replicaCount: 3
   resources:
     requests:
       memory: "32Mi"
