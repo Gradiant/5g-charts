@@ -1,7 +1,5 @@
 upf:
   enabled: true
-  image:
-    tag: 2.6.2
   hpa:
     enabled: false
     maxReplicas: 5
