@@ -1,0 +1,96 @@
+dbURI: "mongodb://{{ .Release.Name }}-mongodb/open5gs"
+
+populate:
+  enabled: true
+  image:
+    registry: docker.io
+    repository: openverso/open5gs-dbctl
+    tag: 0.10.2
+    pullPolicy: IfNotPresent
+  initCommands: []
+  # example of initCommands:
+  #  - open5gs-dbctl add 999700000000001 465B5CE8B199B49FAA5F0A2EE238A6BC E8ED289DEBA952E4283B54E88E6183CA
+  #  - open5gs-dbctl add_ue_with_apn 999700000000002 465B5CE8B199B49FAA5F0A2EE238A6BC E8ED289DEBA952E4283B54E88E6183CA internet
+  #  - open5gs-dbctl add_ue_with_slice 999700000000003 465B5CE8B199B49FAA5F0A2EE238A6BC E8ED289DEBA952E4283B54E88E6183CA internet 1 111111
+
+# Common
+mongodb:
+  enabled: true
+  auth:
+    enabled: false
+smf:
+  enabled: true
+  image:
+    tag: 2.6.2
+upf:
+  enabled: true
+  image:
+    tag: 2.6.2
+webui:
+  enabled: true
+  image:
+    tag: 2.6.2
+
+# 4G
+hss:
+  enabled: true
+  image:
+    tag: 2.6.2
+  mongodb:
+    enabled: false
+mme:
+  enabled: true
+  image:
+    tag: 2.6.2
+pcrf:
+  enabled: true
+  image:
+    tag: 2.6.2
+  mongodb:
+    enabled: false
+sgwc:
+  enabled: true
+  image:
+    tag: 2.6.2
+sgwu:
+  enabled: true
+  image:
+    tag: 2.6.2
+
+# 5G
+amf:
+  enabled: true
+  image:
+    tag: 2.6.2
+ausf:
+  enabled: true
+  image:
+    tag: 2.6.2
+bsf:
+  enabled: true
+  image:
+    tag: 2.6.2
+nrf:
+  enabled: true
+  image:
+    tag: 2.6.2
+nssf:
+  enabled: true
+  image:
+    tag: 2.6.2
+pcf:
+  enabled: true
+  image:
+    tag: 2.6.2
+  mongodb:
+    enabled: false
+udm:
+  enabled: true
+  image:
+    tag: 2.6.2
+udr:
+  enabled: true
+  image:
+    tag: 2.6.2
+  mongodb:
+    enabled: false
