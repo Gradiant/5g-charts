@@ -1,3 +1,16 @@
+upf:
+  enabled: true
+  minReplicas: 1
+  maxReplicas: 5
+  replicaCount: 1
+  resources:
+    requests:
+      memory: "8Mi"
+      cpu: "8m"
+    limits:
+      memory: "16Mi"
+      cpu: "16m"
+
 hss:
   enabled: false
 
@@ -48,18 +61,6 @@ nssf:
           port: 7777
         sst: 1
         sd: "0x111111"
-
-upf:
-  minReplicas: 1
-  maxReplicas: 5
-  replicaCount: 3
-  resources:
-    requests:
-      memory: "8Mi"
-      cpu: "8m"
-    limits:
-      memory: "16Mi"
-      cpu: "16m"
   
 webui:
   ingress:
