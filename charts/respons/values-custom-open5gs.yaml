@@ -7,10 +7,10 @@ upf:
   replicaCount: 5
   resources:
     requests:
-      memory: "32Mi"
+      memory: "2Mi"
       cpu: "8m"
     limits:
-      memory: "64Mi"
+      memory: "4Mi"
       cpu: "16m"
 
 hss:
