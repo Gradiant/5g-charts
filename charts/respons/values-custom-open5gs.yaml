@@ -1,6 +1,7 @@
 upf:
-  maxReplicas: 1
-  maxReplicas: 4
+  hpa:
+    enabled: false
+    maxReplicas: 10
   replicaCount: 3
   resources:
     requests:
