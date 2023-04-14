@@ -10,3 +10,20 @@ spec:
     apiVersion: apps/v1
     kind: Deployment
     name: {{ template "upf.fullname" . }}
+  metrics:
+  {{- if .Values.resources.cpu }}
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: {{ .Values.hpa.cpu }}
+  {{- end }}
+  {{- if .Values.hpa.memory }}
+  - type: Resource
+    resource:
+      name: memory
+      target:
+        type: AverageValue
+        averageValue: {{ .Values.hpa.memory }}
+  {{- end }}

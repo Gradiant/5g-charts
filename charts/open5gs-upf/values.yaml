@@ -97,9 +97,6 @@ customOpen5gsConfig: {}
 
 ## @param replicaCount Number of open5gs-upf Pods to run (requires ReadWriteMany PVC support)
 ##
-hpa:
-  enabled: false
-  maxReplicas: 10
 replicaCount: 1
 ## @param command Override default container command (useful when using custom images)
 ##

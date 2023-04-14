@@ -1,7 +1,14 @@
 upf:
+  enabled: true
+  image:
+    tag: 2.6.2
   hpa:
     enabled: false
     maxReplicas: 5
+    # average total CPU usage per pod (1-100)
+    cpu: 80
+    # average memory usage per pod (100Mi-1Gi)
+    memory: "100Mi"
   replicaCount: 3
   resources:
     requests:
