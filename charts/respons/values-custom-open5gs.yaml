@@ -8,10 +8,10 @@ upf:
   resources:
     requests:
       memory: "32Mi"
-      cpu: "4m"
+      cpu: "8m"
     limits:
       memory: "64Mi"
-      cpu: "8m"
+      cpu: "16m"
 
 hss:
   enabled: false
