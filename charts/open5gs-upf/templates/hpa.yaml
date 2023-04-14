@@ -2,11 +2,11 @@
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: {{ template "open5gs-upf.fullname" . }}
+  name: {{ template "upf.fullname" . }}
 spec:
   minReplicas: {{ .Values.replicaCount }}
   maxReplicas: {{ .Values.hpa.maxReplicas }} # 1
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: {{ template "open5gs-upf.fullname" . }}
+    name: {{ template "upf.fullname" . }}
