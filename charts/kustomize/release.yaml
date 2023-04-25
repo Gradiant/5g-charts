@@ -11,7 +11,7 @@ spec:
       chart: ./charts/open5gs
       sourceRef:
         kind: GitRepository
-        name: openverso
+        name: openverso-jing-test
         namespace: openverso
   valuesFrom:
     - kind: ConfigMap
