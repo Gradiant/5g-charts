@@ -1,6 +1,6 @@
 # open5gs-smf
 
-![Version: 2.0.7](https://img.shields.io/badge/Version-2.0.7-informational?style=flat-square) ![AppVersion: 2.4.11](https://img.shields.io/badge/AppVersion-2.4.11-informational?style=flat-square)
+![Version: 2.0.10](https://img.shields.io/badge/Version-2.0.10-informational?style=flat-square) ![AppVersion: 2.4.11](https://img.shields.io/badge/AppVersion-2.4.11-informational?style=flat-square)
 
 Helm chart to deploy Open5gs SMF service on Kubernetes.
 
@@ -44,6 +44,8 @@ Helm chart to deploy Open5gs SMF service on Kubernetes.
 | config.pcrf.frdi.hostname | string | `""` |  |
 | config.pcrf.frdi.port | int | `3868` |  |
 | config.sbi.advertise | string | `""` |  |
+| config.sbi.client.no_tls | bool | `true` |  |
+| config.sbi.server.no_tls | bool | `true` |  |
 | config.subnetList[0].addr | string | `"10.45.0.1/16"` |  |
 | config.subnetList[0].dnn | string | `"internet"` |  |
 | config.upf.pfcp.hostname | string | `""` |  |

@@ -1,6 +1,6 @@
 # open5gs-amf
 
-![Version: 2.0.10](https://img.shields.io/badge/Version-2.0.10-informational?style=flat-square) ![AppVersion: 2.4.11](https://img.shields.io/badge/AppVersion-2.4.11-informational?style=flat-square)
+![Version: 2.0.13](https://img.shields.io/badge/Version-2.0.13-informational?style=flat-square) ![AppVersion: 2.4.11](https://img.shields.io/badge/AppVersion-2.4.11-informational?style=flat-square)
 
 Helm chart to deploy Open5gs AMF service on Kubernetes.
 
@@ -44,6 +44,8 @@ Helm chart to deploy Open5gs AMF service on Kubernetes.
 | config.plmnList[0].s_nssai[0].sd | string | `"0x111111"` |  |
 | config.plmnList[0].s_nssai[0].sst | int | `1` |  |
 | config.sbi.advertise | string | `""` |  |
+| config.sbi.client.no_tls | bool | `true` |  |
+| config.sbi.server.no_tls | bool | `true` |  |
 | config.taiList[0].plmn_id.mcc | string | `"999"` |  |
 | config.taiList[0].plmn_id.mnc | string | `"70"` |  |
 | config.taiList[0].tac[0] | int | `1` |  |
