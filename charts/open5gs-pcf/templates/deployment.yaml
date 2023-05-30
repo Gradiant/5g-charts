@@ -107,6 +107,8 @@ spec:
           ports:
             - name: sbi
               containerPort: {{ .Values.containerPorts.sbi }}
+            - name: metrics
+              containerPort: {{ .Values.containerPorts.metrics }}
           {{- if .Values.startupProbe.enabled }}
           startupProbe:
           # Using tcpSocket instead of httpGet because open5gs only support HTTP/2

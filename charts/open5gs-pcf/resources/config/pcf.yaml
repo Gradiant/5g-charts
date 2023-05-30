@@ -16,6 +16,11 @@ pcf:
       {{- if .Values.config.sbi.advertise }}
       advertise: "{{ tpl .Values.config.sbi.advertise . }}"
       {{- end }}
+  {{- if .Values.metrics.enabled }}
+  metrics:
+    addr: 0.0.0.0
+    port: 9090
+  {{- end }}
 
 nrf:
   sbi:
