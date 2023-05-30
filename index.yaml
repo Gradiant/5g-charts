@@ -329,6 +329,115 @@ entries:
   open5gs:
   - apiVersion: v2
     appVersion: 2.4.11
+    created: "2023-05-30T06:44:03.022675566Z"
+    dependencies:
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 1.x.x
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: https://charts.bitnami.com/bitnami
+      version: ~12.1.19
+    - alias: amf
+      condition: amf.enabled
+      name: open5gs-amf
+      repository: file://../open5gs-amf
+      version: ~2.0.0
+    - alias: ausf
+      condition: ausf.enabled
+      name: open5gs-ausf
+      repository: file://../open5gs-ausf
+      version: ~2.0.0
+    - alias: bsf
+      condition: bsf.enabled
+      name: open5gs-bsf
+      repository: file://../open5gs-bsf
+      version: ~2.0.0
+    - alias: hss
+      condition: hss.enabled
+      name: open5gs-hss
+      repository: file://../open5gs-hss
+      version: ~2.0.0
+    - alias: mme
+      condition: mme.enabled
+      name: open5gs-mme
+      repository: file://../open5gs-mme
+      version: ~2.0.0
+    - alias: nrf
+      condition: nrf.enabled
+      name: open5gs-nrf
+      repository: file://../open5gs-nrf
+      version: ~2.0.0
+    - alias: nssf
+      condition: nssf.enabled
+      name: open5gs-nssf
+      repository: file://../open5gs-nssf
+      version: ~2.0.0
+    - alias: pcf
+      condition: pcf.enabled
+      name: open5gs-pcf
+      repository: file://../open5gs-pcf
+      version: ~2.0.0
+    - alias: pcrf
+      condition: pcrf.enabled
+      name: open5gs-pcrf
+      repository: file://../open5gs-pcrf
+      version: ~2.0.0
+    - alias: sgwc
+      condition: sgwc.enabled
+      name: open5gs-sgwc
+      repository: file://../open5gs-sgwc
+      version: ~2.0.0
+    - alias: sgwu
+      condition: sgwu.enabled
+      name: open5gs-sgwu
+      repository: file://../open5gs-sgwu
+      version: ~2.0.0
+    - alias: smf
+      condition: smf.enabled
+      name: open5gs-smf
+      repository: file://../open5gs-smf
+      version: ~2.0.0
+    - alias: udm
+      condition: udm.enabled
+      name: open5gs-udm
+      repository: file://../open5gs-udm
+      version: ~2.0.0
+    - alias: udr
+      condition: udr.enabled
+      name: open5gs-udr
+      repository: file://../open5gs-udr
+      version: ~2.0.0
+    - alias: upf
+      condition: upf.enabled
+      name: open5gs-upf
+      repository: file://../open5gs-upf
+      version: ~2.0.0
+    - alias: webui
+      condition: webui.enabled
+      name: open5gs-webui
+      repository: file://../open5gs-webui
+      version: ~2.0.0
+    description: 'Helm chart to deploy Open5gs services on Kubernetes. '
+    digest: debe5bdd7e537f8b2e850400218465aefa57b0787dd3088f0fa59c159026dd07
+    home: https://github.com/gradiant/openverso-charts
+    icon: https://open5gs.org/assets/img/open5gs-logo.png
+    keywords:
+    - epc
+    - ngc
+    maintainers:
+    - email: cgiraldo@gradiant.org
+      name: cgiraldo
+    name: open5gs
+    sources:
+    - http://open5gs.org
+    urls:
+    - https://github.com/Gradiant/openverso-charts/releases/download/open5gs-2.0.12/open5gs-2.0.12.tgz
+    version: 2.0.12
+  - apiVersion: v2
+    appVersion: 2.4.11
     created: "2023-04-10T14:31:25.40765531Z"
     dependencies:
     - name: common
@@ -2193,6 +2302,30 @@ entries:
   open5gs-amf:
   - apiVersion: v2
     appVersion: 2.4.11
+    created: "2023-05-30T06:44:03.231617422Z"
+    dependencies:
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 1.x.x
+    description: 'Helm chart to deploy Open5gs AMF service on Kubernetes. '
+    digest: f142cfba282a8bfeef6852be7150969b023610d347db3af8f7fa1a9a881e17a3
+    home: https://github.com/gradiant/openverso-charts
+    icon: https://open5gs.org/assets/img/open5gs-logo.png
+    keywords:
+    - ngc
+    maintainers:
+    - email: cgiraldo@gradiant.org
+      name: cgiraldo
+    name: open5gs-amf
+    sources:
+    - http://open5gs.org
+    urls:
+    - https://github.com/Gradiant/openverso-charts/releases/download/open5gs-amf-2.0.13/open5gs-amf-2.0.13.tgz
+    version: 2.0.13
+  - apiVersion: v2
+    appVersion: 2.4.11
     created: "2023-04-10T14:31:25.559507355Z"
     dependencies:
     - name: common
@@ -2506,6 +2639,30 @@ entries:
   open5gs-ausf:
   - apiVersion: v2
     appVersion: 2.4.11
+    created: "2023-05-30T06:44:03.451263903Z"
+    dependencies:
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 1.x.x
+    description: 'Helm chart to deploy Open5gs AUSF service on Kubernetes. '
+    digest: 85745ae50ccb737fc5bbe960b3945b908b8997e0ec39bc429207705530628d0a
+    home: https://github.com/gradiant/openverso-charts
+    icon: https://open5gs.org/assets/img/open5gs-logo.png
+    keywords:
+    - ngc
+    maintainers:
+    - email: cgiraldo@gradiant.org
+      name: cgiraldo
+    name: open5gs-ausf
+    sources:
+    - http://open5gs.org
+    urls:
+    - https://github.com/Gradiant/openverso-charts/releases/download/open5gs-ausf-2.0.7/open5gs-ausf-2.0.7.tgz
+    version: 2.0.7
+  - apiVersion: v2
+    appVersion: 2.4.11
     created: "2023-04-10T14:31:25.725446097Z"
     dependencies:
     - name: common
@@ -2675,6 +2832,30 @@ entries:
   open5gs-bsf:
   - apiVersion: v2
     appVersion: 2.4.11
+    created: "2023-05-30T06:44:03.680033331Z"
+    dependencies:
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 1.x.x
+    description: 'Helm chart to deploy Open5gs BSF service on Kubernetes. '
+    digest: f82db3538b461508f6af32a3be439d49494dfddeedeb5d685e14964b018f6e97
+    home: https://github.com/gradiant/openverso-charts
+    icon: https://open5gs.org/assets/img/open5gs-logo.png
+    keywords:
+    - ngc
+    maintainers:
+    - email: cgiraldo@gradiant.org
+      name: cgiraldo
+    name: open5gs-bsf
+    sources:
+    - http://open5gs.org
+    urls:
+    - https://github.com/Gradiant/openverso-charts/releases/download/open5gs-bsf-2.0.7/open5gs-bsf-2.0.7.tgz
+    version: 2.0.7
+  - apiVersion: v2
+    appVersion: 2.4.11
     created: "2023-04-10T14:31:26.310379714Z"
     dependencies:
     - name: common
@@ -2842,6 +3023,35 @@ entries:
     - https://github.com/Gradiant/openverso-charts/releases/download/open5gs-bsf-2.0.0/open5gs-bsf-2.0.0.tgz
     version: 2.0.0
   open5gs-hss:
+  - apiVersion: v2
+    appVersion: 2.4.11
+    created: "2023-05-30T06:44:03.911901212Z"
+    dependencies:
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 1.x.x
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: https://charts.bitnami.com/bitnami
+      version: ~12.1.19
+    description: 'Helm chart to deploy Open5gs HSS service on Kubernetes. '
+    digest: ade1e8b7c947d584263a0c3a2afd44d0f7da874ac458988306875b95528f886e
+    home: https://github.com/gradiant/openverso-charts
+    icon: https://open5gs.org/assets/img/open5gs-logo.png
+    keywords:
+    - epc
+    - ngc
+    maintainers:
+    - email: cgiraldo@gradiant.org
+      name: cgiraldo
+    name: open5gs-hss
+    sources:
+    - http://open5gs.org
+    urls:
+    - https://github.com/Gradiant/openverso-charts/releases/download/open5gs-hss-2.0.5/open5gs-hss-2.0.5.tgz
+    version: 2.0.5
   - apiVersion: v2
     appVersion: 2.4.11
     created: "2022-10-05T13:18:28.955529712Z"
@@ -3141,6 +3351,31 @@ entries:
   open5gs-nrf:
   - apiVersion: v2
     appVersion: 2.4.11
+    created: "2023-05-30T06:44:04.115342297Z"
+    dependencies:
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 1.x.x
+    description: 'Helm chart to deploy Open5gs NRF service on Kubernetes. '
+    digest: 6c825539383129b14897f6db3391ffab5df03891ba40674b7ba249adcc909c86
+    home: https://github.com/gradiant/openverso-charts
+    icon: https://open5gs.org/assets/img/open5gs-logo.png
+    keywords:
+    - epc
+    - ngc
+    maintainers:
+    - email: cgiraldo@gradiant.org
+      name: cgiraldo
+    name: open5gs-nrf
+    sources:
+    - http://open5gs.org
+    urls:
+    - https://github.com/Gradiant/openverso-charts/releases/download/open5gs-nrf-2.0.5/open5gs-nrf-2.0.5.tgz
+    version: 2.0.5
+  - apiVersion: v2
+    appVersion: 2.4.11
     created: "2023-04-10T14:31:26.461168872Z"
     dependencies:
     - name: common
@@ -3265,6 +3500,30 @@ entries:
     - https://github.com/Gradiant/openverso-charts/releases/download/open5gs-nrf-2.0.0/open5gs-nrf-2.0.0.tgz
     version: 2.0.0
   open5gs-nssf:
+  - apiVersion: v2
+    appVersion: 2.4.11
+    created: "2023-05-30T06:44:04.313547226Z"
+    dependencies:
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 1.x.x
+    description: 'Helm chart to deploy Open5gs NSSF service on Kubernetes. '
+    digest: 5c0b6b058ab14c144f881708529ce23497b8af6630f4d0f60fa436d40f2e50dd
+    home: https://github.com/gradiant/openverso-charts
+    icon: https://open5gs.org/assets/img/open5gs-logo.png
+    keywords:
+    - ngc
+    maintainers:
+    - email: cgiraldo@gradiant.org
+      name: cgiraldo
+    name: open5gs-nssf
+    sources:
+    - http://open5gs.org
+    urls:
+    - https://github.com/Gradiant/openverso-charts/releases/download/open5gs-nssf-2.0.7/open5gs-nssf-2.0.7.tgz
+    version: 2.0.7
   - apiVersion: v2
     appVersion: 2.4.11
     created: "2023-04-10T14:31:26.603687821Z"
@@ -3434,6 +3693,34 @@ entries:
     - https://github.com/Gradiant/openverso-charts/releases/download/open5gs-nssf-2.0.0/open5gs-nssf-2.0.0.tgz
     version: 2.0.0
   open5gs-pcf:
+  - apiVersion: v2
+    appVersion: 2.4.11
+    created: "2023-05-30T06:44:04.539730227Z"
+    dependencies:
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 1.x.x
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: https://charts.bitnami.com/bitnami
+      version: ~12.1.19
+    description: 'Helm chart to deploy Open5gs PCF service on Kubernetes. '
+    digest: 1d941b15e3f30faf562d717bd96744fb4436aac84578881d15fc842acf25714d
+    home: https://github.com/gradiant/openverso-charts
+    icon: https://open5gs.org/assets/img/open5gs-logo.png
+    keywords:
+    - ngc
+    maintainers:
+    - email: cgiraldo@gradiant.org
+      name: cgiraldo
+    name: open5gs-pcf
+    sources:
+    - http://open5gs.org
+    urls:
+    - https://github.com/Gradiant/openverso-charts/releases/download/open5gs-pcf-2.0.7/open5gs-pcf-2.0.7.tgz
+    version: 2.0.7
   - apiVersion: v2
     appVersion: 2.4.11
     created: "2023-04-10T14:31:26.770670995Z"
@@ -3633,6 +3920,35 @@ entries:
   open5gs-pcrf:
   - apiVersion: v2
     appVersion: 2.4.11
+    created: "2023-05-30T06:44:04.776609954Z"
+    dependencies:
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 1.x.x
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: https://charts.bitnami.com/bitnami
+      version: ~12.1.19
+    description: 'Helm chart to deploy Open5gs PCRF service on Kubernetes. '
+    digest: 42d02a87e7267e5b452a0f9849845b82d476da36300036f26ac4fe986bb67e5c
+    home: https://github.com/gradiant/openverso-charts
+    icon: https://open5gs.org/assets/img/open5gs-logo.png
+    keywords:
+    - epc
+    - ngc
+    maintainers:
+    - email: cgiraldo@gradiant.org
+      name: cgiraldo
+    name: open5gs-pcrf
+    sources:
+    - http://open5gs.org
+    urls:
+    - https://github.com/Gradiant/openverso-charts/releases/download/open5gs-pcrf-2.0.5/open5gs-pcrf-2.0.5.tgz
+    version: 2.0.5
+  - apiVersion: v2
+    appVersion: 2.4.11
     created: "2022-10-05T13:18:29.673917321Z"
     dependencies:
     - name: common
@@ -3779,6 +4095,30 @@ entries:
   open5gs-sgwc:
   - apiVersion: v2
     appVersion: 2.4.11
+    created: "2023-05-30T06:44:04.984464156Z"
+    dependencies:
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 1.x.x
+    description: 'Helm chart to deploy Open5gs SGWC service on Kubernetes. '
+    digest: 574ab37ac24183444fc173ed0653c10c6cb7fe8f2b2d82dda09e51e32536ca6d
+    home: https://github.com/gradiant/openverso-charts
+    icon: https://open5gs.org/assets/img/open5gs-logo.png
+    keywords:
+    - ngc
+    maintainers:
+    - email: cgiraldo@gradiant.org
+      name: cgiraldo
+    name: open5gs-sgwc
+    sources:
+    - http://open5gs.org
+    urls:
+    - https://github.com/Gradiant/openverso-charts/releases/download/open5gs-sgwc-2.0.5/open5gs-sgwc-2.0.5.tgz
+    version: 2.0.5
+  - apiVersion: v2
+    appVersion: 2.4.11
     created: "2022-10-05T13:18:29.797748912Z"
     dependencies:
     - name: common
@@ -3898,6 +4238,30 @@ entries:
     - https://github.com/Gradiant/openverso-charts/releases/download/open5gs-sgwc-2.0.0/open5gs-sgwc-2.0.0.tgz
     version: 2.0.0
   open5gs-sgwu:
+  - apiVersion: v2
+    appVersion: 2.4.11
+    created: "2023-05-30T06:44:05.193809331Z"
+    dependencies:
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 1.x.x
+    description: 'Helm chart to deploy Open5gs SGWU service on Kubernetes. '
+    digest: 0467989620b770f0de2dd49e23e49cb03f6027b50be6538c4072f6bcc749142b
+    home: https://github.com/gradiant/openverso-charts
+    icon: https://open5gs.org/assets/img/open5gs-logo.png
+    keywords:
+    - ngc
+    maintainers:
+    - email: cgiraldo@gradiant.org
+      name: cgiraldo
+    name: open5gs-sgwu
+    sources:
+    - http://open5gs.org
+    urls:
+    - https://github.com/Gradiant/openverso-charts/releases/download/open5gs-sgwu-2.0.7/open5gs-sgwu-2.0.7.tgz
+    version: 2.0.7
   - apiVersion: v2
     appVersion: 2.4.11
     created: "2023-03-21T09:38:30.047364994+01:00"
@@ -4067,6 +4431,30 @@ entries:
     - https://github.com/Gradiant/openverso-charts/releases/download/open5gs-sgwu-2.0.0/open5gs-sgwu-2.0.0.tgz
     version: 2.0.0
   open5gs-smf:
+  - apiVersion: v2
+    appVersion: 2.4.11
+    created: "2023-05-30T06:44:05.404131254Z"
+    dependencies:
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 1.x.x
+    description: 'Helm chart to deploy Open5gs SMF service on Kubernetes. '
+    digest: e0aad1fbb3c161b2c016bd401c6bb425de0956294aafebe7c458b17ef28ec4d6
+    home: https://github.com/gradiant/openverso-charts
+    icon: https://open5gs.org/assets/img/open5gs-logo.png
+    keywords:
+    - ngc
+    maintainers:
+    - email: cgiraldo@gradiant.org
+      name: cgiraldo
+    name: open5gs-smf
+    sources:
+    - http://open5gs.org
+    urls:
+    - https://github.com/Gradiant/openverso-charts/releases/download/open5gs-smf-2.0.10/open5gs-smf-2.0.10.tgz
+    version: 2.0.10
   - apiVersion: v2
     appVersion: 2.4.11
     created: "2023-04-10T14:31:26.929258661Z"
@@ -4310,6 +4698,30 @@ entries:
   open5gs-udm:
   - apiVersion: v2
     appVersion: 2.4.11
+    created: "2023-05-30T06:44:05.615975852Z"
+    dependencies:
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 1.x.x
+    description: 'Helm chart to deploy Open5gs UDM service on Kubernetes. '
+    digest: 722e2a24e67c4f5a02df2f43cae869e8c78d44ad79c3523785a190bdc9086488
+    home: https://github.com/gradiant/openverso-charts
+    icon: https://open5gs.org/assets/img/open5gs-logo.png
+    keywords:
+    - ngc
+    maintainers:
+    - email: cgiraldo@gradiant.org
+      name: cgiraldo
+    name: open5gs-udm
+    sources:
+    - http://open5gs.org
+    urls:
+    - https://github.com/Gradiant/openverso-charts/releases/download/open5gs-udm-2.0.7/open5gs-udm-2.0.7.tgz
+    version: 2.0.7
+  - apiVersion: v2
+    appVersion: 2.4.11
     created: "2023-04-10T14:31:27.09137143Z"
     dependencies:
     - name: common
@@ -4477,6 +4889,34 @@ entries:
     - https://github.com/Gradiant/openverso-charts/releases/download/open5gs-udm-2.0.0/open5gs-udm-2.0.0.tgz
     version: 2.0.0
   open5gs-udr:
+  - apiVersion: v2
+    appVersion: 2.4.11
+    created: "2023-05-30T06:44:05.866239436Z"
+    dependencies:
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 1.x.x
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: https://charts.bitnami.com/bitnami
+      version: ~12.1.19
+    description: 'Helm chart to deploy Open5gs UDR service on Kubernetes. '
+    digest: defdc76f2c72332f292c99d321f5e8cfbc22240c750860cc77f39b64e6a0e3b4
+    home: https://github.com/gradiant/openverso-charts
+    icon: https://open5gs.org/assets/img/open5gs-logo.png
+    keywords:
+    - ngc
+    maintainers:
+    - email: cgiraldo@gradiant.org
+      name: cgiraldo
+    name: open5gs-udr
+    sources:
+    - http://open5gs.org
+    urls:
+    - https://github.com/Gradiant/openverso-charts/releases/download/open5gs-udr-2.0.7/open5gs-udr-2.0.7.tgz
+    version: 2.0.7
   - apiVersion: v2
     appVersion: 2.4.11
     created: "2023-04-10T14:31:27.260557707Z"
@@ -4674,6 +5114,30 @@ entries:
     - https://github.com/Gradiant/openverso-charts/releases/download/open5gs-udr-2.0.0/open5gs-udr-2.0.0.tgz
     version: 2.0.0
   open5gs-upf:
+  - apiVersion: v2
+    appVersion: 2.4.11
+    created: "2023-05-30T06:44:06.096369731Z"
+    dependencies:
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 1.x.x
+    description: 'Helm chart to deploy Open5gs UPF service on Kubernetes. '
+    digest: 3d0f7f75d5cec9802e7013ac231082878248760e674739f0fa6f0a406ea19ae7
+    home: https://github.com/gradiant/openverso-charts
+    icon: https://open5gs.org/assets/img/open5gs-logo.png
+    keywords:
+    - ngc
+    maintainers:
+    - email: cgiraldo@gradiant.org
+      name: cgiraldo
+    name: open5gs-upf
+    sources:
+    - http://open5gs.org
+    urls:
+    - https://github.com/Gradiant/openverso-charts/releases/download/open5gs-upf-2.0.8/open5gs-upf-2.0.8.tgz
+    version: 2.0.8
   - apiVersion: v2
     appVersion: 2.4.11
     created: "2023-03-21T09:38:31.058093858+01:00"
@@ -5449,4 +5913,4 @@ entries:
     urls:
     - https://github.com/Gradiant/openverso-charts/releases/download/ueransim-ues-0.1.0/ueransim-ues-0.1.0.tgz
     version: 0.1.0
-generated: "2023-04-10T14:31:27.261218308Z"
+generated: "2023-05-30T06:44:06.097832803Z"
