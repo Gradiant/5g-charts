@@ -145,7 +145,8 @@ spec:
           {{- end }}
           volumeMounts:
             - name: config
-              mountPath:  /opt/open5gs/etc/open5gs/
+              mountPath:  /opt/open5gs/etc/open5gs/nrf.yaml
+              subPath: "nrf.yaml"
             {{- if .Values.extraVolumeMounts }}
             {{- include "common.tplvalues.render" (dict "value" .Values.extraVolumeMounts "context" $) | nindent 12 }}
             {{- end }}

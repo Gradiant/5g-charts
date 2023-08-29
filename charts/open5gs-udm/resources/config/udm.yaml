@@ -17,7 +17,16 @@ udm:
       advertise: "{{ tpl .Values.config.sbi.advertise . }}"
       {{- end }}
 
+{{- if .Values.config.nrf.enabled }}
 nrf:
   sbi:
     - name: {{ default (printf "%s-nrf-sbi" $open5gsName) .Values.config.nrf.sbi.hostname }}
       port: {{ .Values.config.nrf.sbi.port }}
+{{- end }}
+
+{{- if .Values.config.scp.enabled }}
+scp:
+  sbi:
+    - name: {{ default (printf "%s-scp-sbi" $open5gsName) .Values.config.scp.sbi.hostname }}
+      port: {{ .Values.config.scp.sbi.port }}
+{{- end }}

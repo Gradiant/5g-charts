@@ -10,7 +10,7 @@ maintainers:
 - email: cgiraldo@gradiant.org
   name: cgiraldo
 name: open5gs-sgwu
-version: 2.0.7
+version: 2.1.0
 keywords:
   - ngc
 dependencies:

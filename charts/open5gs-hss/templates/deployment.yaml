@@ -125,7 +125,8 @@ spec:
               mountPath: /opt/open5gs/etc/freeDiameter/hss.conf
               subPath: "hss.conf"
             - name: config
-              mountPath:  /opt/open5gs/etc/open5gs/
+              mountPath:  /opt/open5gs/etc/open5gs/hss.yaml
+              subPath: "hss.yaml"
             {{- if .Values.extraVolumeMounts }}
             {{- include "common.tplvalues.render" (dict "value" .Values.extraVolumeMounts "context" $) | nindent 12 }}
             {{- end }}
