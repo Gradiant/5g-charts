@@ -28,7 +28,7 @@ helm install open5gs openverso/open5gs --version 2.1.0 --values https://gradiant
 
 You can check the NF log to check if it is using SCP to register into the core. 
 
-For example, to get the AMF log run:
+For example, to get the AMF log, execute the following instruction:
 
 ```
 kubectl logs deployment/open5gs-amf
@@ -45,14 +45,13 @@ kubectl exec deployment/open5gs-nrf -- curl -s --http2-prior-knowledge http://op
 ![search AMF in NRF](https://raw.githubusercontent.com/Gradiant/openverso-charts/gh-pages/docs/open5gs-scp/screenshots/nrf-request.png "search AMF in NRF")
 
 
-open5gs-scp service also logs the NFs requests:
+You can also check open5gs-scp to track NF registrations:
 
 ```
 kubectl logs deployment/open5gs-scp
 ```
 
 ![open5gs-scp logs](https://raw.githubusercontent.com/Gradiant/openverso-charts/gh-pages/docs/open5gs-scp/screenshots/logs-scp.png "open5gs-scp logs")
-
 
 
 # Enable SCP in other tutorials

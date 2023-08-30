@@ -2,7 +2,7 @@
 scp:
   enabled: true
 
-# set scp configuration in the other fuctions:
+# set scp configuration in the other functions:
 smf:
   config:
     scp:
