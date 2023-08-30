@@ -1,6 +1,6 @@
 # open5gs-smf
 
-![Version: 2.0.10](https://img.shields.io/badge/Version-2.0.10-informational?style=flat-square) ![AppVersion: 2.4.11](https://img.shields.io/badge/AppVersion-2.4.11-informational?style=flat-square)
+![Version: 2.1.0](https://img.shields.io/badge/Version-2.1.0-informational?style=flat-square) ![AppVersion: 2.4.11](https://img.shields.io/badge/AppVersion-2.4.11-informational?style=flat-square)
 
 Helm chart to deploy Open5gs SMF service on Kubernetes.
 
@@ -46,6 +46,9 @@ Helm chart to deploy Open5gs SMF service on Kubernetes.
 | config.sbi.advertise | string | `""` |  |
 | config.sbi.client.no_tls | bool | `true` |  |
 | config.sbi.server.no_tls | bool | `true` |  |
+| config.scp.enabled | bool | `false` |  |
+| config.scp.sbi.hostname | string | `""` |  |
+| config.scp.sbi.port | int | `7777` |  |
 | config.subnetList[0].addr | string | `"10.45.0.1/16"` |  |
 | config.subnetList[0].dnn | string | `"internet"` |  |
 | config.upf.pfcp.hostname | string | `""` |  |
@@ -80,7 +83,7 @@ Helm chart to deploy Open5gs SMF service on Kubernetes.
 | image.pullSecrets | list | `[]` |  |
 | image.registry | string | `"docker.io"` |  |
 | image.repository | string | `"openverso/open5gs"` |  |
-| image.tag | string | `"2.4.11"` |  |
+| image.tag | string | `"2.6.4"` |  |
 | initContainers | list | `[]` |  |
 | kubeVersion | string | `""` |  |
 | lifecycleHooks | object | `{}` |  |

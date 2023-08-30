@@ -125,7 +125,8 @@ spec:
               mountPath: /opt/open5gs/etc/freeDiameter/pcrf.conf
               subPath: "pcrf.conf"
             - name: config
-              mountPath:  /opt/open5gs/etc/open5gs/
+              mountPath:  /opt/open5gs/etc/open5gs/pcrf.yaml
+              subPath: "pcrf.yaml"
             {{- if .Values.extraVolumeMounts }}
             {{- include "common.tplvalues.render" (dict "value" .Values.extraVolumeMounts "context" $) | nindent 12 }}
             {{- end }}

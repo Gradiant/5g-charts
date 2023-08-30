@@ -1,6 +1,6 @@
 # open5gs-nssf
 
-![Version: 2.0.7](https://img.shields.io/badge/Version-2.0.7-informational?style=flat-square) ![AppVersion: 2.4.11](https://img.shields.io/badge/AppVersion-2.4.11-informational?style=flat-square)
+![Version: 2.1.0](https://img.shields.io/badge/Version-2.1.0-informational?style=flat-square) ![AppVersion: 2.4.11](https://img.shields.io/badge/AppVersion-2.4.11-informational?style=flat-square)
 
 Helm chart to deploy Open5gs NSSF service on Kubernetes.
 
@@ -32,6 +32,7 @@ Helm chart to deploy Open5gs NSSF service on Kubernetes.
 | commonAnnotations | object | `{}` |  |
 | commonLabels | object | `{}` |  |
 | config.logLevel | string | `"info"` |  |
+| config.nrf.enabled | bool | `true` |  |
 | config.nrf.sbi.hostname | string | `""` |  |
 | config.nrf.sbi.port | int | `7777` |  |
 | config.nsiList[0].nrf.hostname | string | `""` |  |
@@ -41,6 +42,9 @@ Helm chart to deploy Open5gs NSSF service on Kubernetes.
 | config.sbi.advertise | string | `""` |  |
 | config.sbi.client.no_tls | bool | `true` |  |
 | config.sbi.server.no_tls | bool | `true` |  |
+| config.scp.enabled | bool | `false` |  |
+| config.scp.sbi.hostname | string | `""` |  |
+| config.scp.sbi.port | int | `7777` |  |
 | containerPorts.sbi | int | `7777` |  |
 | containerSecurityContext.enabled | bool | `true` |  |
 | containerSecurityContext.runAsNonRoot | bool | `true` |  |
@@ -66,7 +70,7 @@ Helm chart to deploy Open5gs NSSF service on Kubernetes.
 | image.pullSecrets | list | `[]` |  |
 | image.registry | string | `"docker.io"` |  |
 | image.repository | string | `"openverso/open5gs"` |  |
-| image.tag | string | `"2.4.11"` |  |
+| image.tag | string | `"2.6.4"` |  |
 | initContainers | list | `[]` |  |
 | kubeVersion | string | `""` |  |
 | lifecycleHooks | object | `{}` |  |

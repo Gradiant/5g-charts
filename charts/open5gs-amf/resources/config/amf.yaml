@@ -44,7 +44,16 @@ amf:
     integrity_order : [ NIA2, NIA1, NIA0 ]
     ciphering_order : [ NEA0, NEA1, NEA2 ]
 
+{{- if .Values.config.nrf.enabled }}
 nrf:
   sbi:
     - name: {{ default (printf "%s-nrf-sbi" $open5gsName) .Values.config.nrf.sbi.hostname }}
       port: {{ .Values.config.nrf.sbi.port }}
+{{- end }}
+
+{{- if .Values.config.scp.enabled }}
+scp:
+  sbi:
+    - name: {{ default (printf "%s-scp-sbi" $open5gsName) .Values.config.scp.sbi.hostname }}
+      port: {{ .Values.config.scp.sbi.port }}
+{{- end }}
