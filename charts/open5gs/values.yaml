@@ -5,7 +5,7 @@ populate:
   image:
     registry: docker.io
     repository: openverso/open5gs-dbctl
-    tag: 0.10.2
+    tag: 0.10.3
     pullPolicy: IfNotPresent
   initCommands: []
   # example of initCommands:
