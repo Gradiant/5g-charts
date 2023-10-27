@@ -1,6 +1,6 @@
 # open5gs-webui
 
-![Version: 2.1.0](https://img.shields.io/badge/Version-2.1.0-informational?style=flat-square) ![AppVersion: 2.4.11](https://img.shields.io/badge/AppVersion-2.4.11-informational?style=flat-square)
+![Version: 2.1.0](https://img.shields.io/badge/Version-2.1.0-informational?style=flat-square) ![AppVersion: 2.6.6](https://img.shields.io/badge/AppVersion-2.6.6-informational?style=flat-square)
 
 Helm chart to deploy Open5gs WebUI service on Kubernetes.
 
@@ -58,7 +58,7 @@ Helm chart to deploy Open5gs WebUI service on Kubernetes.
 | image.pullSecrets | list | `[]` |  |
 | image.registry | string | `"docker.io"` |  |
 | image.repository | string | `"openverso/open5gs-webui"` |  |
-| image.tag | string | `"2.6.4"` |  |
+| image.tag | string | `"2.6.6"` |  |
 | ingress.annotations | object | `{}` |  |
 | ingress.apiVersion | string | `""` |  |
 | ingress.enabled | bool | `true` |  |
