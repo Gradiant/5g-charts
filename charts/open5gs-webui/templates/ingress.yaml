@@ -9,6 +9,9 @@ metadata:
     {{- toYaml . | nindent 4 }}
     {{- end }}
 spec:
+{{- if and .Values.ingress.ingressClassName (semverCompare ">=1.19-0" $kubeVersion) }}
+  ingressClassName: {{ .Values.ingress.ingressClassName }}
+{{- end }}
   rules:
     - host: {{ .Values.ingress.hostname | default (printf "%s-%s.ingress.lab5g.gradiant.org" .Release.Name .Release.Namespace) }}
       http:
