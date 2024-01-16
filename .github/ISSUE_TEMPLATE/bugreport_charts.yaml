@@ -1,0 +1,40 @@
+name: Bug Report openverso-charts
+description: File a bug report or issue
+title: "[Bug]: "
+body:
+  - type: markdown
+    attributes:
+      value: > 
+        **Please note**
+        
+        This form should only be used if _you can reporoduce_ the bug the in the latest version of openverso-charts.
+        
+        **This form is not for support requests.*
+  - type: textarea
+    attributes:
+      label: Steps to reproduce
+      description: >
+        Please describe in detail the steps needed to reproduce this bug. These steps
+        should reproduce the issue on the most current release of openverso-charts. Be sure to
+        include configuration and platform details.
+        Please include logs from the relevant daemons as well as any relevant packet captures.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Logs
+      description: Provide any relevant captured logs for the issue
+      render: shell
+  - type: textarea
+    attributes:
+      label: Expected behaviour
+      description: What did you expect to happen?
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Observed Behaviour
+      description: What's the observed behaviour?
+    validations:
+      required: true
+  

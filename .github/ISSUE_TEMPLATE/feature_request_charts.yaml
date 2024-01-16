@@ -1,0 +1,38 @@
+name: Feature request openverso-charts
+description: Propose an enhancement to openverso-charts
+labels: ['Enhancement']
+body:
+  - type: markdown
+    attributes:
+      value: >
+        ## Feature request ##
+
+        Please submit your feature request using the form. If your proposal is not sufficiently
+        well formed, we may request further clarification and expansion. 
+
+  - type: input
+    attributes:
+      label: Components and subsystems
+      description: Which subsystems and components would this feature be relevant to?
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: Proposed functionality
+      description: >
+        Provide a detailed description of the feature or behaviour you are proposing. The more detail
+        you provide, the greater the chance your proposal has of being discussed.
+
+        If your feature request does not include anything actionable or sufficient details, you may be asked
+        to provide further clarification or your request may be rejected.
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: External dependencies
+      description: >
+        Please detail any new dependencies or implementations that this feature might introduce. e.g. Does the 
+        proposal require the installation of additional packages? Are there further external nodes which may be
+        required for integration testing? (Not all feature requests will introduce new dependencies)
