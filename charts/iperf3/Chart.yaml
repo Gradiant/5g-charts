@@ -16,7 +16,6 @@ keywords:
   - apps
   - gradiant
   - k8s
-  - 5g
 maintainers:
   - email: admin@gradiant.org
     name: Gradiant
