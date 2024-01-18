@@ -11,6 +11,8 @@ maintainers:
   name: cgiraldo
 name: srs-enb
 version: 0.1.2
+annotations:
+  artifacthub.io/category: networking
 keywords:
   - network
   - lte

@@ -13,6 +13,8 @@ maintainers:
   name: avrodriguez
 name: open5gs-webui
 version: 2.1.1
+annotations:
+  artifacthub.io/category: networking
 keywords:
   - network
   - ngc
