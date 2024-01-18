@@ -4,8 +4,8 @@ on:
   push:
     branches:
       - main
-#    paths:
-#      - 'charts/**'
+    paths:
+      - 'charts/**'
 
 jobs:
   # Generate the values for charts with changes
@@ -28,17 +28,34 @@ jobs:
   chart-release:
     needs: generate-matrix
     runs-on: ubuntu-latest
+    env:
+      registry: registry-1.docker.io/gradiant
     strategy:
       matrix: ${{ fromJson( needs.generate-matrix.outputs.matrix ) }}
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Push Helm Chart to dockerhub
-        uses: bsord/helm-push@v4.1.0
+      - name: Set up Helm
+        uses: azure/setup-helm@v3
         with:
-          useOCIRegistry: true
-          registry-url: oci://registry-1.docker.io/gradiant
+          version: v3.13.2
+      - name: Login to OCI Registry
+        run: |
+            echo "Attempting to login to registry $registry"
+            helm registry login -u $username -p $password $registry
+        env:
           username: ${{ secrets.OCI_USERNAME }}
           password: ${{ secrets.OCI_PASSWORD }}
-          force: true
-          chart-folder: charts/${{ matrix.chart }}
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.OCI_USERNAME }}
+          password: ${{ secrets.OCI_PASSWORD }}
+      - name: push chart
+        id: push
+        run: |
+            echo "Packaging chart '${{ matrix.chart }}'..."
+            helm dep update charts/${{ matrix.chart }}
+            helm package charts/${{ matrix.chart }}
+            helm push ${{ matrix.chart }}*.tgz oci://$registry
+
