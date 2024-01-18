@@ -15,6 +15,7 @@ keywords:
   - network
   - epc
   - ngc
+  - gradiant
 dependencies:
   - name: common
     repository: https://charts.bitnami.com/bitnami

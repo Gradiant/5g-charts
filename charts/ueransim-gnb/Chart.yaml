@@ -15,8 +15,8 @@ icon: https://github.com/aligungr/UERANSIM/raw/master/.github/logo.png
 keywords:
   - network
   - apps
-  - gradiant
   - k8s
+  - gradiant
 maintainers:
   - email: cgiraldo@gradiant.org
     name: cgiraldo

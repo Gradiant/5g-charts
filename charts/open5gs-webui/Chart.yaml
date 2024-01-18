@@ -16,6 +16,7 @@ version: 2.1.1
 keywords:
   - network
   - ngc
+  - gradiant
 dependencies:
   - name: common
     repository: https://charts.bitnami.com/bitnami
