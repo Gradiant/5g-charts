@@ -35,22 +35,12 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Set up Helm
-        uses: azure/setup-helm@v1
+      - name: Push Helm Chart to dockerhub $registry
+        uses: bsord/helm-push@4.2.0
         with:
-          version: v3.13.2
-      - name: Login to OCI Registry
-        run: |
-            echo "Attempting to login to registry $registry"
-            helm registry login -u $username -p $password $registry
-        env:
+          useOCIRegistry: true
+          registry-url: oci://${{registry}}
           username: ${{ secrets.OCI_USERNAME }}
           password: ${{ secrets.OCI_PASSWORD }}
-      - name: push chart
-        id: push
-        run: |
-            echo "Packaging chart '${{ matrix.chart }}'..."
-            helm dep update charts/${{ matrix.chart }}
-            helm package charts/${{ matrix.chart }}
-            helm push ${{ matrix.chart }}*.tgz oci://$registry
-
+          force: true
+          chart-folder: charts/${{ matrix.chart }}
