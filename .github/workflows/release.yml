@@ -24,7 +24,7 @@ jobs:
         id: generate-matrix
         run: |
           changed=`echo "${{ steps.files.outputs.all_changed_files }}" | sed 's/ /\n/g' | grep charts | cut -f2 -d'/' | uniq | sed 's/^/"/;s/$/"/' | sed -z 's/\n/,/g;s/,$/\n/'`
-          echo "::set-output name=matrix::{ \"chart\": [ ${changed} ] }
+          echo "::set-output name=matrix::{ \"chart\": [ ${changed} ] }"
   chart-release:
     needs: generate-matrix
     runs-on: ubuntu-latest
