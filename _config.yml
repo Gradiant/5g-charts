@@ -1,5 +1,7 @@
 theme: jekyll-theme-slate
 baseurl: /openverso-charts
+title: Gradiant 5G Charts
+description: A curated collection of 5G/6G related Helm Charts
 relative_links:
   enabled:     true
   collections: true
