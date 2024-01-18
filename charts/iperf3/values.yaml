@@ -51,7 +51,7 @@ extraDeploy: []
 
 image:
   registry: docker.io
-  repository: openverso/iperf3
+  repository: gradiant/iperf3
   tag: latest
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
