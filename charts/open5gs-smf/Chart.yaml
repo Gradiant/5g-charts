@@ -12,6 +12,7 @@ maintainers:
 name: open5gs-smf
 version: 2.1.0
 keywords:
+  - network
   - ngc
 dependencies:
   - name: common

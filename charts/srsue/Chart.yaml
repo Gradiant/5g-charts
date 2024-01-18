@@ -12,5 +12,6 @@ maintainers:
 name: srs-ue
 version: 0.1.1
 keywords:
+  - network
   - lte
   - ue

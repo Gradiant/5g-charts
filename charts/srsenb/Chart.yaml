@@ -12,5 +12,6 @@ maintainers:
 name: srs-enb
 version: 0.1.2
 keywords:
+  - network
   - lte
   - enodeb

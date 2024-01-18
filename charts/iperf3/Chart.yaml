@@ -13,10 +13,10 @@ engine: gotpl
 home: https://iperf.fr/
 icon: https://iperf.fr/images/logo_iperf_command.png
 keywords:
+  - network
   - apps
   - gradiant
   - k8s
-  - 5g
 maintainers:
   - email: admin@gradiant.org
     name: Gradiant

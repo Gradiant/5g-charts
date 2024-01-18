@@ -13,6 +13,7 @@ engine: gotpl
 home: https://openairinterface.org/
 icon: https://openairinterface.org/wp-content/uploads/2020/11/cropped-android-chrome-512x512-1-270x270.png
 keywords:
+  - network
   - apps
   - gradiant
   - k8s
