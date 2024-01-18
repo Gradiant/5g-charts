@@ -28,18 +28,16 @@ jobs:
   chart-release:
     needs: generate-matrix
     runs-on: ubuntu-latest
-    env:
-      registry: registry-1.docker.io/gradiant
     strategy:
       matrix: ${{ fromJson( needs.generate-matrix.outputs.matrix ) }}
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Push Helm Chart to dockerhub $registry
+      - name: Push Helm Chart to dockerhub
         uses: bsord/helm-push@4.2.0
         with:
           useOCIRegistry: true
-          registry-url: oci://${{ registry }}
+          registry-url: oci://registry-1.docker.io/gradiant
           username: ${{ secrets.OCI_USERNAME }}
           password: ${{ secrets.OCI_PASSWORD }}
           force: true
