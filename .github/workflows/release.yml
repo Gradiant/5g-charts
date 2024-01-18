@@ -4,27 +4,53 @@ on:
   push:
     branches:
       - master
+    paths:
+      - 'charts/**'
 
 jobs:
-  release:
+  # Generate the values for charts with changes
+  generate-matrix:
     runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.generate-matrix.outputs.matrix }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - id: files
+        uses: tj-actions/changed-files@v17.3
+      - name: Generate Matrix Content
+        id: generate-matrix
+        run: |
+          changed=`echo "${{ steps.files.outputs.all_changed_files }}" | sed 's/ /\n/g' | grep charts | cut -f2 -d'/' | uniq | sed 's/^/"/;s/$/"/' | sed -z 's/\n/,/g;s/,$/\n/'`
+          echo "::set-output name=matrix::{ \"chart\": [ ${changed} ] }
+  chart-release:
+    needs: generate-matrix
+    runs-on: ubuntu-latest
+    env:
+      registry: registry-1.docker.io/gradiant
+    strategy:
+      matrix: ${{ fromJson( needs.generate-matrix.outputs.matrix ) }}
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-
-      - name: Configure Git
-        run: |
-          git config user.name "$GITHUB_ACTOR"
-          git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
-
-      - name: Install Helm
+      - name: Set up Helm
         uses: azure/setup-helm@v1
         with:
-          version: v3.4.0
-
-      - name: Run chart-releaser
-        uses: helm/chart-releaser-action@v1.2.1
+          version: v3.13.2
+      - name: Login to OCI Registry
+        run: |
+            echo "Attempting to login to registry $registry"
+            helm registry login -u $username -p $password $registry
         env:
-          CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+          username: ${{ secrets.OCI_USERNAME }}
+          password: ${{ secrets.OCI_PASSWORD }}
+      - name: push chart
+        id: push
+        run: |
+            echo "Packaging chart '${{ matrix.chart }}'..."
+            helm dep update charts/${{ matrix.chart }}
+            helm package charts/${{ matrix.chart }}
+            helm push ${{ matrix.chart }}*.tgz oci://$registry
+
