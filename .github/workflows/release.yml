@@ -19,7 +19,7 @@ jobs:
         with:
           fetch-depth: 0
       - id: files
-        uses: tj-actions/changed-files@v17.3
+        uses: tj-actions/changed-files@v41
       - name: Generate Matrix Content
         id: generate-matrix
         run: |
