@@ -18,8 +18,10 @@ keywords:
   - gradiant
   - k8s
 maintainers:
-  - email: admin@gradiant.org
-    name: Gradiant
+  - email: cgiraldo@gradiant.org
+    name: cgiraldo
+  - email: avrodriguez@gradiant.org
+    name: avrodriguez
 name: oai-gnb
 sources:
   - https://gitlab.eurecom.fr/oai/openairinterface5g/

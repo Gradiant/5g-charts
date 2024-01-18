@@ -7,8 +7,10 @@ sources:
   - https://github.com/srsLTE/srsLTE
 icon: https://docs.srsran.com/en/latest/_static/logo.png
 maintainers:
-- email: cgiraldo@gradiant.org
-  name: cgiraldo
+  - email: cgiraldo@gradiant.org
+    name: cgiraldo
+  - email: avrodriguez@gradiant.org
+    name: avrodriguez
 name: srs-lte
 version: 0.1.3
 keywords:

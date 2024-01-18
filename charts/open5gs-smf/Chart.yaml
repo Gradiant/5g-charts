@@ -9,6 +9,8 @@ icon: https://open5gs.org/assets/img/open5gs-logo.png
 maintainers:
   - email: cgiraldo@gradiant.org
     name: cgiraldo
+  - email: avrodriguez@gradiant.org
+    name: avrodriguez
 name: open5gs-smf
 version: 2.1.0
 keywords:

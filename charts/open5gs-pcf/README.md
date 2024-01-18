@@ -10,6 +10,7 @@ Helm chart to deploy Open5gs PCF service on Kubernetes.
 
 | Name | Email | Url |
 | ---- | ------ | --- |
+| avrodriguez | <avrodriguez@gradiant.org> |  |
 | cgiraldo | <cgiraldo@gradiant.org> |  |
 
 ## Source Code

@@ -93,20 +93,7 @@
                     }
                 },
                 "upf": {
-                    "type": "object",
-                    "properties": {
-                        "pfcp": {
-                            "type": "object",
-                            "properties": {
-                                "hostname": {
-                                    "type": "string"
-                                },
-                                "port": {
-                                    "type": "integer"
-                                }
-                            }
-                        }
-                    }
+                    "type": "object"
                 }
             }
         },

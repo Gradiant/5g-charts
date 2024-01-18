@@ -10,6 +10,7 @@ Helm chart to deploy Open5gs HSS service on Kubernetes.
 
 | Name | Email | Url |
 | ---- | ------ | --- |
+| avrodriguez | <avrodriguez@gradiant.org> |  |
 | cgiraldo | <cgiraldo@gradiant.org> |  |
 
 ## Source Code

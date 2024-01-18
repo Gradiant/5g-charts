@@ -11,6 +11,7 @@ SRS enodeb
 | Name | Email | Url |
 | ---- | ------ | --- |
 | cgiraldo | <cgiraldo@gradiant.org> |  |
+| avrodriguez | <avrodriguez@gradiant.org> |  |
 
 ## Source Code
 

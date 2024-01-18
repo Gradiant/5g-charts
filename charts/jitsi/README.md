@@ -1,8 +1,21 @@
-# jitsi-meet
+# jitsi
 
-![Version: 1.2.2](https://img.shields.io/badge/Version-1.2.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: stable-6865](https://img.shields.io/badge/AppVersion-stable--6865-informational?style=flat-square)
+![Version: 0.0.3](https://img.shields.io/badge/Version-0.0.3-informational?style=flat-square) ![AppVersion: stable-6865](https://img.shields.io/badge/AppVersion-stable--6865-informational?style=flat-square)
 
-A Helm chart for Kubernetes
+Helm chart to deploy Jitsi on Kubernetes.
+
+**Homepage:** <https://github.com/gradiant/openverso-charts>
+
+## Maintainers
+
+| Name | Email | Url |
+| ---- | ------ | --- |
+| mmarquez999 | <mmarquez@gradiant.org> |  |
+| cgiraldo | <cgiraldo@gradiant.org> |  |
+
+## Source Code
+
+* <https://github.com/jitsi-contrib/jitsi-helm>
 
 ## Requirements
 
@@ -56,7 +69,7 @@ A Helm chart for Kubernetes
 | jicofo.xmpp.componentSecret | string | `nil` |  |
 | jicofo.xmpp.password | string | `nil` |  |
 | jicofo.xmpp.user | string | `"focus"` |  |
-| jvb.UDPPort | int | `30000` |  |
+| jvb.UDPPort | int | `10000` |  |
 | jvb.affinity | object | `{}` |  |
 | jvb.breweryMuc | string | `"jvbbrewery"` |  |
 | jvb.extraEnvs | object | `{}` |  |
@@ -75,11 +88,12 @@ A Helm chart for Kubernetes
 | jvb.metrics.serviceMonitor.enabled | bool | `true` |  |
 | jvb.metrics.serviceMonitor.interval | string | `"10s"` |  |
 | jvb.metrics.serviceMonitor.selector.release | string | `"prometheus-operator"` |  |
+| jvb.nodePort | int | `0` |  |
 | jvb.nodeSelector | object | `{}` |  |
 | jvb.podAnnotations | object | `{}` |  |
 | jvb.podLabels | object | `{}` |  |
 | jvb.podSecurityContext | object | `{}` |  |
-| jvb.publicIP | string | `"1.2.3.4"` |  |
+| jvb.publicIP | string | `"nil"` |  |
 | jvb.readinessProbe.httpGet.path | string | `"/about/health"` |  |
 | jvb.readinessProbe.httpGet.port | int | `8080` |  |
 | jvb.replicaCount | int | `1` |  |

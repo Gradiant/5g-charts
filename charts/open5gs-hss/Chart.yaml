@@ -7,8 +7,10 @@ sources:
   - http://open5gs.org
 icon: https://open5gs.org/assets/img/open5gs-logo.png
 maintainers:
-- email: cgiraldo@gradiant.org
-  name: cgiraldo
+  - email: avrodriguez@gradiant.org
+    name: avrodriguez
+  - email: cgiraldo@gradiant.org
+    name: cgiraldo
 name: open5gs-hss
 version: 2.1.0
 keywords:

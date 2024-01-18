@@ -11,6 +11,7 @@ Helm chart to deploy Open5gs AMF service on Kubernetes.
 | Name | Email | Url |
 | ---- | ------ | --- |
 | cgiraldo | <cgiraldo@gradiant.org> |  |
+| avrodriguez | <avrodriguez@gradiant.org> |  |
 
 ## Source Code
 

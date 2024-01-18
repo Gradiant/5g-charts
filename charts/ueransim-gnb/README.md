@@ -1,6 +1,6 @@
 # ueransim-gnb
 
-![Version: 0.2.4](https://img.shields.io/badge/Version-0.2.4-informational?style=flat-square) ![AppVersion: 3.2.6](https://img.shields.io/badge/AppVersion-3.2.6-informational?style=flat-square)
+![Version: 0.2.5](https://img.shields.io/badge/Version-0.2.5-informational?style=flat-square) ![AppVersion: 3.2.6](https://img.shields.io/badge/AppVersion-3.2.6-informational?style=flat-square)
 
 ueransim gNodeB for 5G RAN simulation
 
@@ -10,8 +10,8 @@ ueransim gNodeB for 5G RAN simulation
 
 | Name | Email | Url |
 | ---- | ------ | --- |
-| cgiraldo | <cgiraldo@gradiant.org> |  |
 | avrodriguez | <avrodriguez@gradiant.org> |  |
+| cgiraldo | <cgiraldo@gradiant.org> |  |
 
 ## Source Code
 
@@ -29,16 +29,16 @@ ueransim gNodeB for 5G RAN simulation
 |-----|------|---------|-------------|
 | affinity | object | `{}` |  |
 | amf.hostname | string | `"open5gs-amf-ngap"` |  |
-| amf.ip | string | `nil` |  |
+| amf.ip | string | `""` |  |
 | clusterDomain | string | `"cluster.local"` |  |
 | commonAnnotations | object | `{}` |  |
 | commonLabels | object | `{}` |  |
 | containerSecurityContext.enabled | bool | `false` |  |
 | extraDeploy | list | `[]` |  |
-| fullnameOverride | string | `nil` |  |
+| fullnameOverride | string | `""` |  |
 | global.imagePullSecrets | list | `[]` |  |
-| global.imageRegistry | string | `nil` |  |
-| global.storageClass | string | `nil` |  |
+| global.imageRegistry | string | `""` |  |
+| global.storageClass | string | `""` |  |
 | image.debug | bool | `false` |  |
 | image.pullPolicy | string | `"Always"` |  |
 | image.pullSecrets | list | `[]` |  |
@@ -48,11 +48,11 @@ ueransim gNodeB for 5G RAN simulation
 | interfaces.n2.dev | string | `"eth0"` |  |
 | interfaces.n3.dev | string | `"eth0"` |  |
 | interfaces.radio.dev | string | `"eth0"` |  |
-| kubeVersion | string | `nil` |  |
+| kubeVersion | string | `""` |  |
 | mcc | string | `"999"` |  |
 | mnc | string | `"70"` |  |
 | name | string | `"ueransim-gnb"` |  |
-| nameOverride | string | `nil` |  |
+| nameOverride | string | `""` |  |
 | nodeSelector | object | `{}` |  |
 | podAnnotations | object | `{}` |  |
 | podLabels | object | `{}` |  |

@@ -6,8 +6,10 @@ home: https://github.com/gradiant/openverso-charts
 sources:
   - https://github.com/jitsi-contrib/jitsi-helm
 maintainers:
-- email: mmarquez@gradiant.org
-  name: mmarquez999
+  - email: mmarquez@gradiant.org
+    name: mmarquez999
+  - email: cgiraldo@gradiant.org
+    name: cgiraldo
 icon: https://jitsi.org/wp-content/uploads/2018/11/jitsi-logo-blue-grey-text.png
 name: jitsi
 version: 0.0.3

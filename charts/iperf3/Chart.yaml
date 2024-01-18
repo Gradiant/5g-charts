@@ -18,8 +18,8 @@ keywords:
   - gradiant
   - k8s
 maintainers:
-  - email: admin@gradiant.org
-    name: Gradiant
+  - email: cgiraldo@gradiant.org
+    name: cgiraldo
 name: iperf3
 sources:
   - https://iperf.fr/

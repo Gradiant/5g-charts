@@ -1,6 +1,6 @@
 # open5gs-webui
 
-![Version: 2.1.0](https://img.shields.io/badge/Version-2.1.0-informational?style=flat-square) ![AppVersion: 2.4.11](https://img.shields.io/badge/AppVersion-2.4.11-informational?style=flat-square)
+![Version: 2.1.1](https://img.shields.io/badge/Version-2.1.1-informational?style=flat-square) ![AppVersion: 2.4.11](https://img.shields.io/badge/AppVersion-2.4.11-informational?style=flat-square)
 
 Helm chart to deploy Open5gs WebUI service on Kubernetes.
 
@@ -10,8 +10,8 @@ Helm chart to deploy Open5gs WebUI service on Kubernetes.
 
 | Name | Email | Url |
 | ---- | ------ | --- |
-| cgiraldo | <cgiraldo@gradiant.org> |  |
 | avrodriguez | <avrodriguez@gradiant.org> |  |
+| cgiraldo | <cgiraldo@gradiant.org> |  |
 
 ## Source Code
 
