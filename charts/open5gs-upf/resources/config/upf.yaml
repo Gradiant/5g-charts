@@ -6,25 +6,27 @@ parameter: {}
 
 upf:
   pfcp:
+    server:
     - dev: "eth0"
       port: {{ .Values.containerPorts.pfcp }}
+    client:
+    smf:
+    - name: {{ default (printf "%s-smf-pfcp" $open5gsName) .Values.config.smf.pfcp.hostname }}
+
   gtpu:
+    server:
     - dev: {{ default "eth0" .Values.config.upf.gtpu.dev }}
-      port: {{ .Values.containerPorts.gtpu }}
-      {{- if .Values.config.upf.gtpu.advertise }}
-      advertise: "{{ tpl .Values.config.upf.gtpu.advertise . }}"
-      {{- end }}
-  subnet:
+    {{- if .Values.config.upf.gtpu.advertise }}
+    advertise: "{{ tpl .Values.config.upf.gtpu.advertise . }}"
+    {{- end }}
+  session:
     {{- range .Values.config.subnetList }}
     - {{- omit . "createDev" "enableNAT" | toYaml | nindent 6 }}
     {{- end }}
   {{- if .Values.metrics.enabled }}
   metrics:
-    addr: 0.0.0.0
-    port: 9090
+    server:
+    - dev: eth0
+      port: 9090
   {{- end }}
 
-smf:
-  pfcp:
-    - name: {{ default (printf "%s-smf-pfcp" $open5gsName) .Values.config.smf.pfcp.hostname }}
-      port: {{ default 8805 .Values.config.smf.pfcp.port }}

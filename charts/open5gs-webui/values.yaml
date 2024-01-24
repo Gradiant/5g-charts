@@ -56,7 +56,7 @@ extraDeploy: []
 image:
   registry: docker.io
   repository: openverso/open5gs-webui
-  tag: "2.6.4"
+  tag: "2.7.0"
   digest: ""
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
@@ -151,7 +151,7 @@ serviceAccount:
 ## @param containerPorts [object] Container ports
 ##
 containerPorts:
-  http: 3000
+  http: 9999
 ## @param sessionAffinity Control where client requests go, to the same pod or round-robin. Values: ClientIP or None
 ## ref: https://kubernetes.io/docs/user-guide/services/
 ##
@@ -299,7 +299,7 @@ services:
     ## @param service.ports.http Service HTTP port
     ##
     ports:
-      http: 3000
+      http: 9999
     ## @param service.loadBalancerSourceRanges Restricts access for LoadBalancer (only with `service.type: LoadBalancer`)
     ## e.g:
     ## loadBalancerSourceRanges:

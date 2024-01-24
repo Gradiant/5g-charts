@@ -5,7 +5,7 @@ populate:
   image:
     registry: docker.io
     repository: openverso/open5gs-dbctl
-    tag: 0.10.2
+    tag: 0.10.3
     pullPolicy: IfNotPresent
   initCommands: []
   # example of initCommands:
@@ -30,19 +30,19 @@ webui:
 
 # 4G
 hss:
-  enabled: true
+  enabled: false
   mongodb:
     enabled: false
 mme:
-  enabled: true
+  enabled: false
 pcrf:
-  enabled: true
+  enabled: false
   mongodb:
     enabled: false
 sgwc:
-  enabled: true
+  enabled: false
 sgwu:
-  enabled: true
+  enabled: false
 
 # 5G
 amf:

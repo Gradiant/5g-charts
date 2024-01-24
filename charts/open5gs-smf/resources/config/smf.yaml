@@ -4,37 +4,47 @@ logger:
   level: {{ .Values.config.logLevel }}
 parameter: {}
 
-sbi:
-  server:
-    no_tls: {{ .Values.config.sbi.server.no_tls }}
-  client:
-    no_tls: {{ .Values.config.sbi.client.no_tls }}
-
 smf:
   {{- if .Values.config.pcrf.enabled }}
   freeDiameter: smf.conf
   {{- end }}
   sbi:
-    - dev: "eth0"
-      port: {{ .Values.containerPorts.sbi }}
-      {{- if .Values.config.sbi.advertise }}
-      advertise: "{{ tpl .Values.config.sbi.advertise . }}"
+    server:
+      - dev: "eth0"
+        port: {{ .Values.containerPorts.sbi }}
+        {{- if .Values.config.sbi.advertise }}
+        advertise: "{{ tpl .Values.config.sbi.advertise . }}"
+        {{- end }}
+    client:
+      {{- if .Values.config.nrf.enabled }}
+      nrf:
+        - uri: {{ default (printf "http://%s:%s" .Values.config.nrf.sbi.hostname .Values.config.nrf.sbi.port) (printf "http://%s-nrf-sbi:7777" $open5gsName) }}
+      {{- end }}
+      {{- if .Values.config.scp.enabled }}
+      scp:
+        - uri: {{ default (printf "http://%s:%s" .Values.config.scp.sbi.hostname .Values.config.scp.sbi.port) (printf "http://%s-scp-sbi:7777" $open5gsName) }}
       {{- end }}
   pfcp:
+    server:
     - dev: "eth0"
       port: {{ .Values.containerPorts.pfcp }}
+    client:
+      upf:
+    - address: {{ default (printf "%s-upf-pfcp" $open5gsName) .Values.config.upf.pfcp.hostname }}
+
   {{- if .Values.metrics.enabled }}
   metrics:
-    addr: 0.0.0.0
-    port: 9090
+    server:
+    - dev: "eth0"
+      port: 9090
   {{- end }}
   gtpc:
+    server:
     - dev: "eth0"
-      port: {{ .Values.containerPorts.gtpc }}
   gtpu:
+    server:
     - dev: "eth0"
-      port: {{ .Values.containerPorts.gtpu }}
-  subnet:
+  session:
     {{- range .Values.config.subnetList }}
     - {{- toYaml . | nindent 6 }}
     {{- end }}
@@ -44,22 +54,3 @@ smf:
     {{- end }}
   mtu: {{ .Values.config.mtu }}
 
-{{- if .Values.config.nrf.enabled }}
-{{- if .Values.config.nrf.enabled }}
-nrf:
-  sbi:
-    - name: {{ default (printf "%s-nrf-sbi" $open5gsName) .Values.config.nrf.sbi.hostname }}
-      port: {{ .Values.config.nrf.sbi.port }}
-{{- end }}
-
-{{- if .Values.config.scp.enabled }}
-scp:
-  sbi:
-    - name: {{ default (printf "%s-scp-sbi" $open5gsName) .Values.config.scp.sbi.hostname }}
-      port: {{ .Values.config.scp.sbi.port }}
-{{- end }}
-{{- end }}
-upf:
-  pfcp:
-    - name: {{ default (printf "%s-upf-pfcp" $open5gsName) .Values.config.upf.pfcp.hostname }}
-      port: {{ .Values.config.upf.pfcp.port }}

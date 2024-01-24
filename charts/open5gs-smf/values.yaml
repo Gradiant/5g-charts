@@ -56,7 +56,7 @@ extraDeploy: []
 image:
   registry: docker.io
   repository: openverso/open5gs
-  tag: "2.6.4"
+  tag: "2.7.0"
   digest: ""
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
@@ -109,7 +109,7 @@ config:
     - 2001:4860:4860::8888
     - 2001:4860:4860::8844
   subnetList:
-    - addr: 10.45.0.1/16
+    - subnet: 10.45.0.1/16
       dnn: internet
   mtu: 1400
 

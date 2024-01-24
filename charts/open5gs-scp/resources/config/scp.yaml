@@ -3,20 +3,15 @@ logger:
   level: {{ .Values.config.logLevel }}
 parameter: {}
 
-sbi:
-  server:
-    no_tls: {{ .Values.config.sbi.server.no_tls }}
-  client:
-    no_tls: {{ .Values.config.sbi.client.no_tls }}
-
 scp:
   sbi:
+    server:
     - dev: "eth0"
       port: {{ .Values.containerPorts.sbi }}
 
-{{- if .Values.config.nrf.enabled }}
-nrf:
-  sbi:
-    - name: {{ default (printf "%s-nrf-sbi" $open5gsName) .Values.config.nrf.sbi.hostname }}
-      port: {{ .Values.config.nrf.sbi.port }}
-{{- end }}
+    client:
+      {{- if .Values.config.nrf.enabled }}
+      nrf:
+      - uri: {{ default (printf "http://%s:%s" .Values.config.nrf.sbi.hostname .Values.config.nrf.sbi.port) (printf "http://%s-nrf-sbi:7777" $open5gsName) }}
+      
+      {{- end }}
