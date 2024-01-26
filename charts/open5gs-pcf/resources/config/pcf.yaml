@@ -1,24 +1,26 @@
 {{ $open5gsName := .Release.Name }}
 logger:
   level: {{ .Values.config.logLevel }}
-parameter: {}
+#  level: info   # fatal|error|warn|info(default)|debug|trace
+
+global:
+# max:
+#   ue: 1024 # The number of UE can be increased depending on memory size.
+#    peer: 64
 
 pcf:
   sbi:
     server:
-    - dev: "eth0"
+    - dev: eth0
       port: {{ .Values.containerPorts.sbi }}
-      {{- if .Values.config.sbi.advertise }}
-      advertise: "{{ tpl .Values.config.sbi.advertise . }}"
-      {{- end }}
     client:
-      {{- if .Values.config.nrf.enabled }}
+      {{- if .Values.config.sbi.client.nrf.enabled }}
       nrf:
-        - uri: {{ default (printf "http://%s:%s" .Values.config.nrf.sbi.hostname .Values.config.nrf.sbi.port) (printf "http://%s-nrf-sbi:7777" $open5gsName) }}
+      - uri: {{ default (printf "http://%s-nrf-sbi:7777" $open5gsName) .Values.config.sbi.client.nrf.uri }}
       {{- end }}
-      {{- if .Values.config.scp.enabled }}
+      {{- if .Values.config.sbi.client.scp.enabled }}
       scp:
-        - uri: {{ default (printf "http://%s:%s" .Values.config.scp.sbi.hostname .Values.config.scp.sbi.port) (printf "http://%s-scp-sbi:7777" $open5gsName) }}
+      - uri: {{ default (printf "http://%s-scp-sbi:7777" $open5gsName) .Values.config.sbi.client.scp.uri }}
       {{- end }}
   {{- if .Values.metrics.enabled }}
   metrics:
@@ -27,3 +29,205 @@ pcf:
       port: 9090
   {{- end }}
 
+################################################################################
+# Locally configured policy
+# - The PCF in the VPLMN uses locally configured policies
+#   according to the roaming agreement with the HPLMN operator
+#   as input for PCC Rule generation.
+################################################################################
+#
+#  o You don't have to use MongoDB if you use the policy configuration as below.
+#
+#  policy:
+#    - plmn_id:
+#        mcc: 999
+#        mnc: 70
+#      slice:
+#        - sst: 1  # 1,2,3,4
+#          default_indicator: true
+#          session:
+#            - name: internet
+#              type: 3  # 1:IPv4, 2:IPv6, 3:IPv4v6
+#              ambr:
+#                downlink:
+#                  value: 1
+#                  unit: 3  # 0:bps, 1:Kbps, 2:Mbps, 3:Gbps, 4:Tbps
+#                uplink:
+#                  value: 1
+#                  unit: 3
+#              qos:
+#                index: 9  # 1, 2, 3, 4, 65, 66, 67, 75, 71, 72, 73, 74, 76, 5, 6, 7, 8, 9, 69, 70, 79, 80, 82, 83, 84, 85, 86
+#                arp:
+#                  priority_level: 8  # 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15
+#                  pre_emption_vulnerability: 1  # 1: Disabled, 2:Enabled
+#                  pre_emption_capability: 1  # 1: Disabled, 2:Enabled
+#            - name: ims
+#              type: 3  # 1:IPv4, 2:IPv6, 3:IPv4v6
+#              ambr:
+#                downlink:
+#                  value: 1
+#                  unit: 3  # 0:bps, 1:Kbps, 2:Mbps, 3:Gbps, 4:Tbps
+#                uplink:
+#                  value: 1
+#                  unit: 3  # 0:bps, 1:Kbps, 2:Mbps, 3:Gbps, 4:Tbps
+#              qos:
+#                index: 5  # 1, 2, 3, 4, 65, 66, 67, 75, 71, 72, 73, 74, 76, 5, 6, 7, 8, 9, 69, 70, 79, 80, 82, 83, 84, 85, 86
+#                arp:
+#                  priority_level: 1  # 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15
+#                  pre_emption_vulnerability: 1  # 1: Disabled, 2:Enabled
+#                  pre_emption_capability: 1  # 1: Disabled, 2:Enabled
+#              pcc_rule:
+#                - qos:
+#                    index: 1  # 1, 2, 3, 4, 65, 66, 67, 75, 71, 72, 73, 74, 76, 5, 6, 7, 8, 9, 69, 70, 79, 80, 82, 83, 84, 85, 86
+#                    arp:
+#                      priority_level: 1  # 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15
+#                      pre_emption_vulnerability: 1   # 1: Disabled, 2:Enabled
+#                      pre_emption_capability: 1   # 1: Disabled, 2:Enabled
+#                    mbr:
+#                      downlink:
+#                        value: 82
+#                        unit: 1  # 0:bps, 1:Kbps, 2:Mbps, 3:Gbps, 4:Tbps
+#                      uplink:
+#                        value: 82
+#                        unit: 1  # 0:bps, 1:Kbps, 2:Mbps, 3:Gbps, 4:Tbps
+#                    gbr:
+#                      downlink:
+#                        value: 82
+#                        unit: 1  # 0:bps, 1:Kbps, 2:Mbps, 3:Gbps, 4:Tbps
+#                      uplink:
+#                        value: 82
+#                        unit: 1  # 0:bps, 1:Kbps, 2:Mbps, 3:Gbps, 4:Tbps
+#                  flow:
+#                    - direction: 2
+#                      description: "permit out icmp from any to assigned"
+#                    - direction: 1
+#                      description: "permit out icmp from any to assigned"
+#                    - direction: 2
+#                      description: "permit out udp from 10.200.136.98/32 23455 to assigned 1-65535"
+#                    - direction: 1
+#                      description: "permit out udp from 10.200.136.98/32 1-65535 to assigned 50021"
+#                - qos:
+#                    index: 2  # 1, 2, 3, 4, 65, 66, 67, 75, 71, 72, 73, 74, 76, 5, 6, 7, 8, 9, 69, 70, 79, 80, 82, 83, 84, 85, 86
+#                    arp:
+#                      priority_level: 4  # 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15
+#                      pre_emption_vulnerability: 2   # 1: Disabled, 2:Enabled
+#                      pre_emption_capability: 2   # 1: Disabled, 2:Enabled
+#                    mbr:
+#                      downlink:
+#                        value: 802
+#                        unit: 1  # 0:bps, 1:Kbps, 2:Mbps, 3:Gbps, 4:Tbps
+#                      uplink:
+#                        value: 802
+#                        unit: 1  # 0:bps, 1:Kbps, 2:Mbps, 3:Gbps, 4:Tbps
+#                    gbr:
+#                      downlink:
+#                        value: 802
+#                        unit: 1  # 0:bps, 1:Kbps, 2:Mbps, 3:Gbps, 4:Tbps
+#                      uplink:
+#                        value: 802
+#                        unit: 1  # 0:bps, 1:Kbps, 2:Mbps, 3:Gbps, 4:Tbps
+#    - plmn_id:
+#        mcc: 001
+#        mnc: 01
+#      slice:
+#        - sst: 1  # 1,2,3,4
+#          sd: 000001
+#          default_indicator: true
+#          session:
+#            - name: internet
+#              type: 3  # 1:IPv4, 2:IPv6, 3:IPv4v6
+#              ambr:
+#                downlink:
+#                  value: 1
+#                  unit: 3  # 0:bps, 1:Kbps, 2:Mbps, 3:Gbps, 4:Tbps
+#                uplink:
+#                  value: 1
+#                  unit: 3
+#              qos:
+#                index: 9  # 1, 2, 3, 4, 65, 66, 67, 75, 71, 72, 73, 74, 76, 5, 6, 7, 8, 9, 69, 70, 79, 80, 82, 83, 84, 85, 86
+#                arp:
+#                  priority_level: 8  # 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15
+#                  pre_emption_vulnerability: 1  # 1: Disabled, 2:Enabled
+#                  pre_emption_capability: 1  # 1: Disabled, 2:Enabled
+#
+################################################################################
+# SBI Server
+################################################################################
+#  o Override SBI address to be advertised to NRF
+#  sbi:
+#    server:
+#      - dev: eth0
+#        advertise: open5gs-pcf.svc.local
+#
+#  sbi:
+#    server:
+#      - address: localhost
+#        advertise:
+#          - 127.0.0.99
+#          - ::1
+#
+################################################################################
+# SBI Client
+################################################################################
+#  o Direct communication with NRF interaction
+#  sbi:
+#    client:
+#      nrf:
+#        - uri: http://127.0.0.10:7777
+#
+#  o Indirect communication with delegated discovery
+#  sbi:
+#    client:
+#      scp:
+#        - uri: http://127.0.0.200:7777
+#
+#  o Indirect communication without delegated discovery
+#  sbi:
+#    client:
+#      nrf:
+#        - uri: http://127.0.0.10:7777
+#      scp:
+#        - uri: http://127.0.0.200:7777
+#  discovery:
+#    delegated: no
+#
+################################################################################
+# HTTPS scheme with TLS
+################################################################################
+#  o Set as default if not individually set
+#  default:
+#    tls:
+#      server:
+#        scheme: https
+#        private_key: @sysconfdir@/open5gs/tls/pcf.key
+#        cert: @sysconfdir@/open5gs/tls/pcf.crt
+#      client:
+#        scheme: https
+#        cacert: @sysconfdir@/open5gs/tls/ca.crt
+#  sbi:
+#    server:
+#      - address: pcf.localdomain
+#    client:
+#      nrf:
+#        - uri: https://nrf.localdomain
+#
+#  o Add client TLS verification
+#  default:
+#    tls:
+#      server:
+#        scheme: https
+#        private_key: @sysconfdir@/open5gs/tls/pcf.key
+#        cert: @sysconfdir@/open5gs/tls/pcf.crt
+#        verify_client: true
+#        verify_client_cacert: @sysconfdir@/open5gs/tls/ca.crt
+#      client:
+#        scheme: https
+#        cacert: @sysconfdir@/open5gs/tls/ca.crt
+#        client_private_key: @sysconfdir@/open5gs/tls/pcf.key
+#        client_cert: @sysconfdir@/open5gs/tls/pcf.crt
+#  sbi:
+#    server:
+#      - address: pcf.localdomain
+#    client:
+#      nrf:
+#        - uri: https://nrf.localdomain

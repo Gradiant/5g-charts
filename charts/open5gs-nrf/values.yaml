@@ -77,12 +77,6 @@ image:
 
 config:
   logLevel: info
-  sbi:
-    advertise: ""
-    server:
-      no_tls: true
-    client:
-      no_tls: true
 ## @param customOpen5gsConfig overwrite open5gs configuration file
 customOpen5gsConfig: {}
 

@@ -1,6 +1,6 @@
 logger:
   level: {{ .Values.config.logLevel }}
 parameter: {}
-
+global:
 pcrf:
   freeDiameter: pcrf.conf

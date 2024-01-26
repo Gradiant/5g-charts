@@ -2,22 +2,106 @@
 
 logger:
   level: {{ .Values.config.logLevel }}
-parameter: {}
+#  level: info   # fatal|error|warn|info(default)|debug|trace
+
+global:
+# max:
+#   ue: 1024 # The number of UE can be increased depending on memory size.
+#    peer: 64
 
 ausf:
   sbi:
     server:
-      - dev: "eth0"
-        port: {{ .Values.containerPorts.sbi }}
-        {{- if .Values.config.sbi.advertise }}
-        advertise: "{{ tpl .Values.config.sbi.advertise . }}"
-        {{- end }}
+    - dev: eth0
+      port: {{ .Values.containerPorts.sbi }}
     client:
-      {{- if .Values.config.nrf.enabled }}
+      {{- if .Values.config.sbi.client.nrf.enabled }}
       nrf:
-        - uri: {{ default (printf "http://%s:%s" .Values.config.nrf.sbi.hostname .Values.config.nrf.sbi.port) (printf "http://%s-nrf-sbi:7777" $open5gsName) }}
+      - uri: {{ default (printf "http://%s-nrf-sbi:7777" $open5gsName) .Values.config.sbi.client.nrf.uri }}
       {{- end }}
-      {{- if .Values.config.scp.enabled }}
+      {{- if .Values.config.sbi.client.scp.enabled }}
       scp:
-        - uri: {{ default (printf "http://%s:%s" .Values.config.scp.sbi.hostname .Values.config.scp.sbi.port) (printf "http://%s-scp-sbi:7777" $open5gsName) }}
+      - uri: {{ default (printf "http://%s-scp-sbi:7777" $open5gsName) .Values.config.sbi.client.scp.uri }}
       {{- end }}
+
+################################################################################
+# SBI Server
+################################################################################
+#  o Override SBI address to be advertised to NRF
+#  sbi:
+#    server:
+#      - dev: eth0
+#        advertise: open5gs-ausf.svc.local
+#
+#  sbi:
+#    server:
+#      - address: localhost
+#        advertise:
+#          - 127.0.0.99
+#          - ::1
+#
+################################################################################
+# SBI Client
+################################################################################
+#  o Direct communication with NRF interaction
+#  sbi:
+#    client:
+#      nrf:
+#        - uri: http://127.0.0.10:7777
+#
+#  o Indirect communication with delegated discovery
+#  sbi:
+#    client:
+#      scp:
+#        - uri: http://127.0.0.200:7777
+#
+#  o Indirect communication without delegated discovery
+#  sbi:
+#    client:
+#      nrf:
+#        - uri: http://127.0.0.10:7777
+#      scp:
+#        - uri: http://127.0.0.200:7777
+#  discovery:
+#    delegated: no
+#
+################################################################################
+# HTTPS scheme with TLS
+################################################################################
+#  o Set as default if not individually set
+#  default:
+#    tls:
+#      server:
+#        scheme: https
+#        private_key: @sysconfdir@/open5gs/tls/ausf.key
+#        cert: @sysconfdir@/open5gs/tls/ausf.crt
+#      client:
+#        scheme: https
+#        cacert: @sysconfdir@/open5gs/tls/ca.crt
+#  sbi:
+#    server:
+#      - address: ausf.localdomain
+#    client:
+#      nrf:
+#        - uri: https://nrf.localdomain
+#
+#  o Add client TLS verification
+#  default:
+#    tls:
+#      server:
+#        scheme: https
+#        private_key: @sysconfdir@/open5gs/tls/ausf.key
+#        cert: @sysconfdir@/open5gs/tls/ausf.crt
+#        verify_client: true
+#        verify_client_cacert: @sysconfdir@/open5gs/tls/ca.crt
+#      client:
+#        scheme: https
+#        cacert: @sysconfdir@/open5gs/tls/ca.crt
+#        client_private_key: @sysconfdir@/open5gs/tls/ausf.key
+#        client_cert: @sysconfdir@/open5gs/tls/ausf.crt
+#  sbi:
+#    server:
+#      - address: ausf.localdomain
+#    client:
+#      nrf:
+#        - uri: https://nrf.localdomain

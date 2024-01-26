@@ -23,6 +23,8 @@ smf:
   config:
     scp:
       enabled: true
+    pcrf:
+      enabled: false
 upf:
   enabled: true
 webui:
@@ -48,8 +50,10 @@ sgwu:
 amf:
   enabled: true
   config:
-    scp:
-      enabled: true
+    sbi:
+      client:
+        scp:
+          enabled: true
     guamiList:
       - plmn_id:
           mcc: "999"
@@ -72,13 +76,17 @@ amf:
 ausf:
   enabled: true
   config:
-    scp:
-      enabled: true
+    sbi:
+      client:
+        scp:
+          enabled: true
 bsf:
   enabled: true
   config:
-    scp:
-      enabled: true
+    sbi:
+      client:
+        scp:
+          enabled: true
 nrf:
   enabled: true
   config:
