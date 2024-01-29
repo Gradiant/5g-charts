@@ -57,7 +57,7 @@ Helm chart to deploy Open5gs WebUI service on Kubernetes.
 | image.pullPolicy | string | `"IfNotPresent"` |  |
 | image.pullSecrets | list | `[]` |  |
 | image.registry | string | `"docker.io"` |  |
-| image.repository | string | `"openverso/open5gs-webui"` |  |
+| image.repository | string | `"gradiant/open5gs-webui"` |  |
 | image.tag | string | `"2.6.4"` |  |
 | ingress.annotations | object | `{}` |  |
 | ingress.apiVersion | string | `""` |  |

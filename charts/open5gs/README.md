@@ -71,7 +71,7 @@ Helm chart to deploy Open5gs services on Kubernetes.
 | populate.enabled | bool | `true` |  |
 | populate.image.pullPolicy | string | `"IfNotPresent"` |  |
 | populate.image.registry | string | `"docker.io"` |  |
-| populate.image.repository | string | `"openverso/open5gs-dbctl"` |  |
+| populate.image.repository | string | `"gradiant/open5gs-dbctl"` |  |
 | populate.image.tag | string | `"0.10.2"` |  |
 | populate.initCommands | list | `[]` |  |
 | scp.enabled | bool | `false` |  |

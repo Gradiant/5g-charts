@@ -4,7 +4,7 @@ populate:
   enabled: true
   image:
     registry: docker.io
-    repository: openverso/open5gs-dbctl
+    repository: gradiant/open5gs-dbctl
     tag: 0.10.3
     pullPolicy: IfNotPresent
   initCommands: []
@@ -43,26 +43,26 @@ sgwu:
 
 # 5G
 amf:
-  enabled: true
+  enabled: false
 ausf:
-  enabled: true
+  enabled: false
 bsf:
-  enabled: true
+  enabled: false
 nrf:
-  enabled: true
+  enabled: false
 nssf:
-  enabled: true
+  enabled: false
 pcf:
-  enabled: true
+  enabled: false
   mongodb:
     enabled: false
 scp:
-  enabled: true
+  enabled: false
   mongodb:
     enabled: false
 udm:
-  enabled: true
+  enabled: false
 udr:
-  enabled: true
+  enabled: false
   mongodb:
     enabled: false

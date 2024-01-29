@@ -44,7 +44,7 @@ extraDeploy: []
 ## @section open5gs-bsf parameters
 
 ## Bitnami open5gs image version
-## ref: https://hub.docker.com/r/openverso/open5gs/tags/
+## ref: https://hub.docker.com/r/gradiant/open5gs/tags/
 ## @param image.registry Open5gs image registry
 ## @param image.repository Open5gs Image name
 ## @param image.tag Open5gs Image tag
@@ -55,7 +55,7 @@ extraDeploy: []
 ##
 image:
   registry: docker.io
-  repository: openverso/open5gs
+  repository: gradiant/open5gs
   tag: "2.7.0"
   digest: ""
   ## Specify a imagePullPolicy

@@ -64,7 +64,7 @@ Helm chart to deploy Open5gs scp service on Kubernetes.
 | image.pullPolicy | string | `"IfNotPresent"` |  |
 | image.pullSecrets | list | `[]` |  |
 | image.registry | string | `"docker.io"` |  |
-| image.repository | string | `"openverso/open5gs"` |  |
+| image.repository | string | `"gradiant/open5gs"` |  |
 | image.tag | string | `"2.6.4"` |  |
 | initContainers | list | `[]` |  |
 | kubeVersion | string | `""` |  |
