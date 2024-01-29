@@ -43,7 +43,7 @@ ueransim gNodeB for 5G RAN simulation
 | image.pullPolicy | string | `"Always"` |  |
 | image.pullSecrets | list | `[]` |  |
 | image.registry | string | `"docker.io"` |  |
-| image.repository | string | `"openverso/ueransim"` |  |
+| image.repository | string | `"gradiant/ueransim"` |  |
 | image.tag | string | `"3.2.6"` |  |
 | interfaces.n2.dev | string | `"eth0"` |  |
 | interfaces.n3.dev | string | `"eth0"` |  |

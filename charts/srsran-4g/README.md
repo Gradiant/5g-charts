@@ -28,7 +28,7 @@ SRS enodeb
 | enb.tac | string | `"0001"` |  |
 | image.pullPolicy | string | `"IfNotPresent"` |  |
 | image.registry | string | `"docker.io"` |  |
-| image.repository | string | `"openverso/srsran"` |  |
+| image.repository | string | `"gradiant/srsran"` |  |
 | image.tag | string | `"22_04_1"` |  |
 | resources.limits."ettus.com/usrp" | int | `1` |  |
 

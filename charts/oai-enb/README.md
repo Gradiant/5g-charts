@@ -26,7 +26,7 @@ OpenAirInterface enodeb
 | enb.tac | string | `"0001"` |  |
 | image.pullPolicy | string | `"IfNotPresent"` |  |
 | image.registry | string | `"docker.io"` |  |
-| image.repository | string | `"openverso/oai-enb"` |  |
+| image.repository | string | `"gradiant/oai-enb"` |  |
 | image.tag | string | `"1.2.2"` |  |
 | resources.limits."ettus.com/usrp" | int | `1` |  |
 

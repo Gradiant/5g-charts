@@ -24,7 +24,7 @@ SRS enodeb
 | device.name | string | `"auto"` |  |
 | image.pullPolicy | string | `"IfNotPresent"` |  |
 | image.registry | string | `"docker.io"` |  |
-| image.repository | string | `"openverso/srs-lte"` |  |
+| image.repository | string | `"gradiant/srs-lte"` |  |
 | image.tag | string | `"20_04_1"` |  |
 | resources.limits."ettus.com/usrp" | int | `1` |  |
 | ue.imei | string | `"353490069873319"` |  |

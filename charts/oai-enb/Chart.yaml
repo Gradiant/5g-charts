@@ -10,7 +10,7 @@ maintainers:
 - email: cgiraldo@gradiant.org
   name: cgiraldo
 name: oai-enb
-version: 0.1.0
+version: 0.1.1
 keywords:
   - lte
   - enodeb
