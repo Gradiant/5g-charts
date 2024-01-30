@@ -1,5 +1,6 @@
 annotations:
   category: apps
+  artifacthub.io/category: networking
 apiVersion: v2
 appVersion: 2021.w32
 dependencies:
@@ -12,8 +13,6 @@ description: description
 engine: gotpl
 home: https://openairinterface.org/
 icon: https://openairinterface.org/wp-content/uploads/2020/11/cropped-android-chrome-512x512-1-270x270.png
-annotations:
-  artifacthub.io/category: networking
 keywords:
   - network
   - apps
