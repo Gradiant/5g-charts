@@ -20,53 +20,32 @@
         "config": {
             "type": "object",
             "properties": {
-                "dnsList": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    }
-                },
                 "logLevel": {
                     "type": "string"
                 },
-                "mtu": {
-                    "type": "integer"
-                },
-                "sgwu": {
+                "pfcp": {
                     "type": "object",
                     "properties": {
-                        "pfcpList": {
-                            "type": "array",
-                            "items": {
-                                "type": "object",
-                                "properties": {
-                                    "apn": {
-                                        "type": "array",
-                                        "items": {
-                                            "type": "string"
+                        "client": {
+                            "type": "object",
+                            "properties": {
+                                "sgwuList": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "address": {
+                                                "type": "string"
+                                            },
+                                            "apn": {
+                                                "type": "array",
+                                                "items": {
+                                                    "type": "string"
+                                                }
+                                            }
                                         }
-                                    },
-                                    "hostname": {
-                                        "type": "string"
-                                    },
-                                    "port": {
-                                        "type": "integer"
                                     }
                                 }
-                            }
-                        }
-                    }
-                },
-                "subnetList": {
-                    "type": "array",
-                    "items": {
-                        "type": "object",
-                        "properties": {
-                            "addr": {
-                                "type": "string"
-                            },
-                            "dnn": {
-                                "type": "string"
                             }
                         }
                     }

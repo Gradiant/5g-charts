@@ -23,27 +23,41 @@
                 "logLevel": {
                     "type": "string"
                 },
-                "nrf": {
-                    "type": "object",
-                    "properties": {
-                        "sbi": {
-                            "type": "object",
-                            "properties": {
-                                "hostname": {
-                                    "type": "string"
-                                },
-                                "port": {
-                                    "type": "integer"
-                                }
-                            }
-                        }
-                    }
+                "advertise": {
+                    "type": "string"
                 },
                 "sbi": {
                     "type": "object",
                     "properties": {
-                        "advertise": {
-                            "type": "string"
+                        "client": {
+                            "type": "object",
+                            "properties": {
+                                "nrf": {
+                                    "type": "object",
+                                    "properties": {
+                                        "enabled": {
+                                            "type": "boolean"
+                                        },
+                                        "uri": {
+                                            "type": "string"
+                                        }
+                                    }
+                                },
+                                "scp": {
+                                    "type": "object",
+                                    "properties": {
+                                        "enabled": {
+                                            "type": "boolean"
+                                        },
+                                        "uri": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "server": {
+                            "type": "null"
                         }
                     }
                 }
