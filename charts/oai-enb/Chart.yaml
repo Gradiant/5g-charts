@@ -11,6 +11,9 @@ maintainers:
   name: cgiraldo
 name: oai-enb
 version: 0.1.1
+annotations:
+  artifacthub.io/category: networking
 keywords:
+  - network
   - lte
   - enodeb

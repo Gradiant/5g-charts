@@ -1,7 +1,7 @@
 apiVersion: v2
-appVersion: "2.7.0"
+appVersion: "2.4.11"
 description: >
-  Helm chart to deploy Open5gs UDM service on Kubernetes.
+  Helm chart to deploy Open5gs UPF service on Kubernetes.
 home: https://github.com/gradiant/openverso-charts
 sources:
   - http://open5gs.org
@@ -9,14 +9,13 @@ icon: https://open5gs.org/assets/img/open5gs-logo.png
 maintainers:
 - email: cgiraldo@gradiant.org
   name: cgiraldo
-name: open5gs-udm
-version: 2.2.0
+name: oai-upf-vpp
+version: 2.1.0
 annotations:
   artifacthub.io/category: networking
 keywords:
   - network
   - ngc
-  - gradiant
 dependencies:
   - name: common
     repository: https://charts.bitnami.com/bitnami

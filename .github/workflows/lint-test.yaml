@@ -46,7 +46,6 @@ jobs:
       - name: Set up helm dep repositories
         run: |
           helm repo add bitnami https://charts.bitnami.com/bitnami
-          helm repo add openverso https://gradiant.github.io/openverso-charts
       - uses: actions/setup-python@v2
         with:
           python-version: 3.7
@@ -75,7 +74,6 @@ jobs:
       - name: Set up helm dep repositories
         run: |
           helm repo add bitnami https://charts.bitnami.com/bitnami
-          helm repo add openverso https://gradiant.github.io/openverso-charts
       - uses: actions/setup-python@v2
         with:
           python-version: 3.7

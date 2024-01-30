@@ -12,10 +12,13 @@ description: ueransim UEs for 5G RAN simulation
 engine: gotpl
 home: https://github.com/aligungr/UERANSIM
 icon: https://github.com/aligungr/UERANSIM/raw/master/.github/logo.png
+annotations:
+  artifacthub.io/category: networking
 keywords:
+  - network
   - apps
-  - gradiant
   - k8s
+  - gradiant
 maintainers:
   - email: cgiraldo@gradiant.org
     name: cgiraldo

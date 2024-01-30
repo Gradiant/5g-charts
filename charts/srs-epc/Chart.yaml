@@ -11,5 +11,8 @@ maintainers:
   name: cgiraldo
 name: srs-epc
 version: 0.2.0
+annotations:
+  artifacthub.io/category: networking
 keywords:
+  - network
   - epc

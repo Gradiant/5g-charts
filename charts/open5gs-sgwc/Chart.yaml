@@ -11,7 +11,10 @@ maintainers:
   name: cgiraldo
 name: open5gs-sgwc
 version: 2.2.0
+annotations:
+  artifacthub.io/category: networking
 keywords:
+  - network
   - ngc
 dependencies:
   - name: common

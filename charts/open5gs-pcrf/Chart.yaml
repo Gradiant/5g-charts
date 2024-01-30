@@ -11,9 +11,13 @@ maintainers:
   name: cgiraldo
 name: open5gs-pcrf
 version: 2.2.0
+annotations:
+  artifacthub.io/category: networking
 keywords:
+  - network
   - epc
   - ngc
+  - gradiant
 dependencies:
   - name: common
     repository: https://charts.bitnami.com/bitnami

@@ -11,6 +11,9 @@ maintainers:
   name: cgiraldo
 name: srs-ue
 version: 0.2.0
+annotations:
+  artifacthub.io/category: networking
 keywords:
+  - network
   - lte
   - ue

@@ -10,8 +10,11 @@ maintainers:
   name: mmarquez999
 icon: https://jitsi.org/wp-content/uploads/2018/11/jitsi-logo-blue-grey-text.png
 name: jitsi
-version: 0.0.3
+version: 0.0.4
+annotations:
+  artifacthub.io/category: networking
 keywords:
+  - network
   - apps
   - k8s
 dependencies:
