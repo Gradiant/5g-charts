@@ -9,7 +9,7 @@ icon: https://docs.srsran.com/en/latest/_static/logo.png
 maintainers:
 - email: cgiraldo@gradiant.org
   name: cgiraldo
-name: srsran-4g-enb-zmq
+name: srsran-4g-zmq
 version: 0.2.0
 annotations:
   artifacthub.io/category: networking
