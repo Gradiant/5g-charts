@@ -51,7 +51,7 @@ description
 | image.pullPolicy | string | `"IfNotPresent"` |  |
 | image.pullSecrets | list | `[]` |  |
 | image.registry | string | `"docker.io"` |  |
-| image.repository | string | `"openverso/oai"` |  |
+| image.repository | string | `"gradiant/oai"` |  |
 | image.tag | string | `"2021.w36"` |  |
 | kubeVersion | string | `nil` |  |
 | nameOverride | string | `nil` |  |

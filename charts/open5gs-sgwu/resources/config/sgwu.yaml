@@ -3,19 +3,14 @@
 logger:
   level: {{ .Values.config.logLevel }}
 parameter: {}
-
+global:
 sgwu:
   pfcp:
+    server:
     - dev: "eth0"
-      port: {{ .Values.containerPorts.pfcp }}
+    client:
+      sgwc:
+      - address: {{ default (printf "%s-sgwc-pfcp" $open5gsName) .Values.config.pfcp.client.sgwc.address }}
   gtpu:
-    - dev:  {{ default "eth0" .Values.config.sgwu.gtpu.dev }}
-      port: {{ .Values.containerPorts.gtpu }}
-      {{- if .Values.config.sgwu.gtpu.advertise }}
-      advertise: "{{ tpl .Values.config.sgwu.gtpu.advertise . }}"
-      {{- end }}
-
-sgwc:
-  pfcp:
-    - name: {{ default (printf "%s-sgwc-pfcp" $open5gsName) .Values.config.sgwc.pfcp.hostname }}
-      port: {{ .Values.config.sgwc.pfcp.port }}
+    server:
+    - dev:  {{ default "eth0" .Values.config.gtpu.server.dev }}

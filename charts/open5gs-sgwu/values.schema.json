@@ -20,38 +20,43 @@
         "config": {
             "type": "object",
             "properties": {
-                "logLevel": {
-                    "type": "string"
-                },
-                "sgwc": {
+                "gtpu": {
                     "type": "object",
                     "properties": {
-                        "pfcp": {
+                        "server": {
                             "type": "object",
                             "properties": {
-                                "hostname": {
+                                "dev": {
                                     "type": "string"
-                                },
-                                "port": {
-                                    "type": "integer"
                                 }
                             }
                         }
                     }
                 },
-                "sgwu": {
+                "logLevel": {
+                    "type": "string"
+                },
+                "advertise": {
+                    "type": "string"
+                },
+                "pfcp": {
                     "type": "object",
                     "properties": {
-                        "gtpu": {
+                        "client": {
                             "type": "object",
                             "properties": {
-                                "advertise": {
-                                    "type": "string"
-                                },
-                                "dev": {
-                                    "type": "string"
+                                "sgwc": {
+                                    "type": "object",
+                                    "properties": {
+                                        "address": {
+                                            "type": "string"
+                                        }
+                                    }
                                 }
                             }
+                        },
+                        "server": {
+                            "type": "null"
                         }
                     }
                 }

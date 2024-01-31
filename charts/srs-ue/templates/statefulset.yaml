@@ -30,7 +30,7 @@ spec:
 {{ toYaml .Values.resources | indent 10 }}
         volumeMounts:
         - name: srsue-config
-          mountPath: /etc/srslte/ue.conf
+          mountPath: /etc/srsran/ue.conf
           subPath: "ue.conf"
       volumes:
       - name: srsue-config

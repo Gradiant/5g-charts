@@ -23,22 +23,6 @@
                 "logLevel": {
                     "type": "string"
                 },
-                "smf": {
-                    "type": "object",
-                    "properties": {
-                        "pfcp": {
-                            "type": "object",
-                            "properties": {
-                                "hostname": {
-                                    "type": "string"
-                                },
-                                "port": {
-                                    "type": "null"
-                                }
-                            }
-                        }
-                    }
-                },
                 "subnetList": {
                     "type": "array",
                     "items": {
@@ -58,6 +42,9 @@
                             },
                             "enableNAT": {
                                 "type": "boolean"
+                            },
+                            "subnet": {
+                                "type": "string"
                             }
                         }
                     }
@@ -84,6 +71,9 @@
             "type": "object",
             "properties": {
                 "gtpu": {
+                    "type": "integer"
+                },
+                "metrics": {
                     "type": "integer"
                 },
                 "pfcp": {
@@ -200,6 +190,60 @@
         },
         "lifecycleHooks": {
             "type": "object"
+        },
+        "metrics": {
+            "type": "object",
+            "properties": {
+                "enabled": {
+                    "type": "boolean"
+                },
+                "serviceMonitor": {
+                    "type": "object",
+                    "properties": {
+                        "additionalLabels": {
+                            "type": "object"
+                        },
+                        "enabled": {
+                            "type": "boolean"
+                        },
+                        "honorLabels": {
+                            "type": "boolean"
+                        },
+                        "interval": {
+                            "type": "string"
+                        },
+                        "metricRelabelings": {
+                            "type": "array"
+                        },
+                        "namespace": {
+                            "type": "string"
+                        },
+                        "relabelings": {
+                            "type": "array"
+                        },
+                        "scrapeTimeout": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "serviceScrape": {
+                    "type": "object",
+                    "properties": {
+                        "additionalLabels": {
+                            "type": "object"
+                        },
+                        "enabled": {
+                            "type": "boolean"
+                        },
+                        "namespace": {
+                            "type": "string"
+                        },
+                        "scrape_interval": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
         },
         "nameOverride": {
             "type": "string"
@@ -328,6 +372,59 @@
                             "type": "object",
                             "properties": {
                                 "gtpu": {
+                                    "type": "integer"
+                                }
+                            }
+                        },
+                        "sessionAffinity": {
+                            "type": "string"
+                        },
+                        "sessionAffinityConfig": {
+                            "type": "object"
+                        },
+                        "type": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "metrics": {
+                    "type": "object",
+                    "properties": {
+                        "annotations": {
+                            "type": "object",
+                            "properties": {
+                                "prometheus.io/path": {
+                                    "type": "string"
+                                }
+                            }
+                        },
+                        "clusterIP": {
+                            "type": "string"
+                        },
+                        "externalTrafficPolicy": {
+                            "type": "string"
+                        },
+                        "extraPorts": {
+                            "type": "array"
+                        },
+                        "loadBalancerIP": {
+                            "type": "string"
+                        },
+                        "loadBalancerSourceRanges": {
+                            "type": "array"
+                        },
+                        "nodePorts": {
+                            "type": "object",
+                            "properties": {
+                                "metrics": {
+                                    "type": "string"
+                                }
+                            }
+                        },
+                        "ports": {
+                            "type": "object",
+                            "properties": {
+                                "metrics": {
                                     "type": "integer"
                                 }
                             }

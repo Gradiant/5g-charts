@@ -4,8 +4,8 @@ populate:
   enabled: true
   image:
     registry: docker.io
-    repository: openverso/open5gs-dbctl
-    tag: 0.10.2
+    repository: gradiant/open5gs-dbctl
+    tag: 0.10.3
     pullPolicy: IfNotPresent
   initCommands: []
   # example of initCommands:
@@ -20,83 +20,49 @@ mongodb:
     enabled: false
 smf:
   enabled: true
-  image:
-    tag: 2.6.4
 upf:
   enabled: true
-  image:
-    tag: 2.6.4
 webui:
   enabled: true
-  image:
-    tag: 2.6.4
 
 # 4G
 hss:
   enabled: true
-  image:
-    tag: 2.6.4
   mongodb:
     enabled: false
 mme:
   enabled: true
-  image:
-    tag: 2.6.4
 pcrf:
   enabled: true
-  image:
-    tag: 2.6.4
   mongodb:
     enabled: false
 sgwc:
   enabled: true
-  image:
-    tag: 2.6.4
 sgwu:
   enabled: true
-  image:
-    tag: 2.6.4
 
 # 5G
 amf:
-  enabled: true
-  image:
-    tag: 2.6.4
+  enabled: false
 ausf:
-  enabled: true
-  image:
-    tag: 2.6.4
+  enabled: false
 bsf:
-  enabled: true
-  image:
-    tag: 2.6.4
+  enabled: false
 nrf:
-  enabled: true
-  image:
-    tag: 2.6.4
+  enabled: false
 nssf:
-  enabled: true
-  image:
-    tag: 2.6.4
+  enabled: false
 pcf:
-  enabled: true
-  image:
-    tag: 2.6.4
-  mongodb:
-    enabled: false
-udm:
-  enabled: true
-  image:
-    tag: 2.6.4
-udr:
-  enabled: true
-  image:
-    tag: 2.6.4
+  enabled: false
   mongodb:
     enabled: false
 scp:
   enabled: false
-  image:
-    tag: 2.6.4
+  mongodb:
+    enabled: false
+udm:
+  enabled: false
+udr:
+  enabled: false
   mongodb:
     enabled: false

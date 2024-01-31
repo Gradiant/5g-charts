@@ -48,7 +48,7 @@ ueransim UEs for 5G RAN simulation
 | image.pullPolicy | string | `"Always"` |  |
 | image.pullSecrets | list | `[]` |  |
 | image.registry | string | `"docker.io"` |  |
-| image.repository | string | `"openverso/ueransim"` |  |
+| image.repository | string | `"gradiant/ueransim"` |  |
 | image.tag | string | `"3.2.6"` |  |
 | initialMSISDN | string | `"0000000001"` |  |
 | key | string | `"465B5CE8B199B49FAA5F0A2EE238A6BC"` |  |

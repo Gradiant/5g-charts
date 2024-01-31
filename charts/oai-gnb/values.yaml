@@ -43,7 +43,7 @@ extraDeploy: []
 
 image:
   registry: docker.io
-  repository: openverso/oai
+  repository: gradiant/oai
   tag: 2021.w36
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'

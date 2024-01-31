@@ -1,5 +1,6 @@
 annotations:
   category: apps
+  artifacthub.io/category: networking
 apiVersion: v2
 appVersion: 1.0.0
 dependencies:
@@ -12,8 +13,6 @@ description: iPerf3 is a tool for active measurements of the maximum achievable 
 engine: gotpl
 home: https://iperf.fr/
 icon: https://iperf.fr/images/logo_iperf_command.png
-annotations:
-  artifacthub.io/category: networking
 keywords:
   - network
   - apps

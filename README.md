@@ -24,7 +24,7 @@ helm repo add openverso https://gradiant.github.io/openverso-charts/
 Then you have a collection of charts available to install. For example, to install open5gs:
 
 ```bash
-helm install openverso/open5gs
+helm install gradiant/open5gs
 ```
 
 ## Install chart from release

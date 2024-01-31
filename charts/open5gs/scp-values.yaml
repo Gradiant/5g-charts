@@ -4,8 +4,8 @@ populate:
   enabled: true
   image:
     registry: docker.io
-    repository: openverso/open5gs-dbctl
-    tag: 0.10.2
+    repository: gradiant/open5gs-dbctl
+    tag: 0.10.3
     pullPolicy: IfNotPresent
   initCommands: []
   # example of initCommands:
@@ -23,6 +23,8 @@ smf:
   config:
     scp:
       enabled: true
+    pcrf:
+      enabled: false
 upf:
   enabled: true
 webui:
@@ -30,26 +32,28 @@ webui:
 
 # 4G
 hss:
-  enabled: true
+  enabled: false
   mongodb:
     enabled: false
 mme:
-  enabled: true
+  enabled: false
 pcrf:
-  enabled: true
+  enabled: false
   mongodb:
     enabled: false
 sgwc:
-  enabled: true
+  enabled: false
 sgwu:
-  enabled: true
+  enabled: false
 
 # 5G
 amf:
   enabled: true
   config:
-    scp:
-      enabled: true
+    sbi:
+      client:
+        scp:
+          enabled: true
     guamiList:
       - plmn_id:
           mcc: "999"
@@ -72,13 +76,17 @@ amf:
 ausf:
   enabled: true
   config:
-    scp:
-      enabled: true
+    sbi:
+      client:
+        scp:
+          enabled: true
 bsf:
   enabled: true
   config:
-    scp:
-      enabled: true
+    sbi:
+      client:
+        scp:
+          enabled: true
 nrf:
   enabled: true
   config:

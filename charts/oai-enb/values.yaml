@@ -1,6 +1,6 @@
 image:
   registry: docker.io
-  repository: openverso/oai-enb
+  repository: gradiant/oai-enb
   tag: "1.2.2"
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'

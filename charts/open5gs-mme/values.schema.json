@@ -20,6 +20,41 @@
         "config": {
             "type": "object",
             "properties": {
+                "gtpc": {
+                    "type": "object",
+                    "properties": {
+                        "client": {
+                            "type": "object",
+                            "properties": {
+                                "sgwc": {
+                                    "type": "object",
+                                    "properties": {
+                                        "address": {
+                                            "type": "string"
+                                        },
+                                        "tac": {
+                                            "type": "integer"
+                                        }
+                                    }
+                                },
+                                "smf": {
+                                    "type": "object",
+                                    "properties": {
+                                        "address": {
+                                            "type": "string"
+                                        },
+                                        "tac": {
+                                            "type": "integer"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "server": {
+                            "type": "null"
+                        }
+                    }
+                },
                 "gummeiList": {
                     "type": "array",
                     "items": {
@@ -66,38 +101,6 @@
                 },
                 "networkName": {
                     "type": "string"
-                },
-                "sgwc": {
-                    "type": "object",
-                    "properties": {
-                        "gtpc": {
-                            "type": "object",
-                            "properties": {
-                                "hostname": {
-                                    "type": "string"
-                                },
-                                "port": {
-                                    "type": "integer"
-                                }
-                            }
-                        }
-                    }
-                },
-                "smf": {
-                    "type": "object",
-                    "properties": {
-                        "gtpc": {
-                            "type": "object",
-                            "properties": {
-                                "hostname": {
-                                    "type": "string"
-                                },
-                                "port": {
-                                    "type": "integer"
-                                }
-                            }
-                        }
-                    }
                 },
                 "taiList": {
                     "type": "array",

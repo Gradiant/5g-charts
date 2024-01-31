@@ -1,5 +1,6 @@
 annotations:
   category: apps
+  artifacthub.io/category: networking
 apiVersion: v2
 appVersion: 3.2.6
 dependencies:
@@ -12,8 +13,6 @@ description: ueransim UEs for 5G RAN simulation
 engine: gotpl
 home: https://github.com/aligungr/UERANSIM
 icon: https://github.com/aligungr/UERANSIM/raw/master/.github/logo.png
-annotations:
-  artifacthub.io/category: networking
 keywords:
   - network
   - apps
@@ -27,4 +26,4 @@ maintainers:
 name: ueransim-ues
 sources:
   - https://github.com/aligungr/UERANSIM
-version: 0.1.1
+version: 0.1.2

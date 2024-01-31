@@ -3,18 +3,17 @@
 logger:
   level: {{ .Values.config.logLevel }}
 parameter: {}
-
+global:
 sgwc:
-  pfcp:
-    - dev: "eth0"
-      port: {{ .Values.containerPorts.pfcp }}
   gtpc:
+    server:
     - dev: "eth0"
-      port: {{ .Values.containerPorts.gtpc }}
-sgwu:
   pfcp:
-    {{- range .Values.config.sgwu.pfcpList }}
-    - name: {{ default (printf "%s-sgwu-pfcp" $open5gsName) .hostname }}
-      port: {{ .port }}
-      apn: {{ .apn }}
-    {{- end }}
+    server:
+    - dev: "eth0"
+    client:
+      sgwu:
+      {{- range .Values.config.pfcp.client.sgwuList }}
+      - address: {{ default (printf "%s-sgwu-pfcp" $open5gsName) .address }}
+        apn: {{ .apn }}
+      {{- end }}
