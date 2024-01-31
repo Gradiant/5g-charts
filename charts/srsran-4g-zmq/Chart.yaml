@@ -1,9 +1,12 @@
 apiVersion: v1
 appVersion: "23.11"
+appVersion: "23.11"
 description: >
+  srsRAN4g enodeb + ue.
   srsRAN4g enodeb + ue.
 home: https://github.com/Gradiant/charts
 sources:
+  - https://github.com/srsran/srsRAN_4G
   - https://github.com/srsran/srsRAN_4G
 icon: https://docs.srsran.com/en/latest/_static/logo.png
 maintainers:
