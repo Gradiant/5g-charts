@@ -43,26 +43,26 @@ sgwu:
 
 # 5G
 amf:
-  enabled: false
+  enabled: true
 ausf:
-  enabled: false
+  enabled: true
 bsf:
-  enabled: false
+  enabled: true
 nrf:
-  enabled: false
+  enabled: true
 nssf:
-  enabled: false
+  enabled: true
 pcf:
-  enabled: false
+  enabled: true
   mongodb:
     enabled: false
 scp:
-  enabled: false
+  enabled: true
   mongodb:
     enabled: false
 udm:
-  enabled: false
+  enabled: true
 udr:
-  enabled: false
+  enabled: true
   mongodb:
     enabled: false
