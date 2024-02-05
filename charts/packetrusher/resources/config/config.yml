@@ -1,0 +1,43 @@
+gnodeb:
+  controlif:
+    ip: "${GNB_NGAP_ADDR}"
+    port: 9487
+  dataif:
+    ip: "${GNB_GTPU_ADDR}"
+    port: 2152
+  plmnlist:
+    mcc: "{{ .Values.config.gnb.mcc }}"
+    mnc: "{{ .Values.config.gnb.mnc }}"
+    tac: "{{ .Values.config.gnb.tac }}"
+    gnbid: "{{ .Values.config.gnb.gnbid }}"
+  slicesupportlist:
+    sst: "{{ .Values.config.gnb.sst }}"
+    sd: "{{ .Values.config.gnb.sd }}"
+
+ue:
+  msin: "{{ .Values.config.ue.msin }}"
+  key: "{{ .Values.config.ue.key }}"
+  opc: "{{ .Values.config.ue.opc }}"
+  amf: "8000"
+  sqn: "00000000"
+  dnn: "{{ .Values.config.ue.dnn }}"
+  hplmn:
+    mcc: "{{ .Values.config.ue.hplmn.mcc }}"
+    mnc: "{{ .Values.config.ue.hplmn.mnc }}"
+  snssai:
+    sst: {{ .Values.config.ue.sst }}
+    sd: "{{ .Values.config.ue.sd }}"
+  integrity:
+    nia0: false
+    nia1: false
+    nia2: true
+    nia3: false
+  ciphering:
+    nea0: false
+    nea1: false
+    nea2: true
+    nea3: false
+
+amfif:
+  ip: "${AMF_ADDR}"
+  port: 38412
