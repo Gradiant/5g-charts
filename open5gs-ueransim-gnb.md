@@ -18,7 +18,7 @@ helm pull oci://registry-1.docker.io/gradiant/open5gs --version 2.2.0
 First, deploy the NGC (open5gs) using the `5gSA-values.yaml` file provided in order to overwrite some of the default values of the **Open5GS chart**:
 
 ```
-helm install open5gs oci://registry-1.docker.io/gradiant/open5gs --version 2.2.0 --values https://gradiant.github.io/openverso-charts/docs/open5gs-ueransim-gnb/5gSA-values.yaml 
+helm install open5gs oci://registry-1.docker.io/gradiant/open5gs --version 2.2.0 --values https://gradiant.github.io/5g-charts/docs/open5gs-ueransim-gnb/5gSA-values.yaml 
 ```
 
 These new values will:
@@ -33,7 +33,7 @@ These new values will:
 Now, deploy the RAN (ueransim-gnb) using the *gnb-ues-values.yaml* file provided in order to overwrite some of the default values of the **ueransim-gnb chart**:
 
 ```
-helm install ueransim-gnb oci://registry-1.docker.io/gradiant/ueransim-gnb --version 0.2.6 --values https://gradiant.github.io/openverso-charts/docs/open5gs-ueransim-gnb/gnb-ues-values.yaml 
+helm install ueransim-gnb oci://registry-1.docker.io/gradiant/ueransim-gnb --version 0.2.6 --values https://gradiant.github.io/5g-charts/docs/open5gs-ueransim-gnb/gnb-ues-values.yaml 
 ```
 
 Thus, this deployment will not only launch the **gNodeB**, but it will also enable the launching of **2 UEs**. They will use consecutive MSIDNs, starting from the value of ***ues.initialMSISDN*** (0000000001, by default).
@@ -72,7 +72,7 @@ kubectl exec deployment/ueransim-gnb-ues -ti -- bash
 ip addr
 ```
 
-![UEs tunnel interfaces](https://raw.githubusercontent.com/Gradiant/openverso-charts/gh-pages/docs/open5gs-ueransim-gnb/screenshots/ues_tunnels.png "UEs tunnel interfaces")
+![UEs tunnel interfaces](https://raw.githubusercontent.com/Gradiant/5g-charts/gh-pages/docs/open5gs-ueransim-gnb/screenshots/ues_tunnels.png "UEs tunnel interfaces")
 
 Check that UEs have connectivity through these interfaces:
 ```
@@ -80,7 +80,7 @@ ping gradiant.org -I uesimtun0
 
 ping gradiant.org -I uesimtun1
 ```
-![UEs connectivity](https://raw.githubusercontent.com/Gradiant/openverso-charts/gh-pages/docs/open5gs-ueransim-gnb/screenshots/ues_ping.png "UEs connectivity")
+![UEs connectivity](https://raw.githubusercontent.com/Gradiant/5g-charts/gh-pages/docs/open5gs-ueransim-gnb/screenshots/ues_ping.png "UEs connectivity")
 
 It's even possible to check that the UEs' traffic is being routed correctly through their PDU sessions, capturing the packets in the UPF. The installation of **tcpdump** in the corresponding pod is needed in order to complete this check:
 ```
@@ -90,7 +90,7 @@ apt update && apt install tcpdump
 
 tcpdump -i ogstun
 ```
-![Capturing traffic in the UPF](https://raw.githubusercontent.com/Gradiant/openverso-charts/gh-pages/docs/open5gs-ueransim-gnb/screenshots/tcpdump.png "Capturing traffic in the UPF")
+![Capturing traffic in the UPF](https://raw.githubusercontent.com/Gradiant/5g-charts/gh-pages/docs/open5gs-ueransim-gnb/screenshots/tcpdump.png "Capturing traffic in the UPF")
 
 # Add additional subscribers using *open5gs-populate*
 
