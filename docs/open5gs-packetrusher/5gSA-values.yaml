@@ -1,0 +1,28 @@
+hss:
+  enabled: false
+
+mme:
+  enabled: false
+
+pcrf:
+  enabled: false
+
+smf:
+  config:
+    pcrf:
+      enabled: false
+
+sgwc:
+  enabled: false
+
+sgwu:
+  enabled: false
+
+webui:
+  ingress:
+    enabled: false
+
+populate:
+  enabled: true
+  initCommands:
+  - open5gs-dbctl add_ue_with_slice 999700000000001 491BB1C6E1179AED538028AE7AD525B3 3B7FB099B3A6D16873B33F023B1679E9 internet 1 ffffff
