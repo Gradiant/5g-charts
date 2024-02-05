@@ -1,0 +1,25 @@
+apiVersion: v2
+appVersion: "cec07b7"
+description: >
+  Helm chart to deploy PacketRusher service on Kubernetes.
+home: https://github.com/gradiant/5g-charts
+sources:
+  - https://github.com/HewlettPackard/PacketRusher
+maintainers:
+- email: avrodriguez@gradiant.org
+  name: avrodriguez
+name: packetrusher
+version: 0.0.1
+annotations:
+  artifacthub.io/category: networking
+keywords:
+  - network
+  - gnb
+  - ue
+  - gradiant
+dependencies:
+  - name: common
+    repository: https://charts.bitnami.com/bitnami
+    tags:
+      - bitnami-common
+    version: 1.x.x
