@@ -33,7 +33,7 @@ helm install open5gs oci://registry-1.docker.io/gradiant/open5gs --version 2.2.0
 We have developed some tutorials meant to **guide you through the combined deployment of different technologies**. It is an easy and quick way of testing these technologies and exploring how they work.
 
 These tutorials make use of charts available at this helm repo, and their corresponding documentation can be found at:
-[https://gradiant.github.io/openverso-charts/](https://gradiant.github.io/openverso-charts/)
+[https://gradiant.github.io/5g-charts/](https://gradiant.github.io/5g-charts/)
 
 ## Development
 
