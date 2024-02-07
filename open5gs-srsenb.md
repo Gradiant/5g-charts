@@ -30,7 +30,7 @@ You need another prerequisite in your Kubernetes cluster in order to complete th
 
 Go to https://github.com/Gradiant/ettus-device-plugin, where you will find additional information and where the corresponding Kubernetes manifest is located (***ettus-daemonset.yaml***). Then, execute the following command in order to create the corresponding Kubernetes resource:
 ```
-kubectl apply -f https://gradiant.github.io/openverso-charts/docs/open5gs-srsenb/ettus-daemonset.yaml
+kubectl apply -f https://gradiant.github.io/5g-charts/docs/open5gs-srsenb/ettus-daemonset.yaml
 ```
 After this is completed, you can rely on Kubernetes to place the device plugin's Pod onto Nodes, to restart the daemon Pod after failure, and to help automate upgrades.
 
@@ -39,7 +39,7 @@ After this is completed, you can rely on Kubernetes to place the device plugin's
 First, deploy the EPC (open5gs) using the `epc-values.yaml` file provided in order to overwrite some of the default values of the **Open5GS chart**:
 
 ```
-helm install open5gs oci://registry-1.docker.io/gradiant/open5gs --version 2.0.8 --values https://gradiant.github.io/openverso-charts/docs/open5gs-srsenb/epc-values.yaml 
+helm install open5gs oci://registry-1.docker.io/gradiant/open5gs --version 2.0.8 --values https://gradiant.github.io/5g-charts/docs/open5gs-srsenb/epc-values.yaml 
 ```
 
 These new values will:
@@ -76,7 +76,7 @@ Before installing the corresponding helm chart, make sure of having properly **c
 Now, deploy the RAN (srs-enb) using the `enb-values.yaml` file provided in order to overwrite some of the default values of the **srs-enb chart**:
 
 ```
-helm install srs-enb oci://registry-1.docker.io/gradiant/srs-enb --version 0.1.2 --values https://gradiant.github.io/openverso-charts/docs/open5gs-srsenb/enb-values.yaml 
+helm install srs-enb oci://registry-1.docker.io/gradiant/srs-enb --version 0.1.2 --values https://gradiant.github.io/5g-charts/docs/open5gs-srsenb/enb-values.yaml 
 ```
 
 Thus, this deployment will launch the **eNodeB** and connect it to the Open5GS EPC.
@@ -100,7 +100,7 @@ Check that the MME accepts and adds the eNodeB:
 ```
 kubectl logs deployment/open5gs-mme -f
 ```
-![MME finds eNodeB](https://raw.githubusercontent.com/Gradiant/openverso-charts/gh-pages/docs/open5gs-srsenb/screenshots/mme_enb.png "MME and eNodeB connected")
+![MME finds eNodeB](https://raw.githubusercontent.com/Gradiant/5g-charts/gh-pages/docs/open5gs-srsenb/screenshots/mme_enb.png "MME and eNodeB connected")
 
 # Connect UE to the network
 
@@ -120,23 +120,23 @@ Check that the eNodeB senses UE's presence and the UE gets connected to the netw
 ```
 kubectl logs srs-enb-srs-enb-0 -f
 ```
-![UE connectd to eNodeB](https://raw.githubusercontent.com/Gradiant/openverso-charts/gh-pages/docs/open5gs-srsenb/screenshots/enb_ue_connected.png "UE connected to eNodeB")
+![UE connectd to eNodeB](https://raw.githubusercontent.com/Gradiant/5g-charts/gh-pages/docs/open5gs-srsenb/screenshots/enb_ue_connected.png "UE connected to eNodeB")
 
 Check that the UE got successfully attached to the network:
  ```
 kubectl logs deployment/open5gs-mme -f
 ```
-![UE attached to network (MME)](https://raw.githubusercontent.com/Gradiant/openverso-charts/gh-pages/docs/open5gs-srsenb/screenshots/ue_attached.png "UE attached to network")
+![UE attached to network (MME)](https://raw.githubusercontent.com/Gradiant/5g-charts/gh-pages/docs/open5gs-srsenb/screenshots/ue_attached.png "UE attached to network")
 
-![UE attached to network (UE)](https://raw.githubusercontent.com/Gradiant/openverso-charts/gh-pages/docs/open5gs-srsenb/screenshots/connected_ue.jpg "UE attached to network")
+![UE attached to network (UE)](https://raw.githubusercontent.com/Gradiant/5g-charts/gh-pages/docs/open5gs-srsenb/screenshots/connected_ue.jpg "UE attached to network")
 
 We installed and used the **PingTools** application in the UE in order to test the UE's connectivity. Open this application and check that UE was assigned an IP address and it is connected to the eNodeB and to the Internet:
 
-<p style="text-align:center;"><img src="https://raw.githubusercontent.com/Gradiant/openverso-charts/gh-pages/docs/open5gs-srsenb/screenshots/connected_pingtools.jpg" width="270" height="561" title="UE connected to network" alt="UE connected to network"></p>
+<p style="text-align:center;"><img src="https://raw.githubusercontent.com/Gradiant/5g-charts/gh-pages/docs/open5gs-srsenb/screenshots/connected_pingtools.jpg" width="270" height="561" title="UE connected to network" alt="UE connected to network"></p>
 
 Through the ***ping*** section of the app, you can easily test the UE's connectivity to the Internet:
 
-<p style="text-align:center;"><img src="https://raw.githubusercontent.com/Gradiant/openverso-charts/gh-pages/docs/open5gs-srsenb/screenshots/ping.jpg" width="270" height="458.75" title="UE's connectivity" alt="UE's connectivity"></p>
+<p style="text-align:center;"><img src="https://raw.githubusercontent.com/Gradiant/5g-charts/gh-pages/docs/open5gs-srsenb/screenshots/ping.jpg" width="270" height="458.75" title="UE's connectivity" alt="UE's connectivity"></p>
 
 Therefore, the UE's traffic can be captured in the PGW-U (UPF). The installation of **tcpdump** in the corresponding pod is needed in order to complete this check:
 ```
@@ -146,9 +146,9 @@ apt update && apt install tcpdump
 
 tcpdump -i ogstun
 ```
-![Capturing traffic in the PGW-U](https://raw.githubusercontent.com/Gradiant/openverso-charts/gh-pages/docs/open5gs-srsenb/screenshots/tcpdump.png "Capturing traffic in the PGW-U")
+![Capturing traffic in the PGW-U](https://raw.githubusercontent.com/Gradiant/5g-charts/gh-pages/docs/open5gs-srsenb/screenshots/tcpdump.png "Capturing traffic in the PGW-U")
 
-![Capturing traffic in the PGW-U (Wireshark)](https://raw.githubusercontent.com/Gradiant/openverso-charts/gh-pages/docs/open5gs-srsenb/screenshots/wireshark.png "Capturing traffic in the PGW-U (Wireshark)")
+![Capturing traffic in the PGW-U (Wireshark)](https://raw.githubusercontent.com/Gradiant/5g-charts/gh-pages/docs/open5gs-srsenb/screenshots/wireshark.png "Capturing traffic in the PGW-U (Wireshark)")
 
 # Clean
 Clean the deployment for this demo by uninstalling the 2 helm charts previously installed:

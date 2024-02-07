@@ -30,7 +30,7 @@ You need another prerequisite in your Kubernetes cluster in order to complete th
 
 Go to https://github.com/Gradiant/ettus-device-plugin, where you will find additional information and where the corresponding Kubernetes manifest is located (***ettus-daemonset.yaml***). Then, execute the following command in order to create the corresponding Kubernetes resource:
 ```
-kubectl apply -f https://gradiant.github.io/openverso-charts/docs/open5gs-oaignb/ettus-daemonset.yaml
+kubectl apply -f https://gradiant.github.io/5g-charts/docs/open5gs-oaignb/ettus-daemonset.yaml
 ```
 After this is completed, you can rely on Kubernetes to place the device plugin's Pod onto Nodes, to restart the daemon Pod after failure, and to help automate upgrades.
 
@@ -39,7 +39,7 @@ After this is completed, you can rely on Kubernetes to place the device plugin's
 First, deploy the NGC (open5gs) using the `5gSA-values.yaml` file provided in order to overwrite some of the default values of the **Open5GS chart**:
 
 ```
-helm install open5gs oci://registry-1.docker.io/gradiant/open5gs --version 2.0.8 --values https://gradiant.github.io/openverso-charts/docs/open5gs-oaignb/5gSA-values.yaml 
+helm install open5gs oci://registry-1.docker.io/gradiant/open5gs --version 2.0.8 --values https://gradiant.github.io/5g-charts/docs/open5gs-oaignb/5gSA-values.yaml 
 ```
 
 These new values will:
@@ -74,7 +74,7 @@ Before installing the corresponding helm chart, make sure of having properly **c
 Now, deploy the RAN (oai-gnb) using the *gnb-values.yaml* file provided in order to overwrite some of the default values of the **oai-gnb chart**:
 
 ```
-helm install oai-gnb oci://registry-1.docker.io/gradiant/oai-gnb --version 0.3.1 --values https://gradiant.github.io/openverso-charts/docs/open5gs-oaignb/gnb-values.yaml 
+helm install oai-gnb oci://registry-1.docker.io/gradiant/oai-gnb --version 0.3.1 --values https://gradiant.github.io/5g-charts/docs/open5gs-oaignb/gnb-values.yaml 
 ```
 
 Thus, this deployment will launch the **eNodeB** and connect it to the Open5GS NGC.
@@ -100,13 +100,13 @@ Check that the AMF accepts and adds the gNodeB:
 ```
 kubectl logs deployment/open5gs-amf -f
 ```
-![AMF finds gNodeB](https://raw.githubusercontent.com/Gradiant/openverso-charts/gh-pages/docs/open5gs-oaignb/screenshots/amf_gnb.png "AMF and gNodeB connected")
+![AMF finds gNodeB](https://raw.githubusercontent.com/Gradiant/5g-charts/gh-pages/docs/open5gs-oaignb/screenshots/amf_gnb.png "AMF and gNodeB connected")
 
 Check that gNodeB is deployed successfully and that is waiting for UE's detection:
 ```
 kubectl logs oai-gnb-0 -f
 ```
-![gNodeB waiting for UE](https://raw.githubusercontent.com/Gradiant/openverso-charts/gh-pages/docs/open5gs-oaignb/screenshots/gnb_launched.png "gNodeB waiting for UE")
+![gNodeB waiting for UE](https://raw.githubusercontent.com/Gradiant/5g-charts/gh-pages/docs/open5gs-oaignb/screenshots/gnb_launched.png "gNodeB waiting for UE")
 
 # Connect UE to the network
 
@@ -126,15 +126,15 @@ Check that the UE got successfully attached to the network:
  ```
 kubectl logs deployment/open5gs-amf -f
 ```
-![UE attached to network](https://raw.githubusercontent.com/Gradiant/openverso-charts/gh-pages/docs/open5gs-oaignb/screenshots/ue_attached.png "UE attached to network")
+![UE attached to network](https://raw.githubusercontent.com/Gradiant/5g-charts/gh-pages/docs/open5gs-oaignb/screenshots/ue_attached.png "UE attached to network")
 
 We installed and used the **PingTools** application in the UE in order to test the UE's connectivity. Open this application and, through the ***ping*** section of the app, you can easily test the UE's connectivity to the gNodeB and to the Internet:
 
-![UE's connectivity](https://raw.githubusercontent.com/Gradiant/openverso-charts/gh-pages/docs/open5gs-oaignb/screenshots/ping_tablet.jpg "UE's connectivity")
+![UE's connectivity](https://raw.githubusercontent.com/Gradiant/5g-charts/gh-pages/docs/open5gs-oaignb/screenshots/ping_tablet.jpg "UE's connectivity")
 
 Check that the gNodeB is seeing data from the UE:
 
-![UE's connectivity to gNB](https://raw.githubusercontent.com/Gradiant/openverso-charts/gh-pages/docs/open5gs-oaignb/screenshots/ue_gnb.png "UE's connectivity to gNB")
+![UE's connectivity to gNB](https://raw.githubusercontent.com/Gradiant/5g-charts/gh-pages/docs/open5gs-oaignb/screenshots/ue_gnb.png "UE's connectivity to gNB")
 
 It's even possible to check that the UEs' traffic is being routed correctly through their PDU sessions, capturing the packets in the UPF. The installation of **tcpdump** in the corresponding pod is needed in order to complete this check:
 ```
@@ -145,7 +145,7 @@ apt update && apt install tcpdump
 tcpdump -i ogstun
 ```
 
-![Capturing traffic in the UPF (Wireshark)](https://raw.githubusercontent.com/Gradiant/openverso-charts/gh-pages/docs/open5gs-oaignb/screenshots/wireshark.png "Capturing traffic in the UPF (Wireshark)")
+![Capturing traffic in the UPF (Wireshark)](https://raw.githubusercontent.com/Gradiant/5g-charts/gh-pages/docs/open5gs-oaignb/screenshots/wireshark.png "Capturing traffic in the UPF (Wireshark)")
 
 # Clean
 Clean the deployment for this demo by uninstalling the 2 helm charts previously installed:

@@ -19,7 +19,7 @@ helm pull oci://registry-1.docker.io/gradiant/srs-lte --version 0.1.3
 First, deploy the EPC (open5gs) using the `epc-values.yaml` file provided in order to overwrite some of the default values of the **Open5GS chart**:
 
 ```
-helm install open5gs oci://registry-1.docker.io/gradiant/open5gs --version 2.0.8 --values https://gradiant.github.io/openverso-charts/docs/open5gs-srslte/epc-values.yaml 
+helm install open5gs oci://registry-1.docker.io/gradiant/open5gs --version 2.0.8 --values https://gradiant.github.io/5g-charts/docs/open5gs-srslte/epc-values.yaml 
 ```
 
 These new values will:
@@ -53,7 +53,7 @@ kubectl port-forward svc/open5gs-webui 3000:3000
 Now, deploy the RAN (srs-lte) using the `lte-values.yaml` file provided in order to overwrite some of the default values of the **srs-lte chart**:
 
 ```
-helm install srs-lte oci://registry-1.docker.io/gradiant/srs-lte --version 0.1.3 --values https://gradiant.github.io/openverso-charts/docs/open5gs-srslte/lte-values.yaml 
+helm install srs-lte oci://registry-1.docker.io/gradiant/srs-lte --version 0.1.3 --values https://gradiant.github.io/5g-charts/docs/open5gs-srslte/lte-values.yaml 
 ```
 
 Thus, this deployment will not only launch the **eNodeB** and connect it to the Open5GS EPC, but it will also enable the launching of **1 UE**.
@@ -85,13 +85,13 @@ Check that the eNodeB senses UE's presence and the UE gets connected to the netw
 ```
 kubectl logs srs-lte-srs-lte-0 enb -f
 ```
-![UE connectd to eNodeB](https://raw.githubusercontent.com/Gradiant/openverso-charts/gh-pages/docs/open5gs-srslte/screenshots/enb_ue_connected.png "UE connected to eNodeB")
+![UE connectd to eNodeB](https://raw.githubusercontent.com/Gradiant/5g-charts/gh-pages/docs/open5gs-srslte/screenshots/enb_ue_connected.png "UE connected to eNodeB")
 
 Check that the UE got successfully attached to the network:
  ```
 kubectl logs srs-lte-srs-lte-0 ue -f
 ```
-![UE attached to network](https://raw.githubusercontent.com/Gradiant/openverso-charts/gh-pages/docs/open5gs-srslte/screenshots/ue_attached.png "UE attached to network")
+![UE attached to network](https://raw.githubusercontent.com/Gradiant/5g-charts/gh-pages/docs/open5gs-srslte/screenshots/ue_attached.png "UE attached to network")
 
 Hence, check that the UE created a tunnel interface (`tun_srsue`):
 ```
@@ -100,19 +100,19 @@ kubectl exec srs-lte-srs-lte-0 -c ue -ti -- bash
 ip addr
 ```
 
-![UE's tunnel interface](https://raw.githubusercontent.com/Gradiant/openverso-charts/gh-pages/docs/open5gs-srslte/screenshots/tun_interface_ue.png "UE's tunnel interface")
+![UE's tunnel interface](https://raw.githubusercontent.com/Gradiant/5g-charts/gh-pages/docs/open5gs-srslte/screenshots/tun_interface_ue.png "UE's tunnel interface")
 
 Check that the UE has connectivity through this interface:
 ```
 ping gradiant.org -I tun_srsue
 ```
-![UEs connectivity](https://raw.githubusercontent.com/Gradiant/openverso-charts/gh-pages/docs/open5gs-srslte/screenshots/ping_ue.png "UEs connectivity")
+![UEs connectivity](https://raw.githubusercontent.com/Gradiant/5g-charts/gh-pages/docs/open5gs-srslte/screenshots/ping_ue.png "UEs connectivity")
 
 Moreover, if using `traceroute`, check that the first hop is `10.45.0.1` (PGW-U's side of the tunnel created):
 ```
 traceroute google.com -i tun_srsue
 ```
-![UEs connectivity](https://raw.githubusercontent.com/Gradiant/openverso-charts/gh-pages/docs/open5gs-srslte/screenshots/traceroute_ue.png "UEs connectivity")
+![UEs connectivity](https://raw.githubusercontent.com/Gradiant/5g-charts/gh-pages/docs/open5gs-srslte/screenshots/traceroute_ue.png "UEs connectivity")
 
 Therefore, the UE's traffic can be captured in the PGW-U (UPF). The installation of **tcpdump** in the corresponding pod is needed in order to complete this check:
 ```
@@ -122,7 +122,7 @@ apt update && apt install tcpdump
 
 tcpdump -i ogstun
 ```
-![Capturing traffic in the PGW-U](https://raw.githubusercontent.com/Gradiant/openverso-charts/gh-pages/docs/open5gs-srslte/screenshots/tcpdump.png "Capturing traffic in the PGW-U")
+![Capturing traffic in the PGW-U](https://raw.githubusercontent.com/Gradiant/5g-charts/gh-pages/docs/open5gs-srslte/screenshots/tcpdump.png "Capturing traffic in the PGW-U")
 
 # Clean
 Clean the deployment for this demo by uninstalling the 2 helm charts previously installed:
