@@ -34,6 +34,9 @@
                             "sst": {
                                 "type": "integer"
                             },
+                            "sd": {
+                                "type": "string"
+                            },
                             "uri": {
                                 "type": "string"
                             }

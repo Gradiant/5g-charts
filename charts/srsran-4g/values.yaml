@@ -24,10 +24,10 @@ device:
   args: auto
 
 enb:
-  mcc: '001'
-  mnc: '01'
+  mcc: '999'
+  mnc: '70'
   tac: '0001'
-  mme: mme
+  mme: open5gs-mme-s1ap
 resources:
   limits:
     ettus.com/usrp: 1
