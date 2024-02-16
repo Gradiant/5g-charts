@@ -44,11 +44,6 @@ dependencies:
     repository: file://../free5gc-chf
     condition: chf.enabled
     alias: chf
-  - name: free5gc-n3iwf
-    version: ~0.1.0
-    repository: file://../free5gc-n3iwf
-    condition: n3iwf.enabled
-    alias: n3iwf
   - name: free5gc-nrf
     version: ~0.1.0
     repository: file://../free5gc-nrf
