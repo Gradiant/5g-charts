@@ -11,36 +11,29 @@ Follow the README.md of each chart to evaluate the technologies in your kubernet
 
 ## Install chart from helm repository
 
-charts in `charts/`` folder are packaged and available at Gradiant's openverso helm repo:  
+charts in `charts/`` folder are packaged and available at Gradiant's DockerHub repo:  
 
-[https://gradiant.github.io/openverso-charts/](https://gradiant.github.io/openverso-charts/)
+[https://hub.docker.com/u/gradiant](https://hub.docker.com/u/gradiant)
 
-You can add the helm repo to your Helm CLI:
-
-```bash
-helm repo add openverso https://gradiant.github.io/openverso-charts/
-```
-
-Then you have a collection of charts available to install. For example, to install open5gs:
+You can pull and save locally the chart. For example:
 
 ```bash
-helm install gradiant/open5gs
+helm pull oci://registry-1.docker.io/gradiant/open5gs --version 2.2.0
 ```
 
-## Install chart from release
-
-install using the URL of the release. For example, to install open5gs v0.1.0 chart:
+You can directly install the chart. For example, to install open5gs:
 
 ```bash
-helm install https://github.com/Gradiant/openverso-charts/releases/download/open5gs-0.1.0/open5gs-0.1.0.tgz
+helm install open5gs oci://registry-1.docker.io/gradiant/open5gs --version 2.2.0
 ```
+
 
 ## Check out our tutorials
 
 We have developed some tutorials meant to **guide you through the combined deployment of different technologies**. It is an easy and quick way of testing these technologies and exploring how they work.
 
 These tutorials make use of charts available at this helm repo, and their corresponding documentation can be found at:
-[https://gradiant.github.io/openverso-charts/](https://gradiant.github.io/openverso-charts/)
+[https://gradiant.github.io/5g-charts/](https://gradiant.github.io/5g-charts/)
 
 ## Development
 
