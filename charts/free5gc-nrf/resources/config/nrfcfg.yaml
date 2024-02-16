@@ -1,0 +1,28 @@
+{{ $free5gcName := .Release.Name }}
+{{ $free5gcNamespace := .Release.Namespace }}
+info:
+  version: 1.0.2
+  description: NRF initial local configuration
+
+configuration:
+  MongoDBName: free5gc # database name in MongoDB
+  MongoDBUrl: {{ default (printf "mongodb://free5gc-mongodb:27017" ) .Values.config.MongoDBUrl }}  # a valid URL of the mongodb
+  sbi: # Service-based interface information
+    scheme: http # the protocol for sbi (http or https)
+    registerIPv4: {{ default (printf "%s-nrf-sbi" $free5gcName ) .Values.config.sbi.registerIPv4 }}
+    bindingIPv4: 0.0.0.0
+    port: 8000 # port used to bind the service
+    tls: # the local path of TLS key
+      pem: cert/nrf.pem # NRF TLS Certificate
+      key: cert/nrf.key # NRF TLS Private key
+  DefaultPlmnId:
+    mcc: {{ .Values.config.DefaultPlmnId.mcc }} # Mobile Country Code (3 digits string, digit: 0~9)
+    mnc: {{ .Values.config.DefaultPlmnId.mnc }} # Mobile Network Code (2 or 3 digits string, digit: 0~9)
+  serviceNameList: # the SBI services provided by this NRF, refer to TS 29.510
+    - nnrf-nfm # Nnrf_NFManagement service
+    - nnrf-disc # Nnrf_NFDiscovery service
+
+logger: # log output setting
+  enable: true # true or false
+  level: {{ .Values.config.logger.level }}  # how detailed to output, value: trace, debug, info, warn, error, fatal, panic
+  reportCaller: false # enable the caller report or not, value: true or false

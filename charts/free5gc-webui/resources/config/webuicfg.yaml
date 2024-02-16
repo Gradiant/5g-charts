@@ -1,0 +1,22 @@
+{{ $free5gcName := .Release.Name }}
+{{ $free5gcNamespace := .Release.Namespace }}
+info:
+  version: 1.0.1
+  description: WebUI initial local configuration
+
+configuration:
+  mongodb: # the mongodb connected by this webui
+    name: free5gc # name of the mongodb
+    url: {{ default (printf "mongodb://free5gc-mongodb:27017" ) .Values.config.mongodb.url }}  # a valid URL of the mongodb   
+  billingServer:
+    hostIPv4: {{ default (printf "%s-%s.lab5g.gradiant.org" $free5gcName $free5gcNamespace ) .Values.config.billingServer.hostIPv4 }}
+    listenPort: 2122
+    port: 2121
+    tls:
+      pem: cert/chf.pem
+      key: cert/chf.key
+
+logger: # log output setting
+  enable: true # true or false
+  level: {{ .Values.config.logger.level }} # how detailed to output, value: trace, debug, info, warn, error, fatal, panic
+  reportCaller: false # enable the caller report or not, value: true or false
