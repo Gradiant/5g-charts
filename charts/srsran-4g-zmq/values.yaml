@@ -22,7 +22,7 @@ ue:
   resources: {}
 
 enb:
-  mme: mme
+  mme: open5gs-mme-s1ap
   mcc: '999'
   mnc: '70'
   tac: '0001'
