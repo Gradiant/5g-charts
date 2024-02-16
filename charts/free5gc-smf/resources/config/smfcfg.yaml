@@ -1,0 +1,79 @@
+{{ $free5gcName := .Release.Name }}
+{{ $free5gcNamespace := .Release.Namespace }}
+info:
+  version: 1.0.7
+  description: SMF initial local configuration
+
+configuration:
+  smfName: {{ .Values.config.smfName }} # the name of this SMF
+  sbi: # Service-based interface information
+    scheme: http # the protocol for sbi (http or https)
+    registerIPv4: {{ default (printf "%s-smf-sbi" $free5gcName ) .Values.config.sbi.registerIPv4 }}
+    bindingIPv4: 0.0.0.0
+    port: 8000 # Port used to bind the service
+    tls: # the local path of TLS key
+      key: cert/smf.key # SMF TLS Certificate
+      pem: cert/smf.pem # SMF TLS Private key
+  serviceNameList: # the SBI services provided by this SMF, refer to TS 29.502
+    - nsmf-pdusession # Nsmf_PDUSession service
+    - nsmf-event-exposure # Nsmf_EventExposure service
+    - nsmf-oam # OAM service
+  snssaiInfos:
+    {{- range .Values.config.snssaiInfos }}
+    - {{- toYaml . | nindent 6 }}
+    {{- end }}
+  plmnList:
+    {{- range .Values.config.plmnList }}
+    - {{- toYaml . | nindent 6 }}
+    {{- end }}
+  locality: area1 # Name of the location where a set of AMF, SMF, PCF and UPFs are located
+  pfcp: # the IP address of N4 interface on this SMF (PFCP)
+    # addr config is deprecated in smf config v1.0.3, please use the following config
+    nodeID: {{ default (printf "%s-smf-pfcp" $free5gcName ) .Values.config.pfcp.nodeID }} # the Node ID of this SMF
+    listenAddr: 0.0.0.0 # the IP/FQDN of N4 interface on this SMF (PFCP)
+    externalAddr: {{ default (printf "%s-smf-pfcp" $free5gcName ) .Values.config.sbi.externalAddr }} # the IP/FQDN of N4 interface on this SMF (PFCP)
+  userplaneInformation: # list of userplane information
+    upNodes: # information of userplane node (AN or UPF)
+      gNB1: # the name of the node
+        type: AN # the type of the node (AN or UPF)
+      UPF: # the name of the node
+        type: UPF # the type of the node (AN or UPF)
+        nodeID: {{ default (printf "%s-upf-pfcp" $free5gcName ) .Values.config.userplaneInformation.upNodes.UPF.nodeID }} # the Node ID of this UPF
+        addr: {{ default (printf "%s-upf-pfcp" $free5gcName ) .Values.config.userplaneInformation.upNodes.UPF.addr }} # the IP/FQDN of N4 interface on this UPF (PFCP)
+        sNssaiUpfInfos:  # S-NSSAI information list for this UPF
+          - sNssai:  # S-NSSAI (Single Network Slice Selection Assistance Information)
+              sst: 1  # Slice/Service Type (uinteger, range: 0~255)
+              sd: ffffff  # Slice Differentiator (3 bytes hex string, range: 000000~FFFFFF)
+            dnnUpfInfoList:  # DNN information list for this S-NSSAI
+              - dnn: internet
+                pools:
+                  - cidr: 10.60.0.0/16
+                staticPools:
+                  - cidr: 10.60.100.0/24
+        interfaces: # Interface list for this UPF
+          - interfaceType: N3 # the type of the interface (N3 or N9)
+            endpoints: # the IP address of this N3/N9 interface on this UPF
+              - {{ default (printf "%s-upf-gtpu" $free5gcName ) .Values.config.userplaneInformation.upNodes.UPF.interfaces.endpoints }}
+            networkInstances:  # Data Network Name (DNN)
+              - {{ .Values.config.userplaneInformation.upNodes.UPF.interfaces.networkInstances }}
+    links: # the topology graph of userplane, A and B represent the two nodes of each link
+      - A: gNB1
+        B: UPF
+  # retransmission timer for pdu session modification command
+  t3591:
+    enable: true     # true or false
+    expireTime: 16s   # default is 6 seconds
+    maxRetryTimes: 3 # the max number of retransmission
+  # retransmission timer for pdu session release command
+  t3592:
+    enable: true     # true or false
+    expireTime: 16s   # default is 6 seconds
+    maxRetryTimes: 3 # the max number of retransmission
+  nrfUri: {{ default (printf "http://%s-nrf-sbi:8000" $free5gcName ) .Values.config.nrfUri }}
+  #urrPeriod: 10 # default usage report period in seconds
+  #urrThreshold: 1000 # default usage report threshold in bytes
+
+logger: # log output setting
+  enable: true # true or false
+  level: {{ .Values.config.logger.level }}  # how detailed to output, value: trace, debug, info, warn, error, fatal, panic
+  reportCaller: false # enable the caller report or not, value: true or false

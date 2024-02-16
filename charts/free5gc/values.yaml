@@ -1,0 +1,26 @@
+mongodb:
+  enabled: true
+  auth:
+    enabled: false
+amf:
+  enabled: true
+ausf:
+  enabled: true
+chf:
+  enabled: true
+nrf:
+  enabled: true
+nssf:
+  enabled: true
+pcf:
+  enabled: true
+smf:
+  enabled: true
+udm:
+  enabled: true
+udr:
+  enabled: true
+upf:
+  enabled: true
+webui:
+  enabled: true

@@ -1,0 +1,29 @@
+{{ $free5gcName := .Release.Name }}
+{{ $free5gcNamespace := .Release.Namespace }}
+info:
+  version: 1.0.3
+  description: AUSF initial local configuration
+
+configuration:
+  sbi: # Service-based interface information
+    scheme: http # the protocol for sbi (http or https)
+    registerIPv4: {{ default (printf "%s-ausf-sbi" $free5gcName ) .Values.config.sbi.registerIPv4 }}
+    bindingIPv4: 0.0.0.0
+    port: 8000 # Port used to bind the service
+    tls: # the local path of TLS key
+      pem: cert/ausf.pem # AUSF TLS Certificate
+      key: cert/ausf.key # AUSF TLS Private key
+  serviceNameList: # the SBI services provided by this AUSF, refer to TS 29.509
+    - nausf-auth # Nausf_UEAuthentication service
+  nrfUri: {{ default (printf "http://%s-nrf-sbi:8000" $free5gcName ) .Values.config.nrfUri }}
+  plmnSupportList:
+    {{- range .Values.config.plmnSupportList }}
+    - {{- toYaml . | nindent 6 }}
+    {{- end }}
+  groupId: ausfGroup001 # ID for the group of the AUSF
+  eapAkaSupiImsiPrefix: false # including "imsi-" prefix or not when using the SUPI to do EAP-AKA' authentication
+
+logger: # log output setting
+  enable: true # true or false
+  level: {{ .Values.config.logger.level }}  # how detailed to output, value: trace, debug, info, warn, error, fatal, panic
+  reportCaller: false # enable the caller report or not, value: true or false
