@@ -63,9 +63,6 @@
                         "device_driver": {
                             "type": "string"
                         },
-                        "otw_format": {
-                            "type": "string"
-                        },
                         "rx_gain": {
                             "type": "integer"
                         },
@@ -76,6 +73,23 @@
                             "type": "integer"
                         }
                     }
+                },
+                "slicing": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "sd": {
+                                "type": "integer"
+                            },
+                            "sst": {
+                                "type": "integer"
+                            }
+                        }
+                    }
+                },
+                "slicing_enabled": {
+                    "type": "boolean"
                 }
             }
         },
@@ -404,23 +418,6 @@
                 },
                 "timeoutSeconds": {
                     "type": "integer"
-                }
-            }
-        },
-        "tolerations": {
-            "type": "array",
-            "items": {
-                "type": "object",
-                "properties": {
-                    "effect": {
-                        "type": "string"
-                    },
-                    "key": {
-                        "type": "string"
-                    },
-                    "operator": {
-                        "type": "string"
-                    }
                 }
             }
         },

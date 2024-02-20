@@ -10,8 +10,7 @@ amf:
 ru_sdr:
   device_driver: {{ .Values.config.ru_sdr.device_driver }}                                               # The RF driver name.
   device_args: {{ .Values.config.ru_sdr.device_args }}     # Optionally pass arguments to the selected RF driver.
-  srate: {{ .Values.config.ru_sdr.srate }}   
-  otw_format: {{ .Values.config.ru_sdr.otw_format}}  
+  srate: {{ .Values.config.ru_sdr.srate }}
   tx_gain: {{ .Values.config.ru_sdr.tx_gain }}                     # Transmit gain of the RF might need to adjusted to the given situation.
   rx_gain: {{ .Values.config.ru_sdr.rx_gain }}                       # Receive gain of the RF might need to adjusted to the given situation.
 
@@ -22,9 +21,24 @@ cell_cfg:
   common_scs: {{ .Values.config.cell_cfg.common_scs }}                    # Subcarrier spacing in kHz used for data.
   plmn: {{ .Values.config.cell_cfg.plmn }}                   # PLMN broadcasted by the gNB.
   tac: {{ .Values.config.cell_cfg.tac }}                            # Tracking area code (needs to match the core configuration).
-  pci: 1        
-  
-  
+  pdcch:
+    common:
+      ss0_index: 0                  # Set search space zero index to match srsUE capabilities
+      coreset0_index: 12            # Set search CORESET Zero index to match srsUE capabilities
+    dedicated:
+      ss2_type: common              # Search Space type, has to be set to common
+      dci_format_0_1_and_1_1: false # Set correct DCI format (fallback)
+  prach:
+    prach_config_index: 1           # Sets PRACH config to match what is expected by srsUE      
+
+
+
+slicing:
+  {{- range .Values.config.slicing }}
+    - {{- toYaml . | nindent 6 }}
+    {{- end }}
+
+
 log:
   filename: ./gnb.log            # Path of the log file.
   all_level: debug                   # Logging level applied to all layers.

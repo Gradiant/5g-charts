@@ -83,80 +83,41 @@ image:
     ##
     debug: false
 
+
 config:
   amf:
     hostname: open5gs-amf-ngap
     bind_interface: eth0
 
   ru_sdr:
-    device_driver: zmq
-    device_args: tx_port=tcp://:2000,rx_port=tcp://:2001,base_srate=23.04e6 
+    device_driver: uhd                                             
+    device_args: type=b200,num_recv_frames=64,num_send_frames=64    # Optionally pass arguments to the selected RF driver. 
     srate: 23.04
-    tx_gain: 75
-    rx_gain: 75
-    otw_format: default
+    tx_gain: 50
+    rx_gain: 60
+    otw_format: sc12
 
   
   cell_cfg:
-    dl_arfcn: 368500
-    band: 3
+    dl_arfcn: 632628
+    band: 78
     channel_bandwidth_MHz: 20
-    common_scs: 15
+    common_scs: 30
     plmn: "99970"
     tac: 1
 
-ue:
-  image:
-    registry: docker.io
-    repository: gradiant/srsran-4g
-    tag: "23_11"
-    digest: ""
-    ## Specify a imagePullPolicy
-    ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
-    ## ref: https://kubernetes.io/docs/user-guide/images/#pre-pulling-images
-    ##
-    pullPolicy: IfNotPresent
-    ## Optionally specify an array of imagePullSecrets.
-    ## Secrets must be manually created in the namespace.
-    ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
-    ##
-    # pullSecrets:
-    #  - regcred
-  config:
-    opc: 'E8ED289DEBA952E4283B54E88E6183CA'
-    k: '465B5CE8B199B49FAA5F0A2EE238A6BC'
-    imsi: '999700000000001'
-    imei: '353490069873319'
-    resources: {}
+#valorar slicing y lo comentado de abajo de tdd_ul...
+  slicing:
+  - sst: 1
+    sd: 0x111111
 
-# config:
-#   amf:
-#     hostname: open5gs-amf-ngap
-#     bind_interface: eth0
-
-#   ru_sdr:
-#     device_driver: zmq
-#     srate: 23.04
-#     tx_gain: 50
-#     rx_gain: 60
-#     otw_format: sc12
-
-  
-#   cell_cfg:
-#     dl_arfcn: 632628
-#     band: 78
-#     channel_bandwidth_MHz: 20
-#     common_scs: 30
-#     plmn: "99970"
-#     tac: 1
-  
-#   tdd_ul_dl_cfg:
-#     pattern1:
-#       dl_ul_tx_period: 10
-#       nof_dl_slots: 6.
-#       nof_dl_symbols: 0
-#       nof_ul_slots: 3
-#       nof_ul_symbols: 0
+  # tdd_ul_dl_cfg:
+  #   pattern1:
+  #     dl_ul_tx_period: 10
+  #     nof_dl_slots: 6.
+  #     nof_dl_symbols: 0
+  #     nof_ul_slots: 3
+  #     nof_ul_symbols: 0
 
 ## @param replicaCount Number of srsran Pods to run (requires ReadWriteMany PVC support)
 ##

@@ -67,7 +67,7 @@ spec:
         {{- include "common.tplvalues.render" (dict "value" .Values.initContainers "context" $) | nindent 8 }}
         {{- end }}
       containers:
-        - name: gnb
+        - name: {{ include "common.names.fullname" . }}-gnb
           image: {{ template "srsran.image" . }}
           imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
           {{- if .Values.command }}
@@ -79,7 +79,6 @@ spec:
           args:
             - "gnb"
           {{- end }}
-          # command: ["tail", "-f", "/dev/null"]
           {{- if .Values.containerSecurityContext.enabled }}
           securityContext: {{- omit .Values.containerSecurityContext "enabled" | toYaml | nindent 12 }}
           {{- end }}
@@ -116,13 +115,9 @@ spec:
           {{- if .Values.customReadinessProbe }}
           readinessProbe: {{- include "common.tplvalues.render" (dict "value" .Values.customReadinessProbe "context" $) | nindent 12 }}
           {{- end }}
-          resources:
-            requests:
-              cpu: "3"
-              memory: "4Gi"
-            limits:
-              cpu: "3"
-              memory: "4Gi"
+          {{- if .Values.resources }}
+          resources: {{- toYaml .Values.resources | nindent 12 }}
+          {{- end }}
           volumeMounts:
             - name: srsran-5g-config
               mountPath: /gnb-template.yml
@@ -133,10 +128,9 @@ spec:
             {{- if .Values.extraVolumeMounts }}
             {{- include "common.tplvalues.render" (dict "value" .Values.extraVolumeMounts "context" $) | nindent 12 }}
             {{- end }}
-        - name: ue
+        - name: {{ include "common.names.fullname" . }}-ue
           image: {{ .Values.ue.image.registry }}/{{ .Values.ue.image.repository }}:{{ .Values.ue.image.tag }}
           imagePullPolicy: {{ .Values.ue.image.pullPolicy | quote }}
-          # command: ["tail", "-f", "/dev/null"]
           args:
           - ue
           securityContext:

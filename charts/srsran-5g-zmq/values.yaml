@@ -81,7 +81,7 @@ image:
     #pullSecrets: []
     ## Set to true if you would like to see extra information on logs
     ##
-    debug: true
+    debug: false
 
 config:
   amf:
@@ -94,8 +94,6 @@ config:
     srate: 23.04
     tx_gain: 75
     rx_gain: 75
-    otw_format: default
-
   
   cell_cfg:
     dl_arfcn: 368500
@@ -104,6 +102,10 @@ config:
     common_scs: 15
     plmn: "99970"
     tac: 1
+
+  slicing:
+  - sst: 1
+    sd: 0x111111
 
 ue:
   image:
@@ -128,35 +130,7 @@ ue:
     imsi: '999700000000001'
     imei: '353490069873319'
     resources: {}
-
-# config:
-#   amf:
-#     hostname: open5gs-amf-ngap
-#     bind_interface: eth0
-
-#   ru_sdr:
-#     device_driver: zmq
-#     srate: 23.04
-#     tx_gain: 50
-#     rx_gain: 60
-#     otw_format: sc12
-
-  
-#   cell_cfg:
-#     dl_arfcn: 632628
-#     band: 78
-#     channel_bandwidth_MHz: 20
-#     common_scs: 30
-#     plmn: "99970"
-#     tac: 1
-  
-#   tdd_ul_dl_cfg:
-#     pattern1:
-#       dl_ul_tx_period: 10
-#       nof_dl_slots: 6.
-#       nof_dl_symbols: 0
-#       nof_ul_slots: 3
-#       nof_ul_symbols: 0
+    
 
 ## @param replicaCount Number of srsran Pods to run (requires ReadWriteMany PVC support)
 ##
@@ -217,7 +191,6 @@ sidecars: []
 ## @param tolerations Tolerations for pod assignment
 ## Ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
 ##
-
 serviceAccount:
   ## @param serviceAccount.create Specifies whether a service account should be created
   ##

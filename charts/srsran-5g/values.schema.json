@@ -57,6 +57,9 @@
                 "ru_sdr": {
                     "type": "object",
                     "properties": {
+                        "device_args": {
+                            "type": "string"
+                        },
                         "device_driver": {
                             "type": "string"
                         },
@@ -71,6 +74,20 @@
                         },
                         "tx_gain": {
                             "type": "integer"
+                        }
+                    }
+                },
+                "slicing": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "sd": {
+                                "type": "integer"
+                            },
+                            "sst": {
+                                "type": "integer"
+                            }
                         }
                     }
                 }
@@ -401,23 +418,6 @@
                 },
                 "timeoutSeconds": {
                     "type": "integer"
-                }
-            }
-        },
-        "tolerations": {
-            "type": "array",
-            "items": {
-                "type": "object",
-                "properties": {
-                    "effect": {
-                        "type": "string"
-                    },
-                    "key": {
-                        "type": "string"
-                    },
-                    "operator": {
-                        "type": "string"
-                    }
                 }
             }
         },

@@ -135,17 +135,6 @@ spec:
             {{- if .Values.extraVolumeMounts }}
             {{- include "common.tplvalues.render" (dict "value" .Values.extraVolumeMounts "context" $) | nindent 12 }}
             {{- end }}
-        - name: ue
-          image: {{ .Values.ue.image.registry }}/{{ .Values.ue.image.repository }}:{{ .Values.ue.image.tag }}
-          imagePullPolicy: {{ .Values.ue.image.pullPolicy | quote }}
-          securityContext:
-            privileged: true
-          resources:
-            {{ toYaml .Values.ue.config.resources | indent 10 }}
-          volumeMounts:
-            - name: ue-config
-              mountPath: /etc/srsran/ue.conf
-              subPath: "ue.conf"
       volumes:
         - name: srsran-5g-config
           configMap:
@@ -154,9 +143,6 @@ spec:
           configMap:
             name: {{ include "common.names.fullname" . }}-entrypoint
             defaultMode: 0777
-        - name: ue-config
-          configMap:
-            name: {{ include "common.names.fullname" . }}-ue
         {{- if .Values.extraVolumes }}
         {{- include "common.tplvalues.render" (dict "value" .Values.extraVolumes "context" $) | nindent 8 }}
         {{- end }}
