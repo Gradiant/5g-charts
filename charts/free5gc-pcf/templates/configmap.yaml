@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "common.names.fullname" . }}
+  labels: {{- include "common.labels.standard" . | nindent 4 }}
+data:
+  pcfcfg.yaml: |
+{{ tpl (.Files.Get "resources/config/pcfcfg.yaml") . | indent 4 }}
