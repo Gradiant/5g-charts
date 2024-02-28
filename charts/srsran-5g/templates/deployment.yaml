@@ -71,15 +71,14 @@ spec:
           image: {{ template "srsran.image" . }}
           imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
           {{- if .Values.command }}
-          # command: {{- include "common.tplvalues.render" (dict "value" .Values.command "context" $) | nindent 12 }}
-          # {{- end }}
-          # {{- if .Values.args }}
-          # args: {{- include "common.tplvalues.render" (dict "value" .Values.args "context" $) | nindent 12 }}
-          # {{- else }}
-          # args:
-          #   - "gnb"
-          # {{- end }}
-          command: ["tail", "-f", "/dev/null"]
+          command: {{- include "common.tplvalues.render" (dict "value" .Values.command "context" $) | nindent 12 }}
+          {{- end }}
+          {{- if .Values.args }}
+          args: {{- include "common.tplvalues.render" (dict "value" .Values.args "context" $) | nindent 12 }}
+          {{- else }}
+          args:
+            - "gnb"
+          {{- end }}
           {{- if .Values.containerSecurityContext.enabled }}
           securityContext: {{- omit .Values.containerSecurityContext "enabled" | toYaml | nindent 12 }}
           {{- end }}
@@ -119,12 +118,8 @@ spec:
           resources:
             requests:
               ettus.com/usrp: 1
-              cpu: "3"
-              memory: "4Gi"
             limits:
               ettus.com/usrp: 1
-              cpu: "3"
-              memory: "4Gi"
           volumeMounts:
             - name: srsran-5g-config
               mountPath: /gnb-template.yml

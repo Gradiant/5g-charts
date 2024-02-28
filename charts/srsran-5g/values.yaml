@@ -106,18 +106,9 @@ config:
     plmn: "99970"
     tac: 1
 
-#valorar slicing y lo comentado de abajo de tdd_ul...
   slicing:
   - sst: 1
     sd: 0x111111
-
-  # tdd_ul_dl_cfg:
-  #   pattern1:
-  #     dl_ul_tx_period: 10
-  #     nof_dl_slots: 6.
-  #     nof_dl_symbols: 0
-  #     nof_ul_slots: 3
-  #     nof_ul_symbols: 0
 
 ## @param replicaCount Number of srsran Pods to run (requires ReadWriteMany PVC support)
 ##

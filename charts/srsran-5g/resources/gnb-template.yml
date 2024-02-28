@@ -22,17 +22,17 @@ cell_cfg:
   common_scs: {{ .Values.config.cell_cfg.common_scs }}                    # Subcarrier spacing in kHz used for data.
   plmn: {{ .Values.config.cell_cfg.plmn }}                   # PLMN broadcasted by the gNB.
   tac: {{ .Values.config.cell_cfg.tac }}                            # Tracking area code (needs to match the core configuration).
-  pci: 1        
-  
+  pci: 1
+
 slicing:
   {{- range .Values.config.slicing }}
     - {{- toYaml . | nindent 6 }}
     {{- end }}
 
 
-log:
+log:  
   filename: ./gnb.log            # Path of the log file.
-  all_level: debug                   # Logging level applied to all layers.
+  all_level: info                   # Logging level applied to all layers.
   hex_max_size: 0
 
 pcap:
