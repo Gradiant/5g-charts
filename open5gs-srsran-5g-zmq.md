@@ -108,7 +108,7 @@ ping gradiant.org -I tun_srsue
 ```
 ![UEs connectivity](https://raw.githubusercontent.com/Gradiant/5g-charts/gh-pages/docs/open5gs-srsran-5g-zmq/screenshots/ping_ue.png "UEs connectivity")
 
-Moreover, if using `traceroute`, check that the first hop is `10.45.0.1` (PGW-U's side of the tunnel created):
+Moreover, if using `traceroute`, check that the first hop is `10.45.0.1` (UPF's side of the tunnel created):
 ```
 traceroute google.com -i tun_srsue
 ```
