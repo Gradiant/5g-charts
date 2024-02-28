@@ -78,7 +78,7 @@ image:
     ## pullSecrets:
     ##   - myRegistryKeySecretName
     ##
-    #pullSecrets: []
+    # pullSecrets: []
     ## Set to true if you would like to see extra information on logs
     ##
     debug: false
@@ -90,11 +90,11 @@ config:
 
   ru_sdr:
     device_driver: zmq
-    device_args: tx_port=tcp://127.0.0.1:2000,rx_port=tcp://127.0.0.1:2001,id=gnb,base_srate=23.04e6 
+    device_args: tx_port=tcp://127.0.0.1:2000,rx_port=tcp://127.0.0.1:2001,id=gnb,base_srate=23.04e6
     srate: 23.04
     tx_gain: 75
     rx_gain: 75
-  
+
   cell_cfg:
     dl_arfcn: 368500
     band: 3
@@ -130,7 +130,6 @@ ue:
     imsi: '999700000000001'
     imei: '353490069873319'
     resources: {}
-    
 
 ## @param replicaCount Number of srsran Pods to run (requires ReadWriteMany PVC support)
 ##

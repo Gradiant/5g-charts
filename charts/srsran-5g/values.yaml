@@ -78,7 +78,7 @@ image:
     ## pullSecrets:
     ##   - myRegistryKeySecretName
     ##
-    #pullSecrets: []
+    # pullSecrets: []
     ## Set to true if you would like to see extra information on logs
     ##
     debug: false
@@ -90,14 +90,14 @@ config:
     bind_interface: eth0
 
   ru_sdr:
-    device_driver: uhd                                             
-    device_args: type=b200,num_recv_frames=64,num_send_frames=64    # Optionally pass arguments to the selected RF driver. 
+    device_driver: uhd
+    device_args: type=b200,num_recv_frames=64,num_send_frames=64    # Optionally pass arguments to the selected RF driver.
     srate: 23.04
     tx_gain: 50
     rx_gain: 60
     otw_format: sc12
 
-  
+
   cell_cfg:
     dl_arfcn: 632628
     band: 78
