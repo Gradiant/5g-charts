@@ -81,6 +81,7 @@ config:
   upf:
     gtpu:
       dev: ""
+      advertise: ""
   subnetList:
     - subnet: 10.45.0.1/16
       dnn: internet
