@@ -1,0 +1,18 @@
+apiVersion: v2
+appVersion: "23.10.1"
+description: >
+  Helm chart to deploy srsRAN 5G gNB on Kubernetes.
+sources:
+  - https://github.com/gradiant/5g-charts
+  - https://github.com/srsran/srsRAN_Project
+maintainers:
+- email: avrodriguez@gradiant.org
+  name: avrodriguez
+name: srsran-5g
+version: 1.0.0
+dependencies:
+  - name: common
+    repository: https://charts.bitnami.com/bitnami
+    tags:
+      - bitnami-common
+    version: 1.x.x
