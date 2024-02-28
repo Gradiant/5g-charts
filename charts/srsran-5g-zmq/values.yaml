@@ -110,7 +110,7 @@ config:
 ue:
   image:
     registry: docker.io
-    repository: openverso/srsran-4g
+    repository: gradiant/srsran-4g
     tag: "23_11"
     digest: ""
     ## Specify a imagePullPolicy
