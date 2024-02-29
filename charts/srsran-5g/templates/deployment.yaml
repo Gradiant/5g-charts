@@ -55,7 +55,15 @@ spec:
       nodeSelector: {{- include "common.tplvalues.render" (dict "value" .Values.nodeSelector "context" $) | nindent 8 }}
       {{- end }}
       {{- if .Values.tolerations }}
-      tolerations: {{- include "common.tplvalues.render" (dict "value" .Values.tolerations "context" $) | nindent 8 }}
+      tolerations: 
+        {{- include "common.tplvalues.render" (dict "value" .Values.tolerations "context" $) | nindent 6 }}
+      {{- else }}
+      {{- if eq .Values.config.ru_sdr.device_driver "uhd" }}
+      tolerations:
+        - key: ettus.com/usrp
+          operator: Equal
+          effect: NoSchedule
+      {{- end }}
       {{- end }}
       {{- if .Values.hostAliases }}
       # yamllint disable rule:indentation
@@ -67,7 +75,7 @@ spec:
         {{- include "common.tplvalues.render" (dict "value" .Values.initContainers "context" $) | nindent 8 }}
         {{- end }}
       containers:
-        - name: {{ include "common.names.fullname" . }}
+        - name: {{ include "common.names.fullname" . }}-gnb
           image: {{ template "srsran.image" . }}
           imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
           {{- if .Values.command }}
@@ -115,11 +123,13 @@ spec:
           {{- if .Values.customReadinessProbe }}
           readinessProbe: {{- include "common.tplvalues.render" (dict "value" .Values.customReadinessProbe "context" $) | nindent 12 }}
           {{- end }}
+          {{ if eq .Values.config.ru_sdr.device_driver "uhd" }}
           resources:
             requests:
               ettus.com/usrp: 1
             limits:
               ettus.com/usrp: 1
+          {{ end }}
           volumeMounts:
             - name: srsran-5g-config
               mountPath: /gnb-template.yml
@@ -130,6 +140,21 @@ spec:
             {{- if .Values.extraVolumeMounts }}
             {{- include "common.tplvalues.render" (dict "value" .Values.extraVolumeMounts "context" $) | nindent 12 }}
             {{- end }}
+        {{ if eq .Values.config.ru_sdr.device_driver "zmq" }}
+        - name: {{ include "common.names.fullname" . }}-ue
+          image: {{ .Values.ue.image.registry }}/{{ .Values.ue.image.repository }}:{{ .Values.ue.image.tag }}
+          imagePullPolicy: {{ .Values.ue.image.pullPolicy | quote }}
+          args:
+          - ue
+          securityContext:
+            privileged: true
+          resources:
+            {{ toYaml .Values.ue.config.resources | indent 10 }}
+          volumeMounts:
+            - name: ue-config
+              mountPath: /etc/srsran/ue.conf
+              subPath: "ue.conf"
+        {{- end }}
       volumes:
         - name: srsran-5g-config
           configMap:
@@ -138,6 +163,11 @@ spec:
           configMap:
             name: {{ include "common.names.fullname" . }}-entrypoint
             defaultMode: 0777
+        {{ if eq .Values.config.ru_sdr.device_driver "zmq" }}
+        - name: ue-config
+          configMap:
+            name: {{ include "common.names.fullname" . }}-ue
+        {{- end }}
         {{- if .Values.extraVolumes }}
         {{- include "common.tplvalues.render" (dict "value" .Values.extraVolumes "context" $) | nindent 8 }}
         {{- end }}

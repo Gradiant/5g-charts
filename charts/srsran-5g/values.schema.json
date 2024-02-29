@@ -424,6 +424,51 @@
         "topologySpreadConstraints": {
             "type": "array"
         },
+        "ue": {
+            "type": "object",
+            "properties": {
+                "config": {
+                    "type": "object",
+                    "properties": {
+                        "imei": {
+                            "type": "string"
+                        },
+                        "imsi": {
+                            "type": "string"
+                        },
+                        "k": {
+                            "type": "string"
+                        },
+                        "opc": {
+                            "type": "string"
+                        },
+                        "resources": {
+                            "type": "object"
+                        }
+                    }
+                },
+                "image": {
+                    "type": "object",
+                    "properties": {
+                        "digest": {
+                            "type": "string"
+                        },
+                        "pullPolicy": {
+                            "type": "string"
+                        },
+                        "registry": {
+                            "type": "string"
+                        },
+                        "repository": {
+                            "type": "string"
+                        },
+                        "tag": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
         "updateStrategy": {
             "type": "object",
             "properties": {

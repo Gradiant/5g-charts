@@ -8,8 +8,8 @@ sources:
 maintainers:
 - email: avrodriguez@gradiant.org
   name: avrodriguez
-name: srsran-5g
-version: 1.0.0
+name: srsran-5g-zmq
+version: 2.0.0
 dependencies:
   - name: common
     repository: https://charts.bitnami.com/bitnami

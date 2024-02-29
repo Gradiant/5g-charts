@@ -89,17 +89,18 @@ config:
     bind_interface: eth0
 
   ru_sdr:
-    device_driver: zmq
-    device_args: tx_port=tcp://127.0.0.1:2000,rx_port=tcp://127.0.0.1:2001,id=gnb,base_srate=23.04e6
+    device_driver: uhd
+    device_args: type=b200,num_recv_frames=64,num_send_frames=64    # Optionally pass arguments to the selected RF driver.
     srate: 23.04
-    tx_gain: 75
-    rx_gain: 75
+    tx_gain: 50
+    rx_gain: 60
+    otw_format: sc12
 
   cell_cfg:
-    dl_arfcn: 368500
-    band: 3
+    dl_arfcn: 632628
+    band: 78
     channel_bandwidth_MHz: 20
-    common_scs: 15
+    common_scs: 30
     plmn: "99970"
     tac: 1
 
