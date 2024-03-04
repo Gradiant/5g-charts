@@ -27,8 +27,8 @@ smf:
       client:
         scp:
           enabled: true
-      pcrf:
-        enabled: false
+    pcrf:
+      enabled: false
 upf:
   enabled: true
 webui:
