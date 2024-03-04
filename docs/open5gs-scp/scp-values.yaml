@@ -5,37 +5,49 @@ scp:
 # set scp configuration in the other functions:
 smf:
   config:
-    scp:
-      enabled: true
+    sbi:
+      client:
+        scp:
+          enabled: true
 amf:
   config:
-    scp:
-      enabled: true
+    sbi:
+      client:
+        scp:
+          enabled: true
 ausf:
   config:
-    scp:
-      enabled: true
+    sbi:
+      client:
+        scp:
+          enabled: true
 bsf:
   config:
-    scp:
-      enabled: true
-nrf:
-  config:
-    scp:
-      enabled: true
+    sbi:
+      client:
+        scp:
+          enabled: true
 nssf:
   config:
-    scp:
-      enabled: true
+    sbi:
+      client:
+        scp:
+          enabled: true
 pcf:
   config:
-    scp:
-      enabled: true
+    sbi:
+      client:
+        scp:
+          enabled: true
 udm:
   config:
-    scp:
-      enabled: true
+    sbi:
+      client:
+        scp:
+          enabled: true
 udr:
   config:
-    scp:
-      enabled: true
+    sbi:
+      client:
+        scp:
+          enabled: true
