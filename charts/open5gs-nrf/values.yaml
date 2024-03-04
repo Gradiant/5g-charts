@@ -77,6 +77,11 @@ image:
 
 config:
   logLevel: info
+  servingList:
+    - plmn_id:
+        mcc: 999
+        mnc: 70
+
 ## @param customOpen5gsConfig overwrite open5gs configuration file
 customOpen5gsConfig: {}
 
