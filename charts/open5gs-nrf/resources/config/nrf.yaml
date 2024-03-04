@@ -9,9 +9,9 @@ global:
 
 nrf:
   serving: # 5G roaming requires PLMN in NRF
-  - plmn_id:
-      mcc: 999
-      mnc: 70
+    {{- range .Values.config.servingList }}
+    - {{- toYaml . | nindent 6 }}
+    {{- end }}
   sbi:
     server:
     - dev: eth0
