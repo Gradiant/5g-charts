@@ -33,7 +33,7 @@ hss:
 mme:
   enabled: false
 pcrf:
-  enabled: false
+  enabled: true
   mongodb:
     enabled: false
 sgwc:
