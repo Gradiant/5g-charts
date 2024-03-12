@@ -27,19 +27,19 @@ webui:
 
 # 4G
 hss:
-  enabled: true
+  enabled: false
   mongodb:
     enabled: false
 mme:
-  enabled: true
+  enabled: false
 pcrf:
-  enabled: true
+  enabled: false
   mongodb:
     enabled: false
 sgwc:
-  enabled: true
+  enabled: false
 sgwu:
-  enabled: true
+  enabled: false
 
 # 5G
 amf:
