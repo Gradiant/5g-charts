@@ -1,0 +1,15 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: my5grantester
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        tier: access-network
+    spec:
+      containers:
+      - name: my5grantester
+        image: my5grantester:latest
+        stdin: true
