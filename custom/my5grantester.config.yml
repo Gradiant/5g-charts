@@ -1,0 +1,36 @@
+gnodeb:
+  controlif:
+    ip: "10.1.145.150"
+    port: 9487
+  dataif:
+    ip: "10.152.183.66"
+    port: 2152
+  plmnlist:
+    mcc: "999"
+    mnc: "70"
+    tac: "000001"
+    gnbid: "000001"
+  slicesupportlist:
+    sst: "01"
+    sd: ""
+
+ue:
+  msin: "0000000001"
+  key: "465B5CE8B199B49FAA5F0A2EE238A6BC"
+  opc: "E8ED289DEBA952E4283B54E88E6183CA"
+  amf: "8000"
+  sqn: "0000000"
+  dnn: "internet"
+  hplmn:
+    mcc: "999"
+    mnc: "70"
+  snssai:
+    sst: 01
+    sd: ""
+
+amfif:
+  ip: "10.152.183.214"
+  port: 38412
+
+logs:
+  level: 4
