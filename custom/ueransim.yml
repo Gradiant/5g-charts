@@ -1,5 +1,5 @@
 amf:
-  hostname: open5gs-release-amf-ngap
+  hostname: 10.152.183.214
 
 mcc: '999'
 mnc: '70'
