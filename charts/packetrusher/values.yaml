@@ -56,7 +56,7 @@ extraDeploy: []
 image:
   registry: docker.io
   repository: gradiant/packetrusher
-  tag: "cec07b7"
+  tag: "97f9f0c"
   digest: ""
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
@@ -108,7 +108,7 @@ replicaCount: 1
 command: []
 ## @param args Override default container args (useful when using custom images)
 ##
-args: []
+args: ["ue"]
 ## @param updateStrategy.type Update strategy - only really applicable for deployments with RWO PVs attached
 ## If replicas = 1, an update can get "stuck", as the previous pod remains attached to the
 ## PV, and the "incoming" pod can never start. Changing the strategy to "Recreate" will
