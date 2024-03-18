@@ -16,3 +16,7 @@ spec:
       - name: my5grantester
         image: ubuntu:focal
         stdin: true
+        securityContext:
+          capabilities:
+            add:
+            - NET_ADMIN
