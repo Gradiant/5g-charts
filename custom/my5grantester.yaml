@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: my5grantester
 spec:
-  replicas: 1
+  replicas: 10
   selector:
     matchLabels:
       tier: access-network
@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: my5grantester
-        image: ubuntu:focal
+        image: srjsubramanian/my5grantester:latest
         stdin: true
         securityContext:
           capabilities:

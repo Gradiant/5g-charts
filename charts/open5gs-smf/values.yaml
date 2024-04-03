@@ -659,7 +659,7 @@ metrics:
     honorLabels: false
     ## @param metrics.serviceMonitor.additionalLabels Additional labels that can be used so ServiceMonitor resource(s) can be discovered by Prometheus
     ##
-    additionalLabels: {}
+    additionalLabels: {release: "kube-prom-stack"}
   ## VictoriaMetrics Service Scrape
   ## ref: https://github.com/VictoriaMetrics/operator
   ##      https://docs.victoriametrics.com/operator/api.html#vmservicescrape

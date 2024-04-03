@@ -77,7 +77,7 @@ image:
 
 config:
   amf:
-    hostname: open5gs-amf-ngap
+    hostname: open5gs-release-amf-ngap
   gnb:
     ngap:
       dev: eth0
@@ -91,8 +91,8 @@ config:
     sd: "ffffff"
   ue:
     msin: "0000000001"
-    key: "491BB1C6E1179AED538028AE7AD525B3"
-    opc: "3B7FB099B3A6D16873B33F023B1679E9"
+    key: "465B5CE8B199B49FAA5F0A2EE238A6BC"
+    opc: "E8ED289DEBA952E4283B54E88E6183CA"
     dnn: "internet"
     hplmn:
       mcc: "999"
