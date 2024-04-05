@@ -16,7 +16,7 @@ global:
   imagePullSecrets: []
   storageClass: ""
   max:
-    ue: 1048576
+    ue: 524288
 
 ## @section Common parameters
 

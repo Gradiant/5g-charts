@@ -1,0 +1,1 @@
+helm install ueransim-gnb oci://registry-1.docker.io/gradiant/ueransim-gnb --version 0.2.6 --values custom/ueransim-load.yml
