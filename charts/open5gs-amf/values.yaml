@@ -238,7 +238,7 @@ nodeSelector: {}
 ##
 resources:
   requests: {}
-  limits: {cpu: "16", memory: "16G"}
+  limits: {cpu: "8", memory: "8G"}
 ## Configure Pods Security Context
 ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-pod
 ## @param podSecurityContext.enabled Enable open5gs-amf pods' Security Context
