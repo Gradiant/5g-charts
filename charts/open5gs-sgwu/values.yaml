@@ -215,7 +215,7 @@ nodeSelector: {}
 ##
 resources:
   requests: {}
-  limits: {}
+  limits: {cpu: "16", memory: "16G"}
 ## Configure Pods Security Context
 ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-pod
 ## @param podSecurityContext.enabled Enable open5gs-sgwu pods' Security Context

@@ -78,9 +78,9 @@ image:
 config:
   logLevel: info
   servingList:
-    - plmn_id:
-        mcc: 999
-        mnc: 70
+  - plmn_id:
+      mcc: 999
+      mnc: 70
 
 ## @param customOpen5gsConfig overwrite open5gs configuration file
 customOpen5gsConfig: {}
@@ -209,7 +209,7 @@ nodeSelector: {}
 ##
 resources:
   requests: {}
-  limits: {}
+  limits: {cpu: "16", memory: "16G"}
 ## Configure Pods Security Context
 ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-pod
 ## @param podSecurityContext.enabled Enable open5gs-nrf pods' Security Context
