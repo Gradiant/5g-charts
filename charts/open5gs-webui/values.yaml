@@ -32,7 +32,7 @@ fullnameOverride: ""
 namespaceOverride: ""
 ## @param commonAnnotations Common annotations to add to all open5gs-webui resources (sub-charts are not considered). Evaluated as a template
 ##
-commonAnnotations: {}
+commonAnnotations: {"dapr.io/enabled": "true", "dapr.io/app-id": "open5gs-webui", "dapr.io/log-as-json": "true"}
 ## @param commonLabels Common labels to add to all open5gs-webui resources (sub-charts are not considered). Evaluated as a template
 ##
 commonLabels: {}
@@ -73,7 +73,7 @@ image:
   pullSecrets: []
   ## Set to true if you would like to see extra information on logs
   ##
-  debug: false
+  debug: true
 
 ## @param replicaCount Number of open5gs-webui Pods to run (requires ReadWriteMany PVC support)
 ##
@@ -430,7 +430,7 @@ ingress:
   ##
   extraRules: []
 
-dbURI: ""  # if empty default is mongodb://{{ mongodb fullname }}/open5gs
+dbURI: "" # if empty default is mongodb://{{ mongodb fullname }}/open5gs
 mongodb:
   # mongodb.enabled -- set to 'false' to disable automatically deploying dependent charts
   enabled: false

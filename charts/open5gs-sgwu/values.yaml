@@ -32,7 +32,7 @@ fullnameOverride: ""
 namespaceOverride: ""
 ## @param commonAnnotations Common annotations to add to all open5gs-sgwu resources (sub-charts are not considered). Evaluated as a template
 ##
-commonAnnotations: {}
+commonAnnotations: {"dapr.io/enabled": "true", "dapr.io/app-id": "open5gs-sgwu", "dapr.io/log-as-json": "true"}
 ## @param commonLabels Common labels to add to all open5gs-sgwu resources (sub-charts are not considered). Evaluated as a template
 ##
 commonLabels: {}
@@ -73,7 +73,7 @@ image:
   pullSecrets: []
   ## Set to true if you would like to see extra information on logs
   ##
-  debug: false
+  debug: true
 
 config:
   logLevel: info
