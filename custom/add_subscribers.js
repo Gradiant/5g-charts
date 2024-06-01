@@ -105,8 +105,14 @@ const save_subscribers = async (subscribers) => {
     console.log("Db Connected");
     const SubscriberModel = mongoose.model("subscribers", SubscriberSchema);
     try {
-      const result = await SubscriberModel.insertMany(subscribers);
-      console.log(result);
+      const BLOCK_SIZE = 10000;
+      for (let i = 0; i < subscribers.length; ) {
+        const nextStartIndex = i + BLOCK_SIZE;
+        const subscribersToSave = subscribers.slice(i, nextStartIndex);
+        const result = await SubscriberModel.insertMany(subscribersToSave);
+        console.log(result);
+        i = nextStartIndex;
+      }
     } catch (error) {
       console.error(error);
       console.error("error bulk saving");
@@ -119,7 +125,7 @@ const save_subscribers = async (subscribers) => {
   }
 };
 
-const subscribers = create_subscribers_with_imsi(50000, 999700000070001);
+const subscribers = create_subscribers_with_imsi(100000, 999700000070001);
 console.log(subscribers);
 
 save_subscribers(subscribers);
