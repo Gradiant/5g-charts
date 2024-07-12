@@ -6,6 +6,7 @@ logger:
 global:
   max:
     ue: 524288
+    peer: 1024
 #   ue: 1024 # The number of UE can be increased depending on memory size.
 #    peer: 64
 

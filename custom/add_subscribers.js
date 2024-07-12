@@ -125,7 +125,7 @@ const save_subscribers = async (subscribers) => {
   }
 };
 
-const subscribers = create_subscribers_with_imsi(100000, 999700000070001);
+const subscribers = create_subscribers_with_imsi(200000);
 console.log(subscribers);
 
 save_subscribers(subscribers);

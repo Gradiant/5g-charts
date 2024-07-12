@@ -1,25 +1,25 @@
 apiVersion: v2
-appVersion: "2.7.0"
+appVersion: "2.7.1"
 description: >
   Helm chart to deploy Open5gs AMF service on Kubernetes.
 home: https://github.com/gradiant/openverso-charts
 sources:
-  - http://open5gs.org
+- http://open5gs.org
 icon: https://open5gs.org/assets/img/open5gs-logo.png
 maintainers:
-  - email: cgiraldo@gradiant.org
-    name: cgiraldo
+- email: cgiraldo@gradiant.org
+  name: cgiraldo
 name: open5gs-amf
 version: 2.2.0
 annotations:
   artifacthub.io/category: networking
 keywords:
-  - network
-  - ngc
-  - gradiant
+- network
+- ngc
+- gradiant
 dependencies:
-  - name: common
-    repository: https://charts.bitnami.com/bitnami
-    tags:
-      - bitnami-common
-    version: 1.x.x
+- name: common
+  repository: https://charts.bitnami.com/bitnami
+  tags:
+  - bitnami-common
+  version: 1.x.x
