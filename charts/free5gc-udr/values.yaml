@@ -56,7 +56,7 @@ extraDeploy: []
 image:
   registry: docker.io
   repository: free5gc/udr
-  tag: "v3.3.0"
+  tag: "v3.4.2"
   digest: ""
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
@@ -80,6 +80,7 @@ config:
     registerIPv4: ""  # IP used to register to NRF
     bindingIPv4: ""  # IP used to bind the service
   nrfUri: ""  # a valid URI of NRF
+  dbConnectorType: mongodb
   mongodb:
     url: ""
   logger:
