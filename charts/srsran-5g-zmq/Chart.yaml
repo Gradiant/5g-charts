@@ -9,7 +9,7 @@ maintainers:
 - email: avrodriguez@gradiant.org
   name: avrodriguez
 name: srsran-5g-zmq
-version: 1.0.0
+version: 1.0.1
 dependencies:
   - name: common
     repository: https://charts.bitnami.com/bitnami
