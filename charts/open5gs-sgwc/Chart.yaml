@@ -2,7 +2,7 @@ apiVersion: v2
 appVersion: "2.7.1"
 description: >
   Helm chart to deploy Open5gs SGWC service on Kubernetes.
-home: https://github.com/gradiant/openverso-charts
+home: https://github.com/gradiant/5g-charts
 sources:
 - http://open5gs.org
 icon: https://open5gs.org/assets/img/open5gs-logo.png
@@ -10,7 +10,7 @@ maintainers:
 - email: cgiraldo@gradiant.org
   name: cgiraldo
 name: open5gs-sgwc
-version: 2.2.0
+version: 2.2.3
 annotations:
   artifacthub.io/category: networking
 keywords:

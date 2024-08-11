@@ -1,18 +1,28 @@
 {{ $free5gcName := .Release.Name }}
 {{ $free5gcNamespace := .Release.Namespace }}
 info:
-  version: 1.0.1
+  version: 1.0.3
   description: WebUI initial local configuration
 
 configuration:
   mongodb: # the mongodb connected by this webui
     name: free5gc # name of the mongodb
     url: {{ default (printf "mongodb://free5gc-mongodb:27017" ) .Values.config.mongodb.url }}  # a valid URL of the mongodb   
+  nrfUri: {{ default (printf "http://%s-nrf-sbi:8000" $free5gcName ) .Values.config.nrfUri }} # a valid URI of NRF
+  webServer:
+    scheme: http
+    ipv4Address: 0.0.0.0
+    port: 5000
   billingServer:
+    enable: true
     hostIPv4: {{ default (printf "%s-%s.lab5g.gradiant.org" $free5gcName $free5gcNamespace ) .Values.config.billingServer.hostIPv4 }}
     listenPort: 2122
-    port: 2121
-    tls:
+    portRange: # passive port range
+      start: 2123
+      end: 2130
+    basePath: /tmp/webconsole
+    port: 2122 # CGF's FTP server port (not used for now)
+    cert:
       pem: cert/chf.pem
       key: cert/chf.key
 

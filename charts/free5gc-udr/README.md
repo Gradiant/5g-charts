@@ -1,6 +1,6 @@
 # free5gc-udr
 
-![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-informational?style=flat-square) ![AppVersion: 3.3.0](https://img.shields.io/badge/AppVersion-3.3.0-informational?style=flat-square)
+![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-informational?style=flat-square) ![AppVersion: 3.4.2](https://img.shields.io/badge/AppVersion-3.4.2-informational?style=flat-square)
 
 Helm chart to deploy Free5GC UDR service on Kubernetes.
 
@@ -62,7 +62,7 @@ Helm chart to deploy Free5GC UDR service on Kubernetes.
 | image.pullSecrets | list | `[]` |  |
 | image.registry | string | `"docker.io"` |  |
 | image.repository | string | `"free5gc/udr"` |  |
-| image.tag | string | `"v3.3.0"` |  |
+| image.tag | string | `"v3.4.2"` |  |
 | initContainers | list | `[]` |  |
 | kubeVersion | string | `""` |  |
 | lifecycleHooks | object | `{}` |  |

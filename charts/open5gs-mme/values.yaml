@@ -55,7 +55,7 @@ extraDeploy: []
 ##
 image:
   registry: docker.io
-  repository: openverso/open5gs
+  repository: gradiant/open5gs
   tag: "2.7.1"
   digest: ""
   ## Specify a imagePullPolicy

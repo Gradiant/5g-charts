@@ -1,7 +1,7 @@
 {{ $free5gcName := .Release.Name }}
 {{ $free5gcNamespace := .Release.Namespace }}
 info:
-  version: 1.0.2
+  version: 1.1.0
   description: UDR initial local configuration
 
 configuration:
@@ -13,6 +13,7 @@ configuration:
     tls: # the local path of TLS key
       pem: cert/udr.pem # UDR TLS Certificate
       key: cert/udr.key # UDR TLS Private key
+  dbConnectorType: {{ .Values.config.dbConnectorType }}
   mongodb:
     name: free5gc # Database name in MongoDB
     url: {{ default (printf "mongodb://free5gc-mongodb:27017" ) .Values.config.mongodb.url }}  # a valid URL of the mongodb   

@@ -2,7 +2,7 @@ apiVersion: v2
 appVersion: stable-6865
 description: >
   Helm chart to deploy Jitsi on Kubernetes.
-home: https://github.com/gradiant/openverso-charts
+home: https://github.com/gradiant/5g-charts
 sources:
   - https://github.com/jitsi-contrib/jitsi-helm
 maintainers:
@@ -10,7 +10,7 @@ maintainers:
   name: mmarquez999
 icon: https://jitsi.org/wp-content/uploads/2018/11/jitsi-logo-blue-grey-text.png
 name: jitsi
-version: 0.0.4
+version: 0.0.5
 annotations:
   artifacthub.io/category: networking
 keywords:

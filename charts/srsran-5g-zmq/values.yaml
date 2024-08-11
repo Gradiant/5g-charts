@@ -63,7 +63,7 @@ extraDeploy: []
 image:
   srsran:
     registry: docker.io
-    repository: openverso/srsran-5g
+    repository: gradiant/srsran-5g
     tag: "23_10_1"
     digest: ""
     ## Specify a imagePullPolicy
