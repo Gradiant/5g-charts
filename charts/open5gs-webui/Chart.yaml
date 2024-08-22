@@ -12,7 +12,7 @@ maintainers:
 - email: avrodriguez@gradiant.org
   name: avrodriguez
 name: open5gs-webui
-version: 2.2.3
+version: 2.2.4
 annotations:
   artifacthub.io/category: networking
 keywords:

@@ -73,6 +73,9 @@ spec:
             - "/k8s-entrypoint.sh"
           securityContext:
             privileged: true
+            runAsUser: 0
+            runAsGroup: 0
+            runAsNonRoot: false
             capabilities:
               add: ["NET_ADMIN"]
           volumeMounts:
