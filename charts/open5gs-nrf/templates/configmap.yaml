@@ -6,7 +6,7 @@ metadata:
 data:
   nrf.yaml: |
     {{- if .Values.customOpen5gsConfig }}
-    {{ toYaml .Values.customOpen5gsConfig }}
+    {{ toYaml .Values.customOpen5gsConfig | nindent 4 }}
     {{- else }}
 {{ tpl (.Files.Get "resources/config/nrf.yaml") . | indent 4 }}
   {{- end }}

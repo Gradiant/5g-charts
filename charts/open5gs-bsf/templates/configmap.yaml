@@ -6,7 +6,7 @@ metadata:
 data:
   bsf.yaml: |
     {{- if .Values.customOpen5gsConfig }}
-    {{ toYaml .Values.customOpen5gsConfig }}
+    {{ toYaml .Values.customOpen5gsConfig | nindent 4 }}
     {{- else }}
 {{ tpl (.Files.Get "resources/config/bsf.yaml") . | indent 4 }}
   {{- end }}
