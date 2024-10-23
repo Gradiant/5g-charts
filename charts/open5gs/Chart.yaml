@@ -10,7 +10,7 @@ maintainers:
   - email: cgiraldo@gradiant.org
     name: cgiraldo
 name: open5gs
-version: 2.2.5
+version: 2.2.6
 annotations:
   artifacthub.io/category: networking
 keywords:
@@ -89,7 +89,7 @@ dependencies:
     condition: sgwu.enabled
     alias: sgwu
   - name: open5gs-smf
-    version: ~2.2.5
+    version: ~2.2.6
     repository: file://../open5gs-smf
     condition: smf.enabled
     alias: smf
@@ -104,7 +104,7 @@ dependencies:
     condition: udr.enabled
     alias: udr
   - name: open5gs-upf
-    version: ~2.2.5
+    version: ~2.2.6
     repository: file://../open5gs-upf
     condition: upf.enabled
     alias: upf

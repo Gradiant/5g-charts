@@ -101,7 +101,8 @@ config:
     - 2001:4860:4860::8888
     - 2001:4860:4860::8844
   subnetList:
-    - subnet: 10.45.0.1/16
+    - subnet: 10.45.0.0/16
+      gateway: 10.45.0.1
       dnn: internet
   mtu: 1400
 
