@@ -14,6 +14,9 @@ ausf:
     server:
     - dev: eth0
       port: {{ .Values.containerPorts.sbi }}
+      {{- if .Values.config.advertise }}
+      advertise: {{ .Values.config.advertise }}
+      {{- end }}
     client:
       {{- if .Values.config.sbi.client.nrf.enabled }}
       nrf:
