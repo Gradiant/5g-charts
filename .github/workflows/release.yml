@@ -29,7 +29,7 @@ jobs:
     needs: generate-matrix
     runs-on: ubuntu-latest
     env:
-      registry: registry-1.docker.io/gradiant
+      registry: registry-1.docker.io/gradiantcharts
     strategy:
       matrix: ${{ fromJson( needs.generate-matrix.outputs.matrix ) }}
     steps:
@@ -39,6 +39,9 @@ jobs:
         uses: azure/setup-helm@v3
         with:
           version: v3.13.2
+      - uses: oras-project/setup-oras@v1
+        with:
+          version: 1.2.1
       - name: Login to OCI Registry
         run: |
             echo "Attempting to login to registry $registry"
@@ -58,4 +61,11 @@ jobs:
             helm dep update charts/${{ matrix.chart }}
             helm package charts/${{ matrix.chart }}
             helm push ${{ matrix.chart }}*.tgz oci://$registry
-
+      - name: push metadata
+        id: push-metadata
+        run: |
+            echo "Pushing '${{ matrix.chart }}' metadata for artifacthub.io ..."
+            oras push \
+              $registry/${{ matrix.chart }}:artifacthub.io \
+              --config /dev/null:application/vnd.cncf.artifacthub.config.v1+yaml \
+              charts/${{ matrix.chart }}/artifacthub-repo.yml:application/vnd.cncf.artifacthub.repository-metadata.layer.v1.yaml
