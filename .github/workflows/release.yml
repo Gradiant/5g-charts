@@ -41,7 +41,7 @@ jobs:
           version: v3.13.2
       - uses: oras-project/setup-oras@v1
         with:
-          version: 1.2.1
+          version: v1.2.1
       - name: Login to OCI Registry
         run: |
             echo "Attempting to login to registry $registry"
