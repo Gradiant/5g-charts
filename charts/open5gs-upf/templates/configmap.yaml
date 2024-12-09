@@ -6,7 +6,7 @@ metadata:
 data:
   upf.yaml: |
     {{- if .Values.customOpen5gsConfig }}
-    {{ toYaml .Values.customOpen5gsConfig }}
+    {{ toYaml .Values.customOpen5gsConfig | nindent 4 }}
     {{- else }}
 {{ tpl (.Files.Get "resources/config/upf.yaml") . | indent 4 }}
   {{- end }}

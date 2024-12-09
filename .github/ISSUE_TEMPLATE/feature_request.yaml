@@ -1,5 +1,5 @@
 name: Feature request
-description: Propose an enhancement to openverso-charts
+description: Propose an enhancement to 5g-charts
 labels: ['Enhancement']
 body:
   - type: markdown

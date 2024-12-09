@@ -4,7 +4,7 @@
 
 Helm chart to deploy Open5gs BSF service on Kubernetes.
 
-**Homepage:** <https://github.com/gradiant/openverso-charts>
+**Homepage:** <https://github.com/gradiant/5g-charts>
 
 ## Maintainers
 

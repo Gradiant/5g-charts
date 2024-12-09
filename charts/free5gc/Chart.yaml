@@ -1,5 +1,5 @@
 apiVersion: v2
-appVersion: "3.3.0"
+appVersion: "3.4.3"
 description: >
   Helm chart to deploy Free5GC services on Kubernetes.
 home: https://github.com/gradiant/5g-charts
@@ -12,7 +12,7 @@ maintainers:
   - email: avrodriguez@gradiant.org
     name: avrodriguez
 name: free5gc
-version: 0.1.0
+version: 0.1.2
 annotations:
   artifacthub.io/category: networking
 keywords:
@@ -30,57 +30,57 @@ dependencies:
     repository: https://charts.bitnami.com/bitnami
     condition: mongodb.enabled
   - name: free5gc-amf
-    version: ~0.1.0
+    version: ~0.1.2
     repository: file://../free5gc-amf
     condition: amf.enabled
     alias: amf
   - name: free5gc-ausf
-    version: ~0.1.0
+    version: ~0.1.2
     repository: file://../free5gc-ausf
     condition: ausf.enabled
     alias: ausf
   - name: free5gc-chf
-    version: ~0.1.0
+    version: ~0.1.2
     repository: file://../free5gc-chf
     condition: chf.enabled
     alias: chf
   - name: free5gc-nrf
-    version: ~0.1.0
+    version: ~0.1.2
     repository: file://../free5gc-nrf
     condition: nrf.enabled
     alias: nrf
   - name: free5gc-nssf
-    version: ~0.1.0
+    version: ~0.1.2
     repository: file://../free5gc-nssf
     condition: nssf.enabled
     alias: nssf
   - name: free5gc-pcf
-    version: ~0.1.0
+    version: ~0.1.2
     repository: file://../free5gc-pcf
     condition: pcf.enabled
     alias: pcf
   - name: free5gc-smf
-    version: ~0.1.0
+    version: ~0.1.2
     repository: file://../free5gc-smf
     condition: smf.enabled
     alias: smf
   - name: free5gc-udm
-    version: ~0.1.0
+    version: ~0.1.2
     repository: file://../free5gc-udm
     condition: udm.enabled
     alias: udm
   - name: free5gc-udr
-    version: ~0.1.0
+    version: ~0.1.2
     repository: file://../free5gc-udr
     condition: udr.enabled
     alias: udr
   - name: free5gc-upf
-    version: ~0.1.0
+    version: ~0.1.2
     repository: file://../free5gc-upf
     condition: upf.enabled
     alias: upf
   - name: free5gc-webui
-    version: ~0.1.0
+    version: ~0.1.2
     repository: file://../free5gc-webui
     condition: webui.enabled
     alias: webui

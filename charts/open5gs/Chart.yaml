@@ -1,8 +1,8 @@
 apiVersion: v2
-appVersion: "2.7.0"
+appVersion: "2.7.2"
 description: >
   Helm chart to deploy Open5gs services on Kubernetes.
-home: https://github.com/gradiant/openverso-charts
+home: https://github.com/gradiant/5g-charts
 sources:
   - http://open5gs.org
 icon: https://open5gs.org/assets/img/open5gs-logo.png
@@ -10,7 +10,7 @@ maintainers:
   - email: cgiraldo@gradiant.org
     name: cgiraldo
 name: open5gs
-version: 2.2.2
+version: 2.2.6
 annotations:
   artifacthub.io/category: networking
 keywords:
@@ -29,87 +29,87 @@ dependencies:
     repository: https://charts.bitnami.com/bitnami
     condition: mongodb.enabled
   - name: open5gs-amf
-    version: ~2.2.0
+    version: ~2.2.5
     repository: file://../open5gs-amf
     condition: amf.enabled
     alias: amf
   - name: open5gs-ausf
-    version: ~2.2.0
+    version: ~2.2.5
     repository: file://../open5gs-ausf
     condition: ausf.enabled
     alias: ausf
   - name: open5gs-bsf
-    version: ~2.2.0
+    version: ~2.2.5
     repository: file://../open5gs-bsf
     condition: bsf.enabled
     alias: bsf
   - name: open5gs-hss
-    version: ~2.2.0
+    version: ~2.2.5
     repository: file://../open5gs-hss
     condition: hss.enabled
     alias: hss
   - name: open5gs-mme
-    version: ~2.2.0
+    version: ~2.2.5
     repository: file://../open5gs-mme
     condition: mme.enabled
     alias: mme
   - name: open5gs-nrf
-    version: ~2.2.0
+    version: ~2.2.5
     repository: file://../open5gs-nrf
     condition: nrf.enabled
     alias: nrf
   - name: open5gs-nssf
-    version: ~2.2.0
+    version: ~2.2.5
     repository: file://../open5gs-nssf
     condition: nssf.enabled
     alias: nssf
   - name: open5gs-pcf
-    version: ~2.2.0
+    version: ~2.2.5
     repository: file://../open5gs-pcf
     condition: pcf.enabled
     alias: pcf
   - name: open5gs-pcrf
-    version: ~2.2.0
+    version: ~2.2.5
     repository: file://../open5gs-pcrf
     condition: pcrf.enabled
     alias: pcrf
   - name: open5gs-scp
-    version: ~2.2.0
+    version: ~2.2.5
     repository: file://../open5gs-scp
     condition: scp.enabled
     alias: scp
   - name: open5gs-sgwc
-    version: ~2.2.0
+    version: ~2.2.5
     repository: file://../open5gs-sgwc
     condition: sgwc.enabled
     alias: sgwc
   - name: open5gs-sgwu
-    version: ~2.2.0
+    version: ~2.2.5
     repository: file://../open5gs-sgwu
     condition: sgwu.enabled
     alias: sgwu
   - name: open5gs-smf
-    version: ~2.2.0
+    version: ~2.2.6
     repository: file://../open5gs-smf
     condition: smf.enabled
     alias: smf
   - name: open5gs-udm
-    version: ~2.2.0
+    version: ~2.2.5
     repository: file://../open5gs-udm
     condition: udm.enabled
     alias: udm
   - name: open5gs-udr
-    version: ~2.2.0
+    version: ~2.2.5
     repository: file://../open5gs-udr
     condition: udr.enabled
     alias: udr
   - name: open5gs-upf
-    version: ~2.2.0
+    version: ~2.2.6
     repository: file://../open5gs-upf
     condition: upf.enabled
     alias: upf
   - name: open5gs-webui
-    version: ~2.2.0
+    version: ~2.2.5
     repository: file://../open5gs-webui
     condition: webui.enabled
     alias: webui

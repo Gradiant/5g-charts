@@ -1,5 +1,5 @@
 apiVersion: v2
-appVersion: "3.3.0"
+appVersion: "3.4.3"
 description: >
   Helm chart to deploy Free5GC UDR service on Kubernetes.
 home: https://github.com/gradiant/5g-charts
@@ -12,7 +12,7 @@ maintainers:
   - email: avrodriguez@gradiant.org
     name: avrodriguez
 name: free5gc-udr
-version: 0.1.0
+version: 0.1.2
 annotations:
   artifacthub.io/category: networking
 keywords:

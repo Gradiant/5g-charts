@@ -22,7 +22,7 @@ upf:
       {{- end }}
   session:
     {{- range .Values.config.subnetList }}
-    - {{- omit . "createDev" "enableNAT" | toYaml | nindent 6 }}
+    - {{- omit . "mask" "createDev" "enableNAT" | toYaml | nindent 6 }}
     {{- end }}
   {{- if .Values.metrics.enabled }}
   metrics:

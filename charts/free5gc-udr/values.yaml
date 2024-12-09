@@ -21,19 +21,19 @@ global:
 ## @param kubeVersion Force target Kubernetes version (using Helm capabilities if not set)
 ##
 kubeVersion: ""
-## @param nameOverride String to partially override free5gc-amf.fullname template (will maintain the release name)
+## @param nameOverride String to partially override free5gc-udr.fullname template (will maintain the release name)
 ##
 nameOverride: ""
-## @param fullnameOverride String to fully override free5gc-amf.fullname template
+## @param fullnameOverride String to fully override free5gc-udr.fullname template
 ##
 fullnameOverride: ""
 ## @param namespaceOverride String to fully override common.names.namespace
 ##
 namespaceOverride: ""
-## @param commonAnnotations Common annotations to add to all free5gc-amf resources (sub-charts are not considered). Evaluated as a template
+## @param commonAnnotations Common annotations to add to all free5gc-udr resources (sub-charts are not considered). Evaluated as a template
 ##
 commonAnnotations: {}
-## @param commonLabels Common labels to add to all free5gc-amf resources (sub-charts are not considered). Evaluated as a template
+## @param commonLabels Common labels to add to all free5gc-udr resources (sub-charts are not considered). Evaluated as a template
 ##
 commonLabels: {}
 
@@ -41,7 +41,7 @@ commonLabels: {}
 ##
 extraDeploy: []
 
-## @section free5gc-amf parameters
+## @section free5gc-udr parameters
 
 ## Bitnami free5gc image version
 ## ref: https://hub.docker.com/r/gradiant/free5gc/tags/
@@ -56,7 +56,7 @@ extraDeploy: []
 image:
   registry: docker.io
   repository: free5gc/udr
-  tag: "v3.3.0"
+  tag: "v3.4.3"
   digest: ""
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
@@ -80,12 +80,13 @@ config:
     registerIPv4: ""  # IP used to register to NRF
     bindingIPv4: ""  # IP used to bind the service
   nrfUri: ""  # a valid URI of NRF
+  dbConnectorType: mongodb
   mongodb:
     url: ""
   logger:
     level: info
 
-## @param replicaCount Number of free5gc-amf Pods to run (requires ReadWriteMany PVC support)
+## @param replicaCount Number of free5gc-udr Pods to run (requires ReadWriteMany PVC support)
 ##
 replicaCount: 1
 ## @param command Override default container command (useful when using custom images)
@@ -101,7 +102,7 @@ args: []
 ##
 updateStrategy:
   type: RollingUpdate
-## @param priorityClassName free5gc-amf pods' priorityClassName
+## @param priorityClassName free5gc-udr pods' priorityClassName
 ##
 priorityClassName: ""
 ## @param schedulerName Name of the k8s scheduler (other than default)
@@ -204,7 +205,7 @@ affinity: {}
 ## ref: https://kubernetes.io/docs/user-guide/node-selection/
 ##
 nodeSelector: {}
-## free5gc-amf container's resource requests and limits
+## free5gc-udr container's resource requests and limits
 ## ref: http://kubernetes.io/docs/user-guide/compute-resources/
 ## @param resources.requests [object] The requested resources for the init container
 ## @param resources.limits The resources limits for the init container
@@ -214,16 +215,16 @@ resources:
   limits: {}
 ## Configure Pods Security Context
 ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-pod
-## @param podSecurityContext.enabled Enable free5gc-amf pods' Security Context
-## @param podSecurityContext.fsGroup free5gc-amf pods' group ID
+## @param podSecurityContext.enabled Enable free5gc-udr pods' Security Context
+## @param podSecurityContext.fsGroup free5gc-udr pods' group ID
 ##
 podSecurityContext:
   enabled: true
   fsGroup: 1001
 ## Configure Container Security Context (only main container)
 ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-container
-## @param containerSecurityContext.enabled Enable free5gc-amf containers' Security Context
-## @param containerSecurityContext.runAsUser free5gc-amf containers' Security Context
+## @param containerSecurityContext.enabled Enable free5gc-udr containers' Security Context
+## @param containerSecurityContext.runAsUser free5gc-udr containers' Security Context
 ## @param containerSecurityContext.runAsNonRoot Set Controller container's Security Context runAsNonRoot
 ##
 containerSecurityContext:
@@ -319,7 +320,7 @@ services:
     ##   - 0.0.0.0/0
     ##
     loadBalancerSourceRanges: []
-    ## @param service.loadBalancerIP loadBalancerIP for the free5gc-amf Service (optional, cloud specific)
+    ## @param service.loadBalancerIP loadBalancerIP for the free5gc-udr Service (optional, cloud specific)
     ## ref: https://kubernetes.io/docs/user-guide/services/#type-loadbalancer
     loadBalancerIP: ""
     ## @param service.nodePorts [object] Kubernetes node port
