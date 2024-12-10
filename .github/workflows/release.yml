@@ -41,8 +41,8 @@ jobs:
           version: v3.16.0
       - name: Login to OCI Registry
         run: |
-            echo "Attempting to login to registry $registry"
-            helm registry login -u $username -p $password $registry
+            echo "Attempting to login to registry server ${registry%%/*}"
+            helm registry login -u $username -p $password ${registry%%/*}
         env:
           username: ${{ secrets.OCI_USERNAME }}
           password: ${{ secrets.OCI_PASSWORD }}
