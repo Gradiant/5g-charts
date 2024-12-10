@@ -5,7 +5,7 @@ description: >
 home: https://github.com/gradiant/5g-charts
 sources:
   - https://github.com/srsran/srsRAN_4G
-icon: https://pbs.twimg.com/profile_images/1153713220127006724/KfcRHyU-_400x400.jpg
+icon: https://docs.srsran.com/en/latest/_static/logo.png
 maintainers:
 - email: cgiraldo@gradiant.org
   name: cgiraldo
