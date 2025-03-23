@@ -220,7 +220,7 @@ resources:
 ##
 podSecurityContext:
   enabled: true
-  fsGroup: 1001
+  fsGroup: 999
 ## Configure Container Security Context (only main container)
 ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-container
 ## @param containerSecurityContext.enabled Enable open5gs-sgwc containers' Security Context
@@ -229,7 +229,7 @@ podSecurityContext:
 ##
 containerSecurityContext:
   enabled: true
-  runAsUser: 1001
+  runAsUser: 999
   runAsNonRoot: true
 ## @param customStartupProbe Override default startup probe
 ##
