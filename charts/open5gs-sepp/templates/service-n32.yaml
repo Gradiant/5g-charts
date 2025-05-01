@@ -1,0 +1,53 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "common.names.fullname" . }}-n32
+  namespace: {{ .Release.Namespace | quote }}
+  labels: {{- include "common.labels.standard" . | nindent 4 }}
+    {{- if .Values.commonLabels }}
+    {{- include "common.tplvalues.render" ( dict "value" .Values.commonLabels "context" $ ) | nindent 4 }}
+    {{- end }}
+  {{- if or .Values.services.n32.annotations .Values.commonAnnotations }}
+  annotations:
+    {{- if .Values.services.n32.annotations }}
+    {{- include "common.tplvalues.render" (dict "value" .Values.services.n32.annotations "context" $) | nindent 4 }}
+    {{- end }}
+    {{- if .Values.commonAnnotations }}
+    {{- include "common.tplvalues.render" ( dict "value" .Values.commonAnnotations "context" $ ) | nindent 4 }}
+    {{- end }}
+  {{- end }}
+spec:
+  type: {{ .Values.services.n32.type }}
+  {{- if .Values.services.n32.sessionAffinity }}
+  sessionAffinity: {{ .Values.services.n32.sessionAffinity }}
+  {{- end }}
+  {{- if .Values.services.n32.sessionAffinityConfig }}
+  sessionAffinityConfig: {{- include "common.tplvalues.render" (dict "value" .Values.services.n32.sessionAffinityConfig "context" $) | nindent 4 }}
+  {{- end }}
+  {{- if and .Values.services.n32.clusterIP (eq .Values.services.n32.type "ClusterIP") }}
+  clusterIP: {{ .Values.services.n32.clusterIP }}
+  {{- end }}
+  {{- if (and (eq .Values.services.n32.type "LoadBalancer") (not (empty .Values.services.n32.loadBalancerIP))) }}
+  loadBalancerIP: {{ .Values.services.n32.loadBalancerIP }}
+  {{- end }}
+  {{- if and (eq .Values.services.n32.type "LoadBalancer") .Values.services.n32.loadBalancerSourceRanges }}
+  loadBalancerSourceRanges: {{- toYaml .Values.services.n32.loadBalancerSourceRanges | nindent 4 }}
+  {{- end }}
+  {{- if or (eq .Values.services.n32.type "LoadBalancer") (eq .Values.services.n32.type "NodePort") }}
+  externalTrafficPolicy: {{ .Values.services.n32.externalTrafficPolicy | quote }}
+  {{- end }}
+  ports:
+    - name: n32
+      port: {{ .Values.services.n32.ports.n32 }}
+      targetPort: n32
+      protocol: TCP
+      {{- if and (or (eq .Values.services.n32.type "NodePort") (eq .Values.services.n32.type "LoadBalancer")) (not (empty .Values.services.n32.nodePorts.n32)) }}
+      nodePort: {{ .Values.services.n32.nodePorts.n32 }}
+      {{- else if eq .Values.services.n32.type "ClusterIP" }}
+      nodePort: null
+      {{- end }}
+    {{- if .Values.services.n32.extraPorts }}
+    {{- include "common.tplvalues.render" (dict "value" .Values.services.n32.extraPorts "context" $) | nindent 4 }}
+    {{- end }}
+  publishNotReadyAddresses: true
+  selector: {{- include "common.labels.matchLabels" . | nindent 4 }}
