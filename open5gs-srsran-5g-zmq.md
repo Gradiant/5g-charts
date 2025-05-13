@@ -114,11 +114,18 @@ traceroute google.com -i tun_srsue
 ```
 ![UEs connectivity](https://raw.githubusercontent.com/Gradiant/5g-charts/gh-pages/docs/open5gs-srsran-5g-zmq/screenshots/traceroute_ue.png "UEs connectivity")
 
-Therefore, the UE's traffic can be captured in the UPF. The installation of **tcpdump** in the corresponding pod is needed in order to complete this check:
+Therefore, the UE's traffic can be captured in the UPF. The use of **tcpdump** in the corresponding pod is needed in order to complete this check. Take into account that root privileges are required to use it, so it is necessary to add this configuration to the `ngc-values.yaml` file:
+```
+upf:
+  containerSecurityContext:
+    runAsUser: 0
+    runAsGroup: 0
+```
+
+
+Then, use **tcpdump** in the UPF pod and capture the traffic in the `ogstun` interface:
 ```
 kubectl exec deployment/open5gs-upf -ti -- bash
-
-apt update && apt install tcpdump
 
 tcpdump -i ogstun
 ```
