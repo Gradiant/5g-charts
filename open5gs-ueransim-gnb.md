@@ -83,11 +83,19 @@ ping gradiant.org -I uesimtun1
 ```
 ![UEs connectivity](https://raw.githubusercontent.com/Gradiant/5g-charts/gh-pages/docs/open5gs-ueransim-gnb/screenshots/ues_ping.png "UEs connectivity")
 
-It's even possible to check that the UEs' traffic is being routed correctly through their PDU sessions, capturing the packets in the UPF. The installation of **tcpdump** in the corresponding pod is needed in order to complete this check:
+It's even possible to check that the UEs' traffic is being routed correctly through their PDU sessions, capturing the packets in the UPF. The use of **tcpdump** in the corresponding pod is needed in order to complete this check. Take into account that root privileges are required to use it, so it is necessary to add this configuration to the `5gSA-values.yaml` file:
+
+```
+upf:
+  containerSecurityContext:
+    runAsUser: 0
+    runAsGroup: 0
+```
+
+
+Then, use **tcpdump** in the UPF pod and capture the traffic in the `ogstun` interface:
 ```
 kubectl exec deployment/open5gs-upf -ti -- bash
-
-apt update && apt install tcpdump
 
 tcpdump -i ogstun
 ```
