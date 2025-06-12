@@ -7,7 +7,7 @@ echo "Executing k8s customized entrypoint.sh"
 {{- if .createDev }}
 echo "Creating net device {{ .dev }}"
 if grep "{{ .dev }}" /proc/net/dev > /dev/null; then
-    echo "Warnin: Net device {{ .dev }} already exists! may you need to set createDev: false";
+    echo "Warning: Net device {{ .dev }} already exists! may you need to set createDev: false";
     exit 1
 fi
 
