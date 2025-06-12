@@ -13,6 +13,7 @@ fi
 
 ip tuntap add name {{ .dev }} mode tun
 ip link set {{ .dev }} up
+ip link set dev {{ .dev }} txqueuelen 4096
 echo "Setting IP {{ .gateway }} to device {{ .dev }}"
 ip addr add {{ .gateway }}/{{ .mask }} dev {{ .dev }};
 sysctl -w net.ipv4.ip_forward=1;
