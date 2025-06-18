@@ -10,7 +10,7 @@ maintainers:
 - email: cgiraldo@gradiant.org
   name: cgiraldo
 name: open5gs-pcf
-version: 2.2.9
+version: 2.3.0
 annotations:
   artifacthub.io/category: networking
 keywords:

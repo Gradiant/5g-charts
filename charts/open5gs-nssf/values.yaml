@@ -77,8 +77,9 @@ image:
 
 config:
   logLevel: info
-  # advertise: provide custom SBI address to be advertised to NRF
   sbi:
+    server:
+      # advertise: provide custom SBI address to be advertised to NRF
     client:
       nrf:
         enabled: false
