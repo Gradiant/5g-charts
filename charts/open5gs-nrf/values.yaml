@@ -77,6 +77,9 @@ image:
 
 config:
   logLevel: info
+  # advertise: provide custom SBI address to be advertised to NRF
+  sbi:
+    server:
   servingList:
     - plmn_id:
         mcc: 999
