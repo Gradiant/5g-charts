@@ -85,7 +85,19 @@
                             }
                         },
                         "server": {
-                            "type": "null"
+                        "type": ["null", "object"],
+                        "properties": {
+                            "dev": {
+                            "type": "string"
+                            },
+                            "address": {
+                            "type": "string"
+                            },
+                            "advertise": {
+                            "type": "string"
+                            }
+                        },
+                        "additionalProperties": false
                         }
                     }
                 },

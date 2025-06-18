@@ -79,6 +79,7 @@ config:
   logLevel: info
   sbi:
     server:
+      # advertise: provide custom SBI address to be advertised to NRF
     client:
       nrf:
         enabled: true
