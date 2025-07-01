@@ -1,0 +1,6 @@
+repositoryID: b9215965-ab00-4b09-b798-8a16b08b81eb
+owners: # (optional, used to claim repository ownership)
+  - name: gradiant
+    email: sysadmin@gradiant.org
+  - name: cgiraldo
+    email: cgiraldo@gradiant.org
