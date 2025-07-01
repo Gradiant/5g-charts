@@ -60,6 +60,8 @@ scp:
   enabled: true
   mongodb:
     enabled: false
+sepp:
+  enabled: true
 udm:
   enabled: true
 udr:
