@@ -59,6 +59,17 @@ scp:
   enabled: true
   mongodb:
     enabled: false
+sepp:
+  enabled: false
+  config:
+  logLevel: info
+  n32:
+    server:
+      sender: ""
+    client:
+      sepp:
+        receiver: ""
+        uri: ""
 udm:
   enabled: true
 udr:

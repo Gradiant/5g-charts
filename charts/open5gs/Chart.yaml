@@ -10,7 +10,7 @@ maintainers:
   - email: cgiraldo@gradiant.org
     name: cgiraldo
 name: open5gs
-version: 2.3.0
+version: 2.3.1
 annotations:
   artifacthub.io/category: networking
 keywords:
@@ -78,6 +78,11 @@ dependencies:
     repository: file://../open5gs-scp
     condition: scp.enabled
     alias: scp
+  - name: open5gs-sepp
+    version: ~2.3.0
+    repository: file://../open5gs-sepp
+    condition: sepp.enabled
+    alias: sepp
   - name: open5gs-sgwc
     version: ~2.2.9
     repository: file://../open5gs-sgwc
