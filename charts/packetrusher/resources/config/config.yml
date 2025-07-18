@@ -33,11 +33,11 @@ ue:
     nia2: true
     nia3: false
   ciphering:
-    nea0: false
+    nea0: false # set to true if you want to use no encryption and see the packets in wireshark
     nea1: false
     nea2: true
     nea3: false
 
 amfif:
-  ip: "${AMF_ADDR}"
-  port: 38412
+  - ip: "${AMF_ADDR}"
+    port: 38412

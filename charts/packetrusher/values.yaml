@@ -56,7 +56,7 @@ extraDeploy: []
 image:
   registry: docker.io
   repository: gradiant/packetrusher
-  tag: "97f9f0c"
+  tag: "2b26573"
   digest: ""
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
