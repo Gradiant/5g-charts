@@ -1,5 +1,5 @@
 apiVersion: v2
-appVersion: "97f9f0c"
+appVersion: "2b26573"
 description: >
   Helm chart to deploy PacketRusher service on Kubernetes.
 home: https://github.com/gradiant/5g-charts
@@ -9,7 +9,7 @@ maintainers:
 - email: avrodriguez@gradiant.org
   name: avrodriguez
 name: packetrusher
-version: 0.0.2
+version: 0.0.3
 annotations:
   artifacthub.io/category: networking
 keywords:

@@ -1,0 +1,7 @@
+PacketRusher relies on gtp5g kernel module that it is not installed and available by default.
+Please check if your hosts has this module with:
+
+lsmod | grep gtp5g
+
+You can get further details on:
+https://github.com/HewlettPackard/PacketRusher/wiki/Installation
