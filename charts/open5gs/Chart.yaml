@@ -10,7 +10,7 @@ maintainers:
   - email: cgiraldo@gradiant.org
     name: cgiraldo
 name: open5gs
-version: 2.3.1
+version: 2.3.2
 annotations:
   artifacthub.io/category: networking
 keywords:
@@ -114,7 +114,7 @@ dependencies:
     condition: upf.enabled
     alias: upf
   - name: open5gs-webui
-    version: ~2.2.9
+    version: ~2.3.0
     repository: file://../open5gs-webui
     condition: webui.enabled
     alias: webui
