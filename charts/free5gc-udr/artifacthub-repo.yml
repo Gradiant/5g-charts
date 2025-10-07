@@ -1,0 +1,6 @@
+repositoryID: 056dfffe-278b-4f86-825d-8feff332ab41
+owners: # (optional, used to claim repository ownership)
+  - name: cgiraldo
+    email: cgiraldo@gradiant.org
+  - name: avrodriguez
+    email: avrodriguez@gradiant.org
