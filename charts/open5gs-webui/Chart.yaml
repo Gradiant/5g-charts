@@ -12,7 +12,7 @@ maintainers:
 - email: avrodriguez@gradiant.org
   name: avrodriguez
 name: open5gs-webui
-version: 2.3.0
+version: 2.3.1
 annotations:
   artifacthub.io/category: networking
 keywords:
@@ -24,8 +24,8 @@ dependencies:
     repository: https://charts.bitnami.com/bitnami
     tags:
       - bitnami-common
-    version: 1.x.x
+    version: 2.x.x
   - name: mongodb
-    version: ~12.1.19
+    version: ~18.0.5
     repository: https://charts.bitnami.com/bitnami
     condition: mongodb.enabled

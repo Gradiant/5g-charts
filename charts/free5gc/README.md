@@ -32,8 +32,8 @@ Helm chart to deploy Free5GC services on Kubernetes.
 | file://../free5gc-udr | udr(free5gc-udr) | ~0.1.0 |
 | file://../free5gc-upf | upf(free5gc-upf) | ~0.1.0 |
 | file://../free5gc-webui | webui(free5gc-webui) | ~0.1.0 |
-| https://charts.bitnami.com/bitnami | common | 1.x.x |
-| https://charts.bitnami.com/bitnami | mongodb | ~12.1.19 |
+| https://charts.bitnami.com/bitnami | common | 2.x.x |
+| https://charts.bitnami.com/bitnami | mongodb | ~18.0.5 |
 
 ## Values
 

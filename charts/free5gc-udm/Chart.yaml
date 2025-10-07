@@ -12,7 +12,7 @@ maintainers:
   - email: avrodriguez@gradiant.org
     name: avrodriguez
 name: free5gc-udm
-version: 0.1.2
+version: 0.1.3
 annotations:
   artifacthub.io/category: networking
 keywords:
@@ -24,4 +24,4 @@ dependencies:
     repository: https://charts.bitnami.com/bitnami
     tags:
       - bitnami-common
-    version: 1.x.x
+    version: 2.x.x

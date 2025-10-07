@@ -20,7 +20,7 @@ Helm chart to deploy Open5gs AMF service on Kubernetes.
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://charts.bitnami.com/bitnami | common | 1.x.x |
+| https://charts.bitnami.com/bitnami | common | 2.x.x |
 
 ## Values
 

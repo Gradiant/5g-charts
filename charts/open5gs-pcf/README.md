@@ -20,8 +20,8 @@ Helm chart to deploy Open5gs PCF service on Kubernetes.
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://charts.bitnami.com/bitnami | common | 1.x.x |
-| https://charts.bitnami.com/bitnami | mongodb | ~12.1.19 |
+| https://charts.bitnami.com/bitnami | common | 2.x.x |
+| https://charts.bitnami.com/bitnami | mongodb | ~18.0.5 |
 
 ## Values
 
