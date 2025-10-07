@@ -37,8 +37,8 @@ Helm chart to deploy Open5gs services on Kubernetes.
 | file://../open5gs-udr | udr(open5gs-udr) | ~2.1.0 |
 | file://../open5gs-upf | upf(open5gs-upf) | ~2.1.0 |
 | file://../open5gs-webui | webui(open5gs-webui) | ~2.1.0 |
-| https://charts.bitnami.com/bitnami | common | 1.x.x |
-| https://charts.bitnami.com/bitnami | mongodb | ~12.1.19 |
+| https://charts.bitnami.com/bitnami | common | 2.x.x |
+| https://charts.bitnami.com/bitnami | mongodb | ~18.0.5 |
 
 ## Values
 
