@@ -13,6 +13,9 @@ upf:
   pfcp:
     server:
     - dev: eth0
+      {{- if .Values.config.upf.pfcp.advertise }}
+      advertise: "{{ tpl .Values.config.upf.pfcp.advertise . }}"
+      {{- end }}
     client:
   gtpu:
     server:
