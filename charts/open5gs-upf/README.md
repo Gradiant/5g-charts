@@ -39,8 +39,10 @@ Helm chart to deploy Open5gs UPF service on Kubernetes.
 | config.subnetList[0].dev | string | `"ogstun"` |  |
 | config.subnetList[0].dnn | string | `"internet"` |  |
 | config.subnetList[0].enableNAT | bool | `true` |  |
-| config.upf.gtpu.advertise | string | `""` |  |
+| config.upf.pfcp.dev | string | `""` |  |
+| config.upf.pfcp.advertise | string | `""` |  |
 | config.upf.gtpu.dev | string | `""` |  |
+| config.upf.gtpu.advertise | string | `""` |  |
 | containerPorts.gtpu | int | `2152` |  |
 | containerPorts.metrics | int | `9090` |  |
 | containerPorts.pfcp | int | `8805` |  |

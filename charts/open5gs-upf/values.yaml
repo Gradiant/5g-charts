@@ -79,6 +79,9 @@ config:
   logLevel: info
   # advertise: Provide custom UPF GTP-U address to be advertised inside NGAP messages
   upf:
+    pfcp:
+      dev: ""
+      advertise: ""
     gtpu:
       dev: ""
       advertise: ""

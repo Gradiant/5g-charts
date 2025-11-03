@@ -12,7 +12,10 @@ global:
 upf:
   pfcp:
     server:
-    - dev: eth0
+    - dev: {{ default "eth0" .Values.config.upf.pfcp.dev }}
+      {{- if .Values.config.upf.pfcp.advertise }}
+      advertise: "{{ tpl .Values.config.upf.pfcp.advertise . }}"
+      {{- end }}
     client:
   gtpu:
     server:
