@@ -109,7 +109,7 @@ dependencies:
     condition: udr.enabled
     alias: udr
   - name: open5gs-upf
-    version: ~2.3.0
+    version: ~2.3.1
     repository: file://../open5gs-upf
     condition: upf.enabled
     alias: upf
