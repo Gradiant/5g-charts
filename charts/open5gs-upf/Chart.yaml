@@ -10,7 +10,7 @@ maintainers:
 - email: cgiraldo@gradiant.org
   name: cgiraldo
 name: open5gs-upf
-version: 2.3.1
+version: 2.3.2
 annotations:
   artifacthub.io/category: networking
 keywords:
