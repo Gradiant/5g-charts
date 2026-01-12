@@ -10,7 +10,7 @@ maintainers:
   - email: cgiraldo@gradiant.org
     name: cgiraldo
 name: open5gs
-version: 2.3.3
+version: 2.3.4
 annotations:
   artifacthub.io/category: networking
 keywords:
@@ -109,7 +109,7 @@ dependencies:
     condition: udr.enabled
     alias: udr
   - name: open5gs-upf
-    version: ~2.3.1
+    version: ~2.3.2
     repository: file://../open5gs-upf
     condition: upf.enabled
     alias: upf
