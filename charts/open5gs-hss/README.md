@@ -29,6 +29,9 @@ Helm chart to deploy Open5gs HSS service on Kubernetes.
 |-----|------|---------|-------------|
 | affinity | object | `{}` |  |
 | args | list | `[]` |  |
+| autoscaling.enabled | bool | `false` | Create a HorizontalPodAutoscaler for the Deployment |
+| autoscaling.maxReplicas | int | `1` | Maximum number of replicas for the autoscaler |
+| autoscaling.minReplicas | int | `1` | Minimum number of replicas for the autoscaler |
 | command | list | `[]` |  |
 | commonAnnotations | object | `{}` |  |
 | commonLabels | object | `{}` |  |
