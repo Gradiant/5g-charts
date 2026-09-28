@@ -3,7 +3,7 @@ name: Lint and Test Charts
 on: 
   pull_request:
     branches:
-      - master
+      - main
 
 jobs:
   # Generate the values for images with changes
@@ -23,15 +23,17 @@ jobs:
       - name: Run chart-testing (list-changed)
         id: list-changed
         run: |
-          changed=$(ct list-changed)
-          if [[ -n "$changed" ]]; then
-            echo "::set-output name=changed::true"
+          changed=$(ct list-changed --target-branch "${{ github.event.repository.default_branch }}" || true)
+          if printf '%s\n' "$changed" | grep -q '^charts/'; then
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "No changed charts; skipping lint and test."
           fi
 
   lint:
     runs-on: ubuntu-latest
     needs:  check-changed
-    if: needs.check-changed.outputs.changed
+    if: needs.check-changed.outputs.changed == 'true'
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -48,7 +50,7 @@ jobs:
           helm repo add bitnami https://charts.bitnami.com/bitnami
       - uses: actions/setup-python@v2
         with:
-          python-version: 3.7
+          python-version: '3.11'
 
       - name: Set up chart-testing
         uses: helm/chart-testing-action@v2.0.1
@@ -59,7 +61,7 @@ jobs:
   test:
     runs-on: ubuntu-latest
     needs:  [check-changed, lint]
-    if: needs.check-changed.outputs.changed
+    if: needs.check-changed.outputs.changed == 'true'
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -76,7 +78,7 @@ jobs:
           helm repo add bitnami https://charts.bitnami.com/bitnami
       - uses: actions/setup-python@v2
         with:
-          python-version: 3.7
+          python-version: '3.11'
 
       - name: Set up chart-testing
         uses: helm/chart-testing-action@v2.0.1
