@@ -529,3 +529,12 @@ metrics:
     ## @param metrics.serviceScrape.additionalLabels Additional labels that can be used so VMServiceScrape resource(s) can be discovered by VictoriaMetrics
     ##
     additionalLabels: {}
+
+## @param autoscaling.enabled Create a HorizontalPodAutoscaler for the Deployment
+## @param autoscaling.minReplicas Minimum number of replicas for the autoscaler
+## @param autoscaling.maxReplicas Maximum number of replicas for the autoscaler
+##
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 1

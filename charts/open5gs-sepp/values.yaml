@@ -418,3 +418,12 @@ dbURI: ""  # if empty default is mongodb://{{ mongodb fullname }}/open5gs
 mongodb:
   # mongodb.enabled -- should be deployed with sepp
   enabled: false
+
+## @param autoscaling.enabled Create a HorizontalPodAutoscaler for the Deployment
+## @param autoscaling.minReplicas Minimum number of replicas for the autoscaler
+## @param autoscaling.maxReplicas Maximum number of replicas for the autoscaler
+##
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 1
