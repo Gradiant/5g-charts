@@ -109,4 +109,34 @@ jobs:
             EOF
 
       - name: Run chart-testing (install)
-        run: ct install --target-branch "${{ github.event.repository.default_branch }}"
+        run: |
+          changed_charts=$(ct list-changed --target-branch "${{ github.event.repository.default_branch }}")
+          independent_charts=()
+          open5gs_changed=false
+
+          while IFS= read -r chart; do
+            [[ -z "$chart" ]] && continue
+            chart_name=${chart#charts/}
+            case "$chart_name" in
+              open5gs|open5gs-*) open5gs_changed=true ;;
+              *) independent_charts+=("$chart") ;;
+            esac
+          done <<< "$changed_charts"
+
+          if ((${#independent_charts[@]} > 0)); then
+            chart_args=()
+            for chart in "${independent_charts[@]}"; do
+              chart_args+=(--charts "$chart")
+            done
+            ct install "${chart_args[@]}" \
+              --target-branch "${{ github.event.repository.default_branch }}"
+          fi
+
+          if [[ "$open5gs_changed" == true ]]; then
+            helm dependency build charts/open5gs
+            helm upgrade --install open5gs charts/open5gs \
+              --namespace open5gs \
+              --create-namespace \
+              --wait \
+              --timeout 10m
+          fi
