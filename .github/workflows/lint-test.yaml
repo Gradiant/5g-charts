@@ -96,7 +96,8 @@ jobs:
 
       - name: Install metallb
         run: |
-            kind_IP=$(docker network inspect -f '{{index (index .IPAM.Config 0) "Gateway" }}' kind)
+            kind_subnet=$(docker network inspect -f '{{(index .IPAM.Config 0).Subnet}}' kind)
+            kind_pool=$(python -c 'import ipaddress, sys; network = ipaddress.ip_network(sys.argv[1]); print(f"{network.network_address + 100}-{network.network_address + 120}")' "$kind_subnet")
             kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.16.1/config/manifests/metallb-native.yaml
             kubectl rollout status deployment/controller -n metallb-system --timeout=120s
             kubectl rollout status daemonset/speaker -n metallb-system --timeout=120s
@@ -108,7 +109,7 @@ jobs:
               namespace: metallb-system
             spec:
               addresses:
-              - ${kind_IP}00-${kind_IP}20
+              - ${kind_pool}
             ---
             apiVersion: metallb.io/v1beta1
             kind: L2Advertisement
