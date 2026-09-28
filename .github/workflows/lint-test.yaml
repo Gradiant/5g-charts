@@ -50,7 +50,7 @@ jobs:
           helm repo add bitnami https://charts.bitnami.com/bitnami
       - uses: actions/setup-python@v2
         with:
-          python-version: 3.7
+          python-version: '3.11'
 
       - name: Set up chart-testing
         uses: helm/chart-testing-action@v2.0.1
@@ -78,7 +78,7 @@ jobs:
           helm repo add bitnami https://charts.bitnami.com/bitnami
       - uses: actions/setup-python@v2
         with:
-          python-version: 3.7
+          python-version: '3.11'
 
       - name: Set up chart-testing
         uses: helm/chart-testing-action@v2.0.1
