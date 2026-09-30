@@ -1,0 +1,20 @@
+# chart-testing: a configuration file supplied by the user instead of the
+# generated one, here the generated configuration without the metrics server.
+# The default probes must still work, since they check the PFCP socket and not
+# the metrics endpoint.
+customOpen5gsConfig:
+  logger:
+    level: info
+  global: {}
+  upf:
+    pfcp:
+      server:
+        - dev: eth0
+    gtpu:
+      server:
+        - dev: eth0
+    session:
+      - dev: ogstun
+        dnn: internet
+        gateway: 10.45.0.1
+        subnet: 10.45.0.0/16
