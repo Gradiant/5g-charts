@@ -43,8 +43,9 @@ Helm chart to deploy Open5gs SEPP service on Kubernetes without TLS.
 | containerPorts.n32 | int | `7443` |  |
 | containerPorts.sbi | int | `7777` |  |
 | containerSecurityContext.enabled | bool | `true` |  |
+| containerSecurityContext.runAsGroup | int | `999` |  |
 | containerSecurityContext.runAsNonRoot | bool | `true` |  |
-| containerSecurityContext.runAsUser | int | `1001` |  |
+| containerSecurityContext.runAsUser | int | `999` |  |
 | customLivenessProbe | object | `{}` |  |
 | customOpen5gsConfig | object | `{}` |  |
 | customReadinessProbe | object | `{}` |  |
@@ -90,7 +91,7 @@ Helm chart to deploy Open5gs SEPP service on Kubernetes without TLS.
 | podAntiAffinityPreset | string | `"soft"` |  |
 | podLabels | object | `{}` |  |
 | podSecurityContext.enabled | bool | `true` |  |
-| podSecurityContext.fsGroup | int | `1001` |  |
+| podSecurityContext.fsGroup | int | `999` |  |
 | priorityClassName | string | `""` |  |
 | readinessProbe.enabled | bool | `true` |  |
 | readinessProbe.failureThreshold | int | `5` |  |
