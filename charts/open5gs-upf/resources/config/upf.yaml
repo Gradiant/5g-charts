@@ -27,7 +27,8 @@ upf:
     {{- range .Values.config.subnetList }}
     - {{- omit . "mask" "createDev" "enableNAT" | toYaml | nindent 6 }}
     {{- end }}
-  {{- if .Values.metrics.enabled }}
+  {{- /* the probes call the metrics server, so it is configured for them too */}}
+  {{- if or .Values.metrics.enabled .Values.startupProbe.enabled .Values.livenessProbe.enabled .Values.readinessProbe.enabled }}
   metrics:
     server:
     - dev: eth0
