@@ -48,6 +48,7 @@ Helm chart to deploy Open5gs SGWC service on Kubernetes.
 | containerPorts.gtpc | int | `2123` |  |
 | containerPorts.pfcp | int | `8805` |  |
 | containerSecurityContext.enabled | bool | `true` |  |
+| containerSecurityContext.runAsGroup | int | `999` |  |
 | containerSecurityContext.runAsNonRoot | bool | `true` |  |
 | containerSecurityContext.runAsUser | int | `1001` |  |
 | customLivenessProbe | object | `{}` |  |

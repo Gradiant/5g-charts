@@ -44,6 +44,7 @@ Helm chart to deploy Open5gs scp service on Kubernetes.
 | config.sbi.server.no_tls | bool | `true` |  |
 | containerPorts.sbi | int | `7777` |  |
 | containerSecurityContext.enabled | bool | `true` |  |
+| containerSecurityContext.runAsGroup | int | `999` |  |
 | containerSecurityContext.runAsNonRoot | bool | `true` |  |
 | containerSecurityContext.runAsUser | int | `1001` |  |
 | customLivenessProbe | object | `{}` |  |

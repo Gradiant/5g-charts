@@ -35,6 +35,7 @@ Helm chart to deploy Open5gs WebUI service on Kubernetes.
 | commonLabels | object | `{}` |  |
 | containerPorts.http | int | `3000` |  |
 | containerSecurityContext.enabled | bool | `true` |  |
+| containerSecurityContext.runAsGroup | int | `999` |  |
 | containerSecurityContext.runAsNonRoot | bool | `true` |  |
 | containerSecurityContext.runAsUser | int | `1001` |  |
 | customLivenessProbe | object | `{}` |  |

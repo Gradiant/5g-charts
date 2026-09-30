@@ -226,11 +226,13 @@ podSecurityContext:
 ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-container
 ## @param containerSecurityContext.enabled Enable open5gs-ausf containers' Security Context
 ## @param containerSecurityContext.runAsUser open5gs-ausf containers' Security Context
+## @param containerSecurityContext.runAsGroup open5gs-ausf containers' Security Context runAsGroup
 ## @param containerSecurityContext.runAsNonRoot Set Controller container's Security Context runAsNonRoot
 ##
 containerSecurityContext:
   enabled: true
   runAsUser: 999
+  runAsGroup: 999
   runAsNonRoot: true
 ## Configure extra options for startup probe
 ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/#configure-probes

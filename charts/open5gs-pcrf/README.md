@@ -40,6 +40,7 @@ Helm chart to deploy Open5gs PCRF service on Kubernetes.
 | config.smf.frdi.port | int | `3868` |  |
 | containerPorts.frdi | int | `3868` |  |
 | containerSecurityContext.enabled | bool | `true` |  |
+| containerSecurityContext.runAsGroup | int | `999` |  |
 | containerSecurityContext.runAsNonRoot | bool | `true` |  |
 | containerSecurityContext.runAsUser | int | `1001` |  |
 | customLivenessProbe | object | `{}` |  |

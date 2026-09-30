@@ -229,16 +229,18 @@ resources:
 ##
 podSecurityContext:
   enabled: true
-  fsGroup: 1001
+  fsGroup: 999
 ## Configure Container Security Context (only main container)
 ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-container
 ## @param containerSecurityContext.enabled Enable open5gs-sepp containers' Security Context
 ## @param containerSecurityContext.runAsUser open5gs-sepp containers' Security Context
+## @param containerSecurityContext.runAsGroup open5gs-sepp containers' Security Context runAsGroup
 ## @param containerSecurityContext.runAsNonRoot Set Controller container's Security Context runAsNonRoot
 ##
 containerSecurityContext:
   enabled: true
-  runAsUser: 1001
+  runAsUser: 999
+  runAsGroup: 999
   runAsNonRoot: true
 ## Configure extra options for startup probe
 ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/#configure-probes
