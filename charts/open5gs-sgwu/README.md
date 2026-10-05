@@ -42,6 +42,7 @@ Helm chart to deploy Open5gs SGWU service on Kubernetes.
 | containerPorts.gtpu | int | `2152` |  |
 | containerPorts.pfcp | int | `8805` |  |
 | containerSecurityContext.enabled | bool | `true` |  |
+| containerSecurityContext.runAsGroup | int | `999` |  |
 | containerSecurityContext.runAsNonRoot | bool | `true` |  |
 | containerSecurityContext.runAsUser | int | `1001` |  |
 | customLivenessProbe | object | `{}` |  |

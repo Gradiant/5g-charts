@@ -55,6 +55,7 @@ Helm chart to deploy Open5gs MME service on Kubernetes.
 | containerPorts.gtpc | int | `2123` |  |
 | containerPorts.s1ap | int | `36412` |  |
 | containerSecurityContext.enabled | bool | `true` |  |
+| containerSecurityContext.runAsGroup | int | `999` |  |
 | containerSecurityContext.runAsNonRoot | bool | `true` |  |
 | containerSecurityContext.runAsUser | int | `1001` |  |
 | customLivenessProbe | object | `{}` |  |

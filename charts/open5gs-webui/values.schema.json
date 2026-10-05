@@ -31,6 +31,9 @@
                 "enabled": {
                     "type": "boolean"
                 },
+                "runAsGroup": {
+                    "type": "integer"
+                },
                 "runAsNonRoot": {
                     "type": "boolean"
                 },
