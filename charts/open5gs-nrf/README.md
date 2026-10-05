@@ -95,7 +95,7 @@ Helm chart to deploy Open5gs NRF service on Kubernetes.
 | readinessProbe.timeoutSeconds | int | `1` |  |
 | replicaCount | int | `1` |  |
 | resources.limits | object | `{}` |  |
-| resources.requests | object | `{}` |  |
+| resources.requests | object | `{"cpu":"50m","memory":"64Mi"}` |  |
 | schedulerName | string | `""` |  |
 | serviceAccount.annotations | object | `{}` |  |
 | serviceAccount.automountServiceAccountToken | bool | `true` |  |
