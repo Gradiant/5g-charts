@@ -229,7 +229,9 @@ nodeSelector: {}
 ## @param resources.limits The resources limits for the init container
 ##
 resources:
-  requests: {}
+  requests:
+    cpu: 50m
+    memory: 64Mi
   limits: {}
 ## Configure Pods Security Context
 ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-pod
