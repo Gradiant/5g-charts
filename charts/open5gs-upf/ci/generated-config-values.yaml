@@ -1,0 +1,3 @@
+# chart-testing: the chart as it is, with the generated configuration and the
+# default probes on the PFCP socket.
+{}
