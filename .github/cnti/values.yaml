@@ -1,0 +1,31 @@
+# What the essential-tests run sets on top of the chart's defaults. Nothing here changes
+# a practice the tests judge: the 5G core only (no EPC parts, WebUI or
+# subscriber population), MongoDB pinned to an image that still exists and
+# without persistence, and the SMF not looking for a PCRF that is not deployed.
+hss:
+  enabled: false
+mme:
+  enabled: false
+pcrf:
+  enabled: false
+sgwc:
+  enabled: false
+sgwu:
+  enabled: false
+webui:
+  enabled: false
+populate:
+  enabled: false
+global:
+  security:
+    allowInsecureImages: true
+mongodb:
+  persistence:
+    enabled: false
+  image:
+    repository: bitnamilegacy/mongodb
+    tag: 8.0.13-debian-12-r0
+smf:
+  config:
+    pcrf:
+      enabled: false

@@ -1,0 +1,68 @@
+# Installs the 5G core from the open5gs chart on a kind cluster, runs the CNTi
+# Test Suite's essential tests against it and reports the result.
+# https://github.com/lfn-cnti/testsuite-action
+name: CNTi essential
+
+on:
+  schedule:
+    - cron: "41 3 * * *"
+  workflow_dispatch:
+  # Pull requests that change the job or its configuration.
+  pull_request:
+    paths:
+      - .github/workflows/cnti.yml
+      - .github/cnti/**
+
+permissions:
+  contents: read
+
+concurrency:
+  group: cnti-essential-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  essential:
+    # Forks that enable scheduled workflows do not run it.
+    if: github.repository == 'Gradiant/5g-charts'
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    env:
+      # Seventeen functions share the runner's four cores: scaling and
+      # rollouts take longer than the suite's 60-second default.
+      CNTI_TESTSUITE_GENERIC_OPERATION_TIMEOUT: "180"
+    steps:
+      - uses: actions/checkout@v7.0.1
+        with:
+          persist-credentials: false
+
+      # The umbrella chart pulls its functions from the sibling charts by
+      # file:// reference and MongoDB from Bitnami.
+      - name: Build chart dependencies
+        run: |
+          set -euo pipefail
+          helm repo add bitnami https://charts.bitnami.com/bitnami
+          helm dependency build charts/open5gs
+
+      - uses: lfn-cnti/testsuite-action@v1.2.0
+        with:
+          # A released suite version, bumped on purpose after reading the
+          # release notes.
+          version: v2.2.0
+          cnf_config: .github/cnti/cnti-testsuite.yaml
+          install_timeout: 1200
+          tests: cert
+          # The chart does not pass the essential tests yet (13 of 19, threshold 15; see
+          # the proposal issue). Until it does, the result is reported in the
+          # job summary and the results artifact without failing the job, so
+          # that a red nightly does not become noise. Set to true, and add the
+          # badge, once a run on main passes.
+          fail_on_failure: "false"
+
+      # Why did a function not come up? Pod state and events from the kind
+      # cluster the action created; it lives until the job ends.
+      - name: Diagnostics
+        if: failure()
+        run: |
+          set +e
+          kubectl get pods -n open5gs -o wide
+          kubectl get events -n open5gs --sort-by=.lastTimestamp | tail -40
