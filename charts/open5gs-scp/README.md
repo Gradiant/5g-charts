@@ -1,6 +1,6 @@
 # open5gs-scp
 
-![Version: 2.1.0](https://img.shields.io/badge/Version-2.1.0-informational?style=flat-square) ![AppVersion: 2.6.4](https://img.shields.io/badge/AppVersion-2.6.4-informational?style=flat-square)
+![Version: 2.3.5](https://img.shields.io/badge/Version-2.3.5-informational?style=flat-square) ![AppVersion: 2.8.0](https://img.shields.io/badge/AppVersion-2.8.0)
 
 Helm chart to deploy Open5gs scp service on Kubernetes.
 
@@ -69,7 +69,7 @@ Helm chart to deploy Open5gs scp service on Kubernetes.
 | image.pullSecrets | list | `[]` |  |
 | image.registry | string | `"docker.io"` |  |
 | image.repository | string | `"gradiant/open5gs"` |  |
-| image.tag | string | `"2.6.4"` |  |
+| image.tag | string | `"2.8.0"` |  |
 | initContainers | list | `[]` |  |
 | kubeVersion | string | `""` |  |
 | lifecycleHooks | object | `{}` |  |

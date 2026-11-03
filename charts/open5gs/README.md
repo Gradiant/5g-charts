@@ -1,6 +1,6 @@
 # open5gs
 
-![Version: 2.1.0](https://img.shields.io/badge/Version-2.1.0-informational?style=flat-square) ![AppVersion: 2.4.11](https://img.shields.io/badge/AppVersion-2.4.11-informational?style=flat-square)
+![Version: 2.3.9](https://img.shields.io/badge/Version-2.3.9-informational?style=flat-square) ![AppVersion: 2.8.0](https://img.shields.io/badge/AppVersion-2.8.0)
 
 Helm chart to deploy Open5gs services on Kubernetes.
 
@@ -45,28 +45,28 @@ Helm chart to deploy Open5gs services on Kubernetes.
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | amf.enabled | bool | `true` |  |
-| amf.image.tag | string | `"2.6.4"` |  |
+| amf.image.tag | string | `"2.8.0"` |  |
 | ausf.enabled | bool | `true` |  |
-| ausf.image.tag | string | `"2.6.4"` |  |
+| ausf.image.tag | string | `"2.8.0"` |  |
 | bsf.enabled | bool | `true` |  |
-| bsf.image.tag | string | `"2.6.4"` |  |
+| bsf.image.tag | string | `"2.8.0"` |  |
 | dbURI | string | `"mongodb://{{ .Release.Name }}-mongodb/open5gs"` |  |
 | hss.enabled | bool | `true` |  |
-| hss.image.tag | string | `"2.6.4"` |  |
+| hss.image.tag | string | `"2.8.0"` |  |
 | hss.mongodb.enabled | bool | `false` |  |
 | mme.enabled | bool | `true` |  |
-| mme.image.tag | string | `"2.6.4"` |  |
+| mme.image.tag | string | `"2.8.0"` |  |
 | mongodb.auth.enabled | bool | `false` |  |
 | mongodb.enabled | bool | `true` |  |
 | nrf.enabled | bool | `true` |  |
-| nrf.image.tag | string | `"2.6.4"` |  |
+| nrf.image.tag | string | `"2.8.0"` |  |
 | nssf.enabled | bool | `true` |  |
-| nssf.image.tag | string | `"2.6.4"` |  |
+| nssf.image.tag | string | `"2.8.0"` |  |
 | pcf.enabled | bool | `true` |  |
-| pcf.image.tag | string | `"2.6.4"` |  |
+| pcf.image.tag | string | `"2.8.0"` |  |
 | pcf.mongodb.enabled | bool | `false` |  |
 | pcrf.enabled | bool | `true` |  |
-| pcrf.image.tag | string | `"2.6.4"` |  |
+| pcrf.image.tag | string | `"2.8.0"` |  |
 | pcrf.mongodb.enabled | bool | `false` |  |
 | populate.enabled | bool | `true` |  |
 | populate.image.pullPolicy | string | `"IfNotPresent"` |  |
@@ -75,21 +75,21 @@ Helm chart to deploy Open5gs services on Kubernetes.
 | populate.image.tag | string | `"0.10.2"` |  |
 | populate.initCommands | list | `[]` |  |
 | scp.enabled | bool | `false` |  |
-| scp.image.tag | string | `"2.6.4"` |  |
+| scp.image.tag | string | `"2.8.0"` |  |
 | scp.mongodb.enabled | bool | `false` |  |
 | sgwc.enabled | bool | `true` |  |
-| sgwc.image.tag | string | `"2.6.4"` |  |
+| sgwc.image.tag | string | `"2.8.0"` |  |
 | sgwu.enabled | bool | `true` |  |
-| sgwu.image.tag | string | `"2.6.4"` |  |
+| sgwu.image.tag | string | `"2.8.0"` |  |
 | smf.enabled | bool | `true` |  |
-| smf.image.tag | string | `"2.6.4"` |  |
+| smf.image.tag | string | `"2.8.0"` |  |
 | udm.enabled | bool | `true` |  |
-| udm.image.tag | string | `"2.6.4"` |  |
+| udm.image.tag | string | `"2.8.0"` |  |
 | udr.enabled | bool | `true` |  |
-| udr.image.tag | string | `"2.6.4"` |  |
+| udr.image.tag | string | `"2.8.0"` |  |
 | udr.mongodb.enabled | bool | `false` |  |
 | upf.enabled | bool | `true` |  |
-| upf.image.tag | string | `"2.6.4"` |  |
+| upf.image.tag | string | `"2.8.0"` |  |
 | webui.enabled | bool | `true` |  |
 | webui.image.tag | string | `"2.6.4"` |  |
 

@@ -1,6 +1,6 @@
 # open5gs-sepp
 
-![Version: 2.3.0](https://img.shields.io/badge/Version-2.3.0-informational?style=flat-square) ![AppVersion: 2.7.5](https://img.shields.io/badge/AppVersion-2.7.5-informational?style=flat-square)
+![Version: 2.3.5](https://img.shields.io/badge/Version-2.3.5-informational?style=flat-square) ![AppVersion: 2.8.0](https://img.shields.io/badge/AppVersion-2.8.0)
 
 Helm chart to deploy Open5gs SEPP service on Kubernetes without TLS.
 
@@ -68,7 +68,7 @@ Helm chart to deploy Open5gs SEPP service on Kubernetes without TLS.
 | image.pullSecrets | list | `[]` |  |
 | image.registry | string | `"docker.io"` |  |
 | image.repository | string | `"gradiant/open5gs"` |  |
-| image.tag | string | `"2.7.2"` |  |
+| image.tag | string | `"2.8.0"` |  |
 | initContainers | list | `[]` |  |
 | kubeVersion | string | `""` |  |
 | lifecycleHooks | object | `{}` |  |
