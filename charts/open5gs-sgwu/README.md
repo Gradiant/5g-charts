@@ -1,6 +1,6 @@
 # open5gs-sgwu
 
-![Version: 2.3.4](https://img.shields.io/badge/Version-2.3.4-informational?style=flat-square) ![AppVersion: 2.8.0](https://img.shields.io/badge/AppVersion-2.8.0)
+![Version: 2.3.5](https://img.shields.io/badge/Version-2.3.4-informational?style=flat-square) ![AppVersion: 2.8.0](https://img.shields.io/badge/AppVersion-2.8.0)
 
 Helm chart to deploy Open5gs SGWU service on Kubernetes.
 
@@ -84,7 +84,7 @@ Helm chart to deploy Open5gs SGWU service on Kubernetes.
 | podSecurityContext.fsGroup | int | `1001` |  |
 | priorityClassName | string | `""` |  |
 | replicaCount | int | `1` |  |
-| resources.limits | object | `{}` |  |
+| resources.limits | object | `{"cpu":"500m","memory":"512Mi"}` |  |
 | resources.requests | object | `{"cpu":"50m","memory":"64Mi"}` |  |
 | schedulerName | string | `""` |  |
 | serviceAccount.annotations | object | `{}` |  |

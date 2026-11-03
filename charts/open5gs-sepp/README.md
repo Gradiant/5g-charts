@@ -1,6 +1,6 @@
 # open5gs-sepp
 
-![Version: 2.3.5](https://img.shields.io/badge/Version-2.3.5-informational?style=flat-square) ![AppVersion: 2.8.0](https://img.shields.io/badge/AppVersion-2.8.0)
+![Version: 2.3.6](https://img.shields.io/badge/Version-2.3.5-informational?style=flat-square) ![AppVersion: 2.8.0](https://img.shields.io/badge/AppVersion-2.8.0)
 
 Helm chart to deploy Open5gs SEPP service on Kubernetes without TLS.
 
@@ -100,7 +100,7 @@ Helm chart to deploy Open5gs SEPP service on Kubernetes without TLS.
 | readinessProbe.successThreshold | int | `1` |  |
 | readinessProbe.timeoutSeconds | int | `1` |  |
 | replicaCount | int | `1` |  |
-| resources.limits | object | `{}` |  |
+| resources.limits | object | `{"cpu":"500m","memory":"512Mi"}` |  |
 | resources.requests | object | `{"cpu":"50m","memory":"64Mi"}` |  |
 | schedulerName | string | `""` |  |
 | serviceAccount.annotations | object | `{}` |  |

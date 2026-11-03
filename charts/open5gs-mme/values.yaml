@@ -232,7 +232,9 @@ resources:
   requests:
     cpu: 50m
     memory: 64Mi
-  limits: {}
+  limits:
+    cpu: 500m
+    memory: 512Mi
 ## Configure Pods Security Context
 ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-pod
 ## @param podSecurityContext.enabled Enable open5gs-mme pods' Security Context
