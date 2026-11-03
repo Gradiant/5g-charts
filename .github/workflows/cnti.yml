@@ -5,11 +5,16 @@ name: CNTi essential
 
 on:
   schedule:
-    - cron: "41 3 * * *"
+    # Sundays at 03:41 UTC.
+    - cron: "41 3 * * 0"
   workflow_dispatch:
-  # Pull requests that change the job or its configuration.
+  # Pull requests that change Open5GS, its dependencies or this check.
   pull_request:
+    branches:
+      - main
     paths:
+      - charts/open5gs/**
+      - charts/open5gs-*/**
       - .github/workflows/cnti.yml
       - .github/cnti/**
 
