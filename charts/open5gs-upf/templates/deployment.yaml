@@ -93,6 +93,8 @@ spec:
           command: {{- include "common.tplvalues.render" (dict "value" .Values.command "context" $) | nindent 12 }}
           {{- else }}
           command:
+            - "/usr/bin/tini"
+            - "--"
             - "open5gs-upfd"
           {{- end }}
           {{- if .Values.args }}
