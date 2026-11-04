@@ -29,7 +29,9 @@ jobs:
   essential:
     # Forks that enable scheduled workflows do not run it.
     if: github.repository == 'Gradiant/5g-charts'
-    runs-on: ubuntu-latest
+    # MongoDB 8.0 does not start on Linux kernels 6.19 through 7.0.13.
+    # Ubuntu 22.04 runners use the compatible 6.8 kernel line.
+    runs-on: ubuntu-22.04
     timeout-minutes: 90
     env:
       # Seventeen functions share the runner's four cores: scaling and
@@ -40,8 +42,8 @@ jobs:
         with:
           persist-credentials: false
 
-      # The umbrella chart pulls its functions from the sibling charts by
-      # file:// reference and MongoDB from Bitnami.
+      # MongoDB and the Open5GS charts are local dependencies; the Bitnami
+      # common library is still fetched from its chart repository.
       - name: Build chart dependencies
         run: |
           set -euo pipefail
@@ -56,12 +58,7 @@ jobs:
           cnf_config: .github/cnti/cnti-testsuite.yaml
           install_timeout: 1200
           tests: cert
-          # The chart does not pass the essential tests yet (13 of 19, threshold 15; see
-          # the proposal issue). Until it does, the result is reported in the
-          # job summary and the results artifact without failing the job, so
-          # that a red nightly does not become noise. Set to true, and add the
-          # badge, once a run on main passes.
-          fail_on_failure: "false"
+          fail_on_failure: "true"
 
       # Why did a function not come up? Pod state and events from the kind
       # cluster the action created; it lives until the job ends.

@@ -16,6 +16,12 @@ populate:
 # Common
 mongodb:
   enabled: true
+  image:
+    repository: mongo
+    tag: 8.0.34
+  persistence:
+    enabled: true
+    size: 8Gi
   auth:
     enabled: false
 smf:

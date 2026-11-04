@@ -62,7 +62,9 @@ jobs:
         run: ct lint --target-branch "${{ github.event.repository.default_branch }}"
 
   test:
-    runs-on: ubuntu-24.04
+    # MongoDB 8.0 does not start on Linux kernels 6.19 through 7.0.13.
+    # Ubuntu 22.04 runners use the compatible 6.8 kernel line.
+    runs-on: ubuntu-22.04
     needs:  [check-changed, lint]
     if: needs.check-changed.outputs.changed == 'true'
     steps:
