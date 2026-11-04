@@ -18,20 +18,66 @@ spec:
         app.kubernetes.io/name: mongodb
         app.kubernetes.io/instance: {{ .Release.Name }}
     spec:
-      {{- if or (not .Values.persistence.enabled) .Values.persistence.existingClaim }}
       volumes:
+        - name: tini
+          emptyDir: {}
+        {{ if or (not .Values.persistence.enabled) .Values.persistence.existingClaim }}
         - name: data
           {{- if and .Values.persistence.enabled .Values.persistence.existingClaim }}
           persistentVolumeClaim:
             claimName: {{ .Values.persistence.existingClaim }}
           {{- else }}
           emptyDir: {}
-          {{- end }}
-      {{- end }}
+          {{ end }}
+        {{ end }}
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 999
+        runAsGroup: 999
+        fsGroup: 999
+        fsGroupChangePolicy: OnRootMismatch
+      initContainers:
+        - name: install-tini
+          image: gradiant/open5gs:2.8.0
+          imagePullPolicy: IfNotPresent
+          command:
+            - /bin/sh
+            - -ec
+            - install -m 0755 /usr/bin/tini /tini/tini
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 999
+            runAsGroup: 999
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop: [ALL]
+          resources:
+            requests:
+              cpu: 10m
+              memory: 16Mi
+            limits:
+              cpu: 100m
+              memory: 64Mi
+          volumeMounts:
+            - name: tini
+              mountPath: /tini
       containers:
         - name: mongodb
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command:
+            - /tini/tini
+          args:
+            - --
+            - /usr/local/bin/docker-entrypoint.sh
+            - mongod
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 999
+            runAsGroup: 999
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop: [ALL]
           ports:
             - name: mongodb
               containerPort: 27017
@@ -59,6 +105,9 @@ spec:
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
+            - name: tini
+              mountPath: /tini
+              readOnly: true
             - name: data
               mountPath: /data/db
   {{- if .Values.persistence.enabled }}
