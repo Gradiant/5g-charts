@@ -1,6 +1,6 @@
 # open5gs
 
-![Version: 2.3.10](https://img.shields.io/badge/Version-2.3.9-informational?style=flat-square) ![AppVersion: 2.8.0](https://img.shields.io/badge/AppVersion-2.8.0)
+![Version: 2.3.11](https://img.shields.io/badge/Version-2.3.11-informational?style=flat-square) ![AppVersion: 2.8.0](https://img.shields.io/badge/AppVersion-2.8.0)
 
 Helm chart to deploy Open5gs services on Kubernetes.
 
@@ -38,7 +38,7 @@ Helm chart to deploy Open5gs services on Kubernetes.
 | file://../open5gs-upf | upf(open5gs-upf) | ~2.1.0 |
 | file://../open5gs-webui | webui(open5gs-webui) | ~2.1.0 |
 | https://charts.bitnami.com/bitnami | common | 2.x.x |
-| https://charts.bitnami.com/bitnami | mongodb | ~18.0.5 |
+| file://../mongodb | mongodb(mongodb) | ~0.1.0 |
 
 ## Values
 
@@ -58,6 +58,10 @@ Helm chart to deploy Open5gs services on Kubernetes.
 | mme.image.tag | string | `"2.8.0"` |  |
 | mongodb.auth.enabled | bool | `false` |  |
 | mongodb.enabled | bool | `true` |  |
+| mongodb.image.repository | string | `"mongo"` |  |
+| mongodb.image.tag | string | `"8.0.34"` |  |
+| mongodb.persistence.enabled | bool | `true` |  |
+| mongodb.persistence.size | string | `"8Gi"` |  |
 | nrf.enabled | bool | `true` |  |
 | nrf.image.tag | string | `"2.8.0"` |  |
 | nssf.enabled | bool | `true` |  |

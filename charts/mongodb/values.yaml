@@ -1,0 +1,18 @@
+image:
+  repository: mongo
+  tag: 8.0.34
+  pullPolicy: IfNotPresent
+
+auth:
+  enabled: false
+
+persistence:
+  enabled: true
+  size: 8Gi
+  storageClass: ""
+  existingClaim: ""
+
+resources: {}
+
+service:
+  port: 27017

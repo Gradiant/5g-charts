@@ -10,7 +10,7 @@ maintainers:
   - email: cgiraldo@gradiant.org
     name: cgiraldo
 name: open5gs
-version: 2.3.10
+version: 2.3.11
 annotations:
   artifacthub.io/category: networking
 keywords:
@@ -25,8 +25,8 @@ dependencies:
       - bitnami-common
     version: 2.x.x
   - name: mongodb
-    version: ~18.0.5
-    repository: https://charts.bitnami.com/bitnami
+    version: ~0.1.0
+    repository: file://../mongodb
     condition: mongodb.enabled
   - name: open5gs-amf
     version: ~2.3.1
