@@ -1,0 +1,76 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {
+        "populate": {
+            "type": "object",
+            "properties": {
+                "mongodbWait": {
+                    "type": "object",
+                    "properties": {
+                        "enabled": {
+                            "type": "boolean"
+                        },
+                        "timeoutSeconds": {
+                            "type": "integer",
+                            "minimum": 1,
+                            "maximum": 86400
+                        },
+                        "retryIntervalSeconds": {
+                            "type": "integer",
+                            "minimum": 1,
+                            "maximum": 3600
+                        },
+                        "image": {
+                            "type": "object",
+                            "properties": {
+                                "registry": {
+                                    "type": "string"
+                                },
+                                "repository": {
+                                    "type": "string",
+                                    "minLength": 1
+                                },
+                                "tag": {
+                                    "type": "string"
+                                },
+                                "digest": {
+                                    "type": "string"
+                                },
+                                "pullPolicy": {
+                                    "type": "string",
+                                    "enum": [
+                                        "Always",
+                                        "IfNotPresent",
+                                        "Never"
+                                    ]
+                                },
+                                "pullSecrets": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "required": [
+                                "repository",
+                                "tag",
+                                "pullPolicy"
+                            ]
+                        },
+                        "resources": {
+                            "type": "object"
+                        }
+                    },
+                    "required": [
+                        "enabled",
+                        "timeoutSeconds",
+                        "retryIntervalSeconds",
+                        "image",
+                        "resources"
+                    ]
+                }
+            }
+        }
+    }
+}

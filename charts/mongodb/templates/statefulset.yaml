@@ -81,27 +81,57 @@ spec:
           ports:
             - name: mongodb
               containerPort: 27017
+          {{- if .Values.customStartupProbe }}
+          startupProbe: {{- tpl (toYaml .Values.customStartupProbe) . | nindent 12 }}
+          {{- else if .Values.startupProbe.enabled }}
+          startupProbe:
+            exec:
+              command:
+                - mongosh
+                - --norc
+                - --quiet
+                - --eval
+                - "if (db.adminCommand({ping: 1}).ok !== 1) quit(1)"
+            initialDelaySeconds: {{ .Values.startupProbe.initialDelaySeconds }}
+            periodSeconds: {{ .Values.startupProbe.periodSeconds }}
+            timeoutSeconds: {{ .Values.startupProbe.timeoutSeconds }}
+            failureThreshold: {{ .Values.startupProbe.failureThreshold }}
+            successThreshold: {{ .Values.startupProbe.successThreshold }}
+          {{- end }}
+          {{- if .Values.customReadinessProbe }}
+          readinessProbe: {{- tpl (toYaml .Values.customReadinessProbe) . | nindent 12 }}
+          {{- else if .Values.readinessProbe.enabled }}
           readinessProbe:
             exec:
               command:
                 - mongosh
+                - --norc
                 - --quiet
                 - --eval
-                - "db.adminCommand('ping').ok"
-            initialDelaySeconds: 5
-            periodSeconds: 10
-            timeoutSeconds: 5
-            failureThreshold: 6
+                - "if (db.adminCommand({ping: 1}).ok !== 1) quit(1)"
+            initialDelaySeconds: {{ .Values.readinessProbe.initialDelaySeconds }}
+            periodSeconds: {{ .Values.readinessProbe.periodSeconds }}
+            timeoutSeconds: {{ .Values.readinessProbe.timeoutSeconds }}
+            failureThreshold: {{ .Values.readinessProbe.failureThreshold }}
+            successThreshold: {{ .Values.readinessProbe.successThreshold }}
+          {{- end }}
+          {{- if .Values.customLivenessProbe }}
+          livenessProbe: {{- tpl (toYaml .Values.customLivenessProbe) . | nindent 12 }}
+          {{- else if .Values.livenessProbe.enabled }}
           livenessProbe:
             exec:
               command:
                 - mongosh
+                - --norc
                 - --quiet
                 - --eval
-                - "db.adminCommand('ping').ok"
-            initialDelaySeconds: 30
-            periodSeconds: 20
-            timeoutSeconds: 5
+                - "if (db.adminCommand({ping: 1}).ok !== 1) quit(1)"
+            initialDelaySeconds: {{ .Values.livenessProbe.initialDelaySeconds }}
+            periodSeconds: {{ .Values.livenessProbe.periodSeconds }}
+            timeoutSeconds: {{ .Values.livenessProbe.timeoutSeconds }}
+            failureThreshold: {{ .Values.livenessProbe.failureThreshold }}
+            successThreshold: {{ .Values.livenessProbe.successThreshold }}
+          {{- end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:

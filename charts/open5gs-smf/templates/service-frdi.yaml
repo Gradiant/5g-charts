@@ -50,6 +50,6 @@ spec:
     {{- if .Values.services.frdi.extraPorts }}
     {{- include "common.tplvalues.render" (dict "value" .Values.services.frdi.extraPorts "context" $) | nindent 4 }}
     {{- end }}
-  publishNotReadyAddresses: true
+  publishNotReadyAddresses: {{ .Values.services.frdi.publishNotReadyAddresses }}
   selector: {{- include "common.labels.matchLabels" . | nindent 4 }}
 {{- end }}

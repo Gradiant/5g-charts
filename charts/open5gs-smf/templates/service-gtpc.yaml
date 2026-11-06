@@ -49,5 +49,5 @@ spec:
     {{- if .Values.services.gtpc.extraPorts }}
     {{- include "common.tplvalues.render" (dict "value" .Values.services.gtpc.extraPorts "context" $) | nindent 4 }}
     {{- end }}
-  publishNotReadyAddresses: true
+  publishNotReadyAddresses: {{ .Values.services.gtpc.publishNotReadyAddresses }}
   selector: {{- include "common.labels.matchLabels" . | nindent 4 }}
