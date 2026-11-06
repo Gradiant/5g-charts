@@ -1,0 +1,25 @@
+{{ template "5g-charts.metadata" . }}
+
+## MongoDB and startup
+
+This chart uses the local MongoDB Community Server chart with `mongo:8.0.34`
+when `mongodb.enabled=true`. Set `dbURI` and disable the bundled database to
+connect to an external MongoDB instance. By default, the local Service is named
+`<release>-mongodb`; `mongodb.service.port` is respected when generating the URI.
+
+The `wait-for-mongodb` init container checks the same URI as the application
+before it starts. It retries a MongoDB `ping` for up to 300 seconds, with bounded
+client attempts, and reports a timeout without logging the connection URI.
+It also runs when the database is external. Set `mongodbWait.enabled=false` to
+opt out, or adjust the timeout and retry interval below. User-supplied init
+containers run after the readiness check. This check covers initial startup;
+it does not implement recovery from a database outage after startup.
+
+For existing Bitnami deployments, read the [MongoDB migration notes](../mongodb/MIGRATION.md)
+before upgrading. PVC contents and Bitnami-specific values are not automatically
+converted. The local database supports standalone, unauthenticated deployments;
+use an external database for authentication or replica sets.
+
+{{ template "chart.valuesSection" . }}
+
+{{ template "helm-docs.versionFooter" . }}
