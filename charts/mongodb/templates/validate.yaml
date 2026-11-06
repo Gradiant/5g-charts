@@ -1,0 +1,6 @@
+{{- if .Values.auth.enabled -}}
+{{- fail "This MongoDB chart does not configure authentication. Use mongodb.enabled=false and dbURI for an authenticated external database; do not disable authentication on an existing installation." -}}
+{{- end -}}
+{{- if and .Values.architecture (ne .Values.architecture "standalone") -}}
+{{- fail "This MongoDB chart supports standalone deployments only. Use an external database for replica sets." -}}
+{{- end -}}

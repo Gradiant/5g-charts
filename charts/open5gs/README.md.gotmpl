@@ -1,0 +1,49 @@
+{{ template "5g-charts.metadata" . }}
+
+## Health probes
+
+5G SBI components, WebUI and UPF enable startup probes and remove the previous
+fixed readiness/liveness delays. Startup allows approximately five minutes of
+failures and completes as soon as its check succeeds. Configure probes per
+component, for example `nrf.startupProbe` or `upf.customReadinessProbe`; custom
+probes take priority over the corresponding defaults. MongoDB also has its own
+configurable startup/readiness/liveness checks. The database wait init
+containers run before application probes and keep their separate timeout.
+
+Open5GS application Services in the 5G/WebUI/UPF charts respect readiness; their
+`services.<name>.publishNotReadyAddresses` flags allow explicit bootstrap
+overrides. Metrics remain published for diagnostics.
+
+HSS, MME, PCRF, SGWC and SGWU retain custom probes only. No new generic SBI
+probe is applied to these different protocols. Socket checks do not establish
+end-to-end 5G readiness or detect every application deadlock.
+
+Render regression checks require Helm, Python 3 and PyYAML:
+
+```bash
+python3 scripts/tests/test_probes.py
+```
+
+## MongoDB startup
+
+Database-consuming components wait for MongoDB before starting. Configure their
+waits through `pcf.mongodbWait`, `udr.mongodbWait`, `hss.mongodbWait`,
+`pcrf.mongodbWait`, or `webui.mongodbWait`. Subscriber population has the same
+check under `populate.mongodbWait`. The default timeout is 300 seconds;
+the same check applies when a component uses an external `dbURI`.
+
+The shared database and standalone component dependencies use the local MongoDB
+chart. Read the [MongoDB migration notes](../mongodb/MIGRATION.md) before upgrading
+standalone installations that previously deployed Bitnami MongoDB.
+
+## PFCP addressing
+
+The UPF advertises its PFCP Service DNS name so the SMF uses the same endpoint
+for association and subsequent PFCP messages. This avoids mixing the Service
+address with the Pod address across Kubernetes UDP connection tracking.
+Override `upf.config.upf.pfcp.advertise` when deploying with a different PFCP
+network topology.
+
+{{ template "chart.valuesSection" . }}
+
+{{ template "helm-docs.versionFooter" . }}

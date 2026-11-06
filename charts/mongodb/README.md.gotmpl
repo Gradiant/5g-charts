@@ -1,0 +1,33 @@
+{{ template "5g-charts.metadata" . }}
+
+## Deployment
+
+Standalone MongoDB Community Server chart used by the Open5GS umbrella and standalone component charts.
+
+The default deployment uses the official Docker image `mongo:8.0.34`, listens
+on port 27017, and requests an 8 GiB persistent volume mounted at `/data/db`.
+Authentication is disabled, matching the Open5GS chart defaults. Enabling
+`auth.enabled` or a replica-set architecture is rejected because this chart does
+not configure them. Use an external database for those deployments.
+
+Read [MIGRATION.md](MIGRATION.md) before replacing a Bitnami deployment.
+
+## Health probes
+
+Startup, readiness and liveness use a real MongoDB `ping` via `mongosh`.
+Startup runs without a fixed delay and permits 30 failures at 10-second
+intervals (approximately five minutes). Readiness and liveness begin after
+startup succeeds, with no fixed delay; their intervals are 10 and 20 seconds,
+respectively, with three consecutive failures. The client timeout is 10 seconds
+to allow for shell startup overhead.
+
+The probe timings and enabled flags are configurable through `startupProbe`,
+`readinessProbe`, and `livenessProbe`. `customStartupProbe`,
+`customReadinessProbe`, and `customLivenessProbe` replace the entire default
+probe, taking priority even when the default is enabled. Set `enabled=false`
+and leave the custom probe empty to omit a probe. These probes monitor the
+local database; they do not depend on other Open5GS services.
+
+{{ template "chart.valuesSection" . }}
+
+{{ template "helm-docs.versionFooter" . }}

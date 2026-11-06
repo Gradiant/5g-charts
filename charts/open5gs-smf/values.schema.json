@@ -262,19 +262,25 @@
                     "type": "boolean"
                 },
                 "failureThreshold": {
-                    "type": "integer"
+                    "type": "integer",
+                    "minimum": 1
                 },
                 "initialDelaySeconds": {
-                    "type": "integer"
+                    "type": "integer",
+                    "minimum": 0
                 },
                 "periodSeconds": {
-                    "type": "integer"
+                    "type": "integer",
+                    "minimum": 1
                 },
                 "successThreshold": {
-                    "type": "integer"
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 1
                 },
                 "timeoutSeconds": {
-                    "type": "integer"
+                    "type": "integer",
+                    "minimum": 1
                 }
             }
         },
@@ -388,19 +394,24 @@
                     "type": "boolean"
                 },
                 "failureThreshold": {
-                    "type": "integer"
+                    "type": "integer",
+                    "minimum": 1
                 },
                 "initialDelaySeconds": {
-                    "type": "integer"
+                    "type": "integer",
+                    "minimum": 0
                 },
                 "periodSeconds": {
-                    "type": "integer"
+                    "type": "integer",
+                    "minimum": 1
                 },
                 "successThreshold": {
-                    "type": "integer"
+                    "type": "integer",
+                    "minimum": 1
                 },
                 "timeoutSeconds": {
-                    "type": "integer"
+                    "type": "integer",
+                    "minimum": 1
                 }
             }
         },
@@ -444,6 +455,9 @@
                 "frdi": {
                     "type": "object",
                     "properties": {
+                        "publishNotReadyAddresses": {
+                            "type": "boolean"
+                        },
                         "annotations": {
                             "type": "object"
                         },
@@ -492,6 +506,9 @@
                 "gtpc": {
                     "type": "object",
                     "properties": {
+                        "publishNotReadyAddresses": {
+                            "type": "boolean"
+                        },
                         "annotations": {
                             "type": "object"
                         },
@@ -540,6 +557,9 @@
                 "gtpu": {
                     "type": "object",
                     "properties": {
+                        "publishNotReadyAddresses": {
+                            "type": "boolean"
+                        },
                         "annotations": {
                             "type": "object"
                         },
@@ -588,6 +608,9 @@
                 "metrics": {
                     "type": "object",
                     "properties": {
+                        "publishNotReadyAddresses": {
+                            "type": "boolean"
+                        },
                         "annotations": {
                             "type": "object",
                             "properties": {
@@ -641,6 +664,9 @@
                 "pfcp": {
                     "type": "object",
                     "properties": {
+                        "publishNotReadyAddresses": {
+                            "type": "boolean"
+                        },
                         "annotations": {
                             "type": "object"
                         },
@@ -689,6 +715,9 @@
                 "sbi": {
                     "type": "object",
                     "properties": {
+                        "publishNotReadyAddresses": {
+                            "type": "boolean"
+                        },
                         "annotations": {
                             "type": "object"
                         },
@@ -749,22 +778,28 @@
                     "type": "boolean"
                 },
                 "failureThreshold": {
-                    "type": "integer"
+                    "type": "integer",
+                    "minimum": 1
                 },
                 "initialDelaySeconds": {
-                    "type": "integer"
+                    "type": "integer",
+                    "minimum": 0
                 },
                 "path": {
                     "type": "string"
                 },
                 "periodSeconds": {
-                    "type": "integer"
+                    "type": "integer",
+                    "minimum": 1
                 },
                 "successThreshold": {
-                    "type": "integer"
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 1
                 },
                 "timeoutSeconds": {
-                    "type": "integer"
+                    "type": "integer",
+                    "minimum": 1
                 }
             }
         },
