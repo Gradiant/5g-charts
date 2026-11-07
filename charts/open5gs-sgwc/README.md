@@ -94,8 +94,8 @@ Helm chart to deploy Open5gs SGWC service on Kubernetes.
 | resources.requests | object | `{"cpu":"50m","memory":"64Mi"}` |  |
 | schedulerName | string | `""` |  |
 | serviceAccount.annotations | object | `{}` |  |
-| serviceAccount.automountServiceAccountToken | bool | `true` |  |
-| serviceAccount.create | bool | `false` |  |
+| serviceAccount.automountServiceAccountToken | bool | `false` |  |
+| serviceAccount.create | bool | `true` |  |
 | serviceAccount.name | string | `""` |  |
 | services.gtpc.annotations | object | `{}` |  |
 | services.gtpc.clusterIP | string | `""` |  |

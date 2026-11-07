@@ -167,16 +167,16 @@ tolerations: []
 serviceAccount:
   ## @param serviceAccount.create Specifies whether a service account should be created
   ##
-  create: false
+  create: true
   ## @param serviceAccount.name The name of the service account to use. If not set and create is true, a name is generated using the fullname template
   ##
   name: ""
   ## @param serviceAccount.annotations Add annotations
   ##
   annotations: {}
-  ## @param serviceAccount.automountServiceAccountToken Automount API credentials for a service account.
+  ## @param serviceAccount.automountServiceAccountToken Mount an API token in the pods, whichever ServiceAccount they use, and on a ServiceAccount the chart creates
   ##
-  automountServiceAccountToken: true
+  automountServiceAccountToken: false
 ## @param containerPorts [object] Container ports
 ##
 containerPorts:

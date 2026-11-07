@@ -133,8 +133,8 @@ Helm chart to deploy Open5gs AMF service on Kubernetes.
 | resources.requests | object | `{"cpu":"50m","memory":"64Mi"}` |  |
 | schedulerName | string | `""` |  |
 | serviceAccount.annotations | object | `{}` |  |
-| serviceAccount.automountServiceAccountToken | bool | `true` |  |
-| serviceAccount.create | bool | `false` |  |
+| serviceAccount.automountServiceAccountToken | bool | `false` |  |
+| serviceAccount.create | bool | `true` |  |
 | serviceAccount.name | string | `""` |  |
 | services.metrics.annotations."prometheus.io/path" | string | `"/metrics"` |  |
 | services.metrics.clusterIP | string | `""` |  |
