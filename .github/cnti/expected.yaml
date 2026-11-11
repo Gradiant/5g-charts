@@ -1,0 +1,14 @@
+# The essential tests' results this repository knows and accepts, for the
+# CNTi job (.github/workflows/cnti.yml, expected_results). A test not listed
+# is expected to pass. When a result changes, the job says so in its summary
+# and as a warning; the badge doesn't change. Update this file in the pull
+# request that changes the result.
+- test: privileged_containers
+  status: failed
+  reason: >-
+    The UPF's main container and its tun-create init container are privileged,
+    for the TUN device the UPF forwards user traffic through
+- test: non_root_containers
+  status: failed
+  reason: >-
+    The UPF's tun-create init container runs as root, to create the TUN device
