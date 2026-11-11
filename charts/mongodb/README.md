@@ -18,3 +18,7 @@ Authentication is disabled, matching the Open5GS chart defaults.
 | persistence.existingClaim | string | `""` | Optional pre-created PVC |
 | resources | object | `{}` | Container resource requests and limits |
 | service.port | int | `27017` | MongoDB service port |
+| serviceAccount.create | bool | `true` | Create a ServiceAccount for MongoDB |
+| serviceAccount.name | string | `""` | ServiceAccount to use; empty uses `<release>-mongodb` when created, otherwise `default` |
+| serviceAccount.annotations | object | `{}` | ServiceAccount annotations |
+| serviceAccount.automountServiceAccountToken | bool | `false` | Mount an API token; MongoDB does not use the Kubernetes API |

@@ -20,5 +20,15 @@ resources:
     cpu: "1"
     memory: 1Gi
 
+serviceAccount:
+  # Create a ServiceAccount for MongoDB.
+  create: true
+  # The ServiceAccount to use. Empty: <release>-mongodb when create is true,
+  # otherwise the namespace's default.
+  name: ""
+  annotations: {}
+  # MongoDB does not use the Kubernetes API.
+  automountServiceAccountToken: false
+
 service:
   port: 27017

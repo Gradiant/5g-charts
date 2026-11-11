@@ -78,6 +78,10 @@ Helm chart to deploy Open5gs services on Kubernetes.
 | populate.image.repository | string | `"gradiant/open5gs-dbctl"` |  |
 | populate.image.tag | string | `"0.10.2"` |  |
 | populate.initCommands | list | `[]` |  |
+| populate.serviceAccount.annotations | object | `{}` | Annotations for the ServiceAccount |
+| populate.serviceAccount.automountServiceAccountToken | bool | `false` | Mount an API token; populate does not use the Kubernetes API |
+| populate.serviceAccount.create | bool | `true` | Create a ServiceAccount for the populate Deployment |
+| populate.serviceAccount.name | string | `""` | The ServiceAccount to use; empty uses the fullname with a -populate suffix when create is true, otherwise default |
 | scp.enabled | bool | `false` |  |
 | scp.image.tag | string | `"2.8.0"` |  |
 | scp.mongodb.enabled | bool | `false` |  |

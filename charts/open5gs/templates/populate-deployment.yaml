@@ -21,6 +21,8 @@ spec:
       labels: {{- include "common.labels.standard" . | nindent 8 }}
         app.kubernetes.io/component: populate
     spec:
+      serviceAccountName: {{ include "open5gs.populate.serviceAccountName" . }}
+      automountServiceAccountToken: {{ .Values.populate.serviceAccount.automountServiceAccountToken }}
       {{- include "open5gs.populate.imagePullSecrets" . | nindent 6 }}
       initContainers:
       - name: init
