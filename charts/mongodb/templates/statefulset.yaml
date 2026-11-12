@@ -18,6 +18,8 @@ spec:
         app.kubernetes.io/name: mongodb
         app.kubernetes.io/instance: {{ .Release.Name }}
     spec:
+      serviceAccountName: {{ include "mongodb.serviceAccountName" . }}
+      automountServiceAccountToken: {{ .Values.serviceAccount.automountServiceAccountToken }}
       volumes:
         - name: tini
           emptyDir: {}

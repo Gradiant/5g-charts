@@ -1,6 +1,6 @@
 # mongodb
 
-![Version: 0.1.2](https://img.shields.io/badge/Version-0.1.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 8.0.34](https://img.shields.io/badge/AppVersion-8.0.34-informational?style=flat-square)
+![Version: 0.1.3](https://img.shields.io/badge/Version-0.1.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 8.0.34](https://img.shields.io/badge/AppVersion-8.0.34-informational?style=flat-square)
 
 MongoDB Community Server deployment for 5g-charts
 
@@ -70,6 +70,10 @@ local database; they do not depend on other Open5GS services.
 | resources.requests.cpu | string | `"100m"` | Container cpu request as a Kubernetes quantity (for example 100m). |
 | resources.requests.memory | string | `"256Mi"` | Container memory request as a Kubernetes quantity (for example 128Mi). |
 | service.port | int | `27017` | MongoDB Service port; the database container listens on port 27017. |
+| serviceAccount.annotations | object | `{}` | ServiceAccount annotations. |
+| serviceAccount.automountServiceAccountToken | bool | `false` | Mount an API token; MongoDB does not use the Kubernetes API. |
+| serviceAccount.create | bool | `true` | Create a ServiceAccount for MongoDB. |
+| serviceAccount.name | string | `""` | The ServiceAccount to use. Empty: <release>-mongodb when create is true, otherwise the namespace's default. |
 | startupProbe.enabled | bool | `true` | Enable the default startup probe. A non-empty custom probe takes priority. |
 | startupProbe.failureThreshold | int | `30` | Consecutive failed checks allowed during startup before a restart; the budget is approximately this value multiplied by periodSeconds. |
 | startupProbe.initialDelaySeconds | int | `0` | Delay in seconds before checks can begin (minimum 0). Application probes run after init containers. |

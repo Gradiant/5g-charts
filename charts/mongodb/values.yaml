@@ -32,6 +32,17 @@ resources:
     # -- Container memory limit as a Kubernetes quantity (for example 128Mi).
     memory: 1Gi
 
+serviceAccount:
+  # -- Create a ServiceAccount for MongoDB.
+  create: true
+  # -- The ServiceAccount to use. Empty: <release>-mongodb when create is true,
+  # otherwise the namespace's default.
+  name: ""
+  # -- ServiceAccount annotations.
+  annotations: {}
+  # -- Mount an API token; MongoDB does not use the Kubernetes API.
+  automountServiceAccountToken: false
+
 service:
   # -- MongoDB Service port; the database container listens on port 27017.
   port: 27017

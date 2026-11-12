@@ -2,7 +2,7 @@ apiVersion: v2
 name: mongodb
 description: MongoDB Community Server deployment for 5g-charts
 type: application
-version: 0.1.2
+version: 0.1.3
 appVersion: "8.0.34"
 maintainers:
   - name: Gradiant

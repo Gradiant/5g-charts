@@ -131,8 +131,8 @@ this setting enabled by default so unhealthy instances remain observable.
 | resources.requests.memory | string | `"64Mi"` | Container memory request as a Kubernetes quantity (for example 128Mi). |
 | schedulerName | string | `""` | Name of the k8s scheduler (other than default) |
 | serviceAccount.annotations | object | `{}` | Add annotations |
-| serviceAccount.automountServiceAccountToken | bool | `true` | Automount API credentials for a service account. |
-| serviceAccount.create | bool | `false` | Specifies whether a service account should be created |
+| serviceAccount.automountServiceAccountToken | bool | `false` | Mount an API token in pods and on the ServiceAccount created by the chart. |
+| serviceAccount.create | bool | `true` | Specifies whether a dedicated service account should be created. |
 | serviceAccount.name | string | `""` | The name of the service account to use. If not set and create is true, a name is generated using the fullname template |
 | services.n32.annotations | object | `{}` |  |
 | services.n32.clusterIP | string | `""` | Fixed Service cluster IP; empty lets Kubernetes allocate it. |

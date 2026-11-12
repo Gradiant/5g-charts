@@ -126,6 +126,10 @@ network topology.
 | populate.mongodbWait.resources.requests.memory | string | `"128Mi"` | Container memory request as a Kubernetes quantity (for example 128Mi). |
 | populate.mongodbWait.retryIntervalSeconds | int | `5` | Delay between unsuccessful connection attempts in seconds (1-3600). |
 | populate.mongodbWait.timeoutSeconds | int | `300` | Maximum wait per init-container attempt in seconds (1-86400), not a fixed delay; Kubernetes may retry failed attempts. |
+| populate.serviceAccount.annotations | object | `{}` | Annotations for the ServiceAccount |
+| populate.serviceAccount.automountServiceAccountToken | bool | `false` | Mount an API token; populate does not use the Kubernetes API |
+| populate.serviceAccount.create | bool | `true` | Create a ServiceAccount for the populate Deployment |
+| populate.serviceAccount.name | string | `""` | The ServiceAccount to use; empty uses the fullname with a -populate suffix when create is true, otherwise default |
 | scp.enabled | bool | `true` |  |
 | scp.mongodb.enabled | bool | `false` | Compatibility value; the SCP chart does not deploy MongoDB. |
 | sepp.enabled | bool | `true` |  |
