@@ -21,6 +21,9 @@ jobs:
       - name: Set up chart-testing
         uses: helm/chart-testing-action@v2.8.0
 
+      - name: Test release chart selection
+        run: python3 scripts/tests/test_release_matrix.py
+
       - name: Run chart-testing (list-changed)
         id: list-changed
         run: |

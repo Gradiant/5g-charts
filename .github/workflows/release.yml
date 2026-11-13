@@ -1,6 +1,12 @@
 name: Release Charts
 
 on:
+  workflow_dispatch:
+    inputs:
+      base_sha:
+        description: Base commit to compare when recovering a release
+        required: true
+        type: string
   push:
     branches:
       - main
@@ -15,18 +21,25 @@ jobs:
       matrix: ${{ steps.generate-matrix.outputs.matrix }}
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v7.0.1
         with:
           fetch-depth: 0
       - id: files
         uses: tj-actions/changed-files@v46
+        with:
+          json: true
+          escape_json: false
+          base_sha: ${{ inputs.base_sha }}
       - name: Generate Matrix Content
         id: generate-matrix
+        env:
+          CHANGED_FILES: ${{ steps.files.outputs.all_changed_files }}
         run: |
-          changed=`echo "${{ steps.files.outputs.all_changed_files }}" | sed 's/ /\n/g' | grep charts | cut -f2 -d'/' | uniq | sed 's/^/"/;s/$/"/' | sed -z 's/\n/,/g;s/,$/\n/'`
-          echo "::set-output name=matrix::{ \"chart\": [ ${changed} ] }"
+          matrix=$(python3 scripts/release-matrix.py <<< "$CHANGED_FILES")
+          echo "matrix=$matrix" >> "$GITHUB_OUTPUT"
   chart-release:
     needs: generate-matrix
+    if: ${{ github.ref == 'refs/heads/main' && needs.generate-matrix.outputs.matrix != '{"chart":[]}' }}
     runs-on: ubuntu-latest
     env:
       registry: registry-1.docker.io/gradiantcharts
@@ -34,7 +47,7 @@ jobs:
       matrix: ${{ fromJson( needs.generate-matrix.outputs.matrix ) }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v7.0.1
       - name: Set up ORAS
         uses: oras-project/setup-oras@v1
       - name: Set up Helm
