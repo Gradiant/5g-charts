@@ -189,19 +189,25 @@
                     "type": "boolean"
                 },
                 "failureThreshold": {
-                    "type": "integer"
+                    "type": "integer",
+                    "minimum": 1
                 },
                 "initialDelaySeconds": {
-                    "type": "integer"
+                    "type": "integer",
+                    "minimum": 0
                 },
                 "periodSeconds": {
-                    "type": "integer"
+                    "type": "integer",
+                    "minimum": 1
                 },
                 "successThreshold": {
-                    "type": "integer"
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 1
                 },
                 "timeoutSeconds": {
-                    "type": "integer"
+                    "type": "integer",
+                    "minimum": 1
                 }
             }
         },
@@ -261,19 +267,24 @@
                     "type": "boolean"
                 },
                 "failureThreshold": {
-                    "type": "integer"
+                    "type": "integer",
+                    "minimum": 1
                 },
                 "initialDelaySeconds": {
-                    "type": "integer"
+                    "type": "integer",
+                    "minimum": 0
                 },
                 "periodSeconds": {
-                    "type": "integer"
+                    "type": "integer",
+                    "minimum": 1
                 },
                 "successThreshold": {
-                    "type": "integer"
+                    "type": "integer",
+                    "minimum": 1
                 },
                 "timeoutSeconds": {
-                    "type": "integer"
+                    "type": "integer",
+                    "minimum": 1
                 }
             }
         },
@@ -317,6 +328,9 @@
                 "sbi": {
                     "type": "object",
                     "properties": {
+                        "publishNotReadyAddresses": {
+                            "type": "boolean"
+                        },
                         "annotations": {
                             "type": "object"
                         },
@@ -377,19 +391,25 @@
                     "type": "boolean"
                 },
                 "failureThreshold": {
-                    "type": "integer"
+                    "type": "integer",
+                    "minimum": 1
                 },
                 "initialDelaySeconds": {
-                    "type": "integer"
+                    "type": "integer",
+                    "minimum": 0
                 },
                 "periodSeconds": {
-                    "type": "integer"
+                    "type": "integer",
+                    "minimum": 1
                 },
                 "successThreshold": {
-                    "type": "integer"
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 1
                 },
                 "timeoutSeconds": {
-                    "type": "integer"
+                    "type": "integer",
+                    "minimum": 1
                 }
             }
         },

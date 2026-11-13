@@ -9,7 +9,7 @@ Return the proper Open5gs webui image name
 Return the proper Docker Image Registry Secret Names
 */}}
 {{- define "open5gs.webui.imagePullSecrets" -}}
-{{- include "common.images.pullSecrets" (dict "images" (list .Values.image ) "global" .Values.global) -}}
+{{- include "common.images.pullSecrets" (dict "images" (list .Values.image .Values.mongodbWait.image) "global" .Values.global) -}}
 {{- end -}}
 
 {{/*

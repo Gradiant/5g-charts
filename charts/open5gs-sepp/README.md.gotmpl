@@ -1,0 +1,28 @@
+{{ template "5g-charts.metadata" . }}
+
+## Health probes
+
+Startup checks are enabled immediately, with a budget of approximately five
+minutes (60 attempts at 5-second intervals). Once startup succeeds, readiness
+and liveness checks can begin without a fixed delay. Readiness uses three
+consecutive failures at 5-second intervals; liveness uses three at 10-second
+intervals. A successful readiness check can mark the Pod Ready immediately.
+
+`customStartupProbe`, `customReadinessProbe` and `customLivenessProbe` replace
+the corresponding default probe, including when its `enabled` flag is true.
+To omit a probe, disable it and leave its custom override empty. Startup and
+liveness `successThreshold` must remain 1; probe intervals and timeouts must be
+positive.
+
+The default probes check a TCP connection to the application port. They do
+not prove successful protocol exchanges, dependency availability, or the absence
+of every application deadlock.
+
+Application Services exclude unready Pods by default. Set
+`services.<name>.publishNotReadyAddresses=true` only when peer discovery or
+bootstrap requires publishing them before readiness. Metrics Services keep
+this setting enabled by default so unhealthy instances remain observable.
+
+{{ template "chart.valuesSection" . }}
+
+{{ template "helm-docs.versionFooter" . }}

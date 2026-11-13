@@ -1,34 +1,98 @@
 image:
+  # -- Container image repository.
   repository: mongo
+  # -- Container image tag.
   tag: 8.0.34
+  # -- Image pull policy: Always, IfNotPresent or Never.
   pullPolicy: IfNotPresent
 
 auth:
+  # -- The local MongoDB chart does not implement authentication; keep false or use an authenticated external database.
   enabled: false
 
 persistence:
+  # -- Use persistent storage; disabling it uses ephemeral storage.
   enabled: true
+  # -- Requested PVC capacity as a Kubernetes quantity, for example 8Gi.
   size: 8Gi
+  # -- StorageClass name; empty uses the cluster default.
   storageClass: ""
+  # -- Pre-created PVC with the target data layout and ownership; this does not migrate Bitnami data.
   existingClaim: ""
 
 resources:
   requests:
+    # -- Container cpu request as a Kubernetes quantity (for example 100m).
     cpu: 100m
+    # -- Container memory request as a Kubernetes quantity (for example 128Mi).
     memory: 256Mi
   limits:
+    # -- Container cpu limit as a Kubernetes quantity (for example 100m).
     cpu: "1"
+    # -- Container memory limit as a Kubernetes quantity (for example 128Mi).
     memory: 1Gi
 
 serviceAccount:
-  # Create a ServiceAccount for MongoDB.
+  # -- Create a ServiceAccount for MongoDB.
   create: true
-  # The ServiceAccount to use. Empty: <release>-mongodb when create is true,
+  # -- The ServiceAccount to use. Empty: <release>-mongodb when create is true,
   # otherwise the namespace's default.
   name: ""
+  # -- ServiceAccount annotations.
   annotations: {}
-  # MongoDB does not use the Kubernetes API.
+  # -- Mount an API token; MongoDB does not use the Kubernetes API.
   automountServiceAccountToken: false
 
 service:
+  # -- MongoDB Service port; the database container listens on port 27017.
   port: 27017
+
+startupProbe:
+  # -- Enable the default startup probe. A non-empty custom probe takes priority.
+  enabled: true
+  # -- Delay in seconds before checks can begin (minimum 0). Application probes run after init containers.
+  initialDelaySeconds: 0
+  # -- Interval between checks in seconds (minimum 1).
+  periodSeconds: 10
+  # -- Timeout for one check in seconds (minimum 1).
+  timeoutSeconds: 10
+  # -- Consecutive failed checks allowed during startup before a restart; the budget is approximately this value multiplied by periodSeconds.
+  failureThreshold: 30
+  # -- Consecutive successes required; Kubernetes requires 1 for startup and liveness.
+  successThreshold: 1
+
+readinessProbe:
+  # -- Enable the default readiness probe. A non-empty custom probe takes priority.
+  enabled: true
+  # -- Delay in seconds before checks can begin (minimum 0). Application probes run after init containers.
+  initialDelaySeconds: 0
+  # -- Interval between checks in seconds (minimum 1).
+  periodSeconds: 10
+  # -- Timeout for one check in seconds (minimum 1).
+  timeoutSeconds: 10
+  # -- Consecutive failed checks before marking the Pod NotReady; this does not restart the container.
+  failureThreshold: 3
+  # -- Consecutive successes needed to restore readiness (minimum 1).
+  successThreshold: 1
+
+livenessProbe:
+  # -- Enable the default liveness probe. A non-empty custom probe takes priority.
+  enabled: true
+  # -- Delay in seconds before checks can begin (minimum 0). Application probes run after init containers.
+  initialDelaySeconds: 0
+  # -- Interval between checks in seconds (minimum 1).
+  periodSeconds: 20
+  # -- Timeout for one check in seconds (minimum 1).
+  timeoutSeconds: 10
+  # -- Consecutive failed checks before restarting the container after startup has succeeded.
+  failureThreshold: 3
+  # -- Consecutive successes required; Kubernetes requires 1 for startup and liveness.
+  successThreshold: 1
+
+# Custom probes replace the entire default probe, even when it is enabled.
+# -- Complete replacement for the default probe, taking priority even when it is enabled. Empty uses the default or omits it when disabled.
+customStartupProbe: {}
+# -- Complete replacement for the default probe, taking priority even when it is enabled. Empty uses the default or omits it when disabled.
+customReadinessProbe: {}
+# -- Complete replacement for the default probe, taking priority even when it is enabled. Empty uses the default or omits it when disabled.
+customLivenessProbe: {}

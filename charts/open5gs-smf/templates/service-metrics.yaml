@@ -50,6 +50,6 @@ spec:
     {{- if .Values.services.metrics.extraPorts }}
     {{- include "common.tplvalues.render" (dict "value" .Values.services.metrics.extraPorts "context" $) | nindent 4 }}
     {{- end }}
-  publishNotReadyAddresses: true
+  publishNotReadyAddresses: {{ .Values.services.metrics.publishNotReadyAddresses }}
   selector: {{- include "common.labels.matchLabels" . | nindent 4 }}
 {{- end }}

@@ -10,7 +10,7 @@ maintainers:
 - email: cgiraldo@gradiant.org
   name: cgiraldo
 name: open5gs-hss
-version: 2.3.6
+version: 2.4.0
 annotations:
   artifacthub.io/category: networking
 keywords:
@@ -25,6 +25,6 @@ dependencies:
       - bitnami-common
     version: 2.x.x
   - name: mongodb
-    version: ~18.0.5
-    repository: https://charts.bitnami.com/bitnami
+    version: ~0.1.0
+    repository: file://../mongodb
     condition: mongodb.enabled

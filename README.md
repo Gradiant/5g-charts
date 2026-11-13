@@ -45,6 +45,26 @@ These tutorials make use of charts available at this repo, and their correspondi
 - running test-install.sh requires docker and kubernetes-in-docker.
 - `tee` console tool to output to the console and file in the same time
 
+### Chart documentation
+
+Generate the Open5GS and MongoDB READMEs locally with Docker:
+
+```bash
+bash scripts/doc-gen.sh
+```
+
+To regenerate selected charts:
+
+```bash
+bash scripts/doc-gen.sh charts/open5gs-upf charts/mongodb
+```
+
+The script pins `helm-docs` to `v1.14.2`. Metadata and default values come from
+`Chart.yaml` and `values.yaml`. Add descriptions immediately above values using
+`# -- Description`. Edit explanatory sections in each chart's `README.md.gotmpl`;
+shared metadata formatting lives in `charts/_helm-docs.gotmpl`. Regenerate the
+READMEs after changing these sources, and review the resulting diff.
+
 ## Linting and testing full deployment
 
 We use helm [chart-testing](https://github.com/helm/chart-testing) running a docker image.
