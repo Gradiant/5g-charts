@@ -1,6 +1,6 @@
 # open5gs
 
-![Version: 2.4.0](https://img.shields.io/badge/Version-2.4.0-informational?style=flat-square) ![AppVersion: 2.8.0](https://img.shields.io/badge/AppVersion-2.8.0-informational?style=flat-square)
+![Version: 2.4.1](https://img.shields.io/badge/Version-2.4.1-informational?style=flat-square) ![AppVersion: 2.8.0](https://img.shields.io/badge/AppVersion-2.8.0-informational?style=flat-square)
 
 Helm chart to deploy Open5gs services on Kubernetes.
 
@@ -21,25 +21,32 @@ Helm chart to deploy Open5gs services on Kubernetes.
 | Repository | Name | Version |
 |------------|------|---------|
 | file://../mongodb | mongodb | ~0.1.0 |
-| file://../open5gs-amf | amf(open5gs-amf) | ~2.4.0 |
-| file://../open5gs-ausf | ausf(open5gs-ausf) | ~2.4.0 |
-| file://../open5gs-bsf | bsf(open5gs-bsf) | ~2.4.0 |
-| file://../open5gs-hss | hss(open5gs-hss) | ~2.4.0 |
-| file://../open5gs-mme | mme(open5gs-mme) | ~2.4.0 |
-| file://../open5gs-nrf | nrf(open5gs-nrf) | ~2.4.0 |
-| file://../open5gs-nssf | nssf(open5gs-nssf) | ~2.4.0 |
-| file://../open5gs-pcf | pcf(open5gs-pcf) | ~2.4.0 |
-| file://../open5gs-pcrf | pcrf(open5gs-pcrf) | ~2.4.0 |
-| file://../open5gs-scp | scp(open5gs-scp) | ~2.4.0 |
-| file://../open5gs-sepp | sepp(open5gs-sepp) | ~2.4.0 |
-| file://../open5gs-sgwc | sgwc(open5gs-sgwc) | ~2.4.0 |
-| file://../open5gs-sgwu | sgwu(open5gs-sgwu) | ~2.4.0 |
-| file://../open5gs-smf | smf(open5gs-smf) | ~2.4.0 |
-| file://../open5gs-udm | udm(open5gs-udm) | ~2.4.0 |
-| file://../open5gs-udr | udr(open5gs-udr) | ~2.4.0 |
-| file://../open5gs-upf | upf(open5gs-upf) | ~2.4.0 |
-| file://../open5gs-webui | webui(open5gs-webui) | ~2.4.0 |
+| file://../open5gs-amf | amf(open5gs-amf) | ~2.4.1 |
+| file://../open5gs-ausf | ausf(open5gs-ausf) | ~2.4.1 |
+| file://../open5gs-bsf | bsf(open5gs-bsf) | ~2.4.1 |
+| file://../open5gs-hss | hss(open5gs-hss) | ~2.4.1 |
+| file://../open5gs-mme | mme(open5gs-mme) | ~2.4.1 |
+| file://../open5gs-nrf | nrf(open5gs-nrf) | ~2.4.1 |
+| file://../open5gs-nssf | nssf(open5gs-nssf) | ~2.4.1 |
+| file://../open5gs-pcf | pcf(open5gs-pcf) | ~2.4.1 |
+| file://../open5gs-pcrf | pcrf(open5gs-pcrf) | ~2.4.1 |
+| file://../open5gs-scp | scp(open5gs-scp) | ~2.4.1 |
+| file://../open5gs-sepp | sepp(open5gs-sepp) | ~2.4.1 |
+| file://../open5gs-sgwc | sgwc(open5gs-sgwc) | ~2.4.1 |
+| file://../open5gs-sgwu | sgwu(open5gs-sgwu) | ~2.4.1 |
+| file://../open5gs-smf | smf(open5gs-smf) | ~2.4.1 |
+| file://../open5gs-udm | udm(open5gs-udm) | ~2.4.1 |
+| file://../open5gs-udr | udr(open5gs-udr) | ~2.4.1 |
+| file://../open5gs-upf | upf(open5gs-upf) | ~2.4.1 |
+| file://../open5gs-webui | webui(open5gs-webui) | ~2.4.1 |
 | https://charts.bitnami.com/bitnami | common | 2.x.x |
+
+## CNTi essential
+
+[![CNTi essential](https://github.com/Gradiant/5g-charts/raw/badges/cnti-badge.svg)](https://github.com/Gradiant/5g-charts/actions/workflows/cnti.yml)
+
+The badge reports the latest CNTi essential test result on `main` for this
+Open5GS core deployment. It does not cover the other charts in this repository.
 
 ## Health probes
 
