@@ -4,10 +4,6 @@ set -e
 
 echo "add admin user with password 1423 if no users"
 
-until mongosh "$DB_URI" --quiet --eval "db.adminCommand('ping').ok" >/dev/null 2>&1; do
-    sleep 2
-done
-
 cat << EOF > /tmp/account.js
 db = db.getSiblingDB('open5gs')
 cursor = db.accounts.find()

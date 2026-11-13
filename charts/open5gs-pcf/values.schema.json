@@ -198,19 +198,25 @@
                     "type": "boolean"
                 },
                 "failureThreshold": {
-                    "type": "integer"
+                    "type": "integer",
+                    "minimum": 1
                 },
                 "initialDelaySeconds": {
-                    "type": "integer"
+                    "type": "integer",
+                    "minimum": 0
                 },
                 "periodSeconds": {
-                    "type": "integer"
+                    "type": "integer",
+                    "minimum": 1
                 },
                 "successThreshold": {
-                    "type": "integer"
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 1
                 },
                 "timeoutSeconds": {
-                    "type": "integer"
+                    "type": "integer",
+                    "minimum": 1
                 }
             }
         },
@@ -267,6 +273,71 @@
                     }
                 }
             }
+        },
+        "mongodbWait": {
+            "type": "object",
+            "properties": {
+                "enabled": {
+                    "type": "boolean"
+                },
+                "timeoutSeconds": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 86400
+                },
+                "retryIntervalSeconds": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 3600
+                },
+                "image": {
+                    "type": "object",
+                    "properties": {
+                        "registry": {
+                            "type": "string"
+                        },
+                        "repository": {
+                            "type": "string",
+                            "minLength": 1
+                        },
+                        "tag": {
+                            "type": "string"
+                        },
+                        "digest": {
+                            "type": "string"
+                        },
+                        "pullPolicy": {
+                            "type": "string",
+                            "enum": [
+                                "Always",
+                                "IfNotPresent",
+                                "Never"
+                            ]
+                        },
+                        "pullSecrets": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "required": [
+                        "repository",
+                        "tag",
+                        "pullPolicy"
+                    ]
+                },
+                "resources": {
+                    "type": "object"
+                }
+            },
+            "required": [
+                "enabled",
+                "timeoutSeconds",
+                "retryIntervalSeconds",
+                "image",
+                "resources"
+            ]
         },
         "mongodb": {
             "type": "object",
@@ -332,19 +403,24 @@
                     "type": "boolean"
                 },
                 "failureThreshold": {
-                    "type": "integer"
+                    "type": "integer",
+                    "minimum": 1
                 },
                 "initialDelaySeconds": {
-                    "type": "integer"
+                    "type": "integer",
+                    "minimum": 0
                 },
                 "periodSeconds": {
-                    "type": "integer"
+                    "type": "integer",
+                    "minimum": 1
                 },
                 "successThreshold": {
-                    "type": "integer"
+                    "type": "integer",
+                    "minimum": 1
                 },
                 "timeoutSeconds": {
-                    "type": "integer"
+                    "type": "integer",
+                    "minimum": 1
                 }
             }
         },
@@ -388,6 +464,9 @@
                 "metrics": {
                     "type": "object",
                     "properties": {
+                        "publishNotReadyAddresses": {
+                            "type": "boolean"
+                        },
                         "annotations": {
                             "type": "object",
                             "properties": {
@@ -441,6 +520,9 @@
                 "sbi": {
                     "type": "object",
                     "properties": {
+                        "publishNotReadyAddresses": {
+                            "type": "boolean"
+                        },
                         "annotations": {
                             "type": "object"
                         },
@@ -501,19 +583,25 @@
                     "type": "boolean"
                 },
                 "failureThreshold": {
-                    "type": "integer"
+                    "type": "integer",
+                    "minimum": 1
                 },
                 "initialDelaySeconds": {
-                    "type": "integer"
+                    "type": "integer",
+                    "minimum": 0
                 },
                 "periodSeconds": {
-                    "type": "integer"
+                    "type": "integer",
+                    "minimum": 1
                 },
                 "successThreshold": {
-                    "type": "integer"
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 1
                 },
                 "timeoutSeconds": {
-                    "type": "integer"
+                    "type": "integer",
+                    "minimum": 1
                 }
             }
         },

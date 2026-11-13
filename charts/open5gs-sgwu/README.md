@@ -1,6 +1,6 @@
 # open5gs-sgwu
 
-![Version: 2.3.5](https://img.shields.io/badge/Version-2.3.4-informational?style=flat-square) ![AppVersion: 2.8.0](https://img.shields.io/badge/AppVersion-2.8.0)
+![Version: 2.4.0](https://img.shields.io/badge/Version-2.4.0-informational?style=flat-square) ![AppVersion: 2.8.0](https://img.shields.io/badge/AppVersion-2.8.0-informational?style=flat-square)
 
 Helm chart to deploy Open5gs SGWU service on Kubernetes.
 
@@ -26,98 +26,99 @@ Helm chart to deploy Open5gs SGWU service on Kubernetes.
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| affinity | object | `{}` |  |
-| args | list | `[]` |  |
+| affinity | object | `{}` | Affinity for pod assignment |
+| args | list | `[]` | Override default container args (useful when using custom images) |
 | autoscaling.enabled | bool | `false` | Create a HorizontalPodAutoscaler for the Deployment |
 | autoscaling.maxReplicas | int | `1` | Maximum number of replicas for the autoscaler |
 | autoscaling.minReplicas | int | `1` | Minimum number of replicas for the autoscaler |
-| command | list | `[]` |  |
-| commonAnnotations | object | `{}` |  |
-| commonLabels | object | `{}` |  |
+| command | list | `[]` | Override default container command (useful when using custom images) |
+| commonAnnotations | object | `{}` | Common annotations to add to all open5gs-sgwu resources (sub-charts are not considered). Evaluated as a template |
+| commonLabels | object | `{}` | Common labels to add to all open5gs-sgwu resources (sub-charts are not considered). Evaluated as a template |
+| config.gtpu.server.dev | string | `""` |  |
 | config.logLevel | string | `"info"` |  |
-| config.sgwc.pfcp.hostname | string | `""` |  |
-| config.sgwc.pfcp.port | int | `8805` |  |
-| config.sgwu.gtpu.advertise | string | `""` |  |
-| config.sgwu.gtpu.dev | string | `""` |  |
-| containerPorts.gtpu | int | `2152` |  |
-| containerPorts.pfcp | int | `8805` |  |
-| containerSecurityContext.enabled | bool | `true` |  |
-| containerSecurityContext.runAsGroup | int | `999` |  |
-| containerSecurityContext.runAsNonRoot | bool | `true` |  |
-| containerSecurityContext.runAsUser | int | `1001` |  |
-| customLivenessProbe | object | `{}` |  |
-| customOpen5gsConfig | object | `{}` |  |
-| customReadinessProbe | object | `{}` |  |
-| customStartupProbe | object | `{}` |  |
-| extraDeploy | list | `[]` |  |
-| extraEnvVars | list | `[]` |  |
-| extraEnvVarsCM | string | `""` |  |
-| extraEnvVarsSecret | string | `""` |  |
-| extraVolumeMounts | list | `[]` |  |
-| extraVolumes | list | `[]` |  |
-| fullnameOverride | string | `""` |  |
-| global.imagePullSecrets | list | `[]` |  |
-| global.imageRegistry | string | `""` |  |
-| global.storageClass | string | `""` |  |
-| hostAliases | list | `[]` |  |
-| image.debug | bool | `false` |  |
-| image.digest | string | `""` |  |
-| image.pullPolicy | string | `"IfNotPresent"` |  |
-| image.pullSecrets | list | `[]` |  |
-| image.registry | string | `"docker.io"` |  |
-| image.repository | string | `"gradiant/open5gs"` |  |
-| image.tag | string | `"2.8.0"` |  |
-| initContainers | list | `[]` |  |
-| kubeVersion | string | `""` |  |
-| lifecycleHooks | object | `{}` |  |
-| nameOverride | string | `""` |  |
-| namespaceOverride | string | `""` |  |
-| nodeAffinityPreset.key | string | `""` |  |
-| nodeAffinityPreset.type | string | `""` |  |
-| nodeAffinityPreset.values | list | `[]` |  |
-| nodeSelector | object | `{}` |  |
-| podAffinityPreset | string | `""` |  |
-| podAnnotations | object | `{}` |  |
-| podAntiAffinityPreset | string | `"soft"` |  |
-| podLabels | object | `{}` |  |
-| podSecurityContext.enabled | bool | `true` |  |
-| podSecurityContext.fsGroup | int | `1001` |  |
-| priorityClassName | string | `""` |  |
-| replicaCount | int | `1` |  |
-| resources.limits | object | `{"cpu":"500m","memory":"512Mi"}` |  |
-| resources.requests | object | `{"cpu":"50m","memory":"64Mi"}` |  |
-| schedulerName | string | `""` |  |
-| serviceAccount.annotations | object | `{}` |  |
-| serviceAccount.automountServiceAccountToken | bool | `true` |  |
-| serviceAccount.create | bool | `false` |  |
-| serviceAccount.name | string | `""` |  |
+| config.pfcp.client.sgwc.address | string | `""` |  |
+| config.pfcp.server | string | `nil` |  |
+| containerPorts.gtpu | int | `2152` | Container port for GTP-U. |
+| containerPorts.pfcp | int | `8805` | Container port for PFCP. |
+| containerSecurityContext.enabled | bool | `true` | Apply this security context. |
+| containerSecurityContext.runAsGroup | int | `999` | GID used by this security context. |
+| containerSecurityContext.runAsNonRoot | bool | `true` | Require the container to run as a non-root user. |
+| containerSecurityContext.runAsUser | int | `999` | UID used by this security context. |
+| customLivenessProbe | object | `{}` | Optional probe definition; empty leaves this probe unconfigured. |
+| customOpen5gsConfig | object | `{}` | overwrite open5gs configuration file |
+| customReadinessProbe | object | `{}` | Optional probe definition; empty leaves this probe unconfigured. |
+| customStartupProbe | object | `{}` | Optional probe definition; empty leaves this probe unconfigured. |
+| extraDeploy | list | `[]` | Array of extra objects to deploy with the release (evaluated as a template). |
+| extraEnvVars | list | `[]` | Extra environment variables |
+| extraEnvVarsCM | string | `""` | ConfigMap containing extra env vars |
+| extraEnvVarsSecret | string | `""` | Secret containing extra env vars (in case of sensitive data) |
+| extraVolumeMounts | list | `[]` | Array of extra volume mounts to be added to the container (evaluated as template). Normally used with `extraVolumes`. |
+| extraVolumes | list | `[]` | Array of extra volumes to be added to the deployment (evaluated as template). Requires setting `extraVolumeMounts` |
+| fullnameOverride | string | `""` | String to fully override open5gs-sgwu.fullname template |
+| global.imagePullSecrets | list | `[]` | Global Docker registry secret names as an array |
+| global.imageRegistry | string | `""` | Global Docker image registry |
+| global.storageClass | string | `""` | Global StorageClass for Persistent Volume(s) |
+| hostAliases | list | `[]` | [array] Add deployment host aliases |
+| image.debug | bool | `false` | Specify if debug logs should be enabled |
+| image.digest | string | `""` | Optional image digest; takes precedence over the tag. |
+| image.pullPolicy | string | `"IfNotPresent"` | Image pull policy: Always, IfNotPresent or Never. |
+| image.pullSecrets | list | `[]` | Image pull Secret names in the workload namespace. |
+| image.registry | string | `"docker.io"` | Container image registry. |
+| image.repository | string | `"gradiant/open5gs"` | Container image repository. |
+| image.tag | string | `"2.8.0"` | Container image tag. |
+| initContainers | list | `[]` | Add additional init containers to the pod (evaluated as a template) |
+| kubeVersion | string | `""` | Force target Kubernetes version (using Helm capabilities if not set) |
+| lifecycleHooks | object | `{}` | LifecycleHook to set additional configuration at startup Evaluated as a template |
+| nameOverride | string | `""` | String to partially override open5gs-sgwu.fullname template (will maintain the release name) |
+| namespaceOverride | string | `""` | String to fully override common.names.namespace |
+| nodeAffinityPreset.key | string | `""` | Node label key to match Ignored if `affinity` is set. |
+| nodeAffinityPreset.type | string | `""` | Node affinity preset type. Ignored if `affinity` is set. Allowed values: `soft` or `hard` |
+| nodeAffinityPreset.values | list | `[]` | Node label values to match. Ignored if `affinity` is set. |
+| nodeSelector | object | `{}` | Node labels for pod assignment. Evaluated as a template. |
+| podAffinityPreset | string | `""` | Pod affinity preset. Ignored if `affinity` is set. Allowed values: `soft` or `hard` |
+| podAnnotations | object | `{}` | Pod annotations |
+| podAntiAffinityPreset | string | `"soft"` | Pod anti-affinity preset. Ignored if `affinity` is set. Allowed values: `soft` or `hard` |
+| podLabels | object | `{}` | Add additional labels to the pod (evaluated as a template) |
+| podSecurityContext.enabled | bool | `true` | Apply this security context. |
+| podSecurityContext.fsGroup | int | `999` | Group used for mounted-volume access. |
+| priorityClassName | string | `""` | open5gs-sgwu pods' priorityClassName |
+| replicaCount | int | `1` | Number of application replicas. |
+| resources.limits.cpu | string | `"500m"` | Container cpu limit as a Kubernetes quantity (for example 100m). |
+| resources.limits.memory | string | `"512Mi"` | Container memory limit as a Kubernetes quantity (for example 128Mi). |
+| resources.requests.cpu | string | `"50m"` | Container cpu request as a Kubernetes quantity (for example 100m). |
+| resources.requests.memory | string | `"64Mi"` | Container memory request as a Kubernetes quantity (for example 128Mi). |
+| schedulerName | string | `""` | Name of the k8s scheduler (other than default) |
+| serviceAccount.annotations | object | `{}` | Add annotations |
+| serviceAccount.automountServiceAccountToken | bool | `false` | Mount an API token in pods and on the ServiceAccount created by the chart. |
+| serviceAccount.create | bool | `true` | Specifies whether a dedicated service account should be created. |
+| serviceAccount.name | string | `""` | The name of the service account to use. If not set and create is true, a name is generated using the fullname template |
 | services.gtpu.annotations | object | `{}` |  |
-| services.gtpu.clusterIP | string | `""` |  |
-| services.gtpu.externalTrafficPolicy | string | `"Cluster"` |  |
+| services.gtpu.clusterIP | string | `""` | Fixed Service cluster IP; empty lets Kubernetes allocate it. |
+| services.gtpu.externalTrafficPolicy | string | `"Cluster"` | Traffic policy for externally exposed Services. |
 | services.gtpu.extraPorts | list | `[]` |  |
 | services.gtpu.loadBalancerIP | string | `""` |  |
 | services.gtpu.loadBalancerSourceRanges | list | `[]` |  |
-| services.gtpu.nodePorts.gtpu | string | `""` |  |
-| services.gtpu.ports.gtpu | int | `2152` |  |
-| services.gtpu.sessionAffinity | string | `"None"` |  |
+| services.gtpu.nodePorts.gtpu | string | `""` | NodePort override; empty lets Kubernetes allocate the port. |
+| services.gtpu.ports.gtpu | int | `2152` | Service port for GTP-U. |
+| services.gtpu.sessionAffinity | string | `"None"` | Service session-affinity policy. |
 | services.gtpu.sessionAffinityConfig | object | `{}` |  |
-| services.gtpu.type | string | `"ClusterIP"` |  |
+| services.gtpu.type | string | `"ClusterIP"` | Kubernetes Service type: ClusterIP, NodePort or LoadBalancer. |
 | services.pfcp.annotations | object | `{}` |  |
-| services.pfcp.clusterIP | string | `""` |  |
-| services.pfcp.externalTrafficPolicy | string | `"Cluster"` |  |
+| services.pfcp.clusterIP | string | `""` | Fixed Service cluster IP; empty lets Kubernetes allocate it. |
+| services.pfcp.externalTrafficPolicy | string | `"Cluster"` | Traffic policy for externally exposed Services. |
 | services.pfcp.extraPorts | list | `[]` |  |
 | services.pfcp.loadBalancerIP | string | `""` |  |
 | services.pfcp.loadBalancerSourceRanges | list | `[]` |  |
-| services.pfcp.nodePorts.pfcp | string | `""` |  |
-| services.pfcp.ports.pfcp | int | `8805` |  |
-| services.pfcp.sessionAffinity | string | `"None"` |  |
+| services.pfcp.nodePorts.pfcp | string | `""` | NodePort override; empty lets Kubernetes allocate the port. |
+| services.pfcp.ports.pfcp | int | `8805` | Service port for PFCP. |
+| services.pfcp.sessionAffinity | string | `"None"` | Service session-affinity policy. |
 | services.pfcp.sessionAffinityConfig | object | `{}` |  |
-| services.pfcp.type | string | `"ClusterIP"` |  |
-| sessionAffinity | string | `"None"` |  |
-| sidecars | list | `[]` |  |
-| tolerations | list | `[]` |  |
-| topologySpreadConstraints | list | `[]` |  |
-| updateStrategy.type | string | `"RollingUpdate"` |  |
+| services.pfcp.type | string | `"ClusterIP"` | Kubernetes Service type: ClusterIP, NodePort or LoadBalancer. |
+| sessionAffinity | string | `"None"` | Control where client requests go, to the same pod or round-robin. Values: ClientIP or None |
+| sidecars | list | `[]` | Attach additional containers to the pod (evaluated as a template) |
+| tolerations | list | `[]` | Tolerations for pod assignment |
+| topologySpreadConstraints | list | `[]` | Topology Spread Constraints for pod assignment |
+| updateStrategy.type | string | `"RollingUpdate"` | Update strategy - only really applicable for deployments with RWO PVs attached |
 
 ----------------------------------------------
-Autogenerated from chart metadata using [helm-docs v1.11.0](https://github.com/norwoodj/helm-docs/releases/v1.11.0)
+Autogenerated from chart metadata using [helm-docs v1.14.2](https://github.com/norwoodj/helm-docs/releases/v1.14.2)

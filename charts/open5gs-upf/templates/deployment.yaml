@@ -45,6 +45,7 @@ spec:
         nodeAffinity: {{- include "common.affinities.nodes" (dict "type" .Values.nodeAffinityPreset.type "key" .Values.nodeAffinityPreset.key "values" .Values.nodeAffinityPreset.values) | nindent 10 }}
       {{- end }}
       serviceAccountName: {{ include "open5gs.upf.serviceAccountName" . }}
+      automountServiceAccountToken: {{ .Values.serviceAccount.automountServiceAccountToken }}
       {{- if .Values.schedulerName }}
       schedulerName: {{ .Values.schedulerName }}
       {{- end }}
@@ -72,13 +73,19 @@ spec:
             - "-c"
             - "/k8s-entrypoint.sh"
           securityContext:
-            privileged: true
+            privileged: false
             runAsUser: 0
             runAsGroup: 0
             runAsNonRoot: false
+            allowPrivilegeEscalation: false
+            seccompProfile:
+              type: RuntimeDefault
             capabilities:
-              add: ["NET_ADMIN"]
+              drop: ["ALL"]
+              add: ["NET_ADMIN", "MKNOD"]
           volumeMounts:
+            - name: tun
+              mountPath: /dev/net
             - name: entrypoint
               mountPath:  /k8s-entrypoint.sh
               subPath: k8s-entrypoint.sh
@@ -177,6 +184,9 @@ spec:
           resources: {{- toYaml .Values.resources | nindent 12 }}
           {{- end }}
           volumeMounts:
+            - name: tun
+              mountPath: /dev/net
+              readOnly: true
             - name: config
               mountPath:  /opt/open5gs/etc/open5gs/upf.yaml
               subPath: "upf.yaml"
@@ -187,6 +197,8 @@ spec:
         {{- include "common.tplvalues.render" (dict "value" .Values.sidecars "context" $) | nindent 8 }}
         {{- end }}
       volumes:
+        - name: tun
+          emptyDir: {}
         - name: config
           configMap:
             name: {{ include "common.names.fullname" . }}

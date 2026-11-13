@@ -21,8 +21,13 @@ spec:
       labels: {{- include "common.labels.standard" . | nindent 8 }}
         app.kubernetes.io/component: populate
     spec:
+      serviceAccountName: {{ include "open5gs.populate.serviceAccountName" . }}
+      automountServiceAccountToken: {{ .Values.populate.serviceAccount.automountServiceAccountToken }}
       {{- include "open5gs.populate.imagePullSecrets" . | nindent 6 }}
       initContainers:
+      {{- if .Values.populate.mongodbWait.enabled }}
+      {{- include "open5gs.populate.waitForMongoDB" . | nindent 6 }}
+      {{- end }}
       - name: init
         image: {{ template "open5gs.populate.image" . }}
         imagePullPolicy: {{ .Values.populate.pullPolicy | quote }}

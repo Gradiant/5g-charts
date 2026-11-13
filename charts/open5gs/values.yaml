@@ -1,13 +1,58 @@
+# -- MongoDB URI for subscriber population; configure database-consuming subcharts separately. Helm templating is supported.
 dbURI: "mongodb://{{ .Release.Name }}-mongodb/open5gs"
 
 populate:
   enabled: true
   image:
+    # -- Container image registry.
     registry: docker.io
+    # -- Container image repository.
     repository: gradiant/open5gs-dbctl
+    # -- Container image tag.
     tag: 0.10.3
+    # -- Image pull policy: Always, IfNotPresent or Never.
     pullPolicy: IfNotPresent
+  # Wait for the configured database before starting Open5GS.
+  mongodbWait:
+    # -- Wait for a successful MongoDB ping before application or subscriber initialization.
+    enabled: true
+    # -- Maximum wait per init-container attempt in seconds (1-86400), not a fixed delay; Kubernetes may retry failed attempts.
+    timeoutSeconds: 300
+    # -- Delay between unsuccessful connection attempts in seconds (1-3600).
+    retryIntervalSeconds: 5
+    image:
+      # -- Container image registry.
+      registry: docker.io
+      # -- Container image repository.
+      repository: library/mongo
+      # -- Container image tag.
+      tag: "8.0.34"
+      # -- Optional image digest; takes precedence over the tag.
+      digest: ""
+      # -- Image pull policy: Always, IfNotPresent or Never.
+      pullPolicy: IfNotPresent
+    resources:
+      requests:
+        # -- Container cpu request as a Kubernetes quantity (for example 100m).
+        cpu: 50m
+        # -- Container memory request as a Kubernetes quantity (for example 128Mi).
+        memory: 128Mi
+      limits:
+        # -- Container cpu limit as a Kubernetes quantity (for example 100m).
+        cpu: "1"
+        # -- Container memory limit as a Kubernetes quantity (for example 128Mi).
+        memory: 512Mi
+
   initCommands: []
+  serviceAccount:
+    # -- Create a ServiceAccount for the populate Deployment
+    create: true
+    # -- The ServiceAccount to use; empty uses the fullname with a -populate suffix when create is true, otherwise default
+    name: ""
+    # -- Annotations for the ServiceAccount
+    annotations: {}
+    # -- Mount an API token; populate does not use the Kubernetes API
+    automountServiceAccountToken: false
   # example of initCommands:
   #  - open5gs-dbctl add 999700000000001 465B5CE8B199B49FAA5F0A2EE238A6BC E8ED289DEBA952E4283B54E88E6183CA
   #  - open5gs-dbctl add_ue_with_apn 999700000000002 465B5CE8B199B49FAA5F0A2EE238A6BC E8ED289DEBA952E4283B54E88E6183CA internet
@@ -15,19 +60,30 @@ populate:
 
 # Common
 mongodb:
+  # -- Deploy the bundled local MongoDB chart; disable it when using an external database.
   enabled: true
   image:
+    # -- Container image repository.
     repository: mongo
+    # -- Container image tag.
     tag: 8.0.34
   persistence:
+    # -- Use persistent storage; disabling it uses ephemeral storage.
     enabled: true
+    # -- Requested PVC capacity as a Kubernetes quantity, for example 8Gi.
     size: 8Gi
   auth:
+    # -- The local MongoDB chart does not implement authentication; keep false or use an authenticated external database.
     enabled: false
 smf:
   enabled: true
 upf:
   enabled: true
+  config:
+    upf:
+      pfcp:
+        # -- PFCP identity advertised by UPF; the umbrella uses its PFCP Service DNS name to keep peer addressing consistent.
+        advertise: '{{ include "common.names.fullname" . }}-pfcp.{{ .Release.Namespace }}.svc.{{ default "cluster.local" .Values.clusterDomain }}'
 webui:
   enabled: true
 
@@ -35,12 +91,14 @@ webui:
 hss:
   enabled: true
   mongodb:
+    # -- Deploy the bundled local MongoDB chart; disable it when using an external database.
     enabled: false
 mme:
   enabled: true
 pcrf:
   enabled: true
   mongodb:
+    # -- Deploy the bundled local MongoDB chart; disable it when using an external database.
     enabled: false
 sgwc:
   enabled: true
@@ -61,10 +119,12 @@ nssf:
 pcf:
   enabled: true
   mongodb:
+    # -- Deploy the bundled local MongoDB chart; disable it when using an external database.
     enabled: false
 scp:
   enabled: true
   mongodb:
+    # -- Compatibility value; the SCP chart does not deploy MongoDB.
     enabled: false
 sepp:
   enabled: true
@@ -73,4 +133,5 @@ udm:
 udr:
   enabled: true
   mongodb:
+    # -- Deploy the bundled local MongoDB chart; disable it when using an external database.
     enabled: false

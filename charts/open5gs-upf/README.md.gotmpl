@@ -1,0 +1,44 @@
+{{ template "5g-charts.metadata" . }}
+
+## Container permissions
+
+The init container creates `/dev/net/tun` in a shared `emptyDir` with
+`NET_ADMIN` and `MKNOD`, configures the persistent TUN interface and NAT, and
+assigns the interface to `containerSecurityContext.runAsUser` and
+`containerSecurityContext.runAsGroup`. The UPF mounts the device directory
+read-only and runs as UID/GID 999 without Linux capabilities. Both containers
+use `privileged: false`, disable privilege escalation and use `RuntimeDefault`
+seccomp. No device plugin or `hostPath` mount is used.
+
+The node must support TUN, and its runtime and admission policies must permit
+the init container's capabilities and access to character device 10:200. The
+init preserves IPv4 forwarding when it is already enabled. If forwarding is
+disabled, it attempts to enable it and fails if the runtime makes that sysctl
+read-only. This mode has been tested locally with kind/containerd; runtimes
+with stricter device policies may deny access even when the device node exists.
+
+## Health probes
+
+Startup checks are enabled immediately, with a budget of approximately five
+minutes (60 attempts at 5-second intervals). Once startup succeeds, readiness
+and liveness checks can begin without a fixed delay. Readiness uses three
+consecutive failures at 5-second intervals; liveness uses three at 10-second
+intervals. A successful readiness check can mark the Pod Ready immediately.
+
+`customStartupProbe`, `customReadinessProbe` and `customLivenessProbe` replace
+the corresponding default probe, including when its `enabled` flag is true.
+To omit a probe, disable it and leave its custom override empty. Startup and
+liveness `successThreshold` must remain 1; probe intervals and timeouts must be
+positive.
+
+The default probes check the local PFCP UDP socket. An open socket does not
+prove successful PFCP exchanges or end-to-end UE traffic.
+
+Application Services exclude unready Pods by default. Set
+`services.<name>.publishNotReadyAddresses=true` only when peer discovery or
+bootstrap requires publishing them before readiness. Metrics Services keep
+this setting enabled by default so unhealthy instances remain observable.
+
+{{ template "chart.valuesSection" . }}
+
+{{ template "helm-docs.versionFooter" . }}

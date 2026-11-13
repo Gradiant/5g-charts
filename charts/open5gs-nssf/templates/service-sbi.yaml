@@ -48,5 +48,5 @@ spec:
     {{- if .Values.services.sbi.extraPorts }}
     {{- include "common.tplvalues.render" (dict "value" .Values.services.sbi.extraPorts "context" $) | nindent 4 }}
     {{- end }}
-  publishNotReadyAddresses: true
+  publishNotReadyAddresses: {{ .Values.services.sbi.publishNotReadyAddresses }}
   selector: {{- include "common.labels.matchLabels" . | nindent 4 }}

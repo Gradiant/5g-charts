@@ -92,6 +92,12 @@
                             "items": {
                                 "type": "string"
                             }
+                        },
+                        "drop": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
                         }
                     }
                 },
@@ -103,6 +109,20 @@
                 },
                 "runAsNonRoot": {
                     "type": "boolean"
+                },
+                "runAsUser": {
+                    "type": "integer",
+                    "minimum": 0
+                },
+                "runAsGroup": {
+                    "type": "integer",
+                    "minimum": 0
+                },
+                "allowPrivilegeEscalation": {
+                    "type": "boolean"
+                },
+                "seccompProfile": {
+                    "type": "object"
                 }
             }
         },
@@ -198,19 +218,25 @@
                     "type": "boolean"
                 },
                 "failureThreshold": {
-                    "type": "integer"
+                    "type": "integer",
+                    "minimum": 1
                 },
                 "initialDelaySeconds": {
-                    "type": "integer"
+                    "type": "integer",
+                    "minimum": 0
                 },
                 "periodSeconds": {
-                    "type": "integer"
+                    "type": "integer",
+                    "minimum": 1
                 },
                 "successThreshold": {
-                    "type": "integer"
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 1
                 },
                 "timeoutSeconds": {
-                    "type": "integer"
+                    "type": "integer",
+                    "minimum": 1
                 }
             }
         },
@@ -332,19 +358,24 @@
                     "type": "boolean"
                 },
                 "failureThreshold": {
-                    "type": "integer"
+                    "type": "integer",
+                    "minimum": 1
                 },
                 "initialDelaySeconds": {
-                    "type": "integer"
+                    "type": "integer",
+                    "minimum": 0
                 },
                 "periodSeconds": {
-                    "type": "integer"
+                    "type": "integer",
+                    "minimum": 1
                 },
                 "successThreshold": {
-                    "type": "integer"
+                    "type": "integer",
+                    "minimum": 1
                 },
                 "timeoutSeconds": {
-                    "type": "integer"
+                    "type": "integer",
+                    "minimum": 1
                 }
             }
         },
@@ -388,6 +419,9 @@
                 "gtpu": {
                     "type": "object",
                     "properties": {
+                        "publishNotReadyAddresses": {
+                            "type": "boolean"
+                        },
                         "annotations": {
                             "type": "object"
                         },
@@ -436,6 +470,9 @@
                 "metrics": {
                     "type": "object",
                     "properties": {
+                        "publishNotReadyAddresses": {
+                            "type": "boolean"
+                        },
                         "annotations": {
                             "type": "object",
                             "properties": {
@@ -489,6 +526,9 @@
                 "pfcp": {
                     "type": "object",
                     "properties": {
+                        "publishNotReadyAddresses": {
+                            "type": "boolean"
+                        },
                         "annotations": {
                             "type": "object"
                         },
@@ -549,19 +589,25 @@
                     "type": "boolean"
                 },
                 "failureThreshold": {
-                    "type": "integer"
+                    "type": "integer",
+                    "minimum": 1
                 },
                 "initialDelaySeconds": {
-                    "type": "integer"
+                    "type": "integer",
+                    "minimum": 0
                 },
                 "periodSeconds": {
-                    "type": "integer"
+                    "type": "integer",
+                    "minimum": 1
                 },
                 "successThreshold": {
-                    "type": "integer"
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 1
                 },
                 "timeoutSeconds": {
-                    "type": "integer"
+                    "type": "integer",
+                    "minimum": 1
                 }
             }
         },
