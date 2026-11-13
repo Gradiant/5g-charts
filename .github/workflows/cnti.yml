@@ -1,6 +1,6 @@
 # Installs the 5G core from the open5gs chart on a kind cluster, runs the CNTi
-# Test Suite's essential tests against it and reports the result.
-# https://github.com/lfn-cnti/testsuite-action
+# Test Suite's essential tests against it and publishes the result as the badge
+# in the README. https://github.com/lfn-cnti/testsuite-action
 name: CNTi essential
 
 on:
@@ -26,20 +26,27 @@ concurrency:
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
+  # The weekly run and manual runs on main: the only runs that publish the
+  # badge, and the only ones with a write token. Forks that enable scheduled
+  # workflows do not run either job.
   essential:
-    # Forks that enable scheduled workflows do not run it.
-    if: github.repository == 'Gradiant/5g-charts'
+    if: github.repository == 'Gradiant/5g-charts' && github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
     # MongoDB 8.0 does not start on Linux kernels 6.19 through 7.0.13.
     # Ubuntu 22.04 runners use the compatible 6.8 kernel line.
     runs-on: ubuntu-22.04
     timeout-minutes: 90
-    env:
+    permissions:
+      # Publishes the badge to the orphan branch `badges`.
+      contents: write
+    env: &essential-env
       # Seventeen functions share the runner's four cores: scaling and
       # rollouts take longer than the suite's 60-second default.
       CNTI_TESTSUITE_GENERIC_OPERATION_TIMEOUT: "180"
-    steps:
+    steps: &essential-steps
       - uses: actions/checkout@v7.0.1
         with:
+          # The suite doesn't need the job's write token; the action passes it
+          # to the badge publisher on its own.
           persist-credentials: false
 
       # MongoDB and the Open5GS charts are local dependencies; the Bitnami
@@ -50,15 +57,19 @@ jobs:
           helm repo add bitnami https://charts.bitnami.com/bitnami
           helm dependency build charts/open5gs
 
-      - uses: lfn-cnti/testsuite-action@v1.2.0
+      - uses: lfn-cnti/testsuite-action@v1.4.0
         with:
           # A released suite version, bumped on purpose after reading the
           # release notes.
-          version: v2.2.0
+          version: v2.4.1
           cnf_config: .github/cnti/cnti-testsuite.yaml
           install_timeout: 1200
           tests: cert
           fail_on_failure: "true"
+          badge_branch: badges
+          # Known results (.github/cnti/expected.yaml): a test whose result
+          # changes is reported in the job summary and as a warning.
+          expected_results: .github/cnti/expected.yaml
 
       # Why did a function not come up? Pod state and events from the kind
       # cluster the action created; it lives until the job ends.
@@ -68,3 +79,15 @@ jobs:
           set +e
           kubectl get pods -n open5gs -o wide
           kubectl get events -n open5gs --sort-by=.lastTimestamp | tail -40
+
+  # Pull requests that change Open5GS or this check, and manual runs on other
+  # branches: the same steps with a read-only token. The action publishes the
+  # badge only from the default branch, so nothing is published here.
+  essential-pr:
+    if: github.repository == 'Gradiant/5g-charts' && (github.event_name == 'pull_request' || github.ref != 'refs/heads/main')
+    runs-on: ubuntu-22.04
+    timeout-minutes: 90
+    permissions:
+      contents: read
+    env: *essential-env
+    steps: *essential-steps
