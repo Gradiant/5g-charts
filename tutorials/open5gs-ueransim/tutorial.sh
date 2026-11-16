@@ -63,8 +63,9 @@ verify)
         grep -E "\[$ue\|nas\].*PDU Session establishment is successful" "$STATE/ues.log"
         mark "session_$index"
         kubectl -n "$NS" exec deployment/ueransim-gnb-ues -- \
-            ping -I "uesimtun$index" -c 5 -W 3 8.8.8.8 | tee "$STATE/traffic-$index.log"
-        grep -E '(^|[, ])0% packet loss' "$STATE/traffic-$index.log"
+            curl --ipv4 --noproxy '*' --interface "uesimtun$index" --fail --silent --show-error \
+            --connect-timeout 10 --max-time 30 https://example.com/ > "$STATE/traffic-$index.html"
+        grep -Fq 'Example Domain' "$STATE/traffic-$index.html"
         mark "traffic_$index"
     done
     kubectl -n "$NS" exec statefulset/open5gs-mongodb -- mongosh --quiet --eval \
@@ -94,6 +95,9 @@ diagnostics)
     kubectl -n "$NS" logs --all-containers --prefix --tail=200 \
         -l app.kubernetes.io/instance=open5gs > "$STATE/open5gs.log" 2>&1 || true
     kubectl -n "$NS" logs deployment/ueransim-gnb-ues > "$STATE/ues.log" 2>&1 || true
+    kubectl -n "$NS" exec deployment/ueransim-gnb-ues -- sh -c \
+        'for dev in eth0 uesimtun0 uesimtun1; do echo "HTTPS via $dev"; curl -4 --noproxy "*" --interface "$dev" -fsS --connect-timeout 5 --max-time 10 https://example.com/ || true; done' \
+        > "$STATE/network-diagnostics.log" 2>&1 || true
     ;;
 clean)
     helm uninstall ueransim-gnb open5gs --namespace "$NS" --ignore-not-found --wait --timeout 3m

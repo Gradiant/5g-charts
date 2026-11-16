@@ -46,6 +46,7 @@ source. The existing public tutorial URL is preserved.
   recorded proof. It never overwrites an existing review branch.
 - Merging tutorial changes to `main` repeats the published-package test and only
   then updates this tutorial's files in `gh-pages` and requests a Pages build.
+  The pipeline waits for that build and checks the public page's source commit.
 - Weekly and manual runs recheck the documented versions without publishing.
 
 All functional checks, including per-UE registration, PDU sessions, traffic and
@@ -53,6 +54,9 @@ cleanup, must pass. Artifacts record package hashes, runtime image digests,
 tool/kernel versions and the source fingerprint. Candidate or stale evidence
 cannot render a public page. This test does not validate other tutorials or
 interactive WebUI forms.
+
+Published-package checks also build a preview with the existing Jekyll site.
+The preview is attached as an artifact; it does not change live Pages.
 
 The repository Actions policy must allow GitHub Actions to create pull requests.
 Only the trusted proposal job receives PR/contents/actions write permissions;

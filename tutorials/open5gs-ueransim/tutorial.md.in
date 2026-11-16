@@ -20,8 +20,8 @@ for the lab. The automated reference environment is Ubuntu 22.04 on a GitHub
 hosted runner. The host kernel must support SCTP and TUN; MongoDB 8.0 must also
 support that kernel. The runner uses the Ubuntu 22.04 kernel line.
 
-The host needs outbound HTTPS to pull packages/images and outbound ICMP to
-8.8.8.8 for the connectivity checks. The simulated UE pod is privileged: use
+The host needs outbound HTTPS to pull packages/images and to reach
+`https://example.com/` for the connectivity checks. The simulated UE pod is privileged: use
 only a disposable lab cluster where this is permitted. MongoDB is ephemeral;
 the subscriber keys in these values are public test credentials. Do not use
 these values to upgrade an existing database.
@@ -67,10 +67,15 @@ bash tutorials/open5gs-ueransim/tutorial.sh verify
 ```
 
 This requires separate successful registration and PDU-session log entries for
-each UE, addresses on `uesimtun0` and `uesimtun1`, and five successful pings to
-8.8.8.8 through each tunnel (zero packet loss). It also queries MongoDB using
+each UE, addresses on `uesimtun0` and `uesimtun1`, and a successful IPv4 HTTPS
+request to `https://example.com/` explicitly bound to each tunnel. The response
+must contain `Example Domain`; curl is not allowed to use a proxy or fall back
+to the pod's normal interface. It also queries MongoDB using
 `mongosh`, adds and verifies a third subscriber, and checks the WebUI HTTP page.
 Pods being Ready alone is not sufficient.
+
+You may additionally run `ping -I uesimtun0 8.8.8.8` inside the UE pod when the
+host network permits outbound ICMP. Ping is not the automated traffic criterion.
 
 For interactive access, run in another terminal with the same kubeconfig:
 

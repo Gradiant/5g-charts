@@ -111,6 +111,26 @@ jobs:
       - name: Check the public-page render against the recorded proof
         if: success() && matrix.source == 'published' && github.event_name != 'workflow_run'
         run: python3 scripts/tutorials/ueransim.py render --state "$TUTORIAL_STATE_DIR"
+      - uses: actions/checkout@v7.0.1
+        if: success() && matrix.source == 'published' && github.event_name != 'workflow_run'
+        with:
+          ref: gh-pages
+          path: reports/pages-source
+          persist-credentials: false
+      - name: Prepare a preview using the existing site and URLs
+        if: success() && matrix.source == 'published' && github.event_name != 'workflow_run'
+        run: cp -R reports/tutorial-pages/. reports/pages-source/
+      - uses: actions/jekyll-build-pages@v1
+        if: success() && matrix.source == 'published' && github.event_name != 'workflow_run'
+        with:
+          source: reports/pages-source
+          destination: reports/site-preview
+      - uses: actions/upload-artifact@v4
+        if: success() && matrix.source == 'published' && github.event_name != 'workflow_run'
+        with:
+          name: ueransim-site-preview
+          path: reports/site-preview/
+          retention-days: 14
       - name: Include the tested version manifest
         if: always()
         run: |
@@ -191,3 +211,24 @@ jobs:
           fi
           # GITHUB_TOKEN pushes do not automatically build legacy Pages.
           gh api --method POST "repos/$GITHUB_REPOSITORY/pages/builds"
+          revision=$(git rev-parse HEAD)
+          built=false
+          for attempt in $(seq 1 60); do
+            result=$(gh api "repos/$GITHUB_REPOSITORY/pages/builds/latest" --jq '[.status,.commit] | @tsv')
+            read -r status commit <<< "$result"
+            if [[ "$commit" == "$revision" ]]; then
+              if [[ "$status" == errored ]]; then echo "Pages build failed" >&2; exit 1; fi
+              if [[ "$status" == built ]]; then built=true; break; fi
+            fi
+            sleep 5
+          done
+          [[ "$built" == true ]]
+          site=$(gh api "repos/$GITHUB_REPOSITORY/pages" --jq .html_url)
+          for attempt in $(seq 1 12); do
+            if curl --fail --silent --show-error "${site}open5gs-ueransim-gnb.html?revision=$revision" | grep -Fq "$GITHUB_SHA"; then
+              exit 0
+            fi
+            sleep 5
+          done
+          echo "Published page did not expose the validated source commit" >&2
+          exit 1
