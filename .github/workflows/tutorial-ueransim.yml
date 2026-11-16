@@ -225,8 +225,8 @@ jobs:
           [[ "$built" == true ]]
           site=$(gh api "repos/$GITHUB_REPOSITORY/pages" --jq .html_url)
           for attempt in $(seq 1 12); do
-            if curl --fail --silent --show-error "${site}open5gs-ueransim-gnb.html?revision=$revision" | grep -Fq "$GITHUB_SHA"; then
-              exit 0
+            if curl --fail --silent --show-error "${site}open5gs-ueransim-gnb.html?revision=$revision" --output "$RUNNER_TEMP/published-tutorial.html"; then
+              if grep -Fq "$GITHUB_SHA" "$RUNNER_TEMP/published-tutorial.html"; then exit 0; fi
             fi
             sleep 5
           done
