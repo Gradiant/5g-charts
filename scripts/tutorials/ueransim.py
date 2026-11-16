@@ -64,7 +64,7 @@ def validate_proof(root, proof):
         raise ValueError("All functional checks must pass")
     if not re.fullmatch(r"[0-9a-f]{40}", proof.get("commit", "")):
         raise ValueError("Validation must identify a source commit")
-    datetime.fromisoformat(proof["validated_at"])
+    datetime.fromisoformat(proof["validated_at"].replace("Z", "+00:00"))
     if proof.get("run_url") and not re.fullmatch(
         r"https://github\.com/Gradiant/5g-charts/actions/runs/[0-9]+", proof["run_url"]
     ):
@@ -91,6 +91,7 @@ def render(root, output, proof):
                                 ("ueransim-values.yaml", "gnb-ues-values.yaml"),
                                 ("versions.json", "versions.json")):
         shutil.copyfile(directory / source, assets / destination)
+    (assets / "validation.json").write_text(json.dumps(proof, indent=2) + "\n")
 
 
 def record(root, state, source):

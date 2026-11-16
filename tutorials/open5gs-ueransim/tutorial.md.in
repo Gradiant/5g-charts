@@ -9,7 +9,8 @@ traffic through both UE tunnels. No radio hardware is required. This does not
 validate a production deployment, legacy EPC, or every Kubernetes distribution.
 
 Validated: **@VALIDATED_AT@**, Open5GS chart **@OPEN5GS_VERSION@**, UERANSIM chart
-**@UERANSIM_VERSION@**. [Validation run](@RUN_URL@).
+**@UERANSIM_VERSION@**. [Validation run](@RUN_URL@) and
+[recorded environment, checks and image digests](docs/open5gs-ueransim-gnb/validation.json).
 
 ## Prerequisites
 

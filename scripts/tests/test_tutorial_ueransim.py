@@ -177,6 +177,27 @@ class TutorialProof(unittest.TestCase):
                                      "TUTORIAL_STATE_DIR": str(self.root / 'state')}, capture_output=True)
         self.assertNotEqual(result.returncode, 0)
 
+    def test_version_proposal_skips_semantically_unchanged_pins(self):
+        report = self.root / "reports/verified"
+        report.mkdir(parents=True)
+        (report / "versions.json").write_text(json.dumps(self.versions, separators=(',', ':')))
+        result = subprocess.run(['bash', str(ROOT / 'scripts/tutorials/propose-ueransim.sh')],
+                                cwd=self.root, capture_output=True, text=True)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertIn('no documentation PR needed', result.stdout)
+
+    def test_version_proposal_rejects_stale_evidence_before_git_or_github(self):
+        import shutil
+        report = self.root / "reports/verified"
+        report.mkdir(parents=True)
+        (report / "versions.json").write_text(json.dumps({**self.versions, 'open5gs': '2.4.2'}))
+        (report / "validation.json").write_text(json.dumps(self.proof()))
+        shutil.copyfile(ROOT / 'scripts/tutorials/ueransim.py', self.root / 'scripts/tutorials/ueransim.py')
+        result = subprocess.run(['bash', str(ROOT / 'scripts/tutorials/propose-ueransim.sh')],
+                                cwd=self.root, capture_output=True, text=True)
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn('Validation is stale', result.stderr)
+
 
 if __name__ == "__main__":
     unittest.main()

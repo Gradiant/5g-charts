@@ -91,6 +91,7 @@ jobs:
           RELEASE_SHA: ${{ github.event.workflow_run.head_sha }}
         run: python3 scripts/tutorials/ueransim.py select-release --ref "$RELEASE_SHA"
       - uses: helm/kind-action@v1.15.0
+        id: cluster
         with:
           cluster_name: 5g-tutorial
           version: v0.33.0
@@ -102,11 +103,14 @@ jobs:
       - name: Verify two UEs, data traffic, subscribers and WebUI
         run: bash tutorials/open5gs-ueransim/tutorial.sh verify
       - name: Collect diagnostics
-        if: always()
+        if: always() && steps.cluster.outcome == 'success'
         run: bash tutorials/open5gs-ueransim/tutorial.sh diagnostics
       - name: Verify cleanup and record evidence
-        if: always()
+        if: always() && steps.cluster.outcome == 'success'
         run: bash tutorials/open5gs-ueransim/tutorial.sh clean
+      - name: Check the public-page render against the recorded proof
+        if: success() && matrix.source == 'published' && github.event_name != 'workflow_run'
+        run: python3 scripts/tutorials/ueransim.py render --state "$TUTORIAL_STATE_DIR"
       - name: Include the tested version manifest
         if: always()
         run: |

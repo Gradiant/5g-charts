@@ -3,7 +3,12 @@
 set -euo pipefail
 DIR=tutorials/open5gs-ueransim
 REPORT=reports/verified
-if cmp -s "$DIR/versions.json" "$REPORT/versions.json"; then
+if python3 - "$DIR/versions.json" "$REPORT/versions.json" <<'PY'
+import json,sys
+from pathlib import Path
+sys.exit(0 if json.loads(Path(sys.argv[1]).read_text()) == json.loads(Path(sys.argv[2]).read_text()) else 1)
+PY
+then
     echo "Documented versions already match; no documentation PR needed."
     exit 0
 fi
