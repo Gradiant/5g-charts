@@ -31,6 +31,34 @@ We have developed some tutorials meant to **guide you through the combined deplo
 These tutorials make use of charts available at this repo, and their corresponding documentation can be found at:
 [https://gradiant.github.io/5g-charts/](https://gradiant.github.io/5g-charts/)
 
+### Executable UERANSIM tutorial
+
+The maintained source for the Open5GS + UERANSIM tutorial is
+[`tutorials/open5gs-ueransim`](tutorials/open5gs-ueransim). Its `tutorial.sh`
+contains the commands used by readers and by `.github/workflows/tutorial-ueransim.yml`.
+`versions.json` pins the published chart versions; `tutorial.md.in` is the Pages
+source. The existing public tutorial URL is preserved.
+
+- Chart pull requests test candidate charts on a fresh Kind cluster. Changes to
+  the tutorial also test the pinned public packages. Neither can publish documentation.
+- A successful **Release Charts** run tests the newly published versions. When
+  the pins change, a separate trusted job opens a documentation PR with the
+  recorded proof. It never overwrites an existing review branch.
+- Merging tutorial changes to `main` repeats the published-package test and only
+  then updates this tutorial's files in `gh-pages` and requests a Pages build.
+- Weekly and manual runs recheck the documented versions without publishing.
+
+All functional checks, including per-UE registration, PDU sessions, traffic and
+cleanup, must pass. Artifacts record package hashes, runtime image digests,
+tool/kernel versions and the source fingerprint. Candidate or stale evidence
+cannot render a public page. This test does not validate other tutorials or
+interactive WebUI forms.
+
+The repository Actions policy must allow GitHub Actions to create pull requests.
+Only the trusted proposal job receives PR/contents/actions write permissions;
+only the publication job receives Pages write permissions. Neither runs PR code.
+Bot PRs explicitly dispatch the read-only checks; no personal token is required.
+
 ## Development
 
 - clone repo

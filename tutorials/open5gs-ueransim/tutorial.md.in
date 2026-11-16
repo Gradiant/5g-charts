@@ -1,0 +1,101 @@
+---
+title: Open5GS and UERANSIM
+---
+
+# Open5GS and UERANSIM: two simulated UEs
+
+This disposable lab registers two UEs, establishes their PDU sessions, and sends
+traffic through both UE tunnels. No radio hardware is required. This does not
+validate a production deployment, legacy EPC, or every Kubernetes distribution.
+
+Validated: **@VALIDATED_AT@**, Open5GS chart **@OPEN5GS_VERSION@**, UERANSIM chart
+**@UERANSIM_VERSION@**. [Validation run](@RUN_URL@).
+
+## Prerequisites
+
+Use a Linux x86-64 host with Docker, Kind 0.33.0, kubectl 1.37 and Helm 4.3,
+Bash, Python 3, curl and Git. Allow at least 4 CPUs and 8 GiB available memory
+for the lab. The automated reference environment is Ubuntu 22.04 on a GitHub
+hosted runner. The host kernel must support SCTP and TUN; MongoDB 8.0 must also
+support that kernel. The runner uses the Ubuntu 22.04 kernel line.
+
+The host needs outbound HTTPS to pull packages/images and outbound ICMP to
+8.8.8.8 for the connectivity checks. The simulated UE pod is privileged: use
+only a disposable lab cluster where this is permitted. MongoDB is ephemeral;
+the subscriber keys in these values are public test credentials. Do not use
+these values to upgrade an existing database.
+
+## Get the exact tested instructions
+
+```bash
+git clone https://github.com/Gradiant/5g-charts.git
+cd 5g-charts
+git checkout @COMMIT@
+export KUBECONFIG="$PWD/reports/tutorial-kubeconfig"
+mkdir -p reports
+kind create cluster --name 5g-tutorial --wait 120s \
+  --image kindest/node:v1.37.0@sha256:a1ed56cfb0e7b93589bdf97c8cd566405a265939e3620fc4f5de89adff580ae5 \
+  --kubeconfig "$KUBECONFIG"
+```
+
+Keep this kubeconfig in the same shell for every following command. Use a new
+cluster: the scripts refuse contexts other than `kind-5g-tutorial`.
+
+## Install the published charts
+
+```bash
+bash tutorials/open5gs-ueransim/tutorial.sh install
+```
+
+The [script](https://github.com/Gradiant/5g-charts/blob/@COMMIT@/tutorials/open5gs-ueransim/tutorial.sh)
+downloads both charts from `oci://registry-1.docker.io/gradiantcharts` at the
+versions in `versions.json`, then uses `helm upgrade --install --wait` with the
+two checked-in values files. Those are the same commands used in validation.
+
+- [Open5GS values](docs/open5gs-ueransim-gnb/5gSA-values.yaml): enable WebUI and
+  subscriber population, disable legacy 4G functions, use PLMN 999/70 and slice
+  SST 1 / SD 111111, and create subscribers 999700000000001 and 999700000000002.
+- [UERANSIM values](docs/open5gs-ueransim-gnb/gnb-ues-values.yaml): launch a gNB
+  and two matching UEs. All releases use namespace `open5gs-tutorial`; the AMF
+  Service name is `open5gs-amf-ngap`.
+
+## Verify the complete connection
+
+```bash
+bash tutorials/open5gs-ueransim/tutorial.sh verify
+```
+
+This requires separate successful registration and PDU-session log entries for
+each UE, addresses on `uesimtun0` and `uesimtun1`, and five successful pings to
+8.8.8.8 through each tunnel (zero packet loss). It also queries MongoDB using
+`mongosh`, adds and verifies a third subscriber, and checks the WebUI HTTP page.
+Pods being Ready alone is not sufficient.
+
+For interactive access, run in another terminal with the same kubeconfig:
+
+```bash
+kubectl -n open5gs-tutorial port-forward service/open5gs-webui 9999:9999
+```
+
+Open http://localhost:9999. Automated validation checks HTTP access, not the
+interactive login or subscriber form. Those are not claimed as validated steps.
+
+On a failure, preserve the environment while inspecting the reports:
+
+```bash
+bash tutorials/open5gs-ueransim/tutorial.sh diagnostics
+```
+
+Logs and evidence are stored under `reports/tutorial-ueransim/`. A failed check
+exits nonzero; do not treat a partly working deployment as a successful run.
+
+## Clean up
+
+```bash
+bash tutorials/open5gs-ueransim/tutorial.sh clean
+kind delete cluster --name 5g-tutorial
+```
+
+The first command uninstalls both releases, verifies their pods are gone and
+records the validation result. The second deletes the disposable cluster and
+its ephemeral database. It does not delete any other cluster.

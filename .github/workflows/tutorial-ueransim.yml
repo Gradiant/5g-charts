@@ -1,0 +1,189 @@
+name: Tutorial Open5GS UERANSIM
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'charts/open5gs/**'
+      - 'charts/open5gs-*/**'
+      - 'charts/mongodb/**'
+      - 'charts/ueransim-gnb/**'
+      - 'tutorials/open5gs-ueransim/**'
+      - 'scripts/tutorials/**'
+      - 'scripts/tests/test_tutorial_ueransim.py'
+      - '.github/workflows/tutorial-ueransim.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'tutorials/open5gs-ueransim/**'
+      - 'scripts/tutorials/**'
+      - '.github/workflows/tutorial-ueransim.yml'
+  workflow_run:
+    workflows: [Release Charts]
+    types: [completed]
+    branches: [main]
+  workflow_dispatch:
+  schedule:
+    - cron: '17 4 * * 1'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: tutorial-ueransim-${{ github.event.pull_request.number || github.event_name }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  scope:
+    runs-on: ubuntu-22.04
+    outputs:
+      sources: ${{ steps.select.outputs.sources }}
+    steps:
+      - uses: actions/checkout@v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - id: select
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        run: |
+          sources='["published"]'
+          if [[ "$GITHUB_EVENT_NAME" == pull_request ]]; then
+            sources='["candidate"]'
+            if ! git diff --quiet "$BASE_SHA" HEAD -- tutorials/open5gs-ueransim scripts/tutorials scripts/tests/test_tutorial_ueransim.py .github/workflows/tutorial-ueransim.yml; then
+              sources='["candidate","published"]'
+            fi
+          fi
+          echo "sources=$sources" >> "$GITHUB_OUTPUT"
+
+  validate:
+    needs: scope
+    if: >-
+      github.repository == 'Gradiant/5g-charts' &&
+      (github.event_name != 'workflow_run' ||
+       (github.event.workflow_run.conclusion == 'success' &&
+        github.event.workflow_run.head_repository.full_name == github.repository &&
+        github.event.workflow_run.head_branch == 'main'))
+    runs-on: ubuntu-22.04
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        source: ${{ fromJSON(needs.scope.outputs.sources) }}
+    env:
+      TUTORIAL_SOURCE: ${{ matrix.source }}
+      TUTORIAL_STATE_DIR: ${{ github.workspace }}/reports/tutorial-ueransim
+      TUTORIAL_RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+    steps:
+      - uses: actions/checkout@v7.0.1
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Test publication proof gates
+        run: python3 scripts/tests/test_tutorial_ueransim.py -v
+      - uses: azure/setup-helm@v5.0.1
+        with:
+          version: v4.3.0
+      - name: Select newly released chart versions
+        if: github.event_name == 'workflow_run'
+        env:
+          RELEASE_SHA: ${{ github.event.workflow_run.head_sha }}
+        run: python3 scripts/tutorials/ueransim.py select-release --ref "$RELEASE_SHA"
+      - uses: helm/kind-action@v1.15.0
+        with:
+          cluster_name: 5g-tutorial
+          version: v0.33.0
+          node_image: kindest/node:v1.37.0@sha256:a1ed56cfb0e7b93589bdf97c8cd566405a265939e3620fc4f5de89adff580ae5
+          kubectl_version: v1.37.0
+          wait: 120s
+      - name: Install the tutorial
+        run: bash tutorials/open5gs-ueransim/tutorial.sh install
+      - name: Verify two UEs, data traffic, subscribers and WebUI
+        run: bash tutorials/open5gs-ueransim/tutorial.sh verify
+      - name: Collect diagnostics
+        if: always()
+        run: bash tutorials/open5gs-ueransim/tutorial.sh diagnostics
+      - name: Verify cleanup and record evidence
+        if: always()
+        run: bash tutorials/open5gs-ueransim/tutorial.sh clean
+      - name: Include the tested version manifest
+        if: always()
+        run: |
+          mkdir -p "$TUTORIAL_STATE_DIR"
+          cp tutorials/open5gs-ueransim/versions.json "$TUTORIAL_STATE_DIR/versions.json"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: ueransim-${{ matrix.source }}
+          path: reports/tutorial-ueransim/
+          retention-days: 14
+
+  propose-docs:
+    needs: validate
+    if: github.event_name == 'workflow_run'
+    runs-on: ubuntu-22.04
+    permissions:
+      contents: write
+      pull-requests: write
+      actions: write
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      # The write job runs trusted main code, never code checked out from a PR.
+      - uses: actions/checkout@v7.0.1
+        with:
+          ref: main
+      - uses: actions/download-artifact@v4
+        with:
+          name: ueransim-published
+          path: reports/verified
+      - name: Propose only a verified version change
+        run: bash scripts/tutorials/propose-ueransim.sh
+
+  publish-pages:
+    needs: validate
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-22.04
+    concurrency:
+      group: tutorial-pages-publication
+      cancel-in-progress: false
+    permissions:
+      contents: write
+      pages: write
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/download-artifact@v4
+        with:
+          name: ueransim-published
+          path: reports/verified
+      - name: Render only from a complete, matching published-package proof
+        run: python3 scripts/tutorials/ueransim.py render --state reports/verified --output reports/pages
+      - uses: actions/checkout@v7.0.1
+        with:
+          ref: gh-pages
+          path: pages-checkout
+      - name: Update the existing tutorial URLs and request the legacy Pages build
+        run: |
+          git fetch origin main
+          if ! git diff --quiet "$GITHUB_SHA" origin/main -- tutorials/open5gs-ueransim scripts/tutorials/ueransim.py; then
+            echo "Newer tutorial sources exist on main; leaving publication to their validation run."
+            exit 0
+          fi
+          cp reports/pages/open5gs-ueransim-gnb.md pages-checkout/open5gs-ueransim-gnb.md
+          mkdir -p pages-checkout/docs/open5gs-ueransim-gnb
+          cp reports/pages/docs/open5gs-ueransim-gnb/* pages-checkout/docs/open5gs-ueransim-gnb/
+          cd pages-checkout
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add open5gs-ueransim-gnb.md docs/open5gs-ueransim-gnb/
+          if ! git diff --cached --quiet; then
+            git commit -m "Publish validated Open5GS UERANSIM tutorial"
+            git push origin HEAD:gh-pages
+          fi
+          # GITHUB_TOKEN pushes do not automatically build legacy Pages.
+          gh api --method POST "repos/$GITHUB_REPOSITORY/pages/builds"
