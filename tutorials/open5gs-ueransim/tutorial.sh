@@ -54,6 +54,12 @@ verify)
         sleep 3
     done
     [[ "$connected" == true ]] || { cat "$STATE/tunnels.log"; exit 1; }
+    # The published UERANSIM image has curl but no CA bundle. Keep TLS verification enabled.
+    ca=/etc/ssl/certs/ca-certificates.crt
+    [[ -r "$ca" ]] || { echo "Install the host ca-certificates package first." >&2; exit 1; }
+    sha256sum "$ca" > "$STATE/ca-bundle.sha256"
+    kubectl -n "$NS" exec -i deployment/ueransim-gnb-ues -- \
+        sh -c 'cat > /tmp/tutorial-ca-certificates.crt' < "$ca"
     kubectl -n "$NS" logs deployment/ueransim-gnb-ues --all-containers > "$STATE/ues.log"
     # The two IMSIs must each register and establish a session. The image prefixes each UE's log.
     for index in 0 1; do
@@ -64,7 +70,8 @@ verify)
         mark "session_$index"
         kubectl -n "$NS" exec deployment/ueransim-gnb-ues -- \
             curl --ipv4 --noproxy '*' --interface "uesimtun$index" --fail --silent --show-error \
-            --connect-timeout 10 --max-time 30 https://example.com/ > "$STATE/traffic-$index.html"
+            --cacert /tmp/tutorial-ca-certificates.crt --connect-timeout 10 --max-time 30 \
+            https://example.com/ > "$STATE/traffic-$index.html"
         grep -Fq 'Example Domain' "$STATE/traffic-$index.html"
         mark "traffic_$index"
     done
@@ -96,7 +103,7 @@ diagnostics)
         -l app.kubernetes.io/instance=open5gs > "$STATE/open5gs.log" 2>&1 || true
     kubectl -n "$NS" logs deployment/ueransim-gnb-ues > "$STATE/ues.log" 2>&1 || true
     kubectl -n "$NS" exec deployment/ueransim-gnb-ues -- sh -c \
-        'for dev in eth0 uesimtun0 uesimtun1; do echo "HTTPS via $dev"; curl -4 --noproxy "*" --interface "$dev" -fsS --connect-timeout 5 --max-time 10 https://example.com/ || true; done' \
+        'for dev in eth0 uesimtun0 uesimtun1; do echo "HTTPS via $dev"; curl -4 --noproxy "*" --interface "$dev" --cacert /tmp/tutorial-ca-certificates.crt -fsS --connect-timeout 5 --max-time 10 https://example.com/ || true; done' \
         > "$STATE/network-diagnostics.log" 2>&1 || true
     ;;
 clean)

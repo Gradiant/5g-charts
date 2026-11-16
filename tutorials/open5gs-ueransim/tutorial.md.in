@@ -15,7 +15,8 @@ Validated: **@VALIDATED_AT@**, Open5GS chart **@OPEN5GS_VERSION@**, UERANSIM cha
 ## Prerequisites
 
 Use a Linux x86-64 host with Docker, Kind 0.33.0, kubectl 1.37 and Helm 4.3,
-Bash, Python 3, curl and Git. Allow at least 4 CPUs and 8 GiB available memory
+Bash, Python 3, curl, Git and the host `ca-certificates` package (with readable
+`/etc/ssl/certs/ca-certificates.crt`). Allow at least 4 CPUs and 8 GiB available memory
 for the lab. The automated reference environment is Ubuntu 22.04 on a GitHub
 hosted runner. The host kernel must support SCTP and TUN; MongoDB 8.0 must also
 support that kernel. The runner uses the Ubuntu 22.04 kernel line.
@@ -73,6 +74,11 @@ must contain `Example Domain`; curl is not allowed to use a proxy or fall back
 to the pod's normal interface. It also queries MongoDB using
 `mongosh`, adds and verifies a third subscriber, and checks the WebUI HTTP page.
 Pods being Ready alone is not sufficient.
+
+The published UERANSIM image does not provide the CA file expected by curl.
+The script copies the host's CA bundle to `/tmp/tutorial-ca-certificates.crt`
+inside the disposable UE pod and passes it explicitly to curl. TLS certificate
+verification remains enabled; the bundle hash is recorded in the reports.
 
 You may additionally run `ping -I uesimtun0 8.8.8.8` inside the UE pod when the
 host network permits outbound ICMP. Ping is not the automated traffic criterion.
