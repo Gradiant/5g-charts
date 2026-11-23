@@ -1,0 +1,261 @@
+{
+  "source": "published",
+  "versions": {
+    "open5gs": "2.4.1",
+    "ueransim-gnb": "0.2.6"
+  },
+  "checks": {
+    "registration_0": true,
+    "session_0": true,
+    "traffic_0": true,
+    "registration_1": true,
+    "session_1": true,
+    "traffic_1": true,
+    "subscribers": true,
+    "additional_subscriber": true,
+    "webui": true,
+    "cleanup": true
+  },
+  "fingerprint": "b5fb61060e2e6b01bc8ae2592e6b39820250357b3acbb110fb1c9c5d5cd5133d",
+  "validated_at": "2026-11-23T14:41:34.224718+00:00",
+  "commit": "442da6b17a7cbdec220554f130fc5a478b6adfa7",
+  "kernel": "6.8.0-1070-azure",
+  "committed": true,
+  "run_url": "https://github.com/Gradiant/5g-charts/actions/runs/45196439706",
+  "images": [
+    {
+      "pod": "open5gs-amf-565ddcd76-trjws",
+      "containers": [
+        {
+          "name": "open5gs-amf",
+          "image": "docker.io/gradiant/open5gs:2.8.0",
+          "imageID": "docker.io/gradiant/open5gs@sha256:012d47b034b3ace4fd2fa41e861cd2453bead9a50b12bb60f31c2c1be2209bdb"
+        }
+      ]
+    },
+    {
+      "pod": "open5gs-ausf-df4f4565d-f77ss",
+      "containers": [
+        {
+          "name": "open5gs-ausf",
+          "image": "docker.io/gradiant/open5gs:2.8.0",
+          "imageID": "docker.io/gradiant/open5gs@sha256:012d47b034b3ace4fd2fa41e861cd2453bead9a50b12bb60f31c2c1be2209bdb"
+        }
+      ]
+    },
+    {
+      "pod": "open5gs-bsf-6f9945d988-gtvbf",
+      "containers": [
+        {
+          "name": "open5gs-bsf",
+          "image": "docker.io/gradiant/open5gs:2.8.0",
+          "imageID": "docker.io/gradiant/open5gs@sha256:012d47b034b3ace4fd2fa41e861cd2453bead9a50b12bb60f31c2c1be2209bdb"
+        }
+      ]
+    },
+    {
+      "pod": "open5gs-mongodb-0",
+      "containers": [
+        {
+          "name": "install-tini",
+          "image": "docker.io/gradiant/open5gs:2.8.0",
+          "imageID": "docker.io/gradiant/open5gs@sha256:012d47b034b3ace4fd2fa41e861cd2453bead9a50b12bb60f31c2c1be2209bdb"
+        },
+        {
+          "name": "mongodb",
+          "image": "docker.io/library/mongo:8.0.34",
+          "imageID": "docker.io/library/mongo@sha256:b9924c330a8bbc5800fe9c69f04a84e221eca7b28fd049a0354147d9908fa142"
+        }
+      ]
+    },
+    {
+      "pod": "open5gs-nrf-7b8dbb7bc4-tnjld",
+      "containers": [
+        {
+          "name": "open5gs-nrf",
+          "image": "docker.io/gradiant/open5gs:2.8.0",
+          "imageID": "docker.io/gradiant/open5gs@sha256:012d47b034b3ace4fd2fa41e861cd2453bead9a50b12bb60f31c2c1be2209bdb"
+        }
+      ]
+    },
+    {
+      "pod": "open5gs-nssf-84dc94484d-8j22r",
+      "containers": [
+        {
+          "name": "open5gs-nssf",
+          "image": "docker.io/gradiant/open5gs:2.8.0",
+          "imageID": "docker.io/gradiant/open5gs@sha256:012d47b034b3ace4fd2fa41e861cd2453bead9a50b12bb60f31c2c1be2209bdb"
+        }
+      ]
+    },
+    {
+      "pod": "open5gs-pcf-67f9cc79ff-mn7qc",
+      "containers": [
+        {
+          "name": "wait-for-mongodb",
+          "image": "docker.io/library/mongo:8.0.34",
+          "imageID": "docker.io/library/mongo@sha256:b9924c330a8bbc5800fe9c69f04a84e221eca7b28fd049a0354147d9908fa142"
+        },
+        {
+          "name": "open5gs-pcf",
+          "image": "docker.io/gradiant/open5gs:2.8.0",
+          "imageID": "docker.io/gradiant/open5gs@sha256:012d47b034b3ace4fd2fa41e861cd2453bead9a50b12bb60f31c2c1be2209bdb"
+        }
+      ]
+    },
+    {
+      "pod": "open5gs-populate-7574686c8b-stxlr",
+      "containers": [
+        {
+          "name": "wait-for-mongodb",
+          "image": "docker.io/library/mongo:8.0.34",
+          "imageID": "docker.io/library/mongo@sha256:b9924c330a8bbc5800fe9c69f04a84e221eca7b28fd049a0354147d9908fa142"
+        },
+        {
+          "name": "init",
+          "image": "docker.io/gradiant/open5gs-dbctl:0.10.3",
+          "imageID": "docker.io/gradiant/open5gs-dbctl@sha256:332031245fceb7714e295c235faf974dcb7ab5538bcbb51600bd219088602197"
+        },
+        {
+          "name": "populate",
+          "image": "docker.io/gradiant/open5gs-dbctl:0.10.3",
+          "imageID": "docker.io/gradiant/open5gs-dbctl@sha256:332031245fceb7714e295c235faf974dcb7ab5538bcbb51600bd219088602197"
+        }
+      ]
+    },
+    {
+      "pod": "open5gs-scp-586dbf8cc8-lrr9x",
+      "containers": [
+        {
+          "name": "open5gs-scp",
+          "image": "docker.io/gradiant/open5gs:2.8.0",
+          "imageID": "docker.io/gradiant/open5gs@sha256:012d47b034b3ace4fd2fa41e861cd2453bead9a50b12bb60f31c2c1be2209bdb"
+        }
+      ]
+    },
+    {
+      "pod": "open5gs-smf-77cb4db7bc-s2qdn",
+      "containers": [
+        {
+          "name": "open5gs-smf",
+          "image": "docker.io/gradiant/open5gs:2.8.0",
+          "imageID": "docker.io/gradiant/open5gs@sha256:012d47b034b3ace4fd2fa41e861cd2453bead9a50b12bb60f31c2c1be2209bdb"
+        }
+      ]
+    },
+    {
+      "pod": "open5gs-udm-6c57465dd4-bt2nx",
+      "containers": [
+        {
+          "name": "open5gs-udm",
+          "image": "docker.io/gradiant/open5gs:2.8.0",
+          "imageID": "docker.io/gradiant/open5gs@sha256:012d47b034b3ace4fd2fa41e861cd2453bead9a50b12bb60f31c2c1be2209bdb"
+        }
+      ]
+    },
+    {
+      "pod": "open5gs-udr-69f79456f9-vz5g8",
+      "containers": [
+        {
+          "name": "wait-for-mongodb",
+          "image": "docker.io/library/mongo:8.0.34",
+          "imageID": "docker.io/library/mongo@sha256:b9924c330a8bbc5800fe9c69f04a84e221eca7b28fd049a0354147d9908fa142"
+        },
+        {
+          "name": "open5gs-udr",
+          "image": "docker.io/gradiant/open5gs:2.8.0",
+          "imageID": "docker.io/gradiant/open5gs@sha256:012d47b034b3ace4fd2fa41e861cd2453bead9a50b12bb60f31c2c1be2209bdb"
+        }
+      ]
+    },
+    {
+      "pod": "open5gs-upf-85c49798bc-wvq7l",
+      "containers": [
+        {
+          "name": "tun-create",
+          "image": "docker.io/gradiant/open5gs:2.8.0",
+          "imageID": "docker.io/gradiant/open5gs@sha256:012d47b034b3ace4fd2fa41e861cd2453bead9a50b12bb60f31c2c1be2209bdb"
+        },
+        {
+          "name": "open5gs-upf",
+          "image": "docker.io/gradiant/open5gs:2.8.0",
+          "imageID": "docker.io/gradiant/open5gs@sha256:012d47b034b3ace4fd2fa41e861cd2453bead9a50b12bb60f31c2c1be2209bdb"
+        }
+      ]
+    },
+    {
+      "pod": "open5gs-webui-7f788fc46b-dfq2z",
+      "containers": [
+        {
+          "name": "wait-for-mongodb",
+          "image": "docker.io/library/mongo:8.0.34",
+          "imageID": "docker.io/library/mongo@sha256:b9924c330a8bbc5800fe9c69f04a84e221eca7b28fd049a0354147d9908fa142"
+        },
+        {
+          "name": "init",
+          "image": "docker.io/library/mongo:8.0.34",
+          "imageID": "docker.io/library/mongo@sha256:b9924c330a8bbc5800fe9c69f04a84e221eca7b28fd049a0354147d9908fa142"
+        },
+        {
+          "name": "open5gs-webui",
+          "image": "docker.io/gradiant/open5gs-webui:2.7.5",
+          "imageID": "docker.io/gradiant/open5gs-webui@sha256:fbd10c017541903ef6d41da97c9114a8457f21aa87ba5a2a494b9133f6facbf9"
+        }
+      ]
+    },
+    {
+      "pod": "ueransim-gnb-958b85c9c-7lq92",
+      "containers": [
+        {
+          "name": "gnodeb",
+          "image": "docker.io/gradiant/ueransim:3.2.6",
+          "imageID": "docker.io/gradiant/ueransim@sha256:015b30d5fa0f9fa847cfa254ba48a336195c2a77a25122cea71114d8b09265ab"
+        }
+      ]
+    },
+    {
+      "pod": "ueransim-gnb-ues-56c47f4df4-pl5bx",
+      "containers": [
+        {
+          "name": "ues",
+          "image": "docker.io/gradiant/ueransim:3.2.6",
+          "imageID": "docker.io/gradiant/ueransim@sha256:015b30d5fa0f9fa847cfa254ba48a336195c2a77a25122cea71114d8b09265ab"
+        }
+      ]
+    }
+  ],
+  "package_sha256": {
+    "open5gs-2.4.1.tgz": "34e993e0147086f375680b24e56d4d933d20a9ad5345f3b1987fe7eb8da5cada",
+    "ueransim-gnb-0.2.6.tgz": "dbd6d1965223d9184e9045c8b38a0e6e5489a78c137613e194a2c7b7e1324188"
+  },
+  "helm": "v4.3.0+gbec5b06",
+  "kubernetes": {
+    "clientVersion": {
+      "major": "1",
+      "minor": "37",
+      "gitVersion": "v1.37.0",
+      "gitCommit": "f54c212e3a2f75d674b717a9b29052b20b60aefc",
+      "gitTreeState": "clean",
+      "buildDate": "2026-08-26T10:48:06Z",
+      "goVersion": "go1.26.6",
+      "compiler": "gc",
+      "platform": "linux/amd64"
+    },
+    "kustomizeVersion": "v5.8.1",
+    "serverVersion": {
+      "major": "1",
+      "minor": "37",
+      "emulationMajor": "1",
+      "emulationMinor": "37",
+      "minCompatibilityMajor": "1",
+      "minCompatibilityMinor": "36",
+      "gitVersion": "v1.37.0",
+      "gitCommit": "f54c212e3a2f75d674b717a9b29052b20b60aefc",
+      "gitTreeState": "clean",
+      "buildDate": "2026-08-26T10:44:25Z",
+      "goVersion": "go1.26.6",
+      "compiler": "gc",
+      "platform": "linux/amd64"
+    }
+  }
+}
